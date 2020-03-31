@@ -1,4 +1,4 @@
-package com.semesterproject.two.semester.project.two;
+package org.example;
 
 import java.io.IOException;
 import javafx.fxml.FXML;

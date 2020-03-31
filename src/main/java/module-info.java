@@ -1,7 +1,7 @@
-module com.semesterproject.two.semester.project.two {
+module org.example {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens com.semesterproject.two.semester.project.two to javafx.fxml;
-    exports com.semesterproject.two.semester.project.two;
+    opens org.example to javafx.fxml;
+    exports org.example;
 }
