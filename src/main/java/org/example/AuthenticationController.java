@@ -5,12 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.domain.DomainHandler;
+import org.example.entity.UserEntity;
 
 import java.io.IOException;
 
@@ -18,9 +19,6 @@ public class AuthenticationController {
 
     @FXML
     public Button btnLogin;
-
-    @FXML
-    public Label dialogText;
 
     @FXML
     public PasswordField passwordField;
@@ -31,22 +29,38 @@ public class AuthenticationController {
     private DomainHandler domainHandler = new DomainHandler();
 
 
-    @FXML
-    private void logout() throws IOException {
+    public UserEntity openLoginStage(ActionEvent event)
+    {
+        var loginStage = new Stage();
 
+        try {
+            loginStage.setScene(new Scene(App.getLoader("authentication").load()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        loginStage.setTitle("Login status");
+        loginStage.initModality(Modality.WINDOW_MODAL);
+        loginStage.initOwner(((Node)event.getTarget()).getScene().getWindow());
+        loginStage.setResizable(false);
+        loginStage.showAndWait();
+        return CurrentUser.getInstance().getUserEntity();
     }
+
 
     @FXML
     public void login(ActionEvent actionEvent) throws IOException
     {
+        var dialogController = new AuthenticationDialogController();
+
         if (usernameField.getText().isEmpty())
         {
-            openDialog(actionEvent, "Username is empty");
+            dialogController.openDialog(actionEvent, "Username is empty");
             return;
         }
         else if (passwordField.getText().isEmpty())
         {
-            openDialog(actionEvent, "Password is empty");
+            dialogController.openDialog(actionEvent, "Password is empty");
             return;
         }
 
@@ -54,30 +68,15 @@ public class AuthenticationController {
 
         if (user != null)
         {
-            openDialog(actionEvent, "Login succeed");
-            CurrentUser.getInstance().init(user);
+            CurrentUser.getInstance(
+
+            ).init(user);
+            closeDialog(actionEvent);
         }
         else
         {
-            openDialog(actionEvent, "Login information was not correct... Please try agian");
+            dialogController.openDialog(actionEvent, "Login information was not correct... Please try agian");
         }
-
-    }
-
-    @FXML
-    public void dialogOkayAction(ActionEvent event)
-    {
-        closeDialog(event);
-    }
-
-    private void openDialog(ActionEvent event, String text) throws IOException {
-        var dialog = new Stage();
-        dialog.setScene(new Scene(App.loadFXML("authenticationPopup")));
-        dialog.setTitle("Login status");
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.initOwner(((Node)event.getTarget()).getScene().getWindow());
-        dialog.setResizable(false);
-        dialog.showAndWait();
     }
 
     private void closeDialog(ActionEvent event) {
@@ -85,6 +84,5 @@ public class AuthenticationController {
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
     }
-
 
 }
