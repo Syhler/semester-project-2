@@ -11,8 +11,8 @@
       <Label layoutX="24.0" layoutY="69.0" text="Test User" />
       <Label layoutX="24.0" layoutY="103.0" text="Username: admin" />
       <Label layoutX="24.0" layoutY="128.0" text="Password : password" />
-      <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="217.0" promptText="password" />
-      <TextField fx:id="usernameField" layoutX="226.0" layoutY="168.0" promptText="Username" />
+      <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="217.0" promptText="password" text="password"/>
+      <TextField fx:id="usernameField" layoutX="226.0" layoutY="168.0" promptText="Username" text="admin"/>
       <Button fx:id="btnLogin" layoutX="274.0" layoutY="302.0" mnemonicParsing="false" onAction="#login" text="Login" />
    </children>
 </AnchorPane>
