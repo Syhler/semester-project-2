@@ -11,8 +11,7 @@ public class ProgramEntity {
     private List<UserEntity> producer;
     private List<CreditEntity> credits;
 
-    public ProgramEntity(String id, String name, String description, CompanyEntity company, List<UserEntity> producer, List<CreditEntity> credits) {
-        this.id = id;
+    public ProgramEntity(String name, String description, CompanyEntity company, List<UserEntity> producer, List<CreditEntity> credits) {
         this.name = name;
         this.description = description;
         this.company = company;

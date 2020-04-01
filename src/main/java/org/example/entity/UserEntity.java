@@ -7,8 +7,7 @@ public class UserEntity {
     private Role role;
     private String title;
 
-    public UserEntity(String id, String name, CompanyEntity company, Role role, String title) {
-        this.id = id;
+    public UserEntity(String name, CompanyEntity company, Role role, String title) {
         this.name = name;
         this.company = company;
         this.role = role;

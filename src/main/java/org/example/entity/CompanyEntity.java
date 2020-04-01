@@ -4,8 +4,7 @@ public class CompanyEntity {
     private String id;
     private String name;
 
-    public CompanyEntity(String id, String name) {
-        this.id = id;
+    public CompanyEntity(String name) {
         this.name = name;
     }
 
