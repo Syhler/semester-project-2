@@ -14,7 +14,7 @@ public abstract class BasePersistence
             int port = 5432;
             String host = "46.101.108.98";
             String password = "test";
-            String databaseName = "test";
+            String databaseName = "tv2system";
             return DriverManager.getConnection("jdbc:postgresql://" + host + ":" + port + "/" + databaseName, username, password);
 
         } catch (SQLException e) {
