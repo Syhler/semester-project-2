@@ -2,7 +2,7 @@ package org.example.domain;
 import org.example.entity.*;
 import java.util.List;
 
-public interface IProgram extends IDomainHandler {
+public interface IProgram  {
     public Boolean createProgram(ProgramEntity program);
     public Boolean deleteProgram(ProgramEntity program);
     public Boolean updateProgram(ProgramEntity program);
