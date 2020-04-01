@@ -1,7 +1,7 @@
-module org.example {
+module Javafx {
     requires javafx.controls;
     requires javafx.fxml;
 
     opens org.example to javafx.fxml;
-    exports org.example.presentation;
+    exports org.example;
 }
