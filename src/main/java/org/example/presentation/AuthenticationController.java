@@ -1,4 +1,4 @@
-package org.example;
+package org.example.presentation;
 
 import javafx.fxml.FXML;
 import org.example.domain.DomainHandler;
