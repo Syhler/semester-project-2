@@ -10,7 +10,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.DefaultController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="705.0
+" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.DefaultController">
    <children>
       <Button fx:id="login" layoutX="22.0" layoutY="465.0" onAction="#goToLogin" text="Login" />
       <Label layoutX="22.0" layoutY="14.0" prefHeight="88.0" prefWidth="662.0" text="Default view (The view the user gets to see first)">
