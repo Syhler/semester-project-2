@@ -11,8 +11,8 @@ public class CurrentUser {
         return currentUser;
     }
 
-    public void init(UserEntity userentity) {
-        this.currentUser = userentity;
+    public void init(UserEntity userEntity) {
+        this.currentUser = userEntity;
     }
 
     public static CurrentUser getInstance()
