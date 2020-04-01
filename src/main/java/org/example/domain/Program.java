@@ -14,7 +14,7 @@ public class Program implements IProgram {
     public Boolean createProgram(ProgramEntity programEntity){
         return false;
     }
-    public Boolean deleteProgram(ProgramEntity programentity){
+    public Boolean deleteProgram(ProgramEntity programEntity){
         return false;
     }
     public Boolean updateProgram(ProgramEntity programEntity){
@@ -26,7 +26,7 @@ public class Program implements IProgram {
     public ProgramEntity getProgramById(String id){
         return null;
     }
-    public List<Program> getProgramsByCompany(CompanyEntity company){
+    public List<Program> getProgramsByCompany(CompanyEntity companyEntity){
         return null;
     }
     public List<Program> getProgramsByProducer(UserEntity userEntity){
