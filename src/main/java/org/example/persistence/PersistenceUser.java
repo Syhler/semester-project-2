@@ -51,4 +51,10 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
     public List<UserEntity> getAllUsers() {
         return null;
     }
+
+    @Override
+    public UserEntity getUserByLoginInformation(String username, String password)
+    {
+
+    }
 }
