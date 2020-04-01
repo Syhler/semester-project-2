@@ -5,13 +5,13 @@ public class DomainHandler implements IDomainHandler {
     public IAuthentication authentication(){
         return null;
     }
-    public IAuthentication program(){
+    public IProgram program(){
         return null;
     }
-    public IAuthentication credit(){
+    public ICredit credit(){
         return null;
     }
-    public IAuthentication user(){
+    public IUser user(){
         return null;
     }
 }

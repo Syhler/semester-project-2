@@ -1,5 +1,10 @@
 package org.example.domain;
 
+import org.example.entity.CompanyEntity;
+import org.example.entity.ProgramEntity;
+import org.example.entity.UserEntity;
+import org.example.persistence.IPersistenceHandler;
+
 import java.util.List;
 
 public class Program implements IProgram {
@@ -12,13 +17,13 @@ public class Program implements IProgram {
     public Boolean deleteProgram(ProgramEntity programEntity){
         return false;
     }
-    public Boolean updateporgam(ProgramEntity programEntity){
+    public Boolean updateProgram(ProgramEntity programEntity){
         return false;
     }
     public List<ProgramEntity> getAllPrograms(){
         return null;
     }
-    public ProgramEntity getProgramByld(String id){
+    public ProgramEntity getProgramById(String id){
         return null;
     }
     public List<Program> getProgramsByCompany(CompanyEntity companyEntity){
@@ -27,4 +32,5 @@ public class Program implements IProgram {
     public List<Program> getProgramsByProducer(UserEntity userEntity){
         return null;
     }
+
 }
