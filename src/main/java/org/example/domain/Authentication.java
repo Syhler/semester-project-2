@@ -9,6 +9,10 @@ public class Authentication implements IAuthentication
 {
     private IPersistenceHandler persistenceHandler = new PersistenceHandler();
 
+    /**
+     * tries to login, it succeed if UserEntity gets returned.
+     * @return a object of userEntity
+     */
     public UserEntity login(String username, String password)
     {
         try {

@@ -4,7 +4,6 @@ import org.example.entity.CompanyEntity;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +25,11 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         return false;
     }
 
+    /**
+     * Search the database for a user based on the given ID
+     * @param id of the user you want to find
+     * @return a UserEntity object if a user has been found
+     */
     @Override
     public UserEntity getUserById(String id) {
 
@@ -37,6 +41,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
 
             var resultSet = preparedStatement.executeQuery();
 
+            //checks if the resultSet contains any rows
             if (!resultSet.next())
             {
                 return null;
@@ -75,6 +80,10 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         return null;
     }
 
+    /**
+     * searching in the database for a user based on the given username and hashedPassword
+     * @return a UserEntity object if a user has been found
+     */
     @Override
     public UserEntity getUserByLoginInformation(String username, String password)
     {
@@ -88,18 +97,13 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
 
             var resultSet = preparedStatement.executeQuery();
 
+            //checks if the resultSet contains any rows
             if (!resultSet.next())
             {
                 return null;
             }
 
-
             return createUserEntityFromResultSet(resultSet);
-
-
-
-            //return null;
-
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -108,6 +112,12 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
     }
 
 
+    /**
+     * Generates a UserEntity from the given resultSet
+     * @param resultSet the result set from a executed preparedStatement
+     * @return A Object of UserEntity
+     * @throws SQLException if the given resultSet doesn't have the required column.
+     */
     private UserEntity createUserEntityFromResultSet(ResultSet resultSet) throws SQLException {
         var user = new UserEntity(
                         resultSet.getString("title"),
@@ -123,6 +133,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         user.setRole(resultSet.getInt("role"));
         user.setId(resultSet.getString(1)); // 1 equal user id
 
+        //Makes a recursion call. It will loop through until an user isn't createdBy is null
         if (resultSet.getString("createdBy") != null)
         {
             user.setCreatedBy(getUserById(resultSet.getString("createdBy")));

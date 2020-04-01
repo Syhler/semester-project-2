@@ -1,9 +1,6 @@
 package org.example;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventDispatcher;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,8 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 import org.example.domain.DomainHandler;
 
 import java.io.IOException;
@@ -72,7 +67,7 @@ public class AuthenticationController {
     @FXML
     public void dialogOkayAction(ActionEvent event)
     {
-        closeStage(event);
+        closeDialog(event);
     }
 
     private void openDialog(ActionEvent event, String text) throws IOException {
@@ -83,10 +78,9 @@ public class AuthenticationController {
         dialog.initOwner(((Node)event.getTarget()).getScene().getWindow());
         dialog.setResizable(false);
         dialog.showAndWait();
-
     }
 
-    private void closeStage(ActionEvent event) {
+    private void closeDialog(ActionEvent event) {
         Node  source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
