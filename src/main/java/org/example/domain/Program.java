@@ -5,11 +5,26 @@ import java.util.List;
 public class Program implements IProgram {
     private IPersistenceHandler persistenceHandler;
 
-    public Boolean createProgram(ProgramEntity programEntity){}
-    public Boolean deleteProgram(ProgramEntity programentity){}
-    public Boolean updateporgam(ProgramEntity programEntity){}
-    public List<ProgramEntity> getAllPrograms(){}
-    public ProgramEntity getProgramByld(String id){}
-    public List<Program> getProgramsByCompany(Company company){}
-    public List<Program> getProgramsByProducer(UserEntity userEntity){}
+
+    public Boolean createProgram(ProgramEntity programEntity){
+        return false;
+    }
+    public Boolean deleteProgram(ProgramEntity programentity){
+        return false;
+    }
+    public Boolean updateporgam(ProgramEntity programEntity){
+        return false;
+    }
+    public List<ProgramEntity> getAllPrograms(){
+        return null;
+    }
+    public ProgramEntity getProgramByld(String id){
+        return null;
+    }
+    public List<Program> getProgramsByCompany(Company company){
+        return null;
+    }
+    public List<Program> getProgramsByProducer(UserEntity userEntity){
+        return null;
+    }
 }
