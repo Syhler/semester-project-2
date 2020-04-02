@@ -2,23 +2,27 @@ package org.example.domain.password;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
 
 public class PasswordHashing
 {
+    private static Random random = new SecureRandom();
+    private static final String PEPPER = "1BQBKgmisvYIZMJ1tdPn";
+
     /**
      * encrypt the given string to sha256. The string is giving salt before encrypted.
      * @param password password to hash
      * @return encrypted password
      * @throws Exception if the messageDigest is null
      */
-    public static String sha256(String password) throws Exception {
+    public static String sha256(String password, String salt) throws Exception {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
         if (digest == null) throw new Exception();
 
-        password = addSaltToPassword(password);
-
+        password = addSaltToPassword(password, salt);
+        password = addPepperToPassword(password);
 
         byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
         return bytesToHex(encodedHash);
@@ -39,10 +43,45 @@ public class PasswordHashing
         return hexString.toString();
     }
 
-    //TODO(add salt)
-    private static String addSaltToPassword(String password)
+    /**
+     * adds salt to the password in the middle of the given password
+     * @return salted password
+     */
+    private static String addSaltToPassword(String password, String salt)
     {
-        return password;
+        StringBuilder builder = new StringBuilder();
+        builder.append(password);
+        int middleIndex = password.length() / 2;
+        builder.insert(middleIndex, salt);
+
+        return builder.toString();
+    }
+
+    /**
+     * adds pepper tot he password in the middle of the given password
+     * @return peppered password
+     */
+    private static String addPepperToPassword(String password)
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(password);
+        int middleIndex = password.length() / 2;
+        builder.insert(middleIndex, PEPPER);
+
+        return builder.toString();
+    }
+
+
+    /**
+     * generates a 16 bytes salt
+     * @return return the generated salt
+     */
+    public static String genereateSalt()
+    {
+        var bytes = new byte[16];
+        random.nextBytes(bytes);
+
+        return bytesToHex(bytes);
     }
 
 }

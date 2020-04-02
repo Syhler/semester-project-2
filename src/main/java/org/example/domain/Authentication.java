@@ -16,7 +16,11 @@ public class Authentication implements IAuthentication
     public UserEntity login(String username, String password)
     {
         try {
-            var hashedPassword = PasswordHashing.sha256(password);
+
+            //get password salt from database
+            String passwordSalt = persistenceHandler.user().getPasswordSaltFromUsername(username);
+
+            var hashedPassword = PasswordHashing.sha256(password, passwordSalt);
             return persistenceHandler.user().getUserByLoginInformation(username, hashedPassword);
 
         } catch (Exception e) {

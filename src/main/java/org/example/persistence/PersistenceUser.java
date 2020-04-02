@@ -111,6 +111,35 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         }
     }
 
+    /**
+     * searching in the database for a password salt based on the given username
+     * @return password salt if found
+     */
+    @Override
+    public String getPasswordSaltFromUsername(String username) {
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT passwordSalt from \"user\" where email = ?");
+            preparedStatement.setString(1, username);
+
+            var resultSet = preparedStatement.executeQuery();
+
+            if (!resultSet.next())
+            {
+                return null;
+            }
+
+            return resultSet.getString("passwordSalt");
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
 
     /**
      * Generates a UserEntity from the given resultSet
