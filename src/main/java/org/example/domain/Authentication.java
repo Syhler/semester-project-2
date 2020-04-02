@@ -20,6 +20,8 @@ public class Authentication implements IAuthentication
             //get password salt from database
             String passwordSalt = persistenceHandler.user().getPasswordSaltFromUsername(username);
 
+            if (password == null) return null;
+
             var hashedPassword = PasswordHashing.sha256(password, passwordSalt);
             return persistenceHandler.user().getUserByLoginInformation(username, hashedPassword);
 
