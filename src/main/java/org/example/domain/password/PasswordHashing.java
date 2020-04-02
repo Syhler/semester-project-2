@@ -76,7 +76,7 @@ public class PasswordHashing
      * generates a 16 bytes salt
      * @return return the generated salt
      */
-    public static String genereateSalt()
+    public static String generateSalt()
     {
         var bytes = new byte[16];
         random.nextBytes(bytes);
