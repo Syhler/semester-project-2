@@ -1,0 +1,36 @@
+
+
+.root{
+    -fx-background-color: white;
+}
+
+
+.text-field {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 0 -1 0, 0 0 0 0, 0 -1 0 -1;
+
+}
+
+.text-field:focused {
+    -fx-background-color: #6e6e6e, white , white;
+    -fx-background-insets: 0 0 -1 0, 0 0 0 0, 0 -1 0 -1;
+}
+
+
+
+.button{
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-font-size: 12pt;
+}
+
+.wrong-credentials
+{
+    -fx-background-color: Red, white, white;
+}
+
+
+.wrong-credentials:focused
+{
+    -fx-background-color: Red, white, white;
+}

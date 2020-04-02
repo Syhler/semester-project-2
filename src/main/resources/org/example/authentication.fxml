@@ -1,19 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.AuthenticationController">
+<VBox alignment="CENTER_LEFT" spacing="15.0" stylesheets="@css/LoginPageStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.AuthenticationController">
    <children>
-      <Label layoutX="24.0" layoutY="69.0" text="Test User" />
-      <Label layoutX="24.0" layoutY="103.0" text="Username: admin" />
-      <Label layoutX="24.0" layoutY="128.0" text="Password : password" />
-      <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="217.0" promptText="password" text="password"/>
-      <TextField fx:id="usernameField" layoutX="226.0" layoutY="168.0" promptText="Username" text="admin"/>
-      <Button fx:id="btnLogin" layoutX="274.0" layoutY="302.0" mnemonicParsing="false" onAction="#login" text="Login" />
+      <ImageView fitHeight="88.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@loginImages/loginUserIcon.png" />
+         </image>
+         <VBox.margin>
+            <Insets left="36.5" />
+         </VBox.margin>
+      </ImageView>
+      <Label text="Username">
+         <VBox.margin>
+            <Insets bottom="-13.0" />
+         </VBox.margin>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameField" promptText="Username" text="admin">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" text="Password">
+         <VBox.margin>
+            <Insets bottom="-13.0" />
+         </VBox.margin>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="passwordField" prefHeight="25.0" prefWidth="200.0" promptText="password" text="password">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+      <HBox>
+         <children>
+            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="70.0" text="Login" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnCancel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancel" prefHeight="30.0" prefWidth="70.0" text="cancel" />
+         </children>
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" />
+         </VBox.margin>
+      </HBox>
+      <VBox alignment="CENTER" pickOnBounds="false">
+         <children>
+            <Label fx:id="statusText" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="204.0" text="Username or password was not correct Please try again" textFill="#f20000" visible="false" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets bottom="40.0" left="100.0" right="100.0" top="50.0" />
+   </padding>
+</VBox>

@@ -25,7 +25,7 @@ public class PasswordHashing
     }
 
     /**
-     * Converts hashed byte to readable hex string. Is Been taken from https://www.baeldung.com/sha-256-hashing-java
+     * Converts hashed byte to readable hex string. Has been taken from https://www.baeldung.com/sha-256-hashing-java
      * @param hash array of bytes
      * @return a hex string
      */

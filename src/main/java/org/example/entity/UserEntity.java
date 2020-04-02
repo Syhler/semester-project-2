@@ -35,7 +35,6 @@ public class UserEntity {
         this.role = Role.getRoleById(role);
     }
 
-
     public void setTitle(String title) {
         this.title = title;
     }
