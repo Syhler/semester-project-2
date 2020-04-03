@@ -25,9 +25,6 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.11.jre6</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.xml.parsers/jaxp-api -->
-
-
     </dependencies>
     <build>
         <plugins>
