@@ -8,6 +8,6 @@ public interface IProgram  {
     public Boolean updateProgram(ProgramEntity program);
     public List<ProgramEntity> getAllPrograms();
     public ProgramEntity getProgramById(String id);
-    public List<Program> getProgramsByCompany(CompanyEntity companyEntity);
-    public List<Program> getProgramsByProducer(UserEntity user);
+    public List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity);
+    public List<ProgramEntity> getProgramsByProducer(UserEntity user);
 }
