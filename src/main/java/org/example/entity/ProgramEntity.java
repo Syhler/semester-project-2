@@ -21,6 +21,12 @@ public class ProgramEntity {
         this.credits = credits;
     }
 
+    public ProgramEntity(String id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

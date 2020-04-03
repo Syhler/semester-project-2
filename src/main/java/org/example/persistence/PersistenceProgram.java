@@ -105,7 +105,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     @Override
     public boolean updateProgram(ProgramEntity programEntity) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("UPDATE table program WHERE ?")
+            PreparedStatement stmt = connection.prepareStatement("UPDATE table program WHERE ?");
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -138,11 +138,17 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     public List<ProgramEntity> getAllPrograms() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM program");
+            stmt = connection.prepareStatement("SELECT programinformation_id,programinformation.title,programinformation.description,program.id FROM program, programinformation " +
+                    "WHERE programinformation.id = program.programinformation ");
+
             ResultSet sqlReturnValues = stmt.executeQuery();
             List<ProgramEntity> returnvalue = new ArrayList<>();
+
             while (sqlReturnValues.next()) {
-                returnvalue.add(new ProgramEntity(sqlReturnValues.getInt(1), sqlReturnValues.getString(2,);
+                
+                returnvalue = new ProgramEntity(sqlReturnValues.getString("id"),sqlReturnValues.getString("titel"));
+
+
             }
             return returnvalue;
         } catch (SQLException e) {
@@ -150,7 +156,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             return null;
         }
     }
-
+/*
     @Override
     public List<ProgramEntity> getProgramsByProducer(UserEntity producer) {
         PreparedStatement stmt = null;
@@ -184,4 +190,5 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             return null;
         }
     }
+*/
 }
