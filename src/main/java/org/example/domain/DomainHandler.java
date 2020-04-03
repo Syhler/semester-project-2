@@ -3,7 +3,7 @@ package org.example.domain;
 public class DomainHandler implements IDomainHandler {
 
     public IAuthentication authentication(){
-        return null;
+        return new Authentication();
     }
     public IProgram program(){
         return null;

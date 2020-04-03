@@ -1,15 +1,16 @@
 package org.example.persistence;
 
 import java.sql.*;
-import org.postgresql.Driver;
 
 public abstract class BasePersistence
 {
 
+    protected PersistenceHandler persistenceHandler = new PersistenceHandler();
+
     protected Connection initializeDatabase()
     {
         try {
-            DriverManager.registerDriver(new Driver());
+            DriverManager.registerDriver(new org.postgresql.Driver());
             String username = "postgres";
             int port = 5432;
             String host = "46.101.108.98";

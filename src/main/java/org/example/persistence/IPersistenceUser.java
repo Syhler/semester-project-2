@@ -16,4 +16,6 @@ public interface IPersistenceUser
     List<UserEntity> getUserByRole(Role role);
     List<UserEntity> getUserByCompany(CompanyEntity companyEntity);
     List<UserEntity> getAllUsers();
+    UserEntity getUserByLoginInformation(String username, String password);
+    String getPasswordSaltFromUsername(String username);
 }
