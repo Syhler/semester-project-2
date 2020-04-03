@@ -12,6 +12,6 @@ public class DomainHandler implements IDomainHandler {
         return null;
     }
     public IUser user(){
-        return null;
+        return new User();
     }
 }

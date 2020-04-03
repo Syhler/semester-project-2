@@ -4,11 +4,12 @@ import org.example.entity.CompanyEntity;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
 import org.example.persistence.IPersistenceHandler;
+import org.example.persistence.PersistenceHandler;
 
 import java.util.List;
 
 public class User implements IUser {
-    private IPersistenceHandler persistenceHandler;
+    private IPersistenceHandler persistenceHandler = new PersistenceHandler();
 
     public Boolean createUser(UserEntity userEntity) {
         return false;
@@ -36,7 +37,8 @@ public class User implements IUser {
     }
 
     public List<UserEntity> getUserByRole(Role role) {
-        return null;
+
+        return persistenceHandler.user().getUserByRole(role);
 
     }
 

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
+import org.example.App;
 import org.example.domain.DomainHandler;
 
 public class DefaultController
@@ -13,6 +14,12 @@ public class DefaultController
 
     public Button login;
     private DomainHandler domainHandler = new DomainHandler();
+    public Button usermanagementBtn;
+
+    @FXML
+    public void initialize() {
+        usermanagementBtn.setVisible(false);
+    }
 
     @FXML
     private void goToLogin(ActionEvent event)
@@ -24,6 +31,11 @@ public class DefaultController
         {
             login.setText("Logout");
             login.setOnAction(this::logout);
+
+        }
+        System.out.println(userEntity.getRole().getValue());
+        if (userEntity.getRole().getValue() < 4){
+            usermanagementBtn.setVisible(true);
         }
     }
 
@@ -47,6 +59,6 @@ public class DefaultController
     }
     @FXML
     private void goToUsermanagement() throws IOException {
-
+        App.setRoot("usermanagement");
     }
 }

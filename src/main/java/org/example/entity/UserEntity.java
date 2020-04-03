@@ -1,5 +1,8 @@
 package org.example.entity;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.Date;
 
 public class UserEntity {
@@ -26,6 +29,7 @@ public class UserEntity {
         this.role = role;
         this.title = title;
     }
+
 
     public void setCompany(CompanyEntity company) {
         this.company = company;
@@ -60,5 +64,53 @@ public class UserEntity {
     }
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public UserEntity getCreatedBy() {
+        return createdBy;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

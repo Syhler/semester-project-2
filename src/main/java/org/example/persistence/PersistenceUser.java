@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersistenceUser extends BasePersistence implements IPersistenceUser {
@@ -67,7 +68,26 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
 
     @Override
     public List<UserEntity> getUserByRole(Role role) {
-        return null;
+        List<UserEntity> users = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "select \"user\".id title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name " +
+                    "from \"user\", company where \"user\".role = ?  and company.id = \"user\".company");
+            preparedStatement.setInt(1, role.getValue());
+
+            var resultSet = preparedStatement.executeQuery();
+
+            //checks if the resultSet contains any rows
+           while (resultSet.next()){
+               users.add(createUserEntityFromResultSet(resultSet));
+           }
+
+            return users;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -161,6 +181,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         user.setCompany(company);
         user.setRole(resultSet.getInt("role"));
         user.setId(resultSet.getString(1)); // 1 equal user id
+        user.setTitle(resultSet.getString("title"));
 
         //Makes a recursion call. It will loop through until an user isn't createdBy is null
         if (resultSet.getString("createdBy") != null)
