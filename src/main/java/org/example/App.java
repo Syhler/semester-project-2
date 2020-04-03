@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.presentation.multipleLanguages.Language;
+import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
 
@@ -30,7 +32,9 @@ public class App extends Application {
         return new FXMLLoader(App.class.getResource(fxml + ".fxml"));
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+        LanguageHandler.initLanguage(Language.Danish);
         launch();
     }
 
