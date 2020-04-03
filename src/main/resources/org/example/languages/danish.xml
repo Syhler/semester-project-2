@@ -2,5 +2,6 @@
 <language>
     <username>Brugernavn</username>
     <password>Adgangskode</password>
+    <createProgram>Opret Program</createProgram>
 </language>
 

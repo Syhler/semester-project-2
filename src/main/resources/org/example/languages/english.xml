@@ -2,4 +2,5 @@
 <language>
     <username>Username</username>
     <password>Password</password>
+    <createProgram>Create Program</createProgram>
 </language>
