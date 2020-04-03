@@ -3,4 +3,7 @@
     <username>Username</username>
     <password>Password</password>
     <createProgram>Create Program</createProgram>
+    <showMore>Show more</showMore>
+    <updateProgram>Update</updateProgram>
+    <deleteProgram>Delete</deleteProgram>
 </language>

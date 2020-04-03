@@ -3,5 +3,8 @@
     <username>Brugernavn</username>
     <password>Adgangskode</password>
     <createProgram>Opret Program</createProgram>
+    <showMore>Vis mere</showMore>
+    <updateProgram>Opdater</updateProgram>
+    <deleteProgram>Slet</deleteProgram>
 </language>
 

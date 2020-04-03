@@ -1,5 +1,6 @@
 package org.example.entity;
 
+
 import java.util.Date;
 
 public class UserEntity {
@@ -15,7 +16,7 @@ public class UserEntity {
     private Date createdAt;
 
     public UserEntity(String title, String firstName, String middleName, String lastName,
-                      Date createdAt,String email) {
+                      Date createdAt, String email) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;

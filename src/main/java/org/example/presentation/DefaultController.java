@@ -8,9 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
+import javafx.scene.layout.BorderPane;
 import org.example.domain.DomainHandler;
-import org.example.domain.Program;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class DefaultController implements Initializable
@@ -18,6 +17,8 @@ public class DefaultController implements Initializable
 
     public Button login;
     public Button createProgram;
+    @FXML
+    public BorderPane borderPane;
     private DomainHandler domainHandler = new DomainHandler();
 
     @FXML
@@ -43,9 +44,9 @@ public class DefaultController implements Initializable
         }
     }
 
+    @FXML
     private void createProgram(ActionEvent event)
     {
-        ProgramController programController = new ProgramController();
 
     }
 
@@ -66,5 +67,8 @@ public class DefaultController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createProgram.setText(LanguageHandler.getText("createProgram"));
+        ProgramListController programListController = new ProgramListController();
+        borderPane.setCenter(programListController.openView());
+        borderPane.setCenter(programListController.showProgramList()); //TEST ikke sikkert dette virker som det skal...
     }
 }
