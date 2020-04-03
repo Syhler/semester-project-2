@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersistenceProgram extends BasePersistence implements IPersistenceProgram {
@@ -33,11 +34,12 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
 
     }
+
     private int credit(String user, String program) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO credits(\"user\", program)"+"VALUES (?,?)");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO credits(\"user\", program)" + "VALUES (?,?)");
             stmt.setString(1, user);
-            stmt.setString(2,program);
+            stmt.setString(2, program);
             ResultSet resultSet = stmt.executeQuery();
             return resultSet.getInt("credit_id");
 
@@ -50,9 +52,9 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     private int companyProgram(String program_id, int company) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO companyProgram(program_id,company)"+"VALUES (?,?)");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO companyProgram(program_id,company)" + "VALUES (?,?)");
             stmt.setString(1, program_id);
-            stmt.setInt(2,company);
+            stmt.setInt(2, company);
             ResultSet resultSet = stmt.executeQuery();
             return resultSet.getInt("company_id");
         } catch (SQLException e) {
@@ -61,10 +63,10 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
     }
 
-    private int language(String name){
+    private int language(String name) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO language(name)" + "VALUES (?) ");
-            stmt.setString(1,name);
+            stmt.setString(1, name);
             ResultSet resultSet = stmt.executeQuery();
             return resultSet.getInt("language_id");
         } catch (SQLException e) {
@@ -77,8 +79,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     @Override
     public boolean createProgram(ProgramEntity programEntity) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO program(name)"
-                    + "VALUES (?) ");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO program(name)" + "VALUES (?) ");
             statement.setString(1, programEntity.getName());
             return statement.execute();
 
@@ -118,12 +119,15 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         try {
             stmt = connection.prepareStatement("SELECT * FROM program WHERE id = ?");
             stmt.setString(1, id);
-            ResultSet sqlReturn = stmt.executeQuery();
-            if (!sqlReturn.next()) {
+
+            var resultSet = stmt.executeQuery();
+            // checks if resultset contains any rows
+            if (!resultSet.next()) {
                 return null;
             }
-            return new ProgramEntity(sqlReturn.getString(1));
-            sqlReturn.close();
+            
+            return (resultSet.getInt(1), resultSet);
+
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -134,13 +138,13 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     public List<ProgramEntity> getAllPrograms() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM program WHERE program = ?");
-            stmt.setString(1, (getAllPrograms()));
-            ResultSet sqlReturn = stmt.executeQuery();
-            if (!sqlReturn.next()) {
-                return null;
+            stmt = connection.prepareStatement("SELECT * FROM program");
+            ResultSet sqlReturnValues = stmt.executeQuery();
+            List<ProgramEntity> returnvalue = new ArrayList<>();
+            while (sqlReturnValues.next()) {
+                returnvalue.add(new ProgramEntity(sqlReturnValues.getInt(1), sqlReturnValues.getString(2,);
             }
-            return new ProgramEntity(sqlReturn.getString(1));
+            return returnvalue;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
