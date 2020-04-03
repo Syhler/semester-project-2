@@ -6,7 +6,7 @@ public class DomainHandler implements IDomainHandler {
         return new Authentication();
     }
     public IProgram program(){
-        return null;
+        return new Program();
     }
     public ICredit credit(){
         return null;
