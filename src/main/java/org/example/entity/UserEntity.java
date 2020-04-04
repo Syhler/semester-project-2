@@ -1,8 +1,5 @@
 package org.example.entity;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 import java.util.Date;
 
 public class UserEntity {
@@ -10,12 +7,15 @@ public class UserEntity {
     private String firstName;
     private String middleName;
     private String lastName;
+    private String fullName;
     private String email;
     private CompanyEntity company;
     private Role role;
     private String title;
     private UserEntity createdBy;
     private Date createdAt;
+
+
 
     public UserEntity(String title, String firstName, String middleName, String lastName,
                       Date createdAt,String email) {
@@ -28,12 +28,27 @@ public class UserEntity {
         this.company = company;
         this.role = role;
         this.title = title;
+        this.fullName = firstName+" "+middleName+" "+lastName;
+
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public void setCompany(CompanyEntity company) {
         this.company = company;
     }
+
+
 
     public void setRole(int role) {
         this.role = Role.getRoleById(role);

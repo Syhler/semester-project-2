@@ -59,13 +59,13 @@ public class UsermanagementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        //col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        //col_name.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        //col_company.setCellValueFactory(new PropertyValueFactory<>("middleName"));
-        //col_title.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        col_createdBy.setCellValueFactory(new PropertyValueFactory<>("email"));
-        //col_name.setCellValueFactory(new PropertyValueFactory<>("email"));
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        col_name.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        col_company.setCellValueFactory(new PropertyValueFactory<>("company"));
+        col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
+        //col_createdBy.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
         table.setItems(userList);
+
 
     }
 
@@ -76,14 +76,16 @@ public class UsermanagementController implements Initializable {
 
         if (displayByRole == displayAdmins){
             createPopup.setText("Create: Admin");
-            userList.add((domainHandler.user().getUserByRole(Role.Admin).get(1)));
-            //userList.addAll(domainHandler.user().getUserByRole(Role.Admin));
-            //System.out.println(userList);
+            userList.addAll(domainHandler.user().getUserByRole(Role.Admin));
+
+            System.out.println(userList);
 
 
             if (userList != null){
-                //table.setItems(userList);
+                for (UserEntity user: userList){
+
                 }
+            }
 
 
             //System.out.println(domainHandler.user().getUserByRole(Role.Admin));

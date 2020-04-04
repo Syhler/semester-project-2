@@ -26,11 +26,11 @@
       <Separator layoutX="88.0" layoutY="163.0" prefHeight="9.0" prefWidth="500.0" visible="false" />
       <TableView fx:id="table" layoutX="111.0" layoutY="140.0" prefHeight="358.0" prefWidth="586.0">
         <columns>
-          <TableColumn fx:id="col_id" prefWidth="48.0" text="ID:" />
-          <TableColumn fx:id="col_name" prefWidth="132.7999725341797" text="NAME:" />
-            <TableColumn fx:id="col_company" minWidth="6.0" prefWidth="128.79998779296875" text="COMPANY:" />
-            <TableColumn fx:id="col_title" minWidth="0.0" prefWidth="145.59991455078125" text="TITLE:" />
-            <TableColumn fx:id="col_createdBy" prefWidth="128.79998779296875" text="CREATED BY;" />
+          <TableColumn fx:id="col_id" prefWidth="48.0" text="id" />
+          <TableColumn fx:id="col_name" prefWidth="132.7999725341797" text="name" />
+            <TableColumn fx:id="col_company" minWidth="6.0" prefWidth="128.79998779296875" text="company" />
+            <TableColumn fx:id="col_title" minWidth="0.0" prefWidth="145.59991455078125" text="title" />
+            <TableColumn fx:id="col_createdBy" prefWidth="128.79998779296875" text="created" />
         </columns>
       </TableView>
    </children>
