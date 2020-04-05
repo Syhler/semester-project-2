@@ -21,6 +21,8 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         LanguageHandler.initLanguage(Language.Danish);
         scene = new Scene(getLoader("default").load());
+        stage.setMinWidth(1280);
+        stage.setMinHeight(720);
         stage.setScene(scene);
         stage.show();
     }

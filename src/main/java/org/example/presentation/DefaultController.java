@@ -72,5 +72,6 @@ public class DefaultController implements Initializable
         ProgramListController programListController = new ProgramListController();
         borderPane.setCenter(programListController.openView());
         loggedInAs.setText(LanguageHandler.getText("loggedInAs"));
+
     }
 }
