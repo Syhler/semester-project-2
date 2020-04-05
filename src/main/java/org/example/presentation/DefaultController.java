@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import org.example.domain.DomainHandler;
 import org.example.presentation.multipleLanguages.LanguageHandler;
@@ -19,6 +20,7 @@ public class DefaultController implements Initializable
     public Button createProgram;
     @FXML
     public BorderPane borderPane;
+    public Label loggedInAs;
     private DomainHandler domainHandler = new DomainHandler();
 
     @FXML
@@ -69,6 +71,6 @@ public class DefaultController implements Initializable
         createProgram.setText(LanguageHandler.getText("createProgram"));
         ProgramListController programListController = new ProgramListController();
         borderPane.setCenter(programListController.openView());
-        borderPane.setCenter(programListController.showProgramList()); //TEST ikke sikkert dette virker som det skal...
+        loggedInAs.setText(LanguageHandler.getText("loggedInAs"));
     }
 }

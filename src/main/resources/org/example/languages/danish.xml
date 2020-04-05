@@ -6,5 +6,8 @@
     <showMore>Vis mere</showMore>
     <updateProgram>Opdater</updateProgram>
     <deleteProgram>Slet</deleteProgram>
+    <descriptionHeader>Beskrivelse:</descriptionHeader>
+    <titleHeader>Titel:</titleHeader>
+    <loggedInAs>Logged ind som bruger:</loggedInAs>
 </language>
 

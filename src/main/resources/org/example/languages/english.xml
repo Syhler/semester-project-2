@@ -6,4 +6,7 @@
     <showMore>Show more</showMore>
     <updateProgram>Update</updateProgram>
     <deleteProgram>Delete</deleteProgram>
+    <descriptionHeader>Description:</descriptionHeader>
+    <titleHeader>Title:</titleHeader>
+    <loggedInAs>Logged in as user:</loggedInAs>
 </language>

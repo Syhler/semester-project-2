@@ -35,9 +35,9 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="TOP_LEFT" maxWidth="Infinity" prefHeight="17.0" prefWidth="850.0" text="Logged in as:" HBox.hgrow="ALWAYS">
+            <Label fx:id="loggedInAs" alignment="TOP_LEFT" maxWidth="Infinity" prefHeight="17.0" prefWidth="850.0" text="Logged in as:" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets left="5.0" top="5.0" />
+                  <Insets bottom="10.0" left="5.0" top="5.0" />
                </HBox.margin>
             </Label>
          </children>

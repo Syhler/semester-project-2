@@ -8,29 +8,53 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="119.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.ProgramController">
+<VBox fx:id="program" prefHeight="120.0" style="-fx-border-style: none none solid none; -fx-border-width: 2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.ProgramController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="119.0" prefWidth="546.0">
          <children>
             <ImageView fitHeight="127.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@loginImages/loginUserIcon.png" />
                </image>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </HBox.margin>
             </ImageView>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="title" alignment="CENTER" prefHeight="101.0" prefWidth="100.0" text="Title" wrapText="true">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                  </HBox>
+                  <Label fx:id="titleHeader" alignment="TOP_LEFT" prefHeight="40.0" prefWidth="100.0" text="Title:" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="title" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="120.0" prefWidth="100.0" text="Title" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" spacing="10.0">
+            <VBox>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <children>
+                  <Label fx:id="descriptionHeader" alignment="TOP_LEFT" prefHeight="40.0" prefWidth="200.0" text="Description:" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="description" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="120.0" prefWidth="200.0" text="Description" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox fx:id="buttonHolder" alignment="CENTER_RIGHT" spacing="10.0">
                <children>
                   <Button fx:id="showMore" mnemonicParsing="false" text="Show more" VBox.vgrow="ALWAYS" />
                   <Button fx:id="updateProgram" mnemonicParsing="false" text="Update" VBox.vgrow="ALWAYS" />
@@ -40,7 +64,7 @@
                   <Insets />
                </opaqueInsets>
                <HBox.margin>
-                  <Insets />
+                  <Insets left="20.0" right="20.0" />
                </HBox.margin>
             </VBox>
          </children>
