@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.presentation.ProgramController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox prefHeight="200" prefWidth="400" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.CreateProgramController">
+   <children>
+      <VBox>
+         <children>
+            <Label fx:id="createProgTitle" text="Title:">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="insertTitle" promptText="Insert title here">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" top="5.0" />
+         </VBox.margin>
+      </VBox>
+      <VBox>
+         <children>
+            <Label fx:id="createProgDescription" text="Description:">
+               <VBox.margin>
+                  <Insets bottom="2.0" left="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextArea fx:id="insertDescription" prefHeight="200.0" prefWidth="200.0" promptText="Insert description here" wrapText="true">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </TextArea>
+         </children>
+         <VBox.margin>
+            <Insets bottom="2.0" />
+         </VBox.margin>
+      </VBox>
+      <Label fx:id="remainingCharacters" text="Tegn">
+         <VBox.margin>
+            <Insets bottom="10.0" left="5.0" />
+         </VBox.margin>
+      </Label>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="createProgBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToUpdateProgram" text="Create Program">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="cancelCreateProgram" mnemonicParsing="false" onAction="#closeCreateProgram" text="Cancel" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

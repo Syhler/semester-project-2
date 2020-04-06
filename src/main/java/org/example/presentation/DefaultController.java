@@ -6,10 +6,18 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -47,9 +55,15 @@ public class DefaultController implements Initializable
     }
 
     @FXML
-    private void createProgram(ActionEvent event)
-    {
+    private void goToCreateProgram(ActionEvent event) throws IOException {
+        Parent root = App.getLoader("createProgram").load();
 
+        Scene scene = new Scene(root);
+
+        Stage stage = new Stage();
+        stage.setTitle(LanguageHandler.getText("createProgramStageTitle"));
+        stage.setScene(scene);
+        stage.show();
     }
 
 

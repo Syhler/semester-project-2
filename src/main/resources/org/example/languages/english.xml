@@ -9,4 +9,17 @@
     <descriptionHeader>Description:</descriptionHeader>
     <titleHeader>Title:</titleHeader>
     <loggedInAs>Logged in as user:</loggedInAs>
+    <createProgramStageTitle>Create Program</createProgramStageTitle>
+    <programCompany>Company:</programCompany>
+    <programCredits>Credits:</programCredits>
+    <cancel>Cancel</cancel>
+    <insertTitle>Insert title here</insertTitle>
+    <insertDescription>Insert description here</insertDescription>
+    <insertCompany>Insert company here</insertCompany>
+    <updateProgramStageTitle>Update Program</updateProgramStageTitle>
+    <updateCredits>Update credits</updateCredits>
+    <remainingCharacters>characters remaining</remainingCharacters>
+
+
+
 </language>

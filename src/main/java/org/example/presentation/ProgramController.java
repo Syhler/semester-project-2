@@ -1,10 +1,14 @@
 package org.example.presentation;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.example.domain.Authentication;
 import org.example.domain.Credit;
 import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
@@ -47,6 +51,8 @@ public class ProgramController implements Initializable {
     private void createProgram() throws IOException {
     }
 
+
+
     @FXML
     private void deleteProgram() throws IOException {
     }
@@ -64,6 +70,9 @@ public class ProgramController implements Initializable {
         deleteProgram.setText(LanguageHandler.getText("deleteProgram"));
         titleHeader.setText(LanguageHandler.getText("titleHeader"));
         descriptionHeader.setText(LanguageHandler.getText("descriptionHeader"));
-
+        /*createProgTitle.setText(LanguageHandler.getText("titleHeader"));
+        createProgDescription.setText(LanguageHandler.getText("descriptionHeader"));
+        createProgCompany.setText(LanguageHandler.getText("createProgCompany"));
+        createProgProducer.setText(LanguageHandler.getText("createProgProducer"));*/
     }
 }

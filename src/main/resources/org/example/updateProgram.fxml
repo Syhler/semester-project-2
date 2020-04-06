@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400" prefWidth="400" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.UpdateProgramController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+         <children>
+            <Label fx:id="updateProgTitle" text="Titel:" />
+            <TextField fx:id="updateInsertTitle" promptText="Indsæt titel her">
+               <VBox.margin>
+                  <Insets right="5.0" />
+               </VBox.margin></TextField>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" top="5.0" />
+         </VBox.margin>
+      </VBox>
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+         <children>
+            <Label fx:id="updateProgDescription" text="Beskrivelse:" />
+            <TextArea fx:id="updateInsertDescription" prefHeight="200.0" prefWidth="200.0" promptText="Indsæt beskrivelse her" wrapText="true">
+               <VBox.margin>
+                  <Insets right="5.0" />
+               </VBox.margin>
+            </TextArea>
+            <Label fx:id="remainingCharacters" text="Tegn" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" top="5.0" />
+         </VBox.margin>
+      </VBox>
+      <VBox layoutX="10.0" layoutY="223.0" prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+         <children>
+            <Label fx:id="updateProgCompany" text="Producent:" />
+            <TextField fx:id="updateInsertCompany" promptText="Indsæt producent her">
+               <VBox.margin>
+                  <Insets right="5.0" />
+               </VBox.margin></TextField>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" top="5.0" />
+         </VBox.margin>
+      </VBox>
+      <VBox layoutX="10.0" layoutY="317.0" prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+         <children>
+            <Label fx:id="updateProgCredits" text="Kreditering:" />
+            <Button fx:id="updateCreditBtn" mnemonicParsing="false" text="Opret kreditering" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" top="5.0" />
+         </VBox.margin>
+      </VBox>
+      <HBox spacing="10.0">
+         <children>
+            <Button fx:id="updateProgramBtn" mnemonicParsing="false" text="Opdater Program" />
+            <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#closeUpdateProgram" text="Cancel" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="5.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

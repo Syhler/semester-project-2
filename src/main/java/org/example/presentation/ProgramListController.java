@@ -55,18 +55,12 @@ public class ProgramListController implements Initializable {
             ProgramController programController = loader.<ProgramController>getController();
             programController.title.setText(programEntity.getName());
             programController.title.prefWidthProperty().bind(programList.widthProperty());
-            //programController.title.prefHeightProperty().bind(programList.heightProperty()); //Højde unødvendigt at ændre her, da den har en fast, der passer.
-            programController.title.setMaxWidth(850); //De her tal giver ingen mening
-            //programController.title.setMinWidth(50);
+            programController.title.setMaxWidth(850);
 
             programController.description.setText(programEntity.getDescription());
             programController.description.prefWidthProperty().bind(programList.widthProperty());
-            //programController.description.prefHeightProperty().bind(programList.heightProperty());
-            //programController.title.setMinWidth(100);
-
 
             programController.buttonHolder.prefWidthProperty().bind(programList.widthProperty());
-            //programController.buttonHolder.prefHeightProperty().bind(programList.heightProperty());
             programController.buttonHolder.setMaxWidth(250);
             programController.buttonHolder.setMinWidth(100);
             return node;
