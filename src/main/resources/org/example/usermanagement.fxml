@@ -21,7 +21,7 @@
          </children>
       </HBox>
       <Button layoutX="14.0" layoutY="464.0" mnemonicParsing="false" text="Logout" />
-      <Button fx:id="createPopup" layoutX="111.0" layoutY="107.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="586.0" text="Create" />
+      <Button fx:id="createPopup" layoutX="111.0" layoutY="107.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="472.0" text="Create" />
       <Separator layoutX="88.0" layoutY="200.0" prefHeight="9.0" prefWidth="500.0" visible="false" />
       <Separator layoutX="88.0" layoutY="163.0" prefHeight="9.0" prefWidth="500.0" visible="false" />
       <TableView fx:id="table" layoutX="111.0" layoutY="140.0" prefHeight="358.0" prefWidth="586.0">
@@ -33,5 +33,7 @@
             <TableColumn fx:id="col_createdBy" prefWidth="128.79998779296875" text="created" />
         </columns>
       </TableView>
+      <Button layoutX="588.0" layoutY="108.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="48.0" text="Edit" />
+      <Button layoutX="641.0" layoutY="108.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Delete" />
    </children>
 </AnchorPane>
