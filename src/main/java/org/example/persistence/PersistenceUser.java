@@ -36,17 +36,20 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "select \"user\".id title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name " +
+                    "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name " +
                     "from \"user\", company where \"user\".id = ?  and company.id = \"user\".company");
             preparedStatement.setString(1, id);
 
-            var resultSet = preparedStatement.executeQuery();
 
+
+            var resultSet = preparedStatement.executeQuery();
+            System.out.println(resultSet);
             //checks if the resultSet contains any rows
             if (!resultSet.next())
             {
                 return null;
             }
+
 
             return createUserEntityFromResultSet(resultSet);
         }
@@ -71,7 +74,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         List<UserEntity> users = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "select \"user\".id title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name " +
+                    "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name " +
                     "from \"user\", company where \"user\".role = ?  and company.id = \"user\".company");
             preparedStatement.setInt(1, role.getValue());
 
@@ -176,12 +179,15 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
                         resultSet.getDate("createdAt"),
                         resultSet.getString("email"));
 
+
+
         var company = new CompanyEntity(resultSet.getString("name"));
         company.setId(resultSet.getString(9)); //9 equal company id
         user.setCompany(company);
+        user.setCompanyName(company.getName());
         user.setRole(resultSet.getInt("role"));
         user.setId(resultSet.getString(1)); // 1 equal user id
-        user.setTitle(resultSet.getString("title"));
+        //user.setTitle(resultSet.getString("title"));
 
         //Makes a recursion call. It will loop through until an user isn't createdBy is null
         if (resultSet.getString("createdBy") != null)

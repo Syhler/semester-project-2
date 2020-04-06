@@ -61,9 +61,9 @@ public class UsermanagementController implements Initializable {
 
         col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("fullName"));
-        col_company.setCellValueFactory(new PropertyValueFactory<>("company"));
+        col_company.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        //col_createdBy.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
+        //  col_createdBy.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
         table.setItems(userList);
 
 
@@ -76,32 +76,37 @@ public class UsermanagementController implements Initializable {
 
         if (displayByRole == displayAdmins){
             createPopup.setText("Create: Admin");
+            userList.clear();
             userList.addAll(domainHandler.user().getUserByRole(Role.Admin));
 
             System.out.println(userList);
 
-
-            if (userList != null){
-                for (UserEntity user: userList){
-
-                }
-            }
-
-
-            //System.out.println(domainHandler.user().getUserByRole(Role.Admin));
-            //System.out.println("ADMINNN");
         }
-        /*
+
         if (displayByRole == displayManufactures){
-            createRole.setText("Create: Manufacture");
+            createPopup.setText("Create: Manufacture");
+            userList.clear();
+            userList.addAll(domainHandler.user().getUserByRole(Role.Manufacture));
+
+            System.out.println(userList);
+
         }
         if (displayByRole == displayProducers){
-            createRole.setText("Create: Producer");
+            createPopup.setText("Create: Producer");
+            userList.clear();
+            userList.addAll(domainHandler.user().getUserByRole(Role.Producer));
+
+            System.out.println(userList);
+
         }
         if (displayByRole == displayActors){
-            createRole.setText("Create: Actor");
+            createPopup.setText("Create: Actor");
+            userList.clear();
+            userList.addAll(domainHandler.user().getUserByRole(Role.Actor));
+
+            System.out.println(userList);
+
         }
-        */
 
     }
 

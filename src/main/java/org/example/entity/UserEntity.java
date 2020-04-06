@@ -10,6 +10,7 @@ public class UserEntity {
     private String fullName;
     private String email;
     private CompanyEntity company;
+    private String companyName;
     private Role role;
     private String title;
     private UserEntity createdBy;
@@ -127,5 +128,13 @@ public class UserEntity {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }
