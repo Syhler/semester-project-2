@@ -33,7 +33,7 @@ public class DefaultController
             login.setOnAction(this::logout);
 
         }
-        System.out.println(userEntity.getRole().getValue());
+        //System.out.println(userEntity.getRole().getValue());
         if (userEntity.getRole().getValue() < 4){
             usermanagementBtn.setVisible(true);
         }
