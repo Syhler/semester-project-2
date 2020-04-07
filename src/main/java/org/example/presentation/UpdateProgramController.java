@@ -57,6 +57,7 @@ public class UpdateProgramController implements Initializable {
         remainingCharacters();
         remainingCharacters.setText(ControllerUtility.remainingCharacters(updateInsertDescription, maxSize));
         ControllerUtility.maxDescriptionSize(updateInsertDescription, maxSize);
+
         updateProgramBtn.setText(LanguageHandler.getText("updateProgram"));
         cancelBtn.setText(LanguageHandler.getText("cancel"));
         updateProgTitle.setText(LanguageHandler.getText("titleHeader"));

@@ -84,6 +84,7 @@ public class CreateProgramController implements Initializable {
         remainingCharacters();
         remainingCharacters.setText(ControllerUtility.remainingCharacters(insertDescription, maxSize));
         ControllerUtility.maxDescriptionSize(insertDescription, maxSize);
+
         createProgTitle.setText(LanguageHandler.getText("titleHeader"));
         createProgDescription.setText(LanguageHandler.getText("descriptionHeader"));
         cancelCreateProgram.setText(LanguageHandler.getText("cancel"));
