@@ -11,7 +11,7 @@ public interface IPersistenceUser
 {
     Long createUser(UserEntity userEntity,String password);
     UserEntity getUserById(Long id);
-    boolean updateUser(UserEntity userEntity);
+    boolean updateUser(UserEntity userEntity, String password);
     boolean deleteUser(UserEntity userEntity);
     List<UserEntity> getUserByRole(Role role);
     List<UserEntity> getUserByCompany(CompanyEntity companyEntity);

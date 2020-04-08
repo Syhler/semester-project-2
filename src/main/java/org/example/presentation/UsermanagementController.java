@@ -98,6 +98,10 @@ public class UsermanagementController implements Initializable {
                 displayActors.fire();
                 break;
             case 4:
+                displayAdmins.setVisible(false);
+                displayManufactures.setVisible(false);
+                displayProducers.setVisible(false);
+                displayActors.setVisible(false);
                 System.out.println("Special case, only edit of actor himself.");
                 break;
         }
@@ -124,7 +128,6 @@ public class UsermanagementController implements Initializable {
         if (user != null)
         {
             userList.add(user);
-            System.out.println("Createed");
         }
     }
 
@@ -133,16 +136,14 @@ public class UsermanagementController implements Initializable {
     {
 
         UserEntity userToUpdate = table.getSelectionModel().getSelectedItem();
-        System.out.println("User obj before parsing to controller"+userToUpdate);
         UpdateUserController updateUserController = new UpdateUserController();
         UserEntity user = updateUserController.openUpdateUser(event,userToUpdate, roleTap);
 
 
         if (user != null)
         {
-            //userList.remove(user);
-            //userList.add(user);
-            System.out.println("Updated");
+            userList.remove(userToUpdate);
+            userList.add(user);
         }
     }
 
@@ -199,7 +200,6 @@ public class UsermanagementController implements Initializable {
     @FXML
     private void deleteUser(ActionEvent event) throws IOException {
         UserEntity selectedUser = table.getSelectionModel().getSelectedItem();
-        System.out.println(selectedUser);
 
         if (domainHandler.user().removeUser(selectedUser)){
             userList.remove(selectedUser);

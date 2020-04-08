@@ -27,8 +27,8 @@ public class User implements IUser {
         return null;
     }
 
-    public Boolean updateUser(UserEntity userEntity) {
-        return false;
+    public Boolean updateUser(UserEntity userEntity, String password) {
+        return persistenceHandler.user().updateUser(userEntity,password);
     }
 
 

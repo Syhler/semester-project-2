@@ -36,6 +36,8 @@ public class UpdateUserController implements Initializable {
     @FXML
     private TextField title;
     @FXML
+    private TextField id;
+    @FXML
     private TextField password;
     @FXML
     private Button createUserFromInput;
@@ -53,6 +55,8 @@ public class UpdateUserController implements Initializable {
     private int roleValue;
 
     private UserEntity user = null;
+
+    private boolean updated = false;
 
 
 
@@ -95,6 +99,24 @@ public class UpdateUserController implements Initializable {
      */
     public UserEntity openUpdateUser(ActionEvent event,UserEntity userToUpdate, int role)
     {
+        Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactory = new Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>>() {
+
+            @Override
+            public ListCell<CompanyEntity> call(ListView<CompanyEntity> l) {
+                return new ListCell<CompanyEntity>() {
+
+                    @Override
+                    protected void updateItem(CompanyEntity item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(item.getName());
+                        }
+                    }
+                } ;
+            }
+        };
         switch (role)
         {
             case 1:
@@ -117,6 +139,7 @@ public class UpdateUserController implements Initializable {
             FXMLLoader myLoader = App.getLoader("userManagementUpdate");
             updateUserStage.setScene(new Scene(myLoader.load()));
             UpdateUserController updateUserController = myLoader.getController();
+            updateUserController.roleValue = role;
             updateUserController.user = userToUpdate;
 
             System.out.println("User obj after parsing to controller"+userToUpdate);
@@ -128,6 +151,7 @@ public class UpdateUserController implements Initializable {
             updateUserController.email.setText(userToUpdate.getEmail());
             updateUserController.companyList.setValue(userToUpdate.getCompany());
             updateUserController.title.setText(userToUpdate.getTitle());
+            updateUserController.id.setText(Long.toString(userToUpdate.getId()));
 
 
             updateUserStage.setTitle("Update "+rolename);
@@ -188,12 +212,11 @@ public class UpdateUserController implements Initializable {
         user.setCreatedBy(CurrentUser.getInstance().getUserEntity());
         user.setCreatedByName(user.getCreatedBy().getFirstName());
         user.setCompanyName(user.getCompany().getName());
+        user.setId(Long.parseLong(id.getText()));
 
-        Long userID = domainHandler.user().createUser(user, password.getText());
 
-        if (userID != 0L)
+        if (domainHandler.user().updateUser(user, password.getText()))
         {
-            user.setId(userID);
             closeDialog(event);
 
         } else

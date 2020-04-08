@@ -13,6 +13,8 @@
 
 <VBox alignment="CENTER_LEFT" prefHeight="618.0" prefWidth="400.0" spacing="15.0" stylesheets="@css/LoginPageStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.UpdateUserController">
    <children>
+      <Label text="ID:" />
+      <TextField fx:id="id" disable="true" prefHeight="14.0" prefWidth="200.0" />
       <Label text="First name:*" />
       <TextField fx:id="firstname" />
       <Label text="Middle name:" />

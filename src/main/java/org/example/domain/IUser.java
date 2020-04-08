@@ -11,7 +11,7 @@ public interface IUser {
 
    public List<UserEntity> getAllUser();
 
-   public Boolean updateUser(UserEntity userEntity);
+   public Boolean updateUser(UserEntity userEntity, String password);
 
    public List<UserEntity> getUserByCompany(CompanyEntity companyEntity);
 

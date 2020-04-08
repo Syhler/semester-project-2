@@ -121,9 +121,58 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
     }
 
     @Override
-    public boolean updateUser(UserEntity userEntity) {
+    public boolean updateUser(UserEntity userEntity, String password) {
+        java.util.Date utilDate = userEntity.getCreatedAt();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-        return false;
+        var passwordSalt = PasswordHashing.generateSalt();
+
+        try {
+            var encryptedPassword = PasswordHashing.sha256(password,passwordSalt);
+
+            /*
+            System.out.println(userEntity.getTitle());
+            System.out.println(userEntity.getFirstName());
+            System.out.println(userEntity.getMiddleName());
+            System.out.println(userEntity.getLastName());
+            System.out.println(createdBy.getId());
+            System.out.println(sqlDate);
+            System.out.println(userEntity.getEmail());
+            System.out.println(encryptedPassword);
+            System.out.println(passwordSalt);
+            System.out.println(userEntity.getRole().getValue());
+            System.out.println(userEntity.getCompany().getId());
+
+             */
+
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "UPDATE \"user\" SET title = ?, firstname = ?,middlename = ?," +
+                    "lastname = ?,createdby = ?,createdat = ?,email = ?,password = ?,passwordsalt = ?,role = ?,company = ?" +
+                    "WHERE \"user\".id = ?;");
+            preparedStatement.setString(1,userEntity.getTitle());
+            preparedStatement.setString(2,userEntity.getFirstName());
+            preparedStatement.setString(3,userEntity.getMiddleName());
+            preparedStatement.setString(4,userEntity.getLastName());
+            preparedStatement.setLong(5,userEntity.getCreatedBy().getId());
+            preparedStatement.setDate(6,sqlDate);
+            preparedStatement.setString(7,userEntity.getEmail());
+            preparedStatement.setString(8,encryptedPassword);
+            preparedStatement.setString(9,passwordSalt);
+            preparedStatement.setInt(10,userEntity.getRole().getValue());
+            preparedStatement.setLong(11,userEntity.getCompany().getId());
+            preparedStatement.setLong(12,userEntity.getId());
+
+            preparedStatement.execute();
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override
