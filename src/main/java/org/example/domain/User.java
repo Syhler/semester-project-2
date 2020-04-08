@@ -16,7 +16,7 @@ public class User implements IUser {
     }
 
     public Boolean removeUser(UserEntity userEntity) {
-        return false;
+        return persistenceHandler.user().deleteUser(userEntity);
     }
 
     public UserEntity getUserById(String id) {
@@ -30,6 +30,7 @@ public class User implements IUser {
     public Boolean updateUser(UserEntity userEntity) {
         return false;
     }
+
 
     public List<UserEntity> getUserByCompany(CompanyEntity company) {
         return null;

@@ -127,7 +127,17 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
 
     @Override
     public boolean deleteUser(UserEntity userEntity) {
-        return false;
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "DELETE FROM \"user\" WHERE \"user\".id = ?;");
+            preparedStatement.setLong(1,userEntity.getId());
+            preparedStatement.execute();
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override

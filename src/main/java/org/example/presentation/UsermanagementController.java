@@ -186,6 +186,12 @@ public class UsermanagementController implements Initializable {
     private void deleteUser(ActionEvent event) throws IOException {
         UserEntity selectedUser = table.getSelectionModel().getSelectedItem();
         System.out.println(selectedUser);
+
+        if (domainHandler.user().removeUser(selectedUser)){
+            userList.remove(selectedUser);
+        }
+
+
     }
     @FXML
     private void updateUser() throws IOException {
