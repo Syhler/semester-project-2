@@ -8,11 +8,11 @@ import org.example.persistence.PersistenceHandler;
 
 import java.util.List;
 
-public class User implements IUser {
+public class Company implements ICompany {
     private IPersistenceHandler persistenceHandler = new PersistenceHandler();
 
-    public Long createUser(UserEntity userEntity,UserEntity createdBy,String password) {
-        return persistenceHandler.user().createUser(userEntity, createdBy, password);
+    public Boolean createUser(UserEntity userEntity) {
+        return false;
     }
 
     public Boolean removeUser(UserEntity userEntity) {
@@ -42,4 +42,8 @@ public class User implements IUser {
 
     }
 
+    @Override
+    public List<CompanyEntity> getCompanies() {
+        return persistenceHandler.company().getCompanies();
+    }
 }

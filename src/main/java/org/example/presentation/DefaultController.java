@@ -32,11 +32,13 @@ public class DefaultController
             login.setText("Logout");
             login.setOnAction(this::logout);
 
+            if (userEntity.getRole().getValue() < 4)
+            {
+                usermanagementBtn.setVisible(true);
+            }
         }
         //System.out.println(userEntity.getRole().getValue());
-        if (userEntity.getRole().getValue() < 4){
-            usermanagementBtn.setVisible(true);
-        }
+
     }
 
     private void logout(ActionEvent event)

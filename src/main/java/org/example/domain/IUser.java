@@ -3,7 +3,7 @@ import org.example.entity.*;
 import java.util.List;
 
 public interface IUser {
-   public Boolean createUser(UserEntity userEntity);
+   public Long createUser(UserEntity userEntity,UserEntity createdBy,String password);
 
    public Boolean removeUser(UserEntity userEntity);
 

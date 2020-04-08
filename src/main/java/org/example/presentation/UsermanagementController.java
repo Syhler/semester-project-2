@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
@@ -28,6 +31,18 @@ public class UsermanagementController implements Initializable {
     private TextField inputCompany;
     @FXML
     private TextField inputTitle;
+
+    // Function Buttons Create, Read, Update, Delete
+    @FXML
+    private Button  deleteSelected;
+
+    @FXML
+    private HBox optionsHbox;
+
+    // Logout
+    //@FXML
+    private Button login;
+
     @FXML
     private Button displayAdmins;
     @FXML
@@ -36,6 +51,7 @@ public class UsermanagementController implements Initializable {
     private Button displayProducers;
     @FXML
     private Button displayActors;
+
     @FXML
     private Button createPopup;
 
@@ -55,16 +71,63 @@ public class UsermanagementController implements Initializable {
 
     public ObservableList<UserEntity> userList = FXCollections.observableArrayList();
 
+    public int roleTap = 0;
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Hiding options bar
+        optionsHbox.setVisible(false);
+
+        switch (CurrentUser.getInstance().getUserEntity().getRole().getValue())
+        {
+            case 1:
+                displayAdmins.fire();
+                break;
+            case 2:
+                displayAdmins.setVisible(false);
+                displayManufactures.setVisible(false);
+                displayProducers.fire();
+                break;
+            case 3:
+                displayAdmins.setVisible(false);
+                displayManufactures.setVisible(false);
+                displayProducers.setVisible(false);
+                displayActors.fire();
+                break;
+            case 4:
+                System.out.println("Special case, only edit of actor himself.");
+                break;
+        }
+
+
+
+
 
         col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         col_company.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        //  col_createdBy.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
+        col_createdBy.setCellValueFactory(new PropertyValueFactory<>("createdByName"));
         table.setItems(userList);
+
+
+    }
+
+    @FXML
+    private void openCreateUser(ActionEvent event)
+    {
+        CreateUserController createusercontroller = new CreateUserController();
+        UserEntity user = createusercontroller.openCreateUser(event,roleTap);
+        if (user != null)
+        {
+            userList.add(user);
+            System.out.println("Createed");
+        }
+
+
 
 
     }
@@ -73,47 +136,46 @@ public class UsermanagementController implements Initializable {
     @FXML
     private void displayByRole(ActionEvent event){
         Object displayByRole = event.getSource();
+        optionsHbox.setVisible(true);
 
         if (displayByRole == displayAdmins){
-            createPopup.setText("Create: Admin");
             userList.clear();
             userList.addAll(domainHandler.user().getUserByRole(Role.Admin));
-
-            System.out.println(userList);
-
+            roleTap = 1;
         }
-
-        if (displayByRole == displayManufactures){
-            createPopup.setText("Create: Manufacture");
+        if (displayByRole == displayManufactures)
+        {
             userList.clear();
             userList.addAll(domainHandler.user().getUserByRole(Role.Manufacture));
-
-            System.out.println(userList);
-
+            roleTap = 2;
         }
-        if (displayByRole == displayProducers){
-            createPopup.setText("Create: Producer");
+        if (displayByRole == displayProducers)
+        {
             userList.clear();
             userList.addAll(domainHandler.user().getUserByRole(Role.Producer));
-
-            System.out.println(userList);
-
+            roleTap = 3;
         }
-        if (displayByRole == displayActors){
-            createPopup.setText("Create: Actor");
+        if (displayByRole == displayActors)
+        {
             userList.clear();
             userList.addAll(domainHandler.user().getUserByRole(Role.Actor));
-
-            System.out.println(userList);
-
+            roleTap = 4;
         }
 
     }
 
     @FXML
-    private void populateTable(){
+    private void logout(ActionEvent event) throws IOException {
+        if (CurrentUser.getInstance().getUserEntity() != null)
+        {
+            CurrentUser.getInstance().init(null); //Logs off
+            App.setRoot("default");
 
+        }
     }
+
+
+
 
     @FXML
     private void createUser() throws IOException {
@@ -121,8 +183,9 @@ public class UsermanagementController implements Initializable {
         //domainHandler.user().createUser(newUser);
     }
     @FXML
-    private void deleteUser() throws IOException {
-
+    private void deleteUser(ActionEvent event) throws IOException {
+        UserEntity selectedUser = table.getSelectionModel().getSelectedItem();
+        System.out.println(selectedUser);
     }
     @FXML
     private void updateUser() throws IOException {

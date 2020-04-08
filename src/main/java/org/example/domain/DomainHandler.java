@@ -14,4 +14,8 @@ public class DomainHandler implements IDomainHandler {
     public IUser user(){
         return new User();
     }
+    public ICompany company()
+    {
+        return new Company();
+    }
 }
