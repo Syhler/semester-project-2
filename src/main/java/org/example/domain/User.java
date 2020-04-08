@@ -11,8 +11,8 @@ import java.util.List;
 public class User implements IUser {
     private IPersistenceHandler persistenceHandler = new PersistenceHandler();
 
-    public Long createUser(UserEntity userEntity,UserEntity createdBy,String password) {
-        return persistenceHandler.user().createUser(userEntity, createdBy, password);
+    public Long createUser(UserEntity userEntity,String password) {
+        return persistenceHandler.user().createUser(userEntity, password);
     }
 
     public Boolean removeUser(UserEntity userEntity) {

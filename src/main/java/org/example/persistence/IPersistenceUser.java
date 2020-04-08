@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IPersistenceUser
 {
-    Long createUser(UserEntity userEntity,UserEntity createdBy,String password);
+    Long createUser(UserEntity userEntity,String password);
     UserEntity getUserById(Long id);
     boolean updateUser(UserEntity userEntity);
     boolean deleteUser(UserEntity userEntity);
