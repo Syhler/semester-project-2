@@ -28,7 +28,7 @@
                   <Insets right="6.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="48.0" text="Edit">
+            <Button mnemonicParsing="false" onAction="#openUpdateUser" prefHeight="25.0" prefWidth="48.0" text="Edit">
                <HBox.margin>
                   <Insets right="6.0" />
                </HBox.margin>

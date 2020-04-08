@@ -126,10 +126,24 @@ public class UsermanagementController implements Initializable {
             userList.add(user);
             System.out.println("Createed");
         }
+    }
+
+    @FXML
+    private void openUpdateUser(ActionEvent event)
+    {
+
+        UserEntity userToUpdate = table.getSelectionModel().getSelectedItem();
+        System.out.println("User obj before parsing to controller"+userToUpdate);
+        UpdateUserController updateUserController = new UpdateUserController();
+        UserEntity user = updateUserController.openUpdateUser(event,userToUpdate, roleTap);
 
 
-
-
+        if (user != null)
+        {
+            //userList.remove(user);
+            //userList.add(user);
+            System.out.println("Updated");
+        }
     }
 
 

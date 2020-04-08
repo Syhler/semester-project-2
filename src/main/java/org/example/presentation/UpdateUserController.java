@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class CreateUserController implements Initializable {
+public class UpdateUserController implements Initializable {
 
     private DomainHandler domainHandler = new DomainHandler();
     @FXML
@@ -82,6 +82,10 @@ public class CreateUserController implements Initializable {
         companyEntities.addAll(domainHandler.company().getCompanies());
         companyList.setItems(companyEntities);
 
+
+
+
+
     }
 
 
@@ -89,7 +93,7 @@ public class CreateUserController implements Initializable {
      * Opens the CreateUser page and waits until the user is created or cancel
      * @return currentUser
      */
-    public UserEntity openCreateUser(ActionEvent event, int role)
+    public UserEntity openUpdateUser(ActionEvent event,UserEntity userToUpdate, int role)
     {
         switch (role)
         {
@@ -107,21 +111,32 @@ public class CreateUserController implements Initializable {
                 break;
         }
         
-        var createUserStage = new Stage();
+        var updateUserStage = new Stage();
 
         try {
-            FXMLLoader myLoader = App.getLoader("userManagementCreate");
-            createUserStage.setScene(new Scene(myLoader.load()));
-            CreateUserController createusercontrol = myLoader.getController();
-            createusercontrol.roleValue = role;
+            FXMLLoader myLoader = App.getLoader("userManagementUpdate");
+            updateUserStage.setScene(new Scene(myLoader.load()));
+            UpdateUserController updateUserController = myLoader.getController();
+            updateUserController.user = userToUpdate;
 
-            createUserStage.setTitle("Create "+rolename);
-            createUserStage.initModality(Modality.WINDOW_MODAL);
-            createUserStage.initOwner(((Node)event.getTarget()).getScene().getWindow());
-            createUserStage.setResizable(false);
-            createUserStage.showAndWait();
+            System.out.println("User obj after parsing to controller"+userToUpdate);
 
-            return createusercontrol.user;
+
+            updateUserController.firstname.setText(userToUpdate.getFirstName());
+            updateUserController.middelname.setText(userToUpdate.getMiddleName());
+            updateUserController.lastname.setText(userToUpdate.getLastName());
+            updateUserController.email.setText(userToUpdate.getEmail());
+            updateUserController.companyList.setValue(userToUpdate.getCompany());
+            updateUserController.title.setText(userToUpdate.getTitle());
+
+
+            updateUserStage.setTitle("Update "+rolename);
+            updateUserStage.initModality(Modality.WINDOW_MODAL);
+            updateUserStage.initOwner(((Node)event.getTarget()).getScene().getWindow());
+            updateUserStage.setResizable(false);
+            updateUserStage.showAndWait();
+
+            return updateUserController.user;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,7 +147,7 @@ public class CreateUserController implements Initializable {
 
 
     @FXML
-    public void createUserFromInput(ActionEvent event) throws IOException
+    public void updateUserFromInput(ActionEvent event) throws IOException
     {
         if (firstname.getText().isEmpty())
         {

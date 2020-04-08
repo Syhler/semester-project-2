@@ -23,7 +23,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
     }
 
     @Override
-    public Long createUser(UserEntity userEntity,UserEntity createdBy,String password) {
+    public Long createUser(UserEntity userEntity ,String password) {
         java.util.Date utilDate = userEntity.getCreatedAt();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
@@ -59,7 +59,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
             preparedStatement.setString(3,userEntity.getFirstName());
             preparedStatement.setString(4,userEntity.getMiddleName());
             preparedStatement.setString(5,userEntity.getLastName());
-            preparedStatement.setLong(6,createdBy.getId());
+            preparedStatement.setLong(6,userEntity.getCreatedBy().getId());
             preparedStatement.setDate(7,sqlDate);
             preparedStatement.setString(8,userEntity.getEmail());
             preparedStatement.setString(9,encryptedPassword);
@@ -122,6 +122,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
 
     @Override
     public boolean updateUser(UserEntity userEntity) {
+
         return false;
     }
 
