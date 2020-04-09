@@ -18,7 +18,7 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Button layoutX="19.0" layoutY="423.0" mnemonicParsing="false" onAction="#export" text="Export" />
+      <Button layoutX="19.0" layoutY="390.0" mnemonicParsing="false" onAction="#export" text="Export" />
       <Button layoutX="19.0" layoutY="422.0" mnemonicParsing="false" onAction="#importFile" text="Button" />
    </children>
 </AnchorPane>

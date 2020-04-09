@@ -12,7 +12,7 @@ import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.domain.Export;
 import org.example.domain.Import;
-import org.example.presentation.dialogControllers.ImportDialogController;
+import org.example.presentation.dialogControllers.ImportExportDialogController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class DefaultController
@@ -56,10 +56,25 @@ public class DefaultController
         //ask the user where to save the file
         var file = fileChooser.showSaveDialog(fileChooserStage);
 
-        Export export = new Export();
-        export.program(App.dummyData(), file.getPath());
+        ImportExportDialogController controller = new ImportExportDialogController();
 
-        //show dialog
+
+        if (file == null)
+        {
+            controller.openDialog(event, LanguageHandler.getText("noSave"), "Export Dialog");
+            return;
+        }
+
+        var exportedPrograms = Export.program(App.dummyData(), file.getPath());
+
+        if (exportedPrograms != null)
+        {
+            controller.openDialog(event, LanguageHandler.getText("succeedExport"), "Export Dialog");
+        }
+        else
+        {
+            controller.openDialog(event, LanguageHandler.getText("noExport"), "Export Dialog");
+        }
 
     }
 
@@ -69,26 +84,25 @@ public class DefaultController
 
         var selectedFile = getFileFromFileChoose();
 
-        ImportDialogController controller = new ImportDialogController();
+        ImportExportDialogController controller = new ImportExportDialogController();
 
-        if (selectedFile != null)
+        if (selectedFile == null)
         {
-            var loadedPrograms = Import.loadPrograms(selectedFile);
+            controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
+            return;
+        }
 
-            if (loadedPrograms.isEmpty())
-            {
-                controller.openDialog(event, LanguageHandler.getText("noProgramsImported"));
-            }
-            else
-            {
-                controller.openDialog(event,
-                        LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
-                                LanguageHandler.getText("programs"));
-            }
+        var loadedPrograms = Import.loadPrograms(selectedFile);
+
+        if (loadedPrograms.isEmpty())
+        {
+            controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
         }
         else
         {
-            controller.openDialog(event, LanguageHandler.getText("noFile"));
+            controller.openDialog(event,
+                    LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
+                            LanguageHandler.getText("programs"), "Import Dialog");
         }
     }
 

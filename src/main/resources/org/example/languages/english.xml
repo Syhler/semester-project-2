@@ -6,5 +6,7 @@
     <noFile>No file have been found</noFile>
     <programs>program(s)</programs>
     <succeedImport>Successfully imported</succeedImport>
-
+    <noSave>No Save location have been found</noSave>
+    <noExport>No programs was exported</noExport>
+    <succeedExport>Successfully exported</succeedExport>
 </language>

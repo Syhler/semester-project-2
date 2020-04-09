@@ -127,6 +127,8 @@ public class Import
         var description = element.getAttribute("description");
         var companies = getCompanies(element);
 
+        if (title.equals(titleOriginal)) titleOriginal = "";
+
         return  new ProgramEntity(
                 title + " " + titleOriginal,
                 description,

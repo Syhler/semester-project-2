@@ -12,7 +12,7 @@ import org.example.App;
 
 import java.io.IOException;
 
-public class ImportDialogController
+public class ImportExportDialogController
 {
 
     @FXML
@@ -26,7 +26,7 @@ public class ImportDialogController
      * Open a importDialog
      * @param text the text you want to display on the popup dialog.
      */
-    public void openDialog(ActionEvent event, String text)
+    public void openDialog(ActionEvent event, String text, String title)
     {
 
         var dialogStage = new Stage();
@@ -35,12 +35,12 @@ public class ImportDialogController
             FXMLLoader loader = new FXMLLoader(App.class.getResource("dialog/importDialog.fxml"));
 
             dialogStage.setScene(new Scene(loader.load()));
-            dialogStage.setTitle("Import Dialog");
+            dialogStage.setTitle(title);
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(((Node)event.getTarget()).getScene().getWindow());
             dialogStage.setResizable(false);
 
-            ImportDialogController controller = loader.getController();
+            ImportExportDialogController controller = loader.getController();
             controller.setStatusLabelText(text);
 
             dialogStage.showAndWait();

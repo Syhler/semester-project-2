@@ -7,7 +7,6 @@ import org.example.entity.UserEntity;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,7 +28,7 @@ public class Export
      *             needs to be included in the path example: ../name.xml
      * @return the file there was created
      */
-    public File program(ProgramEntity programEntity, String path)
+    public static File program(ProgramEntity programEntity, String path)
     {
 
         if (programEntity == null) return null;
@@ -39,11 +38,14 @@ public class Export
         if (document == null) return null;
 
 
-        Element root = document.createElement("programlist");
+        Element root = document.createElement("epg");
         document.appendChild(root);
 
+        Element programList = document.createElement("programlist");
+        root.appendChild(programList);
 
-        addProgramToFile(root, document, programEntity);
+
+        addProgramToFile(programList, document, programEntity);
 
 
         return createFile(document, path);
@@ -56,7 +58,7 @@ public class Export
      *             needs to be included in the path example: ../name.xml
      * @return the filed there was created
      */
-    public File program(List<ProgramEntity> programEntityList, String path)
+    public static File program(List<ProgramEntity> programEntityList, String path)
     {
 
         if (programEntityList == null) return null;
@@ -65,20 +67,21 @@ public class Export
 
         if (document == null) return null;
 
-
-        Element root = document.createElement("programlist");
+        Element root = document.createElement("epg");
         document.appendChild(root);
+
+        Element programList = document.createElement("programlist");
+        root.appendChild(programList);
 
         for (var program : programEntityList)
         {
-            addProgramToFile(root, document, program);
+            addProgramToFile(programList, document, program);
         }
 
         return createFile(document, path);
     }
 
-
-    private File createFile(Document document, String path)
+    private static File createFile(Document document, String path)
     {
         File file = null;
 
@@ -98,7 +101,7 @@ public class Export
         return file;
     }
 
-    private void addProgramToFile(Element root, Document document, ProgramEntity programEntity)
+    private static void addProgramToFile(Element root, Document document, ProgramEntity programEntity)
     {
 
         // program element
@@ -130,7 +133,7 @@ public class Export
     }
 
 
-    private void addCreditsToFile(Element root, Document document, List<CreditEntity> credits)
+    private static void addCreditsToFile(Element root, Document document, List<CreditEntity> credits)
     {
         if (credits == null) return;
 
@@ -146,7 +149,7 @@ public class Export
     }
 
 
-    private void addUserToFile(Element root, Document document, UserEntity userEntity)
+    private static void addUserToFile(Element root, Document document, UserEntity userEntity)
     {
         Attr firstName = document.createAttribute("firstName");
         firstName.setValue(userEntity.getFirstName());
@@ -176,7 +179,7 @@ public class Export
     }
 
 
-    private void addCompaniesToFile(Element root, Document document, List<CompanyEntity> companies)
+    private static void addCompaniesToFile(Element root, Document document, List<CompanyEntity> companies)
     {
         if (companies == null) return;
 
@@ -194,7 +197,7 @@ public class Export
 
     }
 
-    private void addCompanyToFile(Element root, Document document, CompanyEntity companyEntity)
+    private static void addCompanyToFile(Element root, Document document, CompanyEntity companyEntity)
     {
         if (companyEntity == null) return;
 
@@ -211,7 +214,7 @@ public class Export
      * @param document the xml "file"
      * @param producers the producers you want to add
      */
-    private void addProducerToFile(Element root, Document document, List<UserEntity> producers)
+    private static void addProducerToFile(Element root, Document document, List<UserEntity> producers)
     {
 
         if (producers == null) return;
@@ -234,7 +237,7 @@ public class Export
      * create a new document
      * @return the new document
      */
-    private Document createNewDocument()
+    private static Document createNewDocument()
     {
 
         try {

@@ -6,5 +6,8 @@
     <noFile>Ingen fil blev fundet</noFile>
     <programs>programmer</programs>
     <succeedImport>Succesfuldt importeret</succeedImport>
+    <noSave>Ingen lokation blev fundet</noSave>
+    <noExport>Ingen programmer var eksporteret</noExport>
+    <succeedExport>Succesfuldt eksporteret</succeedExport>
 </language>
 
