@@ -2,5 +2,9 @@
 <language>
     <username>Brugernavn</username>
     <password>Adgangskode</password>
+    <noProgramsImported>Ingen programmer blev importeret...</noProgramsImported>
+    <noFile>Ingen fil blev fundet</noFile>
+    <programs>programmer</programs>
+    <succeedImport>Succesfuldt importeret</succeedImport>
 </language>
 

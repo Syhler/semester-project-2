@@ -16,6 +16,8 @@ public class ProgramEntity {
         this.name = name;
         this.description = description;
         this.companies = companies;
+        this.name = name;
+        this.description = description;
         this.producer = producer;
         this.credits = credits;
     }

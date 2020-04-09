@@ -1,21 +1,25 @@
 package org.example.presentation;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.domain.Export;
+import org.example.domain.Import;
+import org.example.presentation.dialogControllers.ImportDialogController;
+import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class DefaultController
 {
 
-    public Button login;
+    @FXML
+    private Button login;
     private DomainHandler domainHandler = new DomainHandler();
 
     @FXML
@@ -42,8 +46,7 @@ public class DefaultController
     }
 
     @FXML
-    private void export(ActionEvent event)
-    {
+    private void export(ActionEvent event) {
         var fileChooserStage = new Stage();
 
         FileChooser fileChooser = new FileChooser();
@@ -58,6 +61,51 @@ public class DefaultController
 
         //show dialog
 
+    }
+
+    @FXML
+    private void importFile(ActionEvent event)
+    {
+
+        var selectedFile = getFileFromFileChoose();
+
+        ImportDialogController controller = new ImportDialogController();
+
+        if (selectedFile != null)
+        {
+            var loadedPrograms = Import.loadPrograms(selectedFile);
+
+            if (loadedPrograms.isEmpty())
+            {
+                controller.openDialog(event, LanguageHandler.getText("noProgramsImported"));
+            }
+            else
+            {
+                controller.openDialog(event,
+                        LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
+                                LanguageHandler.getText("programs"));
+            }
+        }
+        else
+        {
+            controller.openDialog(event, LanguageHandler.getText("noFile"));
+        }
+    }
+
+
+    /**
+     * open a fileChooser and return the file
+     * @return the file the user have chosen from the file chooser
+     */
+    private File getFileFromFileChoose()
+    {
+        var fileChooserStage = new Stage();
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
+
+        return fileChooser.showOpenDialog(fileChooserStage);
     }
 
     @FXML
