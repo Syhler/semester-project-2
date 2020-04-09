@@ -8,14 +8,14 @@ public class ProgramEntity {
     private String id;
     private String name;
     private String description;
-    private CompanyEntity company;
+    private List<CompanyEntity> companies;
     private List<UserEntity> producer;
     private List<CreditEntity> credits;
 
-    public ProgramEntity(String name, String description, CompanyEntity company, List<UserEntity> producer, List<CreditEntity> credits) {
+    public ProgramEntity(String name, String description, List<CompanyEntity> company, List<UserEntity> producer, List<CreditEntity> credits) {
         this.name = name;
         this.description = description;
-        this.company = company;
+        this.companies = company;
         this.producer = producer;
         this.credits = credits;
     }
@@ -26,10 +26,6 @@ public class ProgramEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setCompany(CompanyEntity company) {
-        this.company = company;
     }
 
     public void setProducer(List<UserEntity> producer) {
@@ -48,8 +44,8 @@ public class ProgramEntity {
         return description;
     }
 
-    public CompanyEntity getCompany() {
-        return company;
+    public List<CompanyEntity> getCompanies() {
+        return companies;
     }
 
     public List<UserEntity> getProducer() {
@@ -78,7 +74,7 @@ public class ProgramEntity {
 
     @Override
     public String toString() {
-        return "ID: " + id + " Name: " + name + " Description: " + description + " Company: " + company + " Producer: " + Arrays.asList(producer) + " Credits: " + Arrays.asList(credits);
+        return "ID: " + id + " Name: " + name + " Description: " + description + " Company: " + companies + " Producer: " + Arrays.asList(producer) + " Credits: " + Arrays.asList(credits);
     }
 
 }

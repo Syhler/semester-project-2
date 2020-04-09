@@ -2,9 +2,9 @@ package org.example;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.domain.Import;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -19,7 +19,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        LanguageHandler.initLanguage(Language.Danish);
+        LanguageHandler.initLanguage(Language.English);
         scene = new Scene(getLoader("default").load());
         stage.setScene(scene);
         stage.show();

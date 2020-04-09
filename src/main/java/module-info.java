@@ -6,7 +6,9 @@ module org.example {
 
     opens org.example to javafx.fxml;
     opens org.example.presentation to javafx.fxml;
+    opens org.example.presentation.dialogControllers to javafx.fxml;
 
     exports org.example;
     exports org.example.presentation;
+    exports org.example.presentation.dialogControllers;
 }

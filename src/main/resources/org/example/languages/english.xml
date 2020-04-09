@@ -2,4 +2,9 @@
 <language>
     <username>Username</username>
     <password>Password</password>
+    <noProgramsImported>No programs was imported...</noProgramsImported>
+    <noFile>No file have been found</noFile>
+    <programs>program(s)</programs>
+    <succeedImport>Successfully imported</succeedImport>
+
 </language>
