@@ -22,6 +22,13 @@ import java.util.List;
 public class Export
 {
 
+    /**
+     * export the given programEntity to an xml file
+     * @param programEntity program you want to export
+     * @param path the path where the file will be saved IMPORTANT the filename and extension
+     *             needs to be included in the path example: ../name.xml
+     * @return the file there was created
+     */
     public File program(ProgramEntity programEntity, String path)
     {
 
@@ -42,6 +49,13 @@ public class Export
         return createFile(document, path);
     }
 
+    /**
+     * export the given list of programEntity to an xml file
+     * @param programEntityList List of programs you want to export
+     * @param path the path where the file will be saved IMPORTANT the filename and extension
+     *             needs to be included in the path example: ../name.xml
+     * @return the filed there was created
+     */
     public File program(List<ProgramEntity> programEntityList, String path)
     {
 
@@ -182,7 +196,6 @@ public class Export
 
     private void addCompanyToFile(Element root, Document document, CompanyEntity companyEntity)
     {
-
         if (companyEntity == null) return;
 
         Attr name = document.createAttribute("name");
@@ -192,6 +205,12 @@ public class Export
     }
 
 
+    /**
+     *
+     * @param root the element you want to add the producers to
+     * @param document the xml "file"
+     * @param producers the producers you want to add
+     */
     private void addProducerToFile(Element root, Document document, List<UserEntity> producers)
     {
 
