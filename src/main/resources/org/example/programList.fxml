@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<ScrollPane fx:id="scrollPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.ProgramListController">
+<ScrollPane fx:id="scrollPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.ProgramListController">
    <content>
-      <VBox fx:id="programList" spacing="10.0" />
+      <GridPane fx:id="listGridPane" hgap="5.0" vgap="5.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="0.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <VBox fx:id="programList" spacing="10.0" />
+         </children>
+      </GridPane>
    </content>
 </ScrollPane>

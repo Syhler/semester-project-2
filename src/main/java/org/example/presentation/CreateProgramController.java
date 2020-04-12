@@ -1,13 +1,11 @@
 package org.example.presentation;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -83,7 +81,7 @@ public class CreateProgramController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         remainingCharacters();
         remainingCharacters.setText(ControllerUtility.remainingCharacters(insertDescription, maxSize));
-        ControllerUtility.maxDescriptionSize(insertDescription, maxSize);
+        ControllerUtility.maxTextSize(insertDescription, maxSize);
 
         createProgTitle.setText(LanguageHandler.getText("titleHeader"));
         createProgDescription.setText(LanguageHandler.getText("descriptionHeader"));

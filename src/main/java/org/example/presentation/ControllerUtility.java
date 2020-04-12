@@ -20,7 +20,7 @@ public class ControllerUtility {
      * @param textArea
      * @param maxSize
      */
-    public static void maxDescriptionSize(TextArea textArea, int maxSize)
+    public static void maxTextSize(TextArea textArea, int maxSize)
     {
         textArea.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= maxSize ? change : null));  //https://stackoverflow.com/questions/36612545/javafx-textarea-limit

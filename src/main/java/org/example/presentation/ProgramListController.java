@@ -17,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -30,6 +32,7 @@ import org.example.entity.UserEntity;
 
 public class ProgramListController implements Initializable {
     public ScrollPane scrollPane;
+    public GridPane listGridPane;
     private DomainHandler domainHandler;
     @FXML
     public VBox programList;
@@ -54,15 +57,20 @@ public class ProgramListController implements Initializable {
             Parent node = loader.load();
             ProgramController programController = loader.<ProgramController>getController();
             programController.title.setText(programEntity.getName());
-            programController.title.prefWidthProperty().bind(programList.widthProperty());
-            programController.title.setMaxWidth(850);
+            //programController.title.prefWidthProperty().bind(programList.widthProperty());
+            //programController.title.prefHeightProperty().bind(programList.heightProperty());
+            //programController.title.setMaxWidth(10);
+            //programController.programThumbnail.prefWidthProperty().bind(listGridPane.widthProperty());
+            //programController.programThumbnail.setMaxWidth(170);
+            //listGridPane.setMaxWidth(250);
 
-            programController.description.setText(programEntity.getDescription());
+
+            /*programController.description.setText(programEntity.getDescription());
             programController.description.prefWidthProperty().bind(programList.widthProperty());
 
             programController.buttonHolder.prefWidthProperty().bind(programList.widthProperty());
             programController.buttonHolder.setMaxWidth(250);
-            programController.buttonHolder.setMinWidth(100);
+            programController.buttonHolder.setMinWidth(100);*/
             return node;
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,8 +94,7 @@ public class ProgramListController implements Initializable {
 
         for (int i = 1; i <= 50; i++)
         {
-            ProgramEntity programEntity = new ProgramEntity("Søren på bakken med sin flotte hund, hvor de pøller sammen, planlægger deres dag, " +
-                    "og tænker over hvordan de dog er nået til dette punkt i livet. " + i,
+            ProgramEntity programEntity = new ProgramEntity("Søren sidder på sin bakke og hygger. Han har sin hund med." + i,
                     "Søren går ud på bakken, sammen med sin flotte hund: 'Hans' Søren går ud på bakken, sammen med sin flotte hund: 'Hans' " +
                             "Søren går ud på bakken, sammen med sin flotte hund: 'Hans' Søren går ud på bakken, sammen med sin flotte hund: 'Hans' " +
                             "Søren går ud på bakken, sammen med sin flotte hund: 'Hans' " +
@@ -106,9 +113,30 @@ public class ProgramListController implements Initializable {
         scrollPane.setFitToWidth(true);
 
         List<ProgramEntity> k = test();
+        int rowSize = 0;
+        int columnSize = 0;
+
         for (int i = 0; i < test().size(); i++)
         {
-            programList.getChildren().add(showProgramList(k.get(i)));
+            if (i%4 == 0)
+            {
+                rowSize++;
+            }
+            if (i%4!= 0)
+            {
+                columnSize++;
+            }
+            if (i%4 == 0)
+            {
+                columnSize = 0;
+            }
+            //programList.getChildren().add(showProgramList(k.get(i)));
+            /*ColumnConstraints column = new ColumnConstraints(300);
+            listGridPane.getColumnConstraints().add(column);*/
+
+            listGridPane.add(showProgramList(k.get(i)),columnSize,rowSize);
+            //grid.add(NODE,COLUMNINDEX,ROWINDEX)
+
         }
     }
 }
