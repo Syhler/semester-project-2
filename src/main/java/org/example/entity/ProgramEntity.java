@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ProgramEntity {
-    private String id;
+    private Long id;
     private String name;
     private String description;
     private CompanyEntity company;
@@ -68,11 +68,11 @@ public class ProgramEntity {
         credits.remove(credit);
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

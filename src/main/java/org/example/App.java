@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.persistence.PersistenceHandler;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -35,6 +36,10 @@ public class App extends Application {
 
     public static void main(String[] args)
     {
+        PersistenceHandler p = new PersistenceHandler();
+
+        p.program().search("liv");
+
         launch();
     }
 

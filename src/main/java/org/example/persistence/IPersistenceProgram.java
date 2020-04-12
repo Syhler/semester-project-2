@@ -15,4 +15,5 @@ public interface IPersistenceProgram
     List<ProgramEntity> getAllPrograms();
     List<ProgramEntity> getProgramsByProducer(UserEntity producer);
     List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity);
+    List<ProgramEntity> search(String query);
 }
