@@ -7,11 +7,11 @@
     <updateProgram>Update</updateProgram>
     <deleteProgram>Delete</deleteProgram>
     <descriptionHeader>Description:</descriptionHeader>
-    <titleHeader>Title:</titleHeader>
+    <titleHeader>Title</titleHeader>
     <loggedInAs>Logged in as user:</loggedInAs>
     <createProgramStageTitle>Create Program</createProgramStageTitle>
-    <programCompany>Company:</programCompany>
-    <programCredits>Credits:</programCredits>
+    <programCompany>Company</programCompany>
+    <programCredits>Credits</programCredits>
     <cancel>Cancel</cancel>
     <insertTitle>Insert title here</insertTitle>
     <insertDescription>Insert description here</insertDescription>
@@ -19,7 +19,15 @@
     <updateProgramStageTitle>Update Program</updateProgramStageTitle>
     <updateCredits>Update credits</updateCredits>
     <remainingCharacters>characters remaining</remainingCharacters>
-
-
+    <producer>Producer</producer>
+    <insertProducer>Insert producer here</insertProducer>
+    <createCreditStageTitle>Create credit</createCreditStageTitle>
+    <firstName>First name</firstName>
+    <firstNamePrompt>Insert first </firstNamePrompt>
+    <middleName>Middle name</middleName>
+    <middleNamePrompt>Insert middle name here</middleNamePrompt>
+    <lastName>Last name</lastName>
+    <lastNamePrompt>Insert last name here</lastNamePrompt>
+    <creditTitlePrompt>Insert credit title here</creditTitlePrompt>
 
 </language>

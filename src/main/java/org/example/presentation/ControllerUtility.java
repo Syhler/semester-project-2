@@ -8,10 +8,11 @@ import javafx.stage.Stage;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class ControllerUtility {
+
     public static void closeProgram(ActionEvent event)
     {
-        Node source = (Node)  event.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
 

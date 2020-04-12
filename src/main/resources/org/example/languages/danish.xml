@@ -7,11 +7,11 @@
     <updateProgram>Opdater</updateProgram>
     <deleteProgram>Slet</deleteProgram>
     <descriptionHeader>Beskrivelse:</descriptionHeader>
-    <titleHeader>Titel:</titleHeader>
+    <titleHeader>Titel</titleHeader>
     <loggedInAs>Logged ind som bruger:</loggedInAs>
     <createProgramStageTitle>Opret Program</createProgramStageTitle>
-    <programCompany>Producent:</programCompany>
-    <programCredits>Kreditering:</programCredits>
+    <programCompany>Producent</programCompany>
+    <programCredits>Kreditering</programCredits>
     <cancel>Cancel</cancel>
     <insertTitle>Indsæt titel her</insertTitle>
     <insertDescription>Indsæt beskrivelse her</insertDescription>
@@ -19,8 +19,15 @@
     <updateProgramStageTitle>Opdater Program</updateProgramStageTitle>
     <updateCredits>Opdater kreditering</updateCredits>
     <remainingCharacters>tegn tilbage</remainingCharacters>
-
-
+    <producer>Producer</producer>
+    <insertProducer>Indsæt producer her</insertProducer>
+    <createCreditStageTitle>Opret kreditering</createCreditStageTitle>
+    <firstName>Fornavn</firstName>
+    <firstNamePrompt>Indsæt fornavn her</firstNamePrompt>
+    <middleName>Mellemnavn</middleName>
+    <middleNamePrompt>Indsæt mellemnavn her</middleNamePrompt>
+    <lastName>Efternavn</lastName>
+    <lastNamePrompt>Insæt efternavn her</lastNamePrompt>
+    <creditTitlePrompt>Indsæt kreditorers titel her</creditTitlePrompt>
 
 </language>
-

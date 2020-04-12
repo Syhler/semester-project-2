@@ -8,9 +8,9 @@
 
 <VBox fx:id="program" prefHeight="220.0" style="-fx-border-style: none none solid none; -fx-border-width: 2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.ProgramController">
    <children>
-      <VBox fx:id="programThumbnail">
+      <VBox fx:id="programThumbnail" alignment="CENTER">
          <children>
-            <ImageView fx:id="programImage" fitHeight="150.0" fitWidth="233.0" pickOnBounds="true">
+            <ImageView fx:id="programImage" fitHeight="150.0" fitWidth="240.0" pickOnBounds="true">
                <image>
                   <Image url="@loginImages/loginUserIcon.png" />
                </image>

@@ -57,20 +57,9 @@ public class ProgramListController implements Initializable {
             Parent node = loader.load();
             ProgramController programController = loader.<ProgramController>getController();
             programController.title.setText(programEntity.getName());
-            //programController.title.prefWidthProperty().bind(programList.widthProperty());
-            //programController.title.prefHeightProperty().bind(programList.heightProperty());
-            //programController.title.setMaxWidth(10);
-            //programController.programThumbnail.prefWidthProperty().bind(listGridPane.widthProperty());
-            //programController.programThumbnail.setMaxWidth(170);
-            //listGridPane.setMaxWidth(250);
+            programController.program.prefWidthProperty().bind(listGridPane.widthProperty());
+            //programController.program.setMaxWidth(240);
 
-
-            /*programController.description.setText(programEntity.getDescription());
-            programController.description.prefWidthProperty().bind(programList.widthProperty());
-
-            programController.buttonHolder.prefWidthProperty().bind(programList.widthProperty());
-            programController.buttonHolder.setMaxWidth(250);
-            programController.buttonHolder.setMinWidth(100);*/
             return node;
         } catch (IOException e) {
             e.printStackTrace();

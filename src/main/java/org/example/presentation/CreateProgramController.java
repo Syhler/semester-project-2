@@ -21,11 +21,15 @@ public class CreateProgramController implements Initializable {
     public Button cancelCreateProgram;
     public Label createProgTitle;
     public Label createProgDescription;
-    public TextField insertTitle;
+    public TextArea insertTitle;
     public TextArea insertDescription;
     public Button createProgBtn;
-    public int maxSize = 500;
-    public Label remainingCharacters;
+    public Label remainingCharactersDesc;
+    public Label remainingCharactersTitle;
+    public int maxSizeDesc = 500;
+    public int maxSizeTitle = 100;
+
+
 
     @FXML
     private void closeCreateProgram(ActionEvent event)
@@ -67,21 +71,34 @@ public class CreateProgramController implements Initializable {
     }
 
 
-    private void remainingCharacters()
+    private void remainingCharactersDesc()
     {
         insertDescription.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                remainingCharacters.setText(ControllerUtility.remainingCharacters(insertDescription, maxSize));
+                remainingCharactersDesc.setText(ControllerUtility.remainingCharacters(insertDescription, maxSizeDesc));
+            }
+        });
+    }
+    private void remainingCharactersTitle()
+    {
+        insertTitle.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                remainingCharactersTitle.setText(ControllerUtility.remainingCharacters(insertTitle, maxSizeTitle));
             }
         });
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        remainingCharacters();
-        remainingCharacters.setText(ControllerUtility.remainingCharacters(insertDescription, maxSize));
-        ControllerUtility.maxTextSize(insertDescription, maxSize);
+        remainingCharactersDesc();
+        remainingCharactersDesc.setText(ControllerUtility.remainingCharacters(insertDescription, maxSizeDesc));
+        ControllerUtility.maxTextSize(insertDescription, maxSizeDesc);
+
+        remainingCharactersTitle();
+        remainingCharactersTitle.setText(ControllerUtility.remainingCharacters(insertTitle, maxSizeTitle));
+        ControllerUtility.maxTextSize(insertTitle, maxSizeTitle);
 
         createProgTitle.setText(LanguageHandler.getText("titleHeader"));
         createProgDescription.setText(LanguageHandler.getText("descriptionHeader"));

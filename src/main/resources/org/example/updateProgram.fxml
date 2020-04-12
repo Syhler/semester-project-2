@@ -13,10 +13,16 @@
       <VBox prefHeight="66.0" prefWidth="395.0" spacing="2.0">
          <children>
             <Label fx:id="updateProgTitle" text="Titel:" />
-            <TextField fx:id="updateInsertTitle" promptText="Indsæt titel her">
+            <TextArea fx:id="updateInsertTitle" prefHeight="200.0" prefWidth="200.0" promptText="Indsæt titel her" wrapText="true">
                <VBox.margin>
                   <Insets right="5.0" />
-               </VBox.margin></TextField>
+               </VBox.margin>
+            </TextArea>
+            <Label fx:id="remainingCharactersTitle" text="Tegn">
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </Label>
          </children>
          <VBox.margin>
             <Insets bottom="10.0" left="5.0" top="5.0" />
@@ -30,7 +36,10 @@
                   <Insets right="5.0" />
                </VBox.margin>
             </TextArea>
-            <Label fx:id="remainingCharacters" text="Tegn" />
+            <Label fx:id="remainingCharactersDesc" text="Tegn">
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin></Label>
          </children>
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" top="5.0" />
@@ -45,13 +54,26 @@
                </VBox.margin></TextField>
          </children>
          <VBox.margin>
-            <Insets bottom="10.0" left="5.0" top="10.0" />
+            <Insets bottom="5.0" left="5.0" top="10.0" />
+         </VBox.margin>
+      </VBox>
+      <VBox layoutX="15.0" layoutY="214.0" prefHeight="58.0" prefWidth="395.0" spacing="2.0">
+         <children>
+            <Label fx:id="updateProgProducer" text="Producer:" />
+            <TextField fx:id="updateInsertProducer" promptText="Indsæt producent her">
+               <VBox.margin>
+                  <Insets right="5.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets left="5.0" top="10.0" />
          </VBox.margin>
       </VBox>
       <VBox layoutX="10.0" layoutY="317.0" prefHeight="200.0" prefWidth="100.0" spacing="2.0">
          <children>
             <Label fx:id="updateProgCredits" text="Kreditering:" />
-            <Button fx:id="updateCreditBtn" mnemonicParsing="false" text="Opret kreditering" />
+            <Button fx:id="updateCreditBtn" mnemonicParsing="false" onAction="#goToCreateCredit" text="Opret kreditering" />
          </children>
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" top="10.0" />
@@ -63,7 +85,7 @@
             <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#closeUpdateProgram" text="Cancel" />
          </children>
          <VBox.margin>
-            <Insets bottom="10.0" left="5.0" />
+            <Insets bottom="10.0" left="5.0" top="5.0" />
          </VBox.margin>
       </HBox>
    </children>

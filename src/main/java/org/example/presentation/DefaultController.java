@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -29,6 +30,8 @@ public class DefaultController implements Initializable
     @FXML
     public BorderPane borderPane;
     public Label loggedInAs;
+    public Label searchHeader;
+    public TextField searchField;
     private DomainHandler domainHandler = new DomainHandler();
 
     @FXML
