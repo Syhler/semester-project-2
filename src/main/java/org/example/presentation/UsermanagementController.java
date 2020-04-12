@@ -68,6 +68,8 @@ public class UsermanagementController implements Initializable {
     private TableColumn<UserEntity,String> col_title;
     @FXML
     private TableColumn<UserEntity,String> col_createdBy;
+    @FXML
+    private TableColumn<UserEntity,String> col_created;
 
     public ObservableList<UserEntity> userList = FXCollections.observableArrayList();
 
@@ -118,6 +120,7 @@ public class UsermanagementController implements Initializable {
         col_company.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
         col_createdBy.setCellValueFactory(new PropertyValueFactory<>("createdByName"));
+        col_created.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
         table.setItems(userList);
 
 

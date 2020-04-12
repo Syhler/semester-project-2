@@ -12,41 +12,40 @@
 
 <AnchorPane fx:id="usermanagementPane" prefHeight="504.0" prefWidth="705.0" stylesheets="@css/UsermangementStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.UsermanagementController">
    <children>
-      <HBox layoutX="113.0" layoutY="61.0" prefHeight="39.0" prefWidth="586.0">
+      <HBox layoutX="22.0" layoutY="72.0" prefHeight="39.0" prefWidth="370.0">
          <children>
             <ToggleButton fx:id="displayAdmins" mnemonicParsing="false" onAction="#displayByRole" prefHeight="40.0" prefWidth="85.0" text="Admins" />
-            <Separator orientation="VERTICAL" prefHeight="39.0" prefWidth="74.0" />
+            <Separator orientation="VERTICAL" prefHeight="39.0" prefWidth="0.0" />
             <ToggleButton fx:id="displayManufactures" mnemonicParsing="false" onAction="#displayByRole" prefHeight="39.0" prefWidth="94.0" text="Manufactures" />
-            <Separator orientation="VERTICAL" prefHeight="39.0" prefWidth="85.0" />
+            <Separator orientation="VERTICAL" prefHeight="39.0" prefWidth="0.0" />
             <ToggleButton fx:id="displayProducers" mnemonicParsing="false" onAction="#displayByRole" prefHeight="40.0" prefWidth="85.0" text="Producers" />
-            <Separator orientation="VERTICAL" prefHeight="39.0" prefWidth="71.0" />
+            <Separator orientation="VERTICAL" prefHeight="39.0" prefWidth="0.0" />
             <ToggleButton fx:id="displayActors" mnemonicParsing="false" onAction="#displayByRole" prefHeight="39.0" prefWidth="84.0" text="Actors" />
          </children>
       </HBox>
-      <HBox fx:id="optionsHbox" layoutX="113.0" layoutY="107.0" prefHeight="26.0" prefWidth="580.0" AnchorPane.bottomAnchor="371.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="107.0">
+      <HBox fx:id="optionsHbox" layoutX="405.0" layoutY="72.0" prefHeight="39.0" prefWidth="279.0" AnchorPane.bottomAnchor="393.0" AnchorPane.leftAnchor="405.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="72.0">
          <children>
-            <Button fx:id="createPopup" mnemonicParsing="false" onAction="#openCreateUser" prefHeight="26.0" prefWidth="470.0" text="Create">
+            <Button fx:id="createPopup" mnemonicParsing="false" onAction="#openCreateUser" prefHeight="39.0" prefWidth="96.0" text="Create">
                <HBox.margin>
-                  <Insets right="6.0" />
+                  <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="editBtn" mnemonicParsing="false" onAction="#openUpdateUser" prefHeight="25.0" prefWidth="48.0" text="Edit">
+            <Button fx:id="editBtn" mnemonicParsing="false" onAction="#openUpdateUser" prefHeight="39.0" prefWidth="71.0" text="Edit">
                <HBox.margin>
-                  <Insets right="6.0" />
+                  <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="deleteSelected" mnemonicParsing="false" onAction="#deleteUser" prefHeight="25.0" prefWidth="54.0" text="Delete" />
+            <Button fx:id="deleteSelected" mnemonicParsing="false" onAction="#deleteUser" prefHeight="39.0" prefWidth="89.0" text="Delete" />
          </children>
       </HBox>
-      <Separator layoutX="88.0" layoutY="200.0" prefHeight="9.0" prefWidth="500.0" visible="false" />
-      <Separator layoutX="88.0" layoutY="163.0" prefHeight="9.0" prefWidth="500.0" visible="false" />
-      <TableView fx:id="table" layoutX="110.0" layoutY="140.0" prefHeight="358.0" prefWidth="587.0">
+      <TableView fx:id="table" layoutX="19.0" layoutY="124.0" prefHeight="358.0" prefWidth="667.0">
         <columns>
-          <TableColumn fx:id="col_id" prefWidth="48.0" resizable="false" text="id" />
-          <TableColumn fx:id="col_name" prefWidth="132.7999725341797" resizable="false" text="name" />
-            <TableColumn fx:id="col_company" minWidth="6.0" prefWidth="128.79998779296875" resizable="false" text="company" />
-            <TableColumn fx:id="col_title" minWidth="0.0" prefWidth="151.19992065429688" resizable="false" text="title" />
-            <TableColumn fx:id="col_createdBy" prefWidth="120.0" resizable="false" text="created" />
+          <TableColumn fx:id="col_id" prefWidth="48.0" resizable="false" text="ID" />
+          <TableColumn fx:id="col_name" prefWidth="132.7999725341797" resizable="false" text="Name" />
+            <TableColumn fx:id="col_company" minWidth="6.0" prefWidth="128.79998779296875" resizable="false" text="Company" />
+            <TableColumn fx:id="col_title" minWidth="0.0" prefWidth="151.19992065429688" resizable="false" text="Title" />
+            <TableColumn fx:id="col_createdBy" prefWidth="120.0" resizable="false" text="Created By" />
+            <TableColumn fx:id="col_created" prefWidth="79.2000732421875" text="Created" />
         </columns>
       </TableView>
       <ToolBar fx:id="navigation" prefHeight="26.0" prefWidth="706.0" stylesheets="@css/UsermangementStyle.css">
