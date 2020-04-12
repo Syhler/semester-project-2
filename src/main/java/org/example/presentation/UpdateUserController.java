@@ -142,9 +142,6 @@ public class UpdateUserController implements Initializable {
             updateUserController.roleValue = role;
             updateUserController.user = userToUpdate;
 
-            System.out.println("User obj after parsing to controller"+userToUpdate);
-
-
             updateUserController.firstname.setText(userToUpdate.getFirstName());
             updateUserController.middelname.setText(userToUpdate.getMiddleName());
             updateUserController.lastname.setText(userToUpdate.getLastName());

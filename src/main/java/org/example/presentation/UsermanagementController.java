@@ -44,13 +44,13 @@ public class UsermanagementController implements Initializable {
     private Button login;
 
     @FXML
-    private Button displayAdmins;
+    private ToggleButton displayAdmins;
     @FXML
-    private Button displayManufactures;
+    private ToggleButton displayManufactures;
     @FXML
-    private Button displayProducers;
+    private ToggleButton displayProducers;
     @FXML
-    private Button displayActors;
+    private ToggleButton displayActors;
 
     @FXML
     private Button createPopup;
@@ -85,17 +85,20 @@ public class UsermanagementController implements Initializable {
         {
             case 1:
                 displayAdmins.fire();
+                displayAdmins.setSelected(true);
                 break;
             case 2:
                 displayAdmins.setVisible(false);
                 displayManufactures.setVisible(false);
                 displayProducers.fire();
+                displayProducers.setSelected(true);
                 break;
             case 3:
                 displayAdmins.setVisible(false);
                 displayManufactures.setVisible(false);
                 displayProducers.setVisible(false);
                 displayActors.fire();
+                displayActors.setSelected(true);
                 break;
             case 4:
                 displayAdmins.setVisible(false);
@@ -157,24 +160,36 @@ public class UsermanagementController implements Initializable {
             userList.clear();
             userList.addAll(domainHandler.user().getUserByRole(Role.Admin));
             roleTap = 1;
+            displayManufactures.setSelected(false);
+            displayProducers.setSelected(false);
+            displayActors.setSelected(false);
         }
         if (displayByRole == displayManufactures)
         {
             userList.clear();
             userList.addAll(domainHandler.user().getUserByRole(Role.Manufacture));
             roleTap = 2;
+            displayAdmins.setSelected(false);
+            displayProducers.setSelected(false);
+            displayActors.setSelected(false);
         }
         if (displayByRole == displayProducers)
         {
             userList.clear();
             userList.addAll(domainHandler.user().getUserByRole(Role.Producer));
             roleTap = 3;
+            displayManufactures.setSelected(false);
+            displayAdmins.setSelected(false);
+            displayActors.setSelected(false);
         }
         if (displayByRole == displayActors)
         {
             userList.clear();
             userList.addAll(domainHandler.user().getUserByRole(Role.Actor));
             roleTap = 4;
+            displayManufactures.setSelected(false);
+            displayProducers.setSelected(false);
+            displayAdmins.setSelected(false);
         }
 
     }
