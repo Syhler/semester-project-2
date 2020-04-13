@@ -36,10 +36,6 @@ public class App extends Application {
 
     public static void main(String[] args)
     {
-        PersistenceHandler p = new PersistenceHandler();
-
-        p.program().search("liv");
-
         launch();
     }
 
