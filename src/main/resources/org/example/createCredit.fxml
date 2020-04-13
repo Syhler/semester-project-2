@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.CreateCreditController">
+<VBox prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.CreditController">
    <children>
       <VBox>
          <children>
@@ -36,6 +36,15 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </VBox>
+      <VBox>
+         <children>
+            <Label fx:id="emailHeader" text="Email" />
+            <TextField fx:id="emailPrompt" promptText="Indsæt email her" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </VBox>
       <VBox layoutX="15.0" layoutY="119.0">
          <children>
             <Label fx:id="creditTitleHeader" text="Titel" />
@@ -47,7 +56,7 @@
       </VBox>
       <HBox spacing="10.0">
          <children>
-            <Button fx:id="createCreditBtn" mnemonicParsing="false" text="Opret kreditering" />
+            <Button fx:id="createCreditBtn" mnemonicParsing="false" onAction="#createActor" text="Opret kreditering" />
             <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#closeCreateCredit" text="Cancel" />
          </children>
          <VBox.margin>

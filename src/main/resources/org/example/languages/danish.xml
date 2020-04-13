@@ -29,5 +29,8 @@
     <lastName>Efternavn</lastName>
     <lastNamePrompt>Insæt efternavn her</lastNamePrompt>
     <creditTitlePrompt>Indsæt kreditorers titel her</creditTitlePrompt>
+    <emailHeader>Email</emailHeader>
+    <emailPrompt>Indsæt kreditorers email her</emailPrompt>
+    <add>Tilføj</add>
 
 </language>

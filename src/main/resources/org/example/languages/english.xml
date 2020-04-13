@@ -29,5 +29,8 @@
     <lastName>Last name</lastName>
     <lastNamePrompt>Insert last name here</lastNamePrompt>
     <creditTitlePrompt>Insert credit title here</creditTitlePrompt>
+    <emailHeader>Email</emailHeader>
+    <emailPrompt>Insert credit email here</emailPrompt>
+    <add>Add</add>
 
 </language>

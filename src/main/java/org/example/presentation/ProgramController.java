@@ -39,14 +39,6 @@ public class ProgramController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*showMore.setText(LanguageHandler.getText("showMore"));
-        updateProgram.setText(LanguageHandler.getText("updateProgram"));
-        deleteProgram.setText(LanguageHandler.getText("deleteProgram"));
-        titleHeader.setText(LanguageHandler.getText("titleHeader"));
-        descriptionHeader.setText(LanguageHandler.getText("descriptionHeader"));
-        createProgTitle.setText(LanguageHandler.getText("titleHeader"));
-        createProgDescription.setText(LanguageHandler.getText("descriptionHeader"));
-        createProgCompany.setText(LanguageHandler.getText("createProgCompany"));
-        createProgProducer.setText(LanguageHandler.getText("createProgProducer"));*/
+
     }
 }

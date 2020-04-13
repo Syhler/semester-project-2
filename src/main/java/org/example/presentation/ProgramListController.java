@@ -75,9 +75,9 @@ public class ProgramListController implements Initializable {
         List<UserEntity> producerList = new ArrayList<UserEntity>();
         producerList.add(producer);
 
-        CreditEntity credits = new CreditEntity("673267", producer);
+        CreditEntity credit = new CreditEntity("673267", producer);
         List<CreditEntity> creditList = new ArrayList<CreditEntity>();
-        creditList.add(credits);
+        creditList.add(credit);
 
         List<ProgramEntity> programmer = new ArrayList<ProgramEntity>();
 
@@ -90,9 +90,32 @@ public class ProgramListController implements Initializable {
                             "Søren går ud på bakken, sammen med sin flotte hund: 'Hans' " + i, company, producerList, creditList);
             programmer.add(programEntity);
         }
-
         return programmer;
     }
+
+    public ProgramEntity updateProgram()
+    {
+        UpdateProgramController updateProgramController = new UpdateProgramController();
+        CompanyEntity company = new CompanyEntity((String) updateProgramController.chooseCompany.getSelectionModel().getSelectedItem());
+
+        List<UserEntity> producerList = new ArrayList<UserEntity>();
+        producerList.add((UserEntity) updateProgramController.producerCreatorTest());
+
+        String title;
+        title = updateProgramController.getTitle();
+
+        String description;
+        description = updateProgramController.getDescription();
+
+        CreditEntity credit = new CreditEntity("?", );
+        List<CreditEntity> creditList = new ArrayList<CreditEntity>();
+        creditList.add(credit);
+
+        ProgramEntity program = new ProgramEntity(title, description, company, producerList, creditList);
+
+        return program;
+    }
+
 
 
 
@@ -119,13 +142,8 @@ public class ProgramListController implements Initializable {
             {
                 columnSize = 0;
             }
-            //programList.getChildren().add(showProgramList(k.get(i)));
-            /*ColumnConstraints column = new ColumnConstraints(300);
-            listGridPane.getColumnConstraints().add(column);*/
 
             listGridPane.add(showProgramList(k.get(i)),columnSize,rowSize);
-            //grid.add(NODE,COLUMNINDEX,ROWINDEX)
-
         }
     }
 }

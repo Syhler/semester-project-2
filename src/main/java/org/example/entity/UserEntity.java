@@ -62,4 +62,15 @@ public class UserEntity {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getName()
+    {
+        return firstName +" "+ middleName +" "+ lastName;
+    }
+
+    public String getFirstName() { return firstName; }
+    public String getMiddleName() { return middleName; }
+    public String getLastName() { return lastName; }
+    public String getEmail() { return email; }
+
 }

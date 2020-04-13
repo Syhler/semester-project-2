@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.presentation.UpdateProgramController;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -25,6 +26,8 @@ public class App extends Application {
         stage.setMinHeight(720);
         stage.setScene(scene);
         stage.show();
+        /*UpdateProgramController updateProgramController = new UpdateProgramController();
+        updateProgramController.chooseCompany();*/
     }
 
     static void setRoot(String fxml) throws IOException {
