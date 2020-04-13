@@ -5,14 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ProgramEntity {
-    private String id;
+    private long id;
+    private long programinformationId;
     private String name;
     private String description;
     private CompanyEntity company;
     private List<UserEntity> producer;
     private List<CreditEntity> credits;
 
-    public ProgramEntity(String id, String name, String description, String titel, CompanyEntity company, List<UserEntity> producer, List<CreditEntity> credits) {
+    public ProgramEntity(long id, String name, String description, CompanyEntity company, List<UserEntity> producer,
+                         List<CreditEntity> credits) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -21,10 +23,20 @@ public class ProgramEntity {
         this.credits = credits;
     }
 
-    public ProgramEntity(String id, String name, String description) {
-        this.id = id;
+    public ProgramEntity(String name, String description, CompanyEntity company, List<UserEntity> producer,
+                         List<CreditEntity> credits) {
+
         this.name = name;
         this.description = description;
+        this.company = company;
+        this.producer = producer;
+        this.credits = credits;
+    }
+
+    public ProgramEntity(long id, String name) {
+        this.id = id;
+        this.name = name;
+
     }
 
     public void setName(String name) {
@@ -75,11 +87,19 @@ public class ProgramEntity {
         credits.remove(credit);
     }
 
-    public String getId() {
+    public long getPrograminformationId() {
+        return programinformationId;
+    }
+
+    public void setPrograminformationId(long programinformationId) {
+        this.programinformationId = programinformationId;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

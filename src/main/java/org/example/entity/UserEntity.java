@@ -3,7 +3,7 @@ package org.example.entity;
 import java.util.Date;
 
 public class UserEntity {
-    private String id;
+    private long id;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -24,6 +24,19 @@ public class UserEntity {
         this.createdAt = createdAt;
         this.company = company;
         this.role = role;
+        this.title = title;
+    }
+
+    public UserEntity(long id) {
+        this.id = id;
+    }
+
+    public UserEntity(long id, String firstName, String middleName, String lastName, String email, String title) {
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.email = email;
         this.title = title;
     }
 
@@ -55,10 +68,10 @@ public class UserEntity {
         this.createdBy = createdBy;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

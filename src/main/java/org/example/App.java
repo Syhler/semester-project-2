@@ -5,10 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.entity.CompanyEntity;
+import org.example.entity.CreditEntity;
+import org.example.entity.ProgramEntity;
+import org.example.entity.UserEntity;
+import org.example.persistence.PersistenceProgram;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JavaFX App
@@ -36,6 +43,7 @@ public class App extends Application {
     {
         LanguageHandler.initLanguage(Language.Danish);
         launch();
+
     }
 
 }

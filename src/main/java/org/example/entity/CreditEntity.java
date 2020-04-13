@@ -1,19 +1,23 @@
 package org.example.entity;
 
 public class CreditEntity {
-    private String programId;
+    private long programId;
     private UserEntity actor;
 
-    public CreditEntity(String programId, UserEntity actor) {
+    public CreditEntity(long programId, UserEntity actor) {
         this.programId = programId;
         this.actor = actor;
     }
 
-    public String getProgramId() {
+    public CreditEntity(UserEntity userEntity) {
+        this.actor = userEntity;
+    }
+
+    public long getProgramId() {
         return programId;
     }
 
-    public void setProgramId(String programId) {
+    public void setProgramId(long programId) {
         this.programId = programId;
     }
 
