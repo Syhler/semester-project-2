@@ -24,4 +24,5 @@ public class CreditEntity {
     public void setActor(UserEntity actor) {
         this.actor = actor;
     }
+
 }

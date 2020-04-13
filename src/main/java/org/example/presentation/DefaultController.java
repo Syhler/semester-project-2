@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
+import org.example.entity.ProgramEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class DefaultController implements Initializable
@@ -33,6 +34,7 @@ public class DefaultController implements Initializable
     public Label searchHeader;
     public TextField searchField;
     private DomainHandler domainHandler = new DomainHandler();
+    public ProgramListController programListController;
 
     @FXML
     private void goToLogin(ActionEvent event)
@@ -59,14 +61,27 @@ public class DefaultController implements Initializable
 
     @FXML
     private void goToCreateProgram(ActionEvent event) throws IOException {
-        Parent root = App.getLoader("createProgram").load();
 
-        Scene scene = new Scene(root);
+        CreateProgramController createProgramController = new CreateProgramController();
+        ProgramEntity programEntity = createProgramController.openView();
+        if (programEntity != null)
+        {
+            programListController.programEntityList.add(programEntity);
+            programListController.updateProgramList();
+        }
+    }
 
-        Stage stage = new Stage();
-        stage.setTitle(LanguageHandler.getText("createProgramStageTitle"));
-        stage.setScene(scene);
-        stage.show();
+    public void loadProgramList()
+    {
+        FXMLLoader loader = null;
+        try {
+            loader = App.getLoader("programList");
+            Parent node = loader.load();
+            programListController = loader.getController();
+            borderPane.setCenter(node);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -86,9 +101,8 @@ public class DefaultController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createProgram.setText(LanguageHandler.getText("createProgram"));
-        ProgramListController programListController = new ProgramListController();
-        borderPane.setCenter(programListController.openView());
         loggedInAs.setText(LanguageHandler.getText("loggedInAs"));
+        loadProgramList();
 
     }
 }

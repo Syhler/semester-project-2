@@ -24,8 +24,9 @@ public class ProgramListController implements Initializable {
     private DomainHandler domainHandler;
     @FXML
     public VBox programList;
+    public List<ProgramEntity> programEntityList = new ArrayList<ProgramEntity>();
 
-    public Node openView() {
+    /*public Node openView() {
         FXMLLoader loader = null;
         try {
             loader = App.getLoader("programList");
@@ -35,10 +36,14 @@ public class ProgramListController implements Initializable {
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 
     public Node showProgramList(ProgramEntity programEntity)
     {
+        if (programEntity == null)
+        {
+            return null;
+        }
         FXMLLoader loader = null;
         try {
             loader = App.getLoader("program");
@@ -47,6 +52,7 @@ public class ProgramListController implements Initializable {
             programController.title.setText(programEntity.getName());
             programController.program.prefWidthProperty().bind(listGridPane.widthProperty());
             //programController.program.setMaxWidth(240);
+            programController.programEntity = programEntity;
 
             return node;
         } catch (IOException e) {
@@ -90,11 +96,10 @@ public class ProgramListController implements Initializable {
 
     public void updateProgramList()
     {
-        List<ProgramEntity> k = programList();
         int rowSize = 0;
         int columnSize = 0;
 
-        for (int i = 0; i < programList().size(); i++)
+        for (int i = 0; i < programEntityList.size(); i++)
         {
             if (i%4 == 0)
             {
@@ -109,7 +114,7 @@ public class ProgramListController implements Initializable {
                 columnSize = 0;
             }
 
-            listGridPane.add(showProgramList(k.get(i)),columnSize,rowSize);
+            listGridPane.add(showProgramList(programEntityList.get(i)),columnSize,rowSize);
         }
     }
 

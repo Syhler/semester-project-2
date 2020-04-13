@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.App;
+import org.example.entity.ProgramEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
@@ -28,8 +29,31 @@ public class CreateProgramController implements Initializable {
     public Label remainingCharactersTitle;
     public int maxSizeDesc = 500;
     public int maxSizeTitle = 100;
+    public ProgramEntity programEntity;
 
 
+    public ProgramEntity openView()
+    {
+        Parent root = null;
+        FXMLLoader loader = null;
+
+        try {
+            loader = App.getLoader("createProgram");
+            root = loader.load();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        CreateProgramController createProgramController = loader.<CreateProgramController>getController();
+
+        Scene scene = new Scene(root);
+
+        Stage stage = new Stage();
+        stage.setTitle(LanguageHandler.getText("createProgramStageTitle"));
+        stage.setScene(scene);
+        stage.showAndWait();
+        return createProgramController.programEntity;
+    }
 
     @FXML
     private void closeCreateProgram(ActionEvent event)
@@ -41,21 +65,8 @@ public class CreateProgramController implements Initializable {
 
     @FXML
     public void goToUpdateProgram(ActionEvent event) throws IOException {
-
-        FXMLLoader loader = null;
-        loader = App.getLoader("updateProgram");
-        Parent node = loader.load();
-        UpdateProgramController updateProgramController = loader.<UpdateProgramController>getController();
-
-        Scene scene = new Scene(node);
-
-        Stage stage = new Stage();
-        stage.setTitle(LanguageHandler.getText("updateProgramStageTitle"));
-        stage.setScene(scene);
-        stage.show();
-
-        updateProgramController.updateInsertTitle.setText(getTitle());
-        updateProgramController.updateInsertDescription.setText(getDescription());
+        UpdateProgramController updateProgramController = new UpdateProgramController();
+        programEntity = updateProgramController.openView(getTitle(), getDescription());
 
         closeCreateProgram(event);
     }

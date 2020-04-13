@@ -4,9 +4,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.example.App;
 import org.example.entity.*;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -41,12 +46,33 @@ public class UpdateProgramController implements Initializable {
     public List<UserEntity> producers = new ArrayList<UserEntity>();
     public List<CreditEntity> credits = new ArrayList<CreditEntity>();
     public CompanyEntity company;
+    public ProgramEntity programEntity;
 
 
     @FXML
     private void closeUpdateProgram(ActionEvent event)
     {
         ControllerUtility.closeProgram(event);
+    }
+
+    public ProgramEntity openView(String title, String description) throws IOException {
+
+        FXMLLoader loader = null;
+        loader = App.getLoader("updateProgram");
+        Parent node = loader.load();
+        UpdateProgramController updateProgramController = loader.<UpdateProgramController>getController();
+
+        updateProgramController.updateInsertTitle.setText(title);
+        updateProgramController.updateInsertDescription.setText(description);
+
+        Scene scene = new Scene(node);
+
+        Stage stage = new Stage();
+        stage.setTitle(LanguageHandler.getText("updateProgramStageTitle"));
+        stage.setScene(scene);
+        stage.showAndWait();
+
+        return updateProgramController.programEntity;
     }
 
     @FXML
@@ -166,6 +192,9 @@ public class UpdateProgramController implements Initializable {
     public void goToCreateCredit(ActionEvent event) throws IOException {
         CreditController creditController = new CreditController();
         UserEntity credit = creditController.openView();
+
+        if (credit == null) return;
+
         creditList.appendText(credit.getName() +" - "+ credit.getTitle() +"\n");
         CreditEntity creditEntity = new CreditEntity(0,credit);
         credits.add(creditEntity);
@@ -182,7 +211,7 @@ public class UpdateProgramController implements Initializable {
     }
 
     @FXML
-    public ProgramEntity updateProgram(ActionEvent event)
+    public void updateProgram(ActionEvent event)
     {
         company = chooseCompany.getSelectionModel().getSelectedItem();
 
@@ -200,8 +229,8 @@ public class UpdateProgramController implements Initializable {
         programListController.programList().add(program);
         programListController.updateProgramList();
 
+        programEntity = program;
         closeUpdateProgram(event);
-        return program;
     }
 
 

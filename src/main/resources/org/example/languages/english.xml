@@ -32,5 +32,6 @@
     <emailHeader>Email</emailHeader>
     <emailPrompt>Insert credit email here</emailPrompt>
     <add>Add</add>
+    <programInformationStageTitle>Program information</programInformationStageTitle>
 
 </language>
