@@ -18,7 +18,9 @@ import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CreditController implements Initializable {
@@ -35,7 +37,7 @@ public class CreditController implements Initializable {
     public TextField creaditTitlePrompt;
     public Button createCreditBtn;
     public Button cancelBtn;
-    public String creditActor;
+    public UserEntity creditActor;
 
 
     @FXML
@@ -51,7 +53,7 @@ public class CreditController implements Initializable {
 
     }
 
-    public String openView() {
+    public UserEntity openView() {
         FXMLLoader loader = null;
         try {
             loader = App.getLoader("createCredit");
@@ -75,7 +77,7 @@ public class CreditController implements Initializable {
         UserEntity actorCredit = new UserEntity(creaditTitlePrompt.getText(), firstNamePrompt.getText(),
                 middleNamePrompt.getText(), lastNamePrompt.getText(), new Date(), emailPrompt.getText());
 
-        creditActor = actorCredit.getName() +" - "+ actorCredit.getTitle() +"\n";
+        creditActor = actorCredit;
 
         closeCreateCredit(event);
     }

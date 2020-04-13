@@ -4,15 +4,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import org.example.App;
-import org.example.entity.CompanyEntity;
-import org.example.entity.UserEntity;
+import javafx.util.Callback;
+import org.example.entity.*;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
@@ -38,12 +33,14 @@ public class UpdateProgramController implements Initializable {
     public Label remainingCharactersTitle;
     public int maxSizeTitle = 100;
     public Label updateProgProducer;
-    public ChoiceBox chooseCompany;
-    public ChoiceBox chooseProducer;
+    public ComboBox<CompanyEntity> chooseCompany;
+    public ComboBox<UserEntity> chooseProducer;
     public TextArea creditList;
     public TextArea producerList;
     public Button addSelectedProducer;
-    public String producer;
+    public List<UserEntity> producers = new ArrayList<UserEntity>();
+    public List<CreditEntity> credits = new ArrayList<CreditEntity>();
+    public CompanyEntity company;
 
 
     @FXML
@@ -74,76 +71,104 @@ public class UpdateProgramController implements Initializable {
         });
     }
 
-    public List<String> companyTest()
+    public List<CompanyEntity> companyTest()
     {
         CompanyEntity companyTV2 = new CompanyEntity("TV2");
         CompanyEntity companyDR1 = new CompanyEntity("DR1");
         CompanyEntity companyBlue = new CompanyEntity("Blue");
-        List<String> companies = new ArrayList<>();
-        companies.add(companyBlue.getName());
-        companies.add(companyTV2.getName());
-        companies.add(companyDR1.getName());
+        List<CompanyEntity> companies = new ArrayList<>();
+        companies.add(companyBlue);
+        companies.add(companyTV2);
+        companies.add(companyDR1);
         return companies;
     }
 
     public void chooseCompany()
     {
         chooseCompany.getItems().addAll(companyTest());
+
+        Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactory = new Callback<>() {
+
+            @Override
+            public ListCell<CompanyEntity> call(ListView<CompanyEntity> l) {
+                return new ListCell<CompanyEntity>() {
+
+                    @Override
+                    protected void updateItem(CompanyEntity item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(item.getName());
+                        }
+                    }
+                };
+            }
+        };
+        chooseCompany.setCellFactory(cellFactory);
+        chooseCompany.setButtonCell(cellFactory.call(null));
     }
 
 
     public List<UserEntity> producerCreatorTest()
     {
-
         UserEntity userEntity1 = new UserEntity("Producer", "Hans", "Jørgen", "Producermand1", new Date(), "Hans@email.com");
         UserEntity userEntity2 = new UserEntity("Producer", "Jørgen", "Hans", "Producermand2", new Date(), "Hans@email.com");
         UserEntity userEntity3 = new UserEntity("Producer", "Bent", "Karl", "Producermand3", new Date(), "Hans@email.com");
-        UserEntity userEntity4 = new UserEntity("Kameramand", "Bo", "Jens", "Kameramand4", new Date(), "Hans@email.com");
-        UserEntity userEntity5 = new UserEntity("Lydmand", "Karl", "Grøn", "Lydmand5", new Date(), "Hans@email.com");
         UserEntity userEntity6 = new UserEntity("Producer", "Mogens", "Søren", "Producermand6", new Date(), "Hans@email.com");
 
         List<UserEntity> users = new ArrayList<UserEntity>();
         users.add(userEntity1);
         users.add(userEntity2);
         users.add(userEntity3);
-        users.add(userEntity4);
-        users.add(userEntity5);
         users.add(userEntity6);
 
         return users;
     }
 
-    public List<String> producerTest()
-    {
-        List<String> producerUsers = new ArrayList<>();
-
-        for (int i = 0; i < producerCreatorTest().size(); i++)
-        {
-            if (producerCreatorTest().get(i).getTitle() == "Producer")
-            {
-                producerUsers.add(producerCreatorTest().get(i).getName());
-            }
-        }
-
-        return producerUsers;
-    }
 
     public void chooseProducer()
     {
-        chooseProducer.getItems().addAll(producerTest());
+        chooseProducer.getItems().addAll(producerCreatorTest());
+
+        Callback<ListView<UserEntity>, ListCell<UserEntity>> cellFactory = new Callback<>() {
+
+            @Override
+            public ListCell<UserEntity> call(ListView<UserEntity> l) {
+                return new ListCell<UserEntity>() {
+
+                    @Override
+                    protected void updateItem(UserEntity item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(item.getName());
+                        }
+                    }
+                };
+            }
+        };
+
+        chooseProducer.setCellFactory(cellFactory);
+        chooseProducer.setButtonCell(cellFactory.call(null));
     }
 
     public void addProducer(ActionEvent event)
     {
-        producer = (String) chooseProducer.getSelectionModel().getSelectedItem() + "\n";
-        producerList.appendText(producer);
+        UserEntity producer = chooseProducer.getSelectionModel().getSelectedItem();
+        producerList.appendText(producer.getName()+"\n");
+        producers.add(chooseProducer.getSelectionModel().getSelectedItem());
     }
 
 
     @FXML
     public void goToCreateCredit(ActionEvent event) throws IOException {
         CreditController creditController = new CreditController();
-        creditList.appendText(creditController.openView());
+        UserEntity credit = creditController.openView();
+        creditList.appendText(credit.getName() +" - "+ credit.getTitle() +"\n");
+        CreditEntity creditEntity = new CreditEntity(0,credit);
+        credits.add(creditEntity);
     }
 
     public String getTitle()
@@ -154,6 +179,29 @@ public class UpdateProgramController implements Initializable {
     public String getDescription()
     {
         return updateInsertDescription.getText();
+    }
+
+    @FXML
+    public ProgramEntity updateProgram(ActionEvent event)
+    {
+        company = chooseCompany.getSelectionModel().getSelectedItem();
+
+        String title;
+        title = getTitle();
+
+        String description;
+        description = getDescription();
+
+        ProgramEntity program = new ProgramEntity(title, description, company, producers, credits);
+
+        System.out.println(program.toString());
+
+        ProgramListController programListController = new ProgramListController();
+        programListController.programList().add(program);
+        programListController.updateProgramList();
+
+        closeUpdateProgram(event);
+        return program;
     }
 
 
@@ -187,7 +235,6 @@ public class UpdateProgramController implements Initializable {
         updateProgCredits.setText(LanguageHandler.getText("programCredits"));
         updateCreditBtn.setText(LanguageHandler.getText("createCreditStageTitle"));
         updateProgProducer.setText(LanguageHandler.getText("producer"));
-
 
     }
 }

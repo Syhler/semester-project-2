@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ProgramEntity {
-    private String id;
+    private long id;
     private String name;
     private String description;
     private CompanyEntity company;
@@ -68,17 +68,18 @@ public class ProgramEntity {
         credits.remove(credit);
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Override
     public String toString() {
-        return "ID: " + id + " Name: " + name + " Description: " + description + " Company: " + company + " Producer: " + Arrays.asList(producer) + " Credits: " + Arrays.asList(credits);
+        return "ID: " + id + " Name: " + name + " Description: " + description + " Company: " + company +
+                " Producer: " + Arrays.asList(producer) + " Credits: " + Arrays.asList(credits);
     }
 
 }

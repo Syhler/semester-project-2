@@ -26,8 +26,6 @@ public class App extends Application {
         stage.setMinHeight(720);
         stage.setScene(scene);
         stage.show();
-        /*UpdateProgramController updateProgramController = new UpdateProgramController();
-        updateProgramController.chooseCompany();*/
     }
 
     static void setRoot(String fxml) throws IOException {
