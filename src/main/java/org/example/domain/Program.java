@@ -14,19 +14,19 @@ public class Program implements IProgram {
 
 
 
-    public Boolean createProgram(ProgramEntity programEntity){
+    public long createProgram(ProgramEntity programEntity){
         return persistenceHandler.program().createProgram(programEntity);
     }
     public Boolean deleteProgram(ProgramEntity programEntity){
         return persistenceHandler.program().deleteProgram(programEntity);
     }
     public Boolean updateProgram(ProgramEntity programEntity){
-        return persistenceHandler.program().deleteProgram(programEntity);
+        return persistenceHandler.program().updateProgram(programEntity);
     }
     public List<ProgramEntity> getAllPrograms(){
         return persistenceHandler.program().getAllPrograms();
     }
-    public ProgramEntity getProgramById(String id){
+    public ProgramEntity getProgramById(ProgramEntity id){
         return persistenceHandler.program().getProgramById(id);
     }
     public List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity){

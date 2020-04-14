@@ -57,7 +57,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="deleteProgBtn" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Delete">
+            <Button fx:id="deleteProgBtn" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteProgram" text="Delete">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>

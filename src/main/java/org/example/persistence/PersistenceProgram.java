@@ -23,7 +23,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param language_id
      * @return
      */
-
     private long programInformation(ProgramEntity programEntity, long language_id) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO programInformation" +
@@ -102,7 +101,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
                 statementProducer.setLong(2,user.getId());
                 statementProducer.addBatch();
             }
-           int[] count = statementProducer.executeBatch();
+           statementProducer.executeBatch();
             connection.commit();
             connection.setAutoCommit(true);
 
@@ -127,7 +126,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             statementCredit.setLong(2,credit.getActor().getId());
             statementCredit.addBatch();
             }
-        int[] count = statementCredit.executeBatch();
+        statementCredit.executeBatch();
         connection.commit();
         connection.setAutoCommit(true);
         }catch (SQLException e){
@@ -140,15 +139,25 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
 
     @Override
-    public boolean createProgram(ProgramEntity programEntity) {
+    public long createProgram(ProgramEntity programEntity) {
 
-        programEntity.setId(insertProgram());
+        long programId = insertProgram();
+        programEntity.setId(programId);
         programInformation(programEntity,1);
-        companyProgram(programEntity.getCompany().getId(), programEntity.getId());
-        insertProducer(programEntity.getProducer(),programEntity.getId());
-        insertCredit(programEntity.getCredits(),programEntity.getId());
+        if (programEntity.getCompany() != null)
+        {
+            companyProgram(programEntity.getCompany().getId(), programEntity.getId());
+        }
+        if (programEntity.getProducer() != null)
+        {
+            insertProducer(programEntity.getProducer(),programEntity.getId());
+        }
+        if (programEntity.getCredits() != null)
+        {
+            insertCredit(programEntity.getCredits(),programEntity.getId());
+        }
 
-        return true;
+        return programEntity.getId();
     }
 
     //soft deleting instead of just outright deleting
@@ -234,9 +243,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     public boolean deleteProgram(ProgramEntity programEntity) {
         softDeleteProgramTable(programEntity.getId());
 
-
         return true;
-
     }
 
 
@@ -269,7 +276,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param programEntity
      * @return
      */
-
     @Override
     public boolean updateProgram(ProgramEntity programEntity) {
         try {
@@ -286,8 +292,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             e.printStackTrace();
             return false;
         }
-
-
     }
 
     /**
@@ -295,7 +299,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param programEntity
      * @return list of all the actors on a program.
      */
-
     public ArrayList<CreditEntity> getCreditUser(ProgramEntity programEntity){
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT credit.program, \"user\".id, \"user\".title, \"user\"" +
@@ -346,7 +349,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param programEntity
      * @return A company entity
      */
-
     public CompanyEntity getCompanyProgram(ProgramEntity programEntity){
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT company.name , company.id from company" +
@@ -384,7 +386,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
             var resultSet = stmt.executeQuery();
 
-
             // checks if resultset contains any rows
             if (!resultSet.next()) {
                 return null;
@@ -392,7 +393,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             ProgramEntity returnValue = new ProgramEntity(resultSet.getLong("program_id"),resultSet.getString("title"),
                     resultSet.getString("description"), getCompanyProgram(programEntity),
                     getProducerforProgram(programEntity), getCreditUser(programEntity));
-
 
             return returnValue;
 
@@ -419,7 +419,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             while (sqlReturnValues.next()) {
                 
                 returnvalue.add(new ProgramEntity(sqlReturnValues.getLong("program_id"),sqlReturnValues.getString("title")));
-
 
             }
             return returnvalue;
@@ -503,5 +502,4 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         return user;
 
     }
-
 }
