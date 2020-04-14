@@ -11,7 +11,7 @@ public interface IPersistenceProgram
     boolean createProgram(ProgramEntity programEntity);
     boolean deleteProgram(ProgramEntity programEntity);
     boolean updateProgram(ProgramEntity programEntity);
-    ProgramEntity getProgramById(String id);
+    ProgramEntity getProgramById(ProgramEntity programEntity);
     List<ProgramEntity> getAllPrograms();
     List<ProgramEntity> getProgramsByProducer(UserEntity producer);
     List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity);

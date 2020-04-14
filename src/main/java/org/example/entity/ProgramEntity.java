@@ -6,18 +6,37 @@ import java.util.List;
 
 public class ProgramEntity {
     private long id;
+    private long programinformationId;
     private String name;
     private String description;
     private CompanyEntity company;
     private List<UserEntity> producer;
     private List<CreditEntity> credits;
 
-    public ProgramEntity(String name, String description, CompanyEntity company, List<UserEntity> producer, List<CreditEntity> credits) {
+    public ProgramEntity(long id, String name, String description, CompanyEntity company, List<UserEntity> producer,
+                         List<CreditEntity> credits) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.company = company;
         this.producer = producer;
         this.credits = credits;
+    }
+
+    public ProgramEntity(String name, String description, CompanyEntity company, List<UserEntity> producer,
+                         List<CreditEntity> credits) {
+
+        this.name = name;
+        this.description = description;
+        this.company = company;
+        this.producer = producer;
+        this.credits = credits;
+    }
+
+    public ProgramEntity(long id, String name) {
+        this.id = id;
+        this.name = name;
+
     }
 
     public void setName(String name) {
@@ -66,6 +85,15 @@ public class ProgramEntity {
 
     public void removeCredit(CreditEntity credit) {
         credits.remove(credit);
+    }
+
+
+    public long getPrograminformationId() {
+        return programinformationId;
+    }
+
+    public void setPrograminformationId(long programinformationId) {
+        this.programinformationId = programinformationId;
     }
 
     public long getId() {

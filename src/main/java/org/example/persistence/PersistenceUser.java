@@ -157,10 +157,10 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
                         resultSet.getString("email"));
 
         var company = new CompanyEntity(resultSet.getString("name"));
-        company.setId(resultSet.getString(9)); //9 equal company id
+        company.setId(resultSet.getLong(9)); //9 equal company id
         user.setCompany(company);
         user.setRole(resultSet.getInt("role"));
-        user.setId(resultSet.getString(1)); // 1 equal user id
+        user.setId(resultSet.getLong(1)); // 1 equal user id
 
         //Makes a recursion call. It will loop through until an user isn't createdBy is null
         if (resultSet.getString("createdBy") != null)

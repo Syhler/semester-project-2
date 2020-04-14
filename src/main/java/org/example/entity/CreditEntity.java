@@ -9,6 +9,12 @@ public class CreditEntity {
         this.actor = actor;
     }
 
+
+    public CreditEntity(UserEntity userEntity) {
+        this.actor = userEntity;
+    }
+
+
     public long getProgramId() {
         return programId;
     }
