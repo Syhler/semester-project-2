@@ -25,19 +25,11 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         java.util.Date utilDate = userEntity.getCreatedAt();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-        /*
-        List<UserEntity> users = getAllUsers();
-        Long id = users.get(users.size()-1).getId();
-        id++;
-
-         */
-
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement("" +
                     "Insert INTO \"user\" (title,firstname, middlename, lastname, createdby, createdat, email, password, passwordsalt, role, company)" +
                     " values (?,?,?,?,?,?,?,?,?,?,?) returning id;");
-            //preparedStatement.setLong(1,id);
             preparedStatement.setString(1,userEntity.getTitle());
             preparedStatement.setString(2,userEntity.getFirstName());
             preparedStatement.setString(3,userEntity.getMiddleName());

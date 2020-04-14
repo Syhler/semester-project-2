@@ -81,17 +81,13 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
 
     @Override
     public Long createCompany(CompanyEntity companyEntity) {
-        List<CompanyEntity> companies = getCompanies();
-        Long id = companies.get(companies.size()-1).getId();
-        id++;
 
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "Insert INTO \"company\" (id, name)" +
-                    " values (?,?) returning id;");
-            preparedStatement.setLong(1,id);
-            preparedStatement.setString(2,companyEntity.getName());
+                    "Insert INTO \"company\" (name)" +
+                    " values (?) returning id;");
+            preparedStatement.setString(1,companyEntity.getName());
 
             var resultSet = preparedStatement.executeQuery();
             //checks if the resultSet contains any rows
