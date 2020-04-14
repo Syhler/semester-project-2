@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <language>
     <username>Brugernavn</username>
+
     <password>Adgangskode:*</password>
     <firstName>Fornavn:*</firstName>
     <middleName>Mellemnavn:</middleName>
@@ -11,6 +12,38 @@
     <createBtn>Opret</createBtn>
     <cancelBtn>Afbryd</cancelBtn>
     <updateBtn>Opdater</updateBtn>
+
+    <password>Adgangskode</password>
+    <nameColumn>Navn</nameColumn>
+    <companyColumn>Firmaer</companyColumn>
+    <titleColumn>Titel</titleColumn>
+    <createdbyColumn>Oprettet af</createdbyColumn>
+    <createdColumn>Oprettet</createdColumn>
+    <companyBtn>Firma</companyBtn>
+    <displayAdmins>Admins</displayAdmins>
+    <displayManufactures>Producenter</displayManufactures>
+    <displayProducers>Producere</displayProducers>
+    <displayActors>Aktører</displayActors>
+    <createPopup>Opret</createPopup>
+    <editBtn>Rediger</editBtn>
+    <deleteSelected>Slet</deleteSelected>
+    <login>Logind</login>
+    <logoff>Logud</logoff>
+    <searchNavigation>Søgning</searchNavigation>
+    <createCompanyLabel>Opret Firma</createCompanyLabel>
+    <companyNameLabel>Navn:</companyNameLabel>
+    <createCompany>Opret</createCompany>
+    <updateCompanyLabel>Opdater Firma:</updateCompanyLabel>
+    <companyIdLabel>ID:</companyIdLabel>
+    <updateCompanyLabelName>Navn:</updateCompanyLabelName>
+    <updateCompany>Opdater</updateCompany>
+    <deleteCompany>Slet</deleteCompany>
+    <profile>Profil</profile>
+    <usermanagementBtn>Bruger Administration</usermanagementBtn>
+    <closeCompany>Luk</closeCompany>
+    <companyTitle>Firmaer</companyTitle>
+
+
 
 
 </language>

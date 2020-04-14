@@ -1,5 +1,6 @@
 package org.example.domain;
 
+import org.example.domain.password.PasswordHashing;
 import org.example.entity.CompanyEntity;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
@@ -12,8 +13,18 @@ public class User implements IUser {
     private IPersistenceHandler persistenceHandler = new PersistenceHandler();
 
     public Long createUser(UserEntity userEntity,String password) {
-        // Hashing of password must happen here in domain
-        return persistenceHandler.user().createUser(userEntity, password);
+        var passwordSalt = PasswordHashing.generateSalt();
+        try {
+
+            var encryptedPassword = PasswordHashing.sha256(password,passwordSalt);
+            return persistenceHandler.user().createUser(userEntity, encryptedPassword, passwordSalt);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return 0L;
+
     }
 
     public Boolean removeUser(UserEntity userEntity) {
@@ -29,7 +40,17 @@ public class User implements IUser {
     }
 
     public Boolean updateUser(UserEntity userEntity, String password) {
-        return persistenceHandler.user().updateUser(userEntity,password);
+        var passwordSalt = PasswordHashing.generateSalt();
+        try {
+
+            var encryptedPassword = PasswordHashing.sha256(password,passwordSalt);
+            return persistenceHandler.user().updateUser(userEntity,encryptedPassword,passwordSalt);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 

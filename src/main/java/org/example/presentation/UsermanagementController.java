@@ -12,6 +12,7 @@ import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
+import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +29,16 @@ public class UsermanagementController implements Initializable {
     private ToggleButton displayProducers;
     @FXML
     private ToggleButton displayActors;
+    @FXML
+    private Button createPopup;
+    @FXML
+    private Button editBtn;
+    @FXML
+    private Button deleteSelected;
+    @FXML
+    private Button login;
+    @FXML
+    private Button searchNavigation;
 
     @FXML
     private ToggleButton companyAddToggle;
@@ -48,12 +59,43 @@ public class UsermanagementController implements Initializable {
     @FXML
     private TableColumn<UserEntity, String> col_created;
 
+
     public ObservableList<UserEntity> userList = FXCollections.observableArrayList();
 
     public int roleTap = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /**
+         * Language
+         */
+        col_name.setText(LanguageHandler.getText("nameColumn"));
+        col_company.setText(LanguageHandler.getText("companyColumn"));
+        col_title.setText(LanguageHandler.getText("titleColumn"));
+        col_createdBy.setText(LanguageHandler.getText("createdbyColumn"));
+        col_created.setText(LanguageHandler.getText("createdColumn"));
+        companyAddToggle.setText(LanguageHandler.getText("companyBtn"));
+        displayAdmins.setText(LanguageHandler.getText("displayAdmins"));
+        displayManufactures.setText(LanguageHandler.getText("displayManufactures"));
+        displayProducers.setText(LanguageHandler.getText("displayProducers"));
+        displayActors.setText(LanguageHandler.getText("displayActors"));
+        createPopup.setText(LanguageHandler.getText("createPopup"));
+        editBtn.setText(LanguageHandler.getText("editBtn"));
+        deleteSelected.setText(LanguageHandler.getText("deleteSelected"));
+        login.setText(LanguageHandler.getText("logoff"));
+        searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
+
+
+
+
+
+
+
+
+
+
+
+
         companyAddToggle.setVisible(false);
 
         switch (CurrentUser.getInstance().getUserEntity().getRole().getValue()) {

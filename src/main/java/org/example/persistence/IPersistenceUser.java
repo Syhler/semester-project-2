@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface IPersistenceUser
 {
-    Long createUser(UserEntity userEntity,String password);
+    Long createUser(UserEntity userEntity,String encryptedPassword, String passwordSalt);
     UserEntity getUserById(Long id);
-    boolean updateUser(UserEntity userEntity, String password);
+    boolean updateUser(UserEntity userEntity, String encryptedPassword, String passwordSalt);
     boolean deleteUser(UserEntity userEntity);
     List<UserEntity> getUserByRole(Role role);
     List<UserEntity> getUserByCompany(CompanyEntity companyEntity);

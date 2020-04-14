@@ -108,6 +108,9 @@ public class LanguageHandler
             case English:
                 var englishPath = App.class.getResource("languages/english.xml").getPath();
                 return new File(englishPath);
+            case Russian:
+                var russianPath = App.class.getResource("languages/russian.xml").getPath();
+                return new File(russianPath);
         }
 
         return null;

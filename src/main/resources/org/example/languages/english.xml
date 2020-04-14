@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <language>
     <username>Username</username>
+
     <password>Password:*</password>
     <firstName>First name:*</firstName>
     <middleName>Middle name:</middleName>
@@ -10,4 +11,35 @@
     <company>Company:*</company>
     <createBtn>Create</createBtn>
     <cancelBtn>Cancel</cancelBtn>
+
+    <password>Password</password>
+    <nameColumn>Name</nameColumn>
+    <companyColumn>Companies</companyColumn>
+    <titleColumn>Title</titleColumn>
+    <createdbyColumn>Created By</createdbyColumn>
+    <createdColumn>Created</createdColumn>
+    <companyBtn>Company</companyBtn>
+    <displayAdmins>Admins</displayAdmins>
+    <displayManufactures>Manufactures</displayManufactures>
+    <displayProducers>Producers</displayProducers>
+    <displayActors>Actors</displayActors>
+    <createPopup>Create</createPopup>
+    <editBtn>Edit</editBtn>
+    <deleteSelected>Delete</deleteSelected>
+    <login>Login</login>
+    <logoff>Logoff</logoff>
+    <searchNavigation>Search</searchNavigation>
+    <createCompanyLabel>Create Company</createCompanyLabel>
+    <companyNameLabel>Name:</companyNameLabel>
+    <createCompany>Create</createCompany>
+    <updateCompanyLabel>Update Company:</updateCompanyLabel>
+    <companyIdLabel>ID:</companyIdLabel>
+    <updateCompanyLabelName>Name:</updateCompanyLabelName>
+    <updateCompany>Update</updateCompany>
+    <deleteCompany>Delete</deleteCompany>
+    <profile>Profile</profile>
+    <usermanagementBtn>User Management</usermanagementBtn>
+    <closeCompany>Close</closeCompany>
+    <companyTitle>Companies</companyTitle>
+
 </language>

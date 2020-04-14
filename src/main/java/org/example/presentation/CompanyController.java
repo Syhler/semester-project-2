@@ -18,6 +18,7 @@ import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
 import org.example.entity.UserEntity;
+import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +34,20 @@ public class CompanyController implements Initializable {
     private Button updateCompany;
     @FXML
     private Button deleteCompany;
+    @FXML
+    private Button closeCompany;
+
+    @FXML
+    private Label createCompanyLabel;
+    @FXML
+    private Label companyNameLabel;
+    @FXML
+    private Label updateCompanyLabel;
+    @FXML
+    private Label companyIdLabel;
+    @FXML
+    private Label updateCompanyLabelName;
+
 
     @FXML
     private TextField companyNameInput;
@@ -54,6 +69,21 @@ public class CompanyController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        /**
+         * Language
+         */
+        createCompanyLabel.setText(LanguageHandler.getText("createCompanyLabel"));
+        companyNameLabel.setText(LanguageHandler.getText("companyNameLabel"));
+        createCompany.setText(LanguageHandler.getText("createCompany"));
+        updateCompanyLabel.setText(LanguageHandler.getText("updateCompanyLabel"));
+        companyIdLabel.setText(LanguageHandler.getText("companyIdLabel"));
+        updateCompanyLabelName.setText(LanguageHandler.getText("updateCompanyLabelName"));
+        updateCompany.setText(LanguageHandler.getText("updateCompany"));
+        deleteCompany.setText(LanguageHandler.getText("deleteCompany"));
+        closeCompany.setText(LanguageHandler.getText("closeCompany"));
+
+
+
         Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactoryComp = new Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>>() {
 
             @Override
@@ -72,10 +102,9 @@ public class CompanyController implements Initializable {
                             setText(item.getName());
                         }
                     }
-                } ;
+                };
             }
         };
-
 
 
         companyList.setCellFactory(cellFactoryComp);
@@ -98,10 +127,10 @@ public class CompanyController implements Initializable {
 
     /**
      * Opens the CreateUser page and waits until the user is created or cancel
+     *
      * @return currentUser
      */
-    public void openCompanyController(ActionEvent event)
-    {
+    public void openCompanyController(ActionEvent event) {
         var companyStage = new Stage();
 
         try {
@@ -109,9 +138,9 @@ public class CompanyController implements Initializable {
             companyStage.setScene(new Scene(myLoader.load()));
             CompanyController createusercontrol = myLoader.getController();
 
-            companyStage.setTitle("Companies");
+            companyStage.setTitle(LanguageHandler.getText("companyTitle"));
             companyStage.initModality(Modality.WINDOW_MODAL);
-            companyStage.initOwner(((Node)event.getTarget()).getScene().getWindow());
+            companyStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             companyStage.setResizable(false);
             companyStage.showAndWait();
 
@@ -124,66 +153,55 @@ public class CompanyController implements Initializable {
 
 
     @FXML
-    public void createCompany(ActionEvent event) throws IOException
-    {
+    public void createCompany(ActionEvent event) throws IOException {
         CompanyEntity newCompany = new CompanyEntity(companyNameInput.getText());
 
         Long id = domainHandler.company().createCompany(newCompany);
 
-        if (id != null)
-        {
+        if (id != null) {
             newCompany.setId(id);
-            setStatusText(newCompany.getName()+" was created");
+            setStatusText(newCompany.getName() + " was created");
             companyEntities.add(newCompany);
 
-        } else
-        {
-            setStatusText(newCompany.getName()+" wasn't created");
+        } else {
+            setStatusText(newCompany.getName() + " wasn't created");
         }
 
 
-
     }
+
     @FXML
-    public void updateCompany(ActionEvent event) throws IOException
-    {
+    public void updateCompany(ActionEvent event) throws IOException {
         CompanyEntity updatedCompany = new CompanyEntity(companyNameToUpdate.getText());
         updatedCompany.setId(Long.parseLong(companyId.getText()));
 
-        if (domainHandler.company().updateCompany(updatedCompany))
-        {
-            setStatusText(updatedCompany.getName()+" was updated");
+        if (domainHandler.company().updateCompany(updatedCompany)) {
+            setStatusText(updatedCompany.getName() + " was updated");
             companyEntities.remove(companyList.getSelectionModel().getSelectedItem());
             companyEntities.add(updatedCompany);
-        } else
-            {
-                setStatusText(updatedCompany.getName()+" wasn't updated");
-            }
+        } else {
+            setStatusText(updatedCompany.getName() + " wasn't updated");
+        }
     }
 
     @FXML
-    public void deleteCompany(ActionEvent event) throws IOException
-    {
+    public void deleteCompany(ActionEvent event) throws IOException {
         CompanyEntity selectedCompany = companyList.getSelectionModel().getSelectedItem();
 
-        if (domainHandler.company().deleteCompany(selectedCompany))
-        {
-            setStatusText(selectedCompany.getName()+" deleted");
+        if (domainHandler.company().deleteCompany(selectedCompany)) {
+            setStatusText(selectedCompany.getName() + " deleted");
             companyEntities.remove(selectedCompany);
-        } else
-            {
-                setStatusText(selectedCompany.getName()+" wasn't deleted");
-            }
+        } else {
+            setStatusText(selectedCompany.getName() + " wasn't deleted");
+        }
     }
 
     @FXML
-    public void cancel(ActionEvent event)
-    {
+    public void cancel(ActionEvent event) {
         closeDialog(event);
     }
 
-    private void setStatusText(String text)
-    {
+    private void setStatusText(String text) {
         statusText.setText(text);
         statusText.setVisible(true);
     }
@@ -191,12 +209,11 @@ public class CompanyController implements Initializable {
     /**
      * closes the last opened stage
      */
-    private void closeDialog(ActionEvent event)
-    {
+    private void closeDialog(ActionEvent event) {
         //gets the node of the given event
-        Node source = (Node)  event.getSource();
+        Node source = (Node) event.getSource();
         //gets that nodes stage
-        Stage stage  = (Stage) source.getScene().getWindow();
+        Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
 

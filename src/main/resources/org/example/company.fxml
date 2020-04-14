@@ -12,7 +12,7 @@
    <children>
       <VBox layoutX="21.0" layoutY="14.0" prefHeight="131.0" prefWidth="189.0">
          <children>
-            <Label text="Create company" />
+            <Label fx:id="createCompanyLabel" text="Create company" />
             <Label fx:id="companyNameLabel" text="Name:">
                <VBox.margin>
                   <Insets top="10.0" />
@@ -28,12 +28,12 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
-            <Label text="Update company:">
+            <Label fx:id="updateCompanyLabel" text="Update company:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="companyNameLabel11" text="ID:">
+            <Label fx:id="companyIdLabel" text="ID:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -43,7 +43,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <Label fx:id="companyNameLabel1" text="Name:">
+            <Label fx:id="updateCompanyLabelName" text="Name:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
