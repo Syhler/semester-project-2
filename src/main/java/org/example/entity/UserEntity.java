@@ -3,7 +3,7 @@ package org.example.entity;
 import java.util.Date;
 
 public class UserEntity {
-    private Long id;
+    private long id;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -72,7 +72,7 @@ public class UserEntity {
         this.createdBy = createdBy;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
     public void setId(Long id) {
