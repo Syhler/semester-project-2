@@ -11,6 +11,7 @@
     <company>Company:*</company>
     <createBtn>Create</createBtn>
     <cancelBtn>Cancel</cancelBtn>
+    <updateBtn>Update</updateBtn>
 
     <password>Password</password>
     <nameColumn>Name</nameColumn>
