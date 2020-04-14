@@ -84,7 +84,8 @@ public class UsermanagementController implements Initializable {
         deleteSelected.setText(LanguageHandler.getText("deleteSelected"));
         login.setText(LanguageHandler.getText("logoff"));
         searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
-        
+
+
 
 
 
