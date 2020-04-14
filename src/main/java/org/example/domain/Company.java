@@ -46,4 +46,20 @@ public class Company implements ICompany {
     public List<CompanyEntity> getCompanies() {
         return persistenceHandler.company().getCompanies();
     }
+
+    @Override
+    public boolean deleteCompany(CompanyEntity companyEntity) {
+        return persistenceHandler.company().deleteCompany(companyEntity);
+    }
+
+    @Override
+    public boolean updateCompany(CompanyEntity companyEntity) {
+        return persistenceHandler.company().updateCompany(companyEntity);
+    }
+
+    @Override
+    public Long createCompany(CompanyEntity companyEntity) {
+        return persistenceHandler.company().createCompany(companyEntity);
+    }
+
 }

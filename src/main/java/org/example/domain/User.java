@@ -12,6 +12,7 @@ public class User implements IUser {
     private IPersistenceHandler persistenceHandler = new PersistenceHandler();
 
     public Long createUser(UserEntity userEntity,String password) {
+        // Hashing of password must happen here in domain
         return persistenceHandler.user().createUser(userEntity, password);
     }
 

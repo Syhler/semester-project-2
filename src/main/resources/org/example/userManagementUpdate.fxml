@@ -11,10 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" prefHeight="618.0" prefWidth="400.0" spacing="15.0" stylesheets="@css/LoginPageStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.UpdateUserController">
+<VBox fx:id="updateUserRoot" alignment="CENTER_LEFT" prefHeight="618.0" prefWidth="400.0" spacing="15.0" stylesheets="@css/UsermangementStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.UpdateUserController">
    <children>
-      <Label text="ID:" />
-      <TextField fx:id="id" disable="true" prefHeight="14.0" prefWidth="200.0" />
       <Label text="First name:*" />
       <TextField fx:id="firstname" />
       <Label text="Middle name:" />
@@ -23,26 +21,21 @@
       <TextField fx:id="lastname" />
       <Label text="Email:*" />
       <TextField fx:id="email" />
-      <Label text="Company:*" />
-      <ComboBox fx:id="companyList" prefHeight="26.0" prefWidth="208.0" />
       <Label text="Title:*" />
       <TextField fx:id="title" />
+      <Label fx:id="companyLabel" text="Company:*" />
+      <ComboBox fx:id="companyList" prefHeight="26.0" prefWidth="208.0" />
+      <Label fx:id="roleLabel" text="Role*" />
+      <ComboBox fx:id="roleList" prefHeight="26.0" prefWidth="208.0" />
       <Label text="Password:*" />
       <PasswordField fx:id="password" />
-      <VBox alignment="CENTER" pickOnBounds="false" prefHeight="67.0" prefWidth="200.0">
+      <HBox prefHeight="46.0" prefWidth="200.0">
          <children>
-            <HBox prefHeight="38.0" prefWidth="187.0">
-               <children>
-                  <Button fx:id="createUserFromInput" mnemonicParsing="false" onAction="#updateUserFromInput" prefHeight="38.0" prefWidth="79.0" text="Update" />
-                  <Region prefHeight="38.0" prefWidth="21.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnCancel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancel" prefHeight="30.0" prefWidth="70.0" text="Cancel" />
-               </children>
-               <VBox.margin>
-                  <Insets left="15.0" right="15.0" />
-               </VBox.margin>
-            </HBox>
+            <Button fx:id="createUserFromInput" mnemonicParsing="false" onAction="#updateUserFromInput" prefHeight="26.0" prefWidth="91.0" text="Update" />
+            <Region prefHeight="38.0" prefWidth="21.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnCancel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancel" prefHeight="26.0" prefWidth="89.0" text="Cancel" />
          </children>
-      </VBox>
+      </HBox>
       <VBox alignment="CENTER" pickOnBounds="false">
          <children>
             <Label fx:id="statusText" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="204.0" text="Form was not filled correctly, try again" textFill="#f20000" visible="false" wrapText="true">

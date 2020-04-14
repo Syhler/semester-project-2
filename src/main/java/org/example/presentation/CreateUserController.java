@@ -37,9 +37,6 @@ public class CreateUserController implements Initializable {
     private TextField title;
     @FXML
     private TextField password;
-    @FXML
-    private Button createUserFromInput;
-
 
     @FXML
     private ComboBox<CompanyEntity> companyList;
@@ -53,7 +50,6 @@ public class CreateUserController implements Initializable {
     private int roleValue;
 
     private UserEntity user = null;
-
 
 
     @Override
@@ -73,7 +69,7 @@ public class CreateUserController implements Initializable {
                             setText(item.getName());
                         }
                     }
-                } ;
+                };
             }
         };
 
@@ -87,12 +83,11 @@ public class CreateUserController implements Initializable {
 
     /**
      * Opens the CreateUser page and waits until the user is created or cancel
+     *
      * @return currentUser
      */
-    public UserEntity openCreateUser(ActionEvent event, int role)
-    {
-        switch (role)
-        {
+    public UserEntity openCreateUser(ActionEvent event, int role) {
+        switch (role) {
             case 1:
                 rolename = "Admin";
                 break;
@@ -106,7 +101,7 @@ public class CreateUserController implements Initializable {
                 rolename = "Actor";
                 break;
         }
-        
+
         var createUserStage = new Stage();
 
         try {
@@ -115,9 +110,9 @@ public class CreateUserController implements Initializable {
             CreateUserController createusercontrol = myLoader.getController();
             createusercontrol.roleValue = role;
 
-            createUserStage.setTitle("Create "+rolename);
+            createUserStage.setTitle("Create " + rolename);
             createUserStage.initModality(Modality.WINDOW_MODAL);
-            createUserStage.initOwner(((Node)event.getTarget()).getScene().getWindow());
+            createUserStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             createUserStage.setResizable(false);
             createUserStage.showAndWait();
 
@@ -127,47 +122,35 @@ public class CreateUserController implements Initializable {
             e.printStackTrace();
             return null;
         }
-
     }
 
-
     @FXML
-    public void createUserFromInput(ActionEvent event) throws IOException
-    {
-        if (firstname.getText().isEmpty())
-        {
+    public void createUserFromInput(ActionEvent event) throws IOException {
+        if (firstname.getText().isEmpty()) {
             setStatusText("Firstname is empty");
             return;
-        }
-        else if (lastname.getText().isEmpty())
-        {
+        } else if (lastname.getText().isEmpty()) {
             setStatusText("Lastname is empty");
             return;
-        }
-        else if (email.getText().isEmpty())
-        {
+        } else if (email.getText().isEmpty()) {
             setStatusText("Email is empty");
             return;
-        }
-        else if (companyList.getSelectionModel().isEmpty())
-        {
+        } else if (companyList.getSelectionModel().isEmpty()) {
             setStatusText("A company must be selected");
             return;
-        }
-        else if (title.getText().isEmpty())
-        {
+        } else if (title.getText().isEmpty()) {
             setStatusText("Title is empty");
             return;
-        }
-        else if (password.getText().isEmpty())
-        {
+        } else if (password.getText().isEmpty()) {
             setStatusText("Password is empty");
             return;
         }
 
         Date currentDate = new Date();
+        java.util.Date utilDate = currentDate;
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-        user = new UserEntity(title.getText(),firstname.getText(),middelname.getText(),lastname.getText(),currentDate,email.getText());
+        user = new UserEntity(title.getText(), firstname.getText(), middelname.getText(), lastname.getText(), sqlDate, email.getText());
         user.setCompany(companyList.getSelectionModel().getSelectedItem());
         user.setRole(roleValue);
         user.setCreatedBy(CurrentUser.getInstance().getUserEntity());
@@ -176,26 +159,22 @@ public class CreateUserController implements Initializable {
 
         Long userID = domainHandler.user().createUser(user, password.getText());
 
-        if (userID != 0L)
-        {
+        if (userID != 0L) {
             user.setId(userID);
             closeDialog(event);
 
-        } else
-            {
+        } else {
             setStatusText("Something went wrong");
-            }
+        }
 
     }
 
     @FXML
-    public void cancel(ActionEvent event)
-    {
+    public void cancel(ActionEvent event) {
         closeDialog(event);
     }
 
-    private void setStatusText(String text)
-    {
+    private void setStatusText(String text) {
         statusText.setText(text);
         statusText.setVisible(true);
     }
@@ -203,12 +182,11 @@ public class CreateUserController implements Initializable {
     /**
      * closes the last opened stage
      */
-    private void closeDialog(ActionEvent event)
-    {
+    private void closeDialog(ActionEvent event) {
         //gets the node of the given event
-        Node source = (Node)  event.getSource();
+        Node source = (Node) event.getSource();
         //gets that nodes stage
-        Stage stage  = (Stage) source.getScene().getWindow();
+        Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
 

@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="usermanagementPane" prefHeight="504.0" prefWidth="705.0" stylesheets="@css/UsermangementStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.UsermanagementController">
    <children>
-      <HBox layoutX="22.0" layoutY="72.0" prefHeight="39.0" prefWidth="370.0">
+      <HBox fx:id="usersByRoleHbox" layoutX="22.0" layoutY="72.0" prefHeight="39.0" prefWidth="370.0">
          <children>
             <ToggleButton fx:id="displayAdmins" mnemonicParsing="false" onAction="#displayByRole" prefHeight="40.0" prefWidth="85.0" text="Admins" />
             <Separator orientation="VERTICAL" prefHeight="39.0" prefWidth="0.0" />
@@ -51,10 +51,16 @@
       <ToolBar fx:id="navigation" prefHeight="26.0" prefWidth="706.0" stylesheets="@css/UsermangementStyle.css">
          <items>
             <Button fx:id="login" mnemonicParsing="false" onAction="#logout" text="Logout" />
+            <Button fx:id="searchNavigation" mnemonicParsing="false" onAction="#goToDefault" text="Search" />
          </items>
          <padding>
             <Insets top="-1.0" />
          </padding>
       </ToolBar>
+      <HBox layoutX="22.0" layoutY="35.0" prefHeight="34.0" prefWidth="370.0">
+         <children>
+            <ToggleButton fx:id="companyAddToggle" mnemonicParsing="false" onAction="#openCompanyController" prefHeight="32.0" prefWidth="85.0" text="Company" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

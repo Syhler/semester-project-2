@@ -15,6 +15,7 @@ import javafx.util.Callback;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
+import org.example.entity.Role;
 import org.example.entity.UserEntity;
 
 import java.io.IOException;
@@ -36,15 +37,12 @@ public class UpdateUserController implements Initializable {
     @FXML
     private TextField title;
     @FXML
-    private TextField id;
-    @FXML
     private TextField password;
-    @FXML
-    private Button createUserFromInput;
-
 
     @FXML
     private ComboBox<CompanyEntity> companyList;
+    @FXML
+    private ComboBox<Role> roleList;
 
     @FXML
     private Label statusText;
@@ -54,11 +52,8 @@ public class UpdateUserController implements Initializable {
     private String rolename = "";
     private int roleValue;
 
+    private UserEntity userToUpdate = null;
     private UserEntity user = null;
-
-    private boolean updated = false;
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,7 +72,7 @@ public class UpdateUserController implements Initializable {
                             setText(item.getName());
                         }
                     }
-                } ;
+                };
             }
         };
 
@@ -86,39 +81,21 @@ public class UpdateUserController implements Initializable {
         companyEntities.addAll(domainHandler.company().getCompanies());
         companyList.setItems(companyEntities);
 
+        roleList.getItems().addAll(Role.Admin, Role.Manufacture, Role.Producer, Role.Actor);
 
-
-
-
+        if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Admin) {
+            roleList.setDisable(true);
+        }
     }
-
 
     /**
      * Opens the CreateUser page and waits until the user is created or cancel
-     * @return currentUser
+     *
+     * @return UserEntity
      */
-    public UserEntity openUpdateUser(ActionEvent event,UserEntity userToUpdate, int role)
-    {
-        Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactory = new Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>>() {
+    public UserEntity openUpdateUser(ActionEvent event, UserEntity userToUpdate, int role) {
 
-            @Override
-            public ListCell<CompanyEntity> call(ListView<CompanyEntity> l) {
-                return new ListCell<CompanyEntity>() {
-
-                    @Override
-                    protected void updateItem(CompanyEntity item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getName());
-                        }
-                    }
-                } ;
-            }
-        };
-        switch (role)
-        {
+        switch (role) {
             case 1:
                 rolename = "Admin";
                 break;
@@ -132,7 +109,7 @@ public class UpdateUserController implements Initializable {
                 rolename = "Actor";
                 break;
         }
-        
+
         var updateUserStage = new Stage();
 
         try {
@@ -140,20 +117,28 @@ public class UpdateUserController implements Initializable {
             updateUserStage.setScene(new Scene(myLoader.load()));
             UpdateUserController updateUserController = myLoader.getController();
             updateUserController.roleValue = role;
-            updateUserController.user = userToUpdate;
+            updateUserController.userToUpdate = userToUpdate;
 
             updateUserController.firstname.setText(userToUpdate.getFirstName());
             updateUserController.middelname.setText(userToUpdate.getMiddleName());
             updateUserController.lastname.setText(userToUpdate.getLastName());
             updateUserController.email.setText(userToUpdate.getEmail());
-            updateUserController.companyList.setValue(userToUpdate.getCompany());
+            companyEntities.addAll(domainHandler.company().getCompanies());
+
+            // Selecting the users current company in company Combobox
+
+            for (CompanyEntity company : companyEntities) {
+                if (userToUpdate.getCompany().getId().equals(company.getId())) {
+                    updateUserController.companyList.getSelectionModel().select(companyEntities.indexOf(company));
+                }
+            }
+
             updateUserController.title.setText(userToUpdate.getTitle());
-            updateUserController.id.setText(Long.toString(userToUpdate.getId()));
+            updateUserController.roleList.setValue(userToUpdate.getRole());
 
-
-            updateUserStage.setTitle("Update "+rolename);
+            updateUserStage.setTitle("Update " + rolename);
             updateUserStage.initModality(Modality.WINDOW_MODAL);
-            updateUserStage.initOwner(((Node)event.getTarget()).getScene().getWindow());
+            updateUserStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             updateUserStage.setResizable(false);
             updateUserStage.showAndWait();
 
@@ -163,74 +148,63 @@ public class UpdateUserController implements Initializable {
             e.printStackTrace();
             return null;
         }
-
     }
 
-
     @FXML
-    public void updateUserFromInput(ActionEvent event) throws IOException
-    {
-        if (firstname.getText().isEmpty())
-        {
+    public void updateUserFromInput(ActionEvent event) throws IOException {
+        if (firstname.getText().isEmpty()) {
             setStatusText("Firstname is empty");
             return;
-        }
-        else if (lastname.getText().isEmpty())
-        {
+        } else if (lastname.getText().isEmpty()) {
             setStatusText("Lastname is empty");
             return;
-        }
-        else if (email.getText().isEmpty())
-        {
+        } else if (email.getText().isEmpty()) {
             setStatusText("Email is empty");
             return;
-        }
-        else if (companyList.getSelectionModel().isEmpty())
-        {
+        } else if (companyList.getSelectionModel().isEmpty()) {
             setStatusText("A company must be selected");
             return;
-        }
-        else if (title.getText().isEmpty())
-        {
+        } else if (title.getText().isEmpty()) {
             setStatusText("Title is empty");
             return;
-        }
-        else if (password.getText().isEmpty())
-        {
+        } else if (password.getText().isEmpty()) {
             setStatusText("Password is empty");
             return;
         }
 
         Date currentDate = new Date();
 
-        user = new UserEntity(title.getText(),firstname.getText(),middelname.getText(),lastname.getText(),currentDate,email.getText());
+        java.util.Date utilDate = currentDate;
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+        user = new UserEntity(title.getText(), firstname.getText(), middelname.getText(), lastname.getText(), sqlDate, email.getText());
         user.setCompany(companyList.getSelectionModel().getSelectedItem());
-        user.setRole(roleValue);
-        user.setCreatedBy(CurrentUser.getInstance().getUserEntity());
-        user.setCreatedByName(user.getCreatedBy().getFirstName());
+        if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Admin) {
+            user.setRole(roleValue);
+        } else {
+            user.setRole(roleList.getValue());
+        }
+
+        //user.setCreatedBy(CurrentUser.getInstance().getUserEntity());
+        //user.setCreatedByName(user.getCreatedBy().getFirstName());
         user.setCompanyName(user.getCompany().getName());
-        user.setId(Long.parseLong(id.getText()));
+        user.setId(userToUpdate.getId());
 
-
-        if (domainHandler.user().updateUser(user, password.getText()))
-        {
+        if (domainHandler.user().updateUser(user, password.getText())) {
             closeDialog(event);
 
-        } else
-            {
+        } else {
             setStatusText("Something went wrong");
-            }
+        }
 
     }
 
     @FXML
-    public void cancel(ActionEvent event)
-    {
+    public void cancel(ActionEvent event) {
         closeDialog(event);
     }
 
-    private void setStatusText(String text)
-    {
+    private void setStatusText(String text) {
         statusText.setText(text);
         statusText.setVisible(true);
     }
@@ -238,12 +212,11 @@ public class UpdateUserController implements Initializable {
     /**
      * closes the last opened stage
      */
-    private void closeDialog(ActionEvent event)
-    {
+    private void closeDialog(ActionEvent event) {
         //gets the node of the given event
-        Node source = (Node)  event.getSource();
+        Node source = (Node) event.getSource();
         //gets that nodes stage
-        Stage stage  = (Stage) source.getScene().getWindow();
+        Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
 
