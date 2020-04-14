@@ -87,8 +87,9 @@ public class DefaultController {
 
             if (user != null) {
                 System.out.println("Updated");
+                CurrentUser.getInstance().init(user);
             } else {
-                System.out.println("Failed to update");
+                System.out.println("Nothing was updated");
             }
         } catch (Exception e) {
             e.printStackTrace();

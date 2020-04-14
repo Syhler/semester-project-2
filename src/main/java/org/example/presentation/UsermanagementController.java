@@ -19,18 +19,8 @@ import java.util.ResourceBundle;
 
 public class UsermanagementController implements Initializable {
     private DomainHandler domainHandler = new DomainHandler();
-
-    @FXML
-    private Label createRole;
-    @FXML
-    private TextField inputName;
-    @FXML
-    private TextField inputCompany;
-    @FXML
-    private TextField inputTitle;
-
     // Function Buttons Create, Read, Update, Delete
-       @FXML
+    @FXML
     private ToggleButton displayAdmins;
     @FXML
     private ToggleButton displayManufactures;

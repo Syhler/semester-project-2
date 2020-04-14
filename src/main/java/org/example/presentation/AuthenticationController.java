@@ -11,9 +11,7 @@ import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.UserEntity;
-
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class AuthenticationController {
 
