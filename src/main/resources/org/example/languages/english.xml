@@ -41,5 +41,23 @@
     <usermanagementBtn>User Management</usermanagementBtn>
     <closeCompany>Close</closeCompany>
     <companyTitle>Companies</companyTitle>
+    <updateUserTitle>Update</updateUserTitle>
+    <createUserTitle>Create</createUserTitle>
+    <admin>Admin</admin>
+    <manufacture>manufacture</manufacture>
+    <producer>Producer</producer>
+    <actor>Actor</actor>
+    <firstnameEmpty>Firstname is empty</firstnameEmpty>
+    <lastnameEmpty>Lastname is empty</lastnameEmpty>
+    <emailEmpty>Email is empty</emailEmpty>
+    <companyEmpty>A company must be selected</companyEmpty>
+    <titleEmpty>Title is empty</titleEmpty>
+    <passwordEmpty>Password is empty</passwordEmpty>
+    <usernameEmpty>Username is empty</usernameEmpty>
+    <Authentication>Authentication</Authentication>
+    <usernameOrPassword>Username or password were incorrect</usernameOrPassword>
+    <usernameLabel>Username</usernameLabel>
+    <passwordLabel>Password</passwordLabel>
+
 
 </language>

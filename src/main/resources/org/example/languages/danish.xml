@@ -42,6 +42,23 @@
     <usermanagementBtn>Bruger Administration</usermanagementBtn>
     <closeCompany>Luk</closeCompany>
     <companyTitle>Firmaer</companyTitle>
+    <updateUserTitle>Opdater</updateUserTitle>
+    <createUserTitle>Opret</createUserTitle>
+    <admin>Admin</admin>
+    <manufacture>Producent</manufacture>
+    <producer>Producer</producer>
+    <actor>Aktør</actor>
+    <firstnameEmpty>Fornavn skal udfyldes</firstnameEmpty>
+    <lastnameEmpty>Efternavn skal udfyldes</lastnameEmpty>
+    <emailEmpty>Email skal udfyldes</emailEmpty>
+    <companyEmpty>Der skal vælges et firma</companyEmpty>
+    <titleEmpty>Titel skal udfyldes</titleEmpty>
+    <passwordEmpty>Kodeord skal udfyldes</passwordEmpty>
+    <usernameEmpty>Brugernavn skal udfyldes</usernameEmpty>
+    <Authentication>Login</Authentication>
+    <usernameOrPassword>Brugernavn eller password er forkert</usernameOrPassword>
+    <usernameLabel>Brugernavn</usernameLabel>
+    <passwordLabel>Kodeord</passwordLabel>
 
 
 

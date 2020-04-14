@@ -28,7 +28,7 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
         List<CompanyEntity> companies = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "SELECT * FROM \"company\"");
+                    "SELECT * FROM \"company\" ORDER BY id ASC");
 
             var resultSet = preparedStatement.executeQuery();
 

@@ -121,16 +121,16 @@ public class CreateUserController implements Initializable {
     public UserEntity openCreateUser(ActionEvent event, int role) {
         switch (role) {
             case 1:
-                rolename = "Admin";
+                rolename = LanguageHandler.getText("admin");
                 break;
             case 2:
-                rolename = "Manufacture";
+                rolename = LanguageHandler.getText("manufacture");
                 break;
             case 3:
-                rolename = "Producer";
+                rolename = LanguageHandler.getText("producer");
                 break;
             case 4:
-                rolename = "Actor";
+                rolename = LanguageHandler.getText("actor");
                 break;
         }
 
@@ -142,7 +142,7 @@ public class CreateUserController implements Initializable {
             CreateUserController createusercontrol = myLoader.getController();
             createusercontrol.roleValue = role;
 
-            createUserStage.setTitle("Create " + rolename);
+            createUserStage.setTitle(LanguageHandler.getText("createUserTitle") +" "+ rolename);
             createUserStage.initModality(Modality.WINDOW_MODAL);
             createUserStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             createUserStage.setResizable(false);
@@ -159,22 +159,22 @@ public class CreateUserController implements Initializable {
     @FXML
     public void createUserFromInput(ActionEvent event) throws Exception {
         if (firstname.getText().isEmpty()) {
-            setStatusText("Firstname is empty");
+            setStatusText(LanguageHandler.getText("firstnameEmpty"));
             return;
         } else if (lastname.getText().isEmpty()) {
-            setStatusText("Lastname is empty");
+            setStatusText(LanguageHandler.getText("lastnameEmpty"));
             return;
         } else if (email.getText().isEmpty()) {
-            setStatusText("Email is empty");
+            setStatusText(LanguageHandler.getText("emailEmpty"));
             return;
         } else if (companyList.getSelectionModel().isEmpty()) {
-            setStatusText("A company must be selected");
+            setStatusText(LanguageHandler.getText("companyEmpty"));
             return;
         } else if (title.getText().isEmpty()) {
-            setStatusText("Title is empty");
+            setStatusText(LanguageHandler.getText("titleEmpty"));
             return;
         } else if (password.getText().isEmpty()) {
-            setStatusText("Password is empty");
+            setStatusText(LanguageHandler.getText("passwordEmpty"));
             return;
         }
 

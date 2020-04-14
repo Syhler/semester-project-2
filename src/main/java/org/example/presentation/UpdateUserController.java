@@ -98,6 +98,7 @@ public class UpdateUserController implements Initializable {
 
         companyList.setCellFactory(cellFactory);
         companyList.setButtonCell(cellFactory.call(null));
+
         companyEntities.addAll(domainHandler.company().getCompanies());
         companyList.setItems(companyEntities);
 
@@ -127,16 +128,16 @@ public class UpdateUserController implements Initializable {
 
         switch (role) {
             case 1:
-                rolename = "Admin";
+                rolename = LanguageHandler.getText("admin");
                 break;
             case 2:
-                rolename = "Manufacture";
+                rolename = LanguageHandler.getText("manufacture");
                 break;
             case 3:
-                rolename = "Producer";
+                rolename = LanguageHandler.getText("producer");
                 break;
             case 4:
-                rolename = "Actor";
+                rolename = LanguageHandler.getText("actor");
                 break;
         }
 
@@ -166,7 +167,7 @@ public class UpdateUserController implements Initializable {
             updateUserController.title.setText(userToUpdate.getTitle());
             updateUserController.roleList.setValue(userToUpdate.getRole());
 
-            updateUserStage.setTitle("Update " + rolename);
+            updateUserStage.setTitle(LanguageHandler.getText("updateUserTitle") +" "+ rolename);
             updateUserStage.initModality(Modality.WINDOW_MODAL);
             updateUserStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             updateUserStage.setResizable(false);
@@ -183,22 +184,22 @@ public class UpdateUserController implements Initializable {
     @FXML
     public void updateUserFromInput(ActionEvent event) throws IOException {
         if (firstname.getText().isEmpty()) {
-            setStatusText("Firstname is empty");
+            setStatusText(LanguageHandler.getText("firstnameEmpty"));
             return;
         } else if (lastname.getText().isEmpty()) {
-            setStatusText("Lastname is empty");
+            setStatusText(LanguageHandler.getText("lastnameEmpty"));
             return;
         } else if (email.getText().isEmpty()) {
-            setStatusText("Email is empty");
+            setStatusText(LanguageHandler.getText("emailEmpty"));
             return;
         } else if (companyList.getSelectionModel().isEmpty()) {
-            setStatusText("A company must be selected");
+            setStatusText(LanguageHandler.getText("companyEmpty"));
             return;
         } else if (title.getText().isEmpty()) {
-            setStatusText("Title is empty");
+            setStatusText(LanguageHandler.getText("titleEmpty"));
             return;
         } else if (password.getText().isEmpty()) {
-            setStatusText("Password is empty");
+            setStatusText(LanguageHandler.getText("passwordEmpty"));
             return;
         }
 
@@ -215,8 +216,6 @@ public class UpdateUserController implements Initializable {
             user.setRole(roleList.getValue());
         }
 
-        //user.setCreatedBy(CurrentUser.getInstance().getUserEntity());
-        //user.setCreatedByName(user.getCreatedBy().getFirstName());
         user.setCompanyName(user.getCompany().getName());
         user.setId(userToUpdate.getId());
 
