@@ -2,4 +2,27 @@
 <language>
     <username>Username</username>
     <password>Password</password>
+    <nameColumn>Name</nameColumn>
+    <companyColumn>Company</companyColumn>
+    <titleColumn>Title</titleColumn>
+    <createdbyColumn>Created By</createdbyColumn>
+    <createdColumn>Created</createdColumn>
+    <companyBtn>Company</companyBtn>
+    <displayAdmins>Admins</displayAdmins>
+    <displayManufactures>Manufactures</displayManufactures>
+    <displayProducers>Producers</displayProducers>
+    <displayActors>Actors</displayActors>
+    <createPopup>Create</createPopup>
+    <editBtn>Edit</editBtn>
+    <deleteSelected>Delete</deleteSelected>
+    <login>Logoff</login>
+    <searchNavigation>Search</searchNavigation>
+    <createCompanyLabel>Create Company</createCompanyLabel>
+    <companyNameLabel>Name:</companyNameLabel>
+    <createCompany>Create</createCompany>
+    <updateCompanyLabel>Update Company:</updateCompanyLabel>
+    <companyIdLabel>ID:</companyIdLabel>
+    <updateCompanyLabelName>Name:</updateCompanyLabelName>
+    <updateCompany>Update</updateCompany>
+    <deleteCompany>Delete</deleteCompany>
 </language>
