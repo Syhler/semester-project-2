@@ -125,7 +125,7 @@ public class CreateUserController implements Initializable {
     }
 
     @FXML
-    public void createUserFromInput(ActionEvent event) throws IOException {
+    public void createUserFromInput(ActionEvent event) throws Exception {
         if (firstname.getText().isEmpty()) {
             setStatusText("Firstname is empty");
             return;

@@ -13,7 +13,7 @@ import org.example.entity.UserEntity;
 public class DefaultController {
 
     public Button login;
-    private DomainHandler domainHandler = new DomainHandler();
+
     @FXML
     public Button usermanagementBtn;
     @FXML
@@ -21,7 +21,6 @@ public class DefaultController {
 
     @FXML
     public void initialize() {
-
 
         if (CurrentUser.getInstance().getUserEntity() != null) {
             login.setText("Logout");
@@ -46,7 +45,6 @@ public class DefaultController {
 
             if (userEntity.getRole().getValue() < 4) {
                 usermanagementBtn.setVisible(true);
-
             }
         }
     }
@@ -60,7 +58,6 @@ public class DefaultController {
             usermanagementBtn.setVisible(false);
             profileNavigation.setVisible(false);
         }
-
     }
 
     @FXML
@@ -80,21 +77,13 @@ public class DefaultController {
 
     @FXML
     private void openUpdateUser(ActionEvent event) {
-        try {
-            UserEntity userToUpdate = CurrentUser.getInstance().getUserEntity();
-            UpdateUserController updateUserController = new UpdateUserController();
-            UserEntity user = updateUserController.openUpdateUser(event, userToUpdate, userToUpdate.getRole().getValue());
+        UserEntity userToUpdate = CurrentUser.getInstance().getUserEntity();
+        UpdateUserController updateUserController = new UpdateUserController();
+        UserEntity user = updateUserController.openUpdateUser(event, userToUpdate, userToUpdate.getRole().getValue());
 
-            if (user != null) {
-                System.out.println("Updated");
-                CurrentUser.getInstance().init(user);
-            } else {
-                System.out.println("Nothing was updated");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (user != null) {
+            CurrentUser.getInstance().init(user);
         }
-
 
     }
 }

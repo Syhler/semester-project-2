@@ -1,10 +1,8 @@
 package org.example.persistence;
 
-import org.example.domain.password.PasswordHashing;
 import org.example.entity.CompanyEntity;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,18 +21,15 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
     }
 
     @Override
-    public Long createUser(UserEntity userEntity ,String password) {
+    public Long createUser(UserEntity userEntity ,String encryptedPassword, String passwordSalt) {
         java.util.Date utilDate = userEntity.getCreatedAt();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-
-        var passwordSalt = PasswordHashing.generateSalt();
 
         List<UserEntity> users = getAllUsers();
         Long id = users.get(users.size()-1).getId();
         id++;
 
         try {
-            var encryptedPassword = PasswordHashing.sha256(password,passwordSalt);
 
             PreparedStatement preparedStatement = connection.prepareStatement("" +
                     "Insert INTO \"user\" (id, title,firstname, middlename, lastname, createdby, createdat, email, password, passwordsalt, role, company)" +
@@ -106,14 +101,11 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
     }
 
     @Override
-    public boolean updateUser(UserEntity userEntity, String password) {
+    public boolean updateUser(UserEntity userEntity, String encryptedPassword, String passwordSalt) {
         java.util.Date utilDate = userEntity.getCreatedAt();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-        var passwordSalt = PasswordHashing.generateSalt();
-
         try {
-            var encryptedPassword = PasswordHashing.sha256(password,passwordSalt);
 
             PreparedStatement preparedStatement = connection.prepareStatement("" +
                     "UPDATE \"user\" SET title = ?, firstname = ?,middlename = ?," +
@@ -295,7 +287,6 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         user.setCompanyName(company.getName());
         user.setRole(resultSet.getInt("role"));
         user.setId(resultSet.getLong(1)); // 1 equal user id
-        //user.setTitle(resultSet.getString("title"));
 
         //Makes a recursion call. It will loop through until an user isn't createdBy is null
         if (resultSet.getString("createdBy") != null)

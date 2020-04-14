@@ -2,5 +2,30 @@
 <language>
     <username>Brugernavn</username>
     <password>Adgangskode</password>
+    <nameColumn>Navn</nameColumn>
+    <companyColumn>Firma</companyColumn>
+    <titleColumn>Titel</titleColumn>
+    <createdbyColumn>Oprettet af</createdbyColumn>
+    <createdColumn>Oprettet</createdColumn>
+    <companyBtn>Firma</companyBtn>
+    <displayAdmins>Admins</displayAdmins>
+    <displayManufactures>Producenter</displayManufactures>
+    <displayProducers>Producere</displayProducers>
+    <displayActors>Aktører</displayActors>
+    <createPopup>Opret</createPopup>
+    <editBtn>Rediger</editBtn>
+    <deleteSelected>Slet</deleteSelected>
+    <login>Logud</login>
+    <searchNavigation>Søgning</searchNavigation>
+    <createCompanyLabel>Opret Firma</createCompanyLabel>
+    <companyNameLabel>Navn:</companyNameLabel>
+    <createCompany>Opret</createCompany>
+    <updateCompanyLabel>Opdater Firma:</updateCompanyLabel>
+    <companyIdLabel>ID:</companyIdLabel>
+    <updateCompanyLabelName>Navn:</updateCompanyLabelName>
+    <updateCompany>Opdater</updateCompany>
+    <deleteCompany>Slet</deleteCompany>
+
+
 </language>
 
