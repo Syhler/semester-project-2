@@ -1,10 +1,6 @@
 package org.example.persistence;
 
-import org.example.domain.password.PasswordHashing;
 import org.example.entity.CompanyEntity;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

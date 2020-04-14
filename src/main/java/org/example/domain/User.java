@@ -12,7 +12,7 @@ import java.util.List;
 public class User implements IUser {
     private IPersistenceHandler persistenceHandler = new PersistenceHandler();
 
-    public Long createUser(UserEntity userEntity,String password) {
+    public long createUser(UserEntity userEntity,String password) {
         var passwordSalt = PasswordHashing.generateSalt();
         try {
 
@@ -23,7 +23,7 @@ public class User implements IUser {
             e.printStackTrace();
         }
 
-        return 0L;
+        return 0;
 
     }
 

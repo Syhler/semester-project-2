@@ -21,37 +21,40 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
     }
 
     @Override
-    public Long createUser(UserEntity userEntity ,String encryptedPassword, String passwordSalt) {
+    public long createUser(UserEntity userEntity ,String encryptedPassword, String passwordSalt) {
         java.util.Date utilDate = userEntity.getCreatedAt();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
+        /*
         List<UserEntity> users = getAllUsers();
         Long id = users.get(users.size()-1).getId();
         id++;
 
+         */
+
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "Insert INTO \"user\" (id, title,firstname, middlename, lastname, createdby, createdat, email, password, passwordsalt, role, company)" +
-                    " values (?,?,?,?,?,?,?,?,?,?,?,?) returning id;");
-            preparedStatement.setLong(1,id);
-            preparedStatement.setString(2,userEntity.getTitle());
-            preparedStatement.setString(3,userEntity.getFirstName());
-            preparedStatement.setString(4,userEntity.getMiddleName());
-            preparedStatement.setString(5,userEntity.getLastName());
-            preparedStatement.setLong(6,userEntity.getCreatedBy().getId());
-            preparedStatement.setDate(7,sqlDate);
-            preparedStatement.setString(8,userEntity.getEmail());
-            preparedStatement.setString(9,encryptedPassword);
-            preparedStatement.setString(10,passwordSalt);
-            preparedStatement.setInt(11,userEntity.getRole().getValue());
-            preparedStatement.setLong(12,userEntity.getCompany().getId());
+                    "Insert INTO \"user\" (title,firstname, middlename, lastname, createdby, createdat, email, password, passwordsalt, role, company)" +
+                    " values (?,?,?,?,?,?,?,?,?,?,?) returning id;");
+            //preparedStatement.setLong(1,id);
+            preparedStatement.setString(1,userEntity.getTitle());
+            preparedStatement.setString(2,userEntity.getFirstName());
+            preparedStatement.setString(3,userEntity.getMiddleName());
+            preparedStatement.setString(4,userEntity.getLastName());
+            preparedStatement.setLong(5,userEntity.getCreatedBy().getId());
+            preparedStatement.setDate(6,sqlDate);
+            preparedStatement.setString(7,userEntity.getEmail());
+            preparedStatement.setString(8,encryptedPassword);
+            preparedStatement.setString(9,passwordSalt);
+            preparedStatement.setInt(10,userEntity.getRole().getValue());
+            preparedStatement.setLong(11,userEntity.getCompany().getId());
 
             var resultSet = preparedStatement.executeQuery();
             //checks if the resultSet contains any rows
             if (!resultSet.next())
             {
-                return 0L;
+                return 0;
             }
 
 
@@ -60,10 +63,10 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         }
         catch (SQLException e) {
             e.printStackTrace();
-            return 0L;
+            return 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return 0L;
+            return 0;
         }
 
     }
@@ -74,7 +77,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
      * @return a UserEntity object if a user has been found
      */
     @Override
-    public UserEntity getUserById(Long id) {
+    public UserEntity getUserById(long id) {
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +

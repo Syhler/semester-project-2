@@ -3,7 +3,7 @@ import org.example.entity.*;
 import java.util.List;
 
 public interface IUser {
-   public Long createUser(UserEntity userEntity,String password) throws Exception;
+   public long createUser(UserEntity userEntity,String password) throws Exception;
 
    public Boolean removeUser(UserEntity userEntity);
 

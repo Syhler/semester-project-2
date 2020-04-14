@@ -66,7 +66,7 @@ public class CreateUserController implements Initializable {
     @FXML
     private Label statusText;
 
-    public ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
+    private ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
 
     private String rolename = "";
     private int roleValue;

@@ -42,10 +42,6 @@ public class UserEntity {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public void setCompany(CompanyEntity company) {
         this.company = company;
     }

@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import org.example.App;
 import org.example.domain.DomainHandler;
+import org.example.entity.Role;
 import org.example.entity.UserEntity;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
@@ -36,7 +37,7 @@ public class DefaultController {
             login.setOnAction(this::logout);
             profileNavigation.setVisible(true);
 
-            if (CurrentUser.getInstance().getUserEntity().getRole().getValue() < 4) {
+            if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
             }
         }

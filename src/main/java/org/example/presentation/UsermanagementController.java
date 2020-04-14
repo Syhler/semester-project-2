@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.Role;
@@ -60,7 +59,7 @@ public class UsermanagementController implements Initializable {
     private TableColumn<UserEntity, String> col_created;
 
 
-    public ObservableList<UserEntity> userList = FXCollections.observableArrayList();
+    private ObservableList<UserEntity> userList = FXCollections.observableArrayList();
 
     public int roleTap = 0;
 
@@ -85,39 +84,28 @@ public class UsermanagementController implements Initializable {
         login.setText(LanguageHandler.getText("logoff"));
         searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
 
-
-
-
-
-
-
-
-
-
-
-
         companyAddToggle.setVisible(false);
 
-        switch (CurrentUser.getInstance().getUserEntity().getRole().getValue()) {
-            case 1:
+        switch (CurrentUser.getInstance().getUserEntity().getRole()) {
+            case Admin:
                 displayAdmins.fire();
                 displayAdmins.setSelected(true);
                 companyAddToggle.setVisible(true);
                 break;
-            case 2:
+            case Manufacture:
                 displayAdmins.setVisible(false);
                 displayManufactures.setVisible(false);
                 displayProducers.fire();
                 displayProducers.setSelected(true);
                 break;
-            case 3:
+            case Producer:
                 displayAdmins.setVisible(false);
                 displayManufactures.setVisible(false);
                 displayProducers.setVisible(false);
                 displayActors.fire();
                 displayActors.setSelected(true);
                 break;
-            case 4:
+            case Actor:
                 displayAdmins.setVisible(false);
                 displayManufactures.setVisible(false);
                 displayProducers.setVisible(false);
@@ -176,28 +164,28 @@ public class UsermanagementController implements Initializable {
 
         if (displayByRole == displayAdmins) {
             userList.addAll(domainHandler.user().getUserByRole(Role.Admin));
-            roleTap = 1;
+            roleTap = Role.Admin.getValue();
             displayManufactures.setSelected(false);
             displayProducers.setSelected(false);
             displayActors.setSelected(false);
         }
         if (displayByRole == displayManufactures) {
             userList.addAll(domainHandler.user().getUserByRole(Role.Manufacture));
-            roleTap = 2;
+            roleTap = Role.Manufacture.getValue();
             displayAdmins.setSelected(false);
             displayProducers.setSelected(false);
             displayActors.setSelected(false);
         }
         if (displayByRole == displayProducers) {
             userList.addAll(domainHandler.user().getUserByRole(Role.Producer));
-            roleTap = 3;
+            roleTap = Role.Producer.getValue();
             displayManufactures.setSelected(false);
             displayAdmins.setSelected(false);
             displayActors.setSelected(false);
         }
         if (displayByRole == displayActors) {
             userList.addAll(domainHandler.user().getUserByRole(Role.Actor));
-            roleTap = 4;
+            roleTap = Role.Actor.getValue();
             displayManufactures.setSelected(false);
             displayProducers.setSelected(false);
             displayAdmins.setSelected(false);

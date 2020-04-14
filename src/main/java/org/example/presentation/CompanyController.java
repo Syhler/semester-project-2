@@ -62,7 +62,7 @@ public class CompanyController implements Initializable {
     @FXML
     private Label statusText;
 
-    public ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
+    private ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
 
     private CompanyEntity company = null;
 
