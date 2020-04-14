@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.App;
+import org.example.domain.DomainHandler;
+import org.example.domain.Program;
 import org.example.entity.ProgramEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -30,6 +32,7 @@ public class CreateProgramController implements Initializable {
     public int maxSizeDesc = 500;
     public int maxSizeTitle = 100;
     public ProgramEntity programEntity;
+    private DomainHandler domainHandler = new DomainHandler();
 
 
     public ProgramEntity openView()
@@ -65,8 +68,11 @@ public class CreateProgramController implements Initializable {
 
     @FXML
     public void goToUpdateProgram(ActionEvent event) throws IOException {
+        ProgramEntity programEntity = new ProgramEntity(getTitle(), getDescription(),null,null,null);
+        long programId = domainHandler.program().createProgram(programEntity);
+        programEntity.setId(programId);
         UpdateProgramController updateProgramController = new UpdateProgramController();
-        programEntity = updateProgramController.openView(getTitle(), getDescription());
+        this.programEntity = updateProgramController.openView(programEntity);
 
         closeCreateProgram(event);
     }

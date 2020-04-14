@@ -139,15 +139,25 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
 
     @Override
-    public boolean createProgram(ProgramEntity programEntity) {
+    public long createProgram(ProgramEntity programEntity) {
 
-        programEntity.setId(insertProgram());
+        long programId = insertProgram();
+        programEntity.setId(programId);
         programInformation(programEntity,1);
-        companyProgram(programEntity.getCompany().getId(), programEntity.getId());
-        insertProducer(programEntity.getProducer(),programEntity.getId());
-        insertCredit(programEntity.getCredits(),programEntity.getId());
+        if (programEntity.getCompany() != null)
+        {
+            companyProgram(programEntity.getCompany().getId(), programEntity.getId());
+        }
+        if (programEntity.getProducer() != null)
+        {
+            insertProducer(programEntity.getProducer(),programEntity.getId());
+        }
+        if (programEntity.getCredits() != null)
+        {
+            insertCredit(programEntity.getCredits(),programEntity.getId());
+        }
 
-        return true;
+        return programEntity.getId();
     }
 
     //soft deleting instead of just outright deleting

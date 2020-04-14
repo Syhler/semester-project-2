@@ -33,7 +33,7 @@ public class ProgramController implements Initializable {
     public Label producerInfoHeader;
     public Label creditInfoHeader;
     public ProgramEntity programEntity;
-    private DomainHandler domainHandler;
+    private DomainHandler domainHandler = new DomainHandler();
 
 
     @FXML
@@ -45,8 +45,11 @@ public class ProgramController implements Initializable {
     }
 
     @FXML
-    private void deleteProgram() throws IOException {
+    private void deleteProgram(ActionEvent event) throws IOException {
+        domainHandler.program().deleteProgram(programEntity);
+        ControllerUtility.closeProgram(event);
     }
+
 
 
     @FXML

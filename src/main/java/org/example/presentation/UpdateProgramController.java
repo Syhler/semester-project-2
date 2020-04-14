@@ -53,6 +53,7 @@ public class UpdateProgramController implements Initializable {
     public ComboBox<CreditEntity> chooseCredit;
     public Button addCreditButton;
     private DomainHandler domainHandler = new DomainHandler();
+    private long programId;
 
 
     @FXML
@@ -61,15 +62,16 @@ public class UpdateProgramController implements Initializable {
         ControllerUtility.closeProgram(event);
     }
 
-    public ProgramEntity openView(String title, String description) throws IOException {
+    public ProgramEntity openView(ProgramEntity programEntity) throws IOException {
 
         FXMLLoader loader = null;
         loader = App.getLoader("updateProgram");
         Parent node = loader.load();
         UpdateProgramController updateProgramController = loader.<UpdateProgramController>getController();
 
-        updateProgramController.updateInsertTitle.setText(title);
-        updateProgramController.updateInsertDescription.setText(description);
+        updateProgramController.updateInsertTitle.setText(programEntity.getName());
+        updateProgramController.updateInsertDescription.setText(programEntity.getDescription());
+        programId = programEntity.getId();
 
         Scene scene = new Scene(node);
 
@@ -274,8 +276,8 @@ public class UpdateProgramController implements Initializable {
         String description;
         description = getDescription();
 
-        ProgramEntity program = new ProgramEntity(title, description, company, producers, credits);
-        
+        ProgramEntity program = new ProgramEntity(programId, title, description, company, producers, credits);
+
         programEntity = program;
         domainHandler.program().updateProgram(program);
         closeUpdateProgram(event);

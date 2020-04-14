@@ -14,7 +14,7 @@ public class Program implements IProgram {
 
 
 
-    public Boolean createProgram(ProgramEntity programEntity){
+    public long createProgram(ProgramEntity programEntity){
         return persistenceHandler.program().createProgram(programEntity);
     }
     public Boolean deleteProgram(ProgramEntity programEntity){
