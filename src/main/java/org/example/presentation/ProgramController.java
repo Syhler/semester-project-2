@@ -32,8 +32,8 @@ public class ProgramController implements Initializable {
     public Label companyInfoHeader;
     public Label producerInfoHeader;
     public Label creditInfoHeader;
-    private DomainHandler domainHandler;
     public ProgramEntity programEntity;
+    private DomainHandler domainHandler;
 
 
     @FXML

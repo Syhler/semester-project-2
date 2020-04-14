@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.App;
 import org.example.domain.Credit;
+import org.example.domain.DomainHandler;
 import org.example.entity.*;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -51,6 +52,7 @@ public class UpdateProgramController implements Initializable {
     public Label addCreditHeader;
     public ComboBox<CreditEntity> chooseCredit;
     public Button addCreditButton;
+    private DomainHandler domainHandler = new DomainHandler();
 
 
     @FXML
@@ -273,18 +275,13 @@ public class UpdateProgramController implements Initializable {
         description = getDescription();
 
         ProgramEntity program = new ProgramEntity(title, description, company, producers, credits);
-
-        System.out.println(program.toString());
-
-        ProgramListController programListController = new ProgramListController();
-        programListController.programList().add(program);
-        programListController.updateProgramList();
-
+        
         programEntity = program;
+        domainHandler.program().updateProgram(program);
         closeUpdateProgram(event);
     }
 
-    
+
 
 
 

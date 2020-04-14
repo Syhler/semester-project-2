@@ -7,7 +7,7 @@ public interface IProgram  {
     public Boolean deleteProgram(ProgramEntity program);
     public Boolean updateProgram(ProgramEntity program);
     public List<ProgramEntity> getAllPrograms();
-    public ProgramEntity getProgramById(String id);
+    public ProgramEntity getProgramById(ProgramEntity id);
     public List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity);
     public List<ProgramEntity> getProgramsByProducer(UserEntity user);
 }
