@@ -26,17 +26,6 @@ public class ProgramListController implements Initializable {
     public VBox programList;
     public List<ProgramEntity> programEntityList = new ArrayList<ProgramEntity>();
 
-    /*public Node openView() {
-        FXMLLoader loader = null;
-        try {
-            loader = App.getLoader("programList");
-            Parent node = loader.load();
-            return node;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }*/
 
     public Node showProgramList(ProgramEntity programEntity)
     {
@@ -61,37 +50,12 @@ public class ProgramListController implements Initializable {
         return null;
     }
 
-    //Test metode der udfylder et ProgramEntity med de ting den skal have
+
     public List<ProgramEntity> programList() {
 
         List<ProgramEntity> programmer = new ArrayList<ProgramEntity>();
 
         return programmer;
-
-        /*long programID = 1;
-        CompanyEntity company = new CompanyEntity("TV2");
-
-        UserEntity producer = new UserEntity("Producer", "Hans", "Jørgen", "Jørgensen", new Date(), "Hans@email.com");
-        List<UserEntity> producerList = new ArrayList<UserEntity>();
-        producerList.add(producer);
-
-        CreditEntity credit = new CreditEntity(programID, producer);
-        List<CreditEntity> creditList = new ArrayList<CreditEntity>();
-        creditList.add(credit);
-
-        List<ProgramEntity> programmer = new ArrayList<ProgramEntity>();
-
-        for (int i = 1; i <= 50; i++)
-        {
-            ProgramEntity programEntity = new ProgramEntity("Søren sidder på sin bakke og hygger. Han har sin hund med." + i,
-                    "Søren går ud på bakken, sammen med sin flotte hund: 'Hans' Søren går ud på bakken, sammen med sin flotte hund: 'Hans' " +
-                            "Søren går ud på bakken, sammen med sin flotte hund: 'Hans' Søren går ud på bakken, sammen med sin flotte hund: 'Hans' " +
-                            "Søren går ud på bakken, sammen med sin flotte hund: 'Hans' " +
-                            "Søren går ud på bakken, sammen med sin flotte hund: 'Hans' " + i, company, producerList, creditList);
-            programmer.add(programEntity);
-            programID++;
-        }
-        return programmer;*/
     }
 
     public void updateProgramList()
@@ -127,7 +91,6 @@ public class ProgramListController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         scrollPane.setFitToWidth(true);
-        //updateProgramList();
 
     }
 }

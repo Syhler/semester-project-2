@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.App;
+import org.example.domain.Credit;
 import org.example.entity.*;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -47,6 +48,9 @@ public class UpdateProgramController implements Initializable {
     public List<CreditEntity> credits = new ArrayList<CreditEntity>();
     public CompanyEntity company;
     public ProgramEntity programEntity;
+    public Label addCreditHeader;
+    public ComboBox<CreditEntity> chooseCredit;
+    public Button addCreditButton;
 
 
     @FXML
@@ -188,6 +192,53 @@ public class UpdateProgramController implements Initializable {
     }
 
 
+    public List<CreditEntity> creditCreatorTest()
+    {
+        UserEntity credit1 = new UserEntity("Lydmand", "Hans", "Hans", "Jørgensen", new Date(), "Hans@email.com");
+        CreditEntity creditEntity1 = new CreditEntity(0,credit1);
+        UserEntity credit2 = new UserEntity("Kameramand", "Bo", "Jørgen", "Hansen", new Date(), "Hans@email.com");
+        CreditEntity creditEntity2 = new CreditEntity(0,credit2);
+
+        List<CreditEntity> credits = new ArrayList<CreditEntity>();
+        credits.add(creditEntity1);
+        credits.add(creditEntity2);
+        return credits;
+    }
+
+    public void chooseCredit()
+    {
+        chooseCredit.getItems().addAll(creditCreatorTest());
+
+        Callback<ListView<CreditEntity>, ListCell<CreditEntity>> cellFactory = new Callback<>() {
+
+            @Override
+            public ListCell<CreditEntity> call(ListView<CreditEntity> l) {
+                return new ListCell<CreditEntity>() {
+
+                    @Override
+                    protected void updateItem(CreditEntity item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(item.getActor().getNameAndTitle());
+                        }
+                    }
+                };
+            }
+        };
+        chooseCredit.setCellFactory(cellFactory);
+        chooseCredit.setButtonCell(cellFactory.call(null));
+    }
+
+    public void addCredit(ActionEvent event)
+    {
+        CreditEntity credit = chooseCredit.getSelectionModel().getSelectedItem();
+        creditList.appendText(credit.getActor().getNameAndTitle()+"\n");
+        credits.add(chooseCredit.getSelectionModel().getSelectedItem());
+    }
+
+
     @FXML
     public void goToCreateCredit(ActionEvent event) throws IOException {
         CreditController creditController = new CreditController();
@@ -195,7 +246,7 @@ public class UpdateProgramController implements Initializable {
 
         if (credit == null) return;
 
-        creditList.appendText(credit.getName() +" - "+ credit.getTitle() +"\n");
+        creditList.appendText(credit.getNameAndTitle() +"\n");
         CreditEntity creditEntity = new CreditEntity(0,credit);
         credits.add(creditEntity);
     }
@@ -233,6 +284,8 @@ public class UpdateProgramController implements Initializable {
         closeUpdateProgram(event);
     }
 
+    
+
 
 
     @Override
@@ -252,6 +305,8 @@ public class UpdateProgramController implements Initializable {
         chooseCompany.getSelectionModel().selectFirst();
         chooseProducer();
         chooseProducer.getSelectionModel().selectFirst();
+        chooseCredit();
+        chooseCredit.getSelectionModel().selectFirst();
 
         addSelectedProducer.setText(LanguageHandler.getText("add"));
         updateProgramBtn.setText(LanguageHandler.getText("updateProgram"));
@@ -264,6 +319,8 @@ public class UpdateProgramController implements Initializable {
         updateProgCredits.setText(LanguageHandler.getText("programCredits"));
         updateCreditBtn.setText(LanguageHandler.getText("createCreditStageTitle"));
         updateProgProducer.setText(LanguageHandler.getText("producer"));
+        addCreditButton.setText(LanguageHandler.getText("add"));
+        addCreditHeader.setText(LanguageHandler.getText("addCreditHeader"));
 
     }
 }

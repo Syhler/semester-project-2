@@ -6,13 +6,13 @@
     <showMore>Vis mere</showMore>
     <updateProgram>Opdater</updateProgram>
     <deleteProgram>Slet</deleteProgram>
-    <descriptionHeader>Beskrivelse:</descriptionHeader>
+    <descriptionHeader>Beskrivelse</descriptionHeader>
     <titleHeader>Titel</titleHeader>
     <loggedInAs>Logged ind som bruger:</loggedInAs>
     <createProgramStageTitle>Opret Program</createProgramStageTitle>
     <programCompany>Producent</programCompany>
     <programCredits>Kreditering</programCredits>
-    <cancel>Cancel</cancel>
+    <cancel>Annuller</cancel>
     <insertTitle>Indsæt titel her</insertTitle>
     <insertDescription>Indsæt beskrivelse her</insertDescription>
     <insertCompany>Indsæt producent her</insertCompany>
@@ -33,5 +33,9 @@
     <emailPrompt>Indsæt kreditorers email her</emailPrompt>
     <add>Tilføj</add>
     <programInformationStageTitle>Program information</programInformationStageTitle>
+    <addCreditHeader>Tilføj kreditering</addCreditHeader>
+    <companyInfoHeader>Produceret af</companyInfoHeader>
+    <producerInfoHeader>Producere</producerInfoHeader>
+    <creditHeader>Kreditering</creditHeader>
 
 </language>

@@ -29,6 +29,9 @@ public class ProgramController implements Initializable {
     public VBox programInfo;
     public Button updateProgInfoBtn;
     public Button deleteProgBtn;
+    public Label companyInfoHeader;
+    public Label producerInfoHeader;
+    public Label creditInfoHeader;
     private DomainHandler domainHandler;
     public ProgramEntity programEntity;
 
@@ -59,6 +62,5 @@ public class ProgramController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
     }
 }
