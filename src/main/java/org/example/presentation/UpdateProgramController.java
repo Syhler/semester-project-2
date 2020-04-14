@@ -108,8 +108,8 @@ public class UpdateProgramController implements Initializable {
     public List<CompanyEntity> companyTest()
     {
         CompanyEntity companyTV2 = new CompanyEntity("TV2");
-        CompanyEntity companyDR1 = new CompanyEntity("DR1");
-        CompanyEntity companyBlue = new CompanyEntity("Blue");
+        CompanyEntity companyDR1 = new CompanyEntity("DR");
+        CompanyEntity companyBlue = new CompanyEntity("BLU");
         List<CompanyEntity> companies = new ArrayList<>();
         companies.add(companyBlue);
         companies.add(companyTV2);

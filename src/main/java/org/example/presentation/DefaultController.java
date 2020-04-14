@@ -78,6 +78,8 @@ public class DefaultController implements Initializable
             loader = App.getLoader("programList");
             Parent node = loader.load();
             programListController = loader.getController();
+            programListController.programEntityList.addAll(domainHandler.program().getAllPrograms());
+            programListController.updateProgramList();
             borderPane.setCenter(node);
         } catch (IOException e) {
             e.printStackTrace();
