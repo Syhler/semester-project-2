@@ -248,24 +248,22 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
 
     public boolean updateCredit(ProgramEntity programEntity){
+
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT user from credit where program = ?");
-            stmt.setLong(1,programEntity.getId());
-            ResultSet resultSet = stmt.executeQuery();
+            PreparedStatement statement = connection.prepareStatement("INSERT into credit(\"user\", program) values (?, ?)");
+            for (CreditEntity credit:programEntity.getCredits()) {
+                if (credit.getProgramId() == 0){
+                    statement.setLong(1,credit.getActor().getId());
+                    statement.setLong(2,programEntity.getId());
 
-            int i = 0;
-            for (CreditEntity credit: programEntity.getCredits()) {
-             if(credit.getActor().getId() != resultSet.getLong(i) ){
-                 PreparedStatement statement = connection.prepareStatement("INSERT into credit(\"user\") VALUES ");
-                i++;
-             }
+                }
             }
-
-
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
 
 
         return true;
@@ -284,6 +282,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             stmt.setString(1,programEntity.getName());
             stmt.setString(2,programEntity.getDescription());
             stmt.setLong(3,programEntity.getId());
+            updateCredit(programEntity);
             stmt.executeUpdate();
 
             return true;
