@@ -17,6 +17,13 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         connection = initializeDatabase();
     }
 
+    /**
+     * inserts given data into the programInformation table in the database
+     * @param programEntity
+     * @param language_id
+     * @return
+     */
+
     private long programInformation(ProgramEntity programEntity, long language_id) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO programInformation" +
@@ -30,7 +37,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
                 // 1 is the index for id
                 return resultSet.getLong("id");
             }
-            return 0;
+            return 1;
         } catch (SQLException e) {
             e.printStackTrace();
             return 0;
@@ -39,7 +46,12 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     }
 
 
-
+    /**
+     * Inserts given data into the companyProgram table in the database
+     * @param program_id
+     * @param company_id
+     * @return
+     */
     private boolean companyProgram(long program_id, long company_id) {
         try {
             PreparedStatement stmt = connection.prepareStatement(
@@ -54,6 +66,10 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
     }
 
+    /**
+     * Inserts a null timestamp into the program table in the database so that a program id is set.
+     * @return the programs id.
+     */
     private long insertProgram(){
        try {
            PreparedStatement statement = connection.prepareStatement(
@@ -71,6 +87,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }
 
+    /**
+     * Inserts all producers on the given program into the programproducer table in the database.
+     * @param producer
+     * @param programId
+     */
     private void insertProducer(List<UserEntity> producer,long programId){
         try {
             PreparedStatement statementProducer = connection.prepareStatement(
@@ -89,6 +110,12 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             e.printStackTrace();
         }
     }
+
+    /**
+     * Inserts all credits on the given program into the credit table in the database.
+     * @param credits
+     * @param programId
+     */
     private void insertCredit(List<CreditEntity> credits, long programId){
         try {
             PreparedStatement statementCredit  = connection.prepareStatement("INSERT INTO credit(program,\"user\") "
@@ -111,6 +138,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     }
 
 
+
     @Override
     public boolean createProgram(ProgramEntity programEntity) {
 
@@ -122,7 +150,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
         return true;
     }
-    
+
     //soft deleting instead of just outright deleting
     /*public boolean deleteCredit(ProgramEntity programEntity){
         try {
@@ -176,7 +204,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }*/
 
-
+    /**
+     * Sets a timestamp for when the program was deleted, doesnt delete anything in the database.
+     * @param programID
+     * @return
+     */
     public boolean softDeleteProgramTable(long programID){
         try {
             PreparedStatement statement =connection.prepareStatement("UPDATE program SET timestamp_for_deletion = ? " +
@@ -185,7 +217,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             statement.setLong(2,programID);
             statement.executeUpdate();
-            //connection.commit();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -194,7 +225,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }
 
-
+    /**
+     * uses other methods to determine how a program is deleted
+     * @param programEntity
+     * @return
+     */
     @Override
     public boolean deleteProgram(ProgramEntity programEntity) {
         softDeleteProgramTable(programEntity.getId());
@@ -203,6 +238,12 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         return true;
 
     }
+
+    /**
+     * updates a programs infomation in the programinformation table.
+     * @param programEntity
+     * @return
+     */
 
     @Override
     public boolean updateProgram(ProgramEntity programEntity) {
@@ -224,6 +265,12 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }
 
+    /**
+     * Selects information on every actor on a given program.
+     * @param programEntity
+     * @return list of all the actors on a program.
+     */
+
     public ArrayList<CreditEntity> getCreditUser(ProgramEntity programEntity){
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT credit.program, \"user\".id, \"user\".title, \"user\"" +
@@ -243,6 +290,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
     }
 
+    /**
+     * Selects information on all producers on a given program
+     * @param programEntity
+     * @return list of all the users on a program.
+     */
     public ArrayList<UserEntity> getProducerforProgram(ProgramEntity programEntity){
         try {
             PreparedStatement statement = connection.prepareStatement("select \"user\".id, \"user\".title,firstname, middlename, lastname, " +
@@ -263,6 +315,12 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
 
     }
+
+    /**
+     * Selects information the company that is connected to the program
+     * @param programEntity
+     * @return A company entity
+     */
 
     public CompanyEntity getCompanyProgram(ProgramEntity programEntity){
         try {
@@ -287,6 +345,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }
 
+    /**
+     * Returns information based on a given programs id.
+     * @param programEntity
+     * @return A progrmaentity
+     */
     @Override
     public ProgramEntity getProgramById(ProgramEntity programEntity) {
         try {
@@ -314,6 +377,10 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
     }
 
+    /**
+     * Returns title and id for all programs in the database.
+     * @return all programs in the database.
+     */
     @Override
     public List<ProgramEntity> getAllPrograms() {
         PreparedStatement stmt = null;
@@ -337,6 +404,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
     }
 
+    /**
+     * Returns all programs a given producer has been involved with
+     * @param producer
+     * @return A list of programentitys
+     */
     @Override
     public List<ProgramEntity> getProgramsByProducer(UserEntity producer) {
 
@@ -360,6 +432,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
     }
 
+    /**
+     * Returns all programs a company has been involved with
+     * @param companyEntity
+     * @return A list of all programs a company has been involved with.
+     */
     @Override
     public List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity) {
         PreparedStatement stmt = null;
@@ -384,7 +461,12 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     }
 
 
-
+    /**
+     * Creates a userEntity based on a given resultset.
+     * @param resultSet
+     * @return A user.
+     * @throws SQLException
+     */
     private UserEntity createUserEntityFromResultSet(ResultSet resultSet) throws SQLException {
         var user = new UserEntity(
                 resultSet.getLong("id"),
