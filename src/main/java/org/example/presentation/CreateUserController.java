@@ -15,6 +15,7 @@ import javafx.util.Callback;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
+import org.example.entity.Role;
 import org.example.entity.UserEntity;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
@@ -69,7 +70,7 @@ public class CreateUserController implements Initializable {
     private ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
 
     private String rolename = "";
-    private int roleValue;
+    private Role roleValue;
 
     private UserEntity user = null;
 
@@ -118,18 +119,18 @@ public class CreateUserController implements Initializable {
      *
      * @return currentUser
      */
-    public UserEntity openCreateUser(ActionEvent event, int role) {
+    public UserEntity openCreateUser(ActionEvent event, Role role) {
         switch (role) {
-            case 1:
+            case Admin:
                 rolename = LanguageHandler.getText("admin");
                 break;
-            case 2:
+            case Manufacture:
                 rolename = LanguageHandler.getText("manufacture");
                 break;
-            case 3:
+            case Producer:
                 rolename = LanguageHandler.getText("producer");
                 break;
-            case 4:
+            case Actor:
                 rolename = LanguageHandler.getText("actor");
                 break;
         }
@@ -184,19 +185,19 @@ public class CreateUserController implements Initializable {
 
         user = new UserEntity(title.getText(), firstname.getText(), middelname.getText(), lastname.getText(), sqlDate, email.getText());
         user.setCompany(companyList.getSelectionModel().getSelectedItem());
-        user.setRole(roleValue);
+        user.setRole(roleValue.getValue());
         user.setCreatedBy(CurrentUser.getInstance().getUserEntity());
         user.setCreatedByName(user.getCreatedBy().getFirstName());
         user.setCompanyName(user.getCompany().getName());
 
-        Long userID = domainHandler.user().createUser(user, password.getText());
+        long userID = domainHandler.user().createUser(user, password.getText());
 
-        if (userID != 0L) {
+        if (userID != 0) {
             user.setId(userID);
             closeDialog(event);
 
         } else {
-            setStatusText("Something went wrong");
+            setStatusText(LanguageHandler.getText("somethingWrong"));
         }
 
     }

@@ -61,7 +61,7 @@ public class UsermanagementController implements Initializable {
 
     private ObservableList<UserEntity> userList = FXCollections.observableArrayList();
 
-    public int roleTap = 0;
+    private Role roleTap;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -151,7 +151,7 @@ public class UsermanagementController implements Initializable {
         if (user != null) {
             userList.remove(userToUpdate);
 
-            if (user.getRole().getValue() == roleTap) {
+            if (user.getRole() == roleTap) {
                 userList.add(user);
             }
         }
@@ -164,28 +164,28 @@ public class UsermanagementController implements Initializable {
 
         if (displayByRole == displayAdmins) {
             userList.addAll(domainHandler.user().getUserByRole(Role.Admin));
-            roleTap = Role.Admin.getValue();
+            roleTap = Role.Admin;
             displayManufactures.setSelected(false);
             displayProducers.setSelected(false);
             displayActors.setSelected(false);
         }
         if (displayByRole == displayManufactures) {
             userList.addAll(domainHandler.user().getUserByRole(Role.Manufacture));
-            roleTap = Role.Manufacture.getValue();
+            roleTap = Role.Manufacture;
             displayAdmins.setSelected(false);
             displayProducers.setSelected(false);
             displayActors.setSelected(false);
         }
         if (displayByRole == displayProducers) {
             userList.addAll(domainHandler.user().getUserByRole(Role.Producer));
-            roleTap = Role.Producer.getValue();
+            roleTap = Role.Producer;
             displayManufactures.setSelected(false);
             displayAdmins.setSelected(false);
             displayActors.setSelected(false);
         }
         if (displayByRole == displayActors) {
             userList.addAll(domainHandler.user().getUserByRole(Role.Actor));
-            roleTap = Role.Actor.getValue();
+            roleTap = Role.Actor;
             displayManufactures.setSelected(false);
             displayProducers.setSelected(false);
             displayAdmins.setSelected(false);

@@ -70,7 +70,7 @@ public class UpdateUserController implements Initializable {
     private ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
 
     private String rolename = "";
-    private int roleValue;
+    private Role roleValue;
 
     private UserEntity userToUpdate = null;
     private UserEntity user = null;
@@ -124,19 +124,19 @@ public class UpdateUserController implements Initializable {
      *
      * @return UserEntity
      */
-    public UserEntity openUpdateUser(ActionEvent event, UserEntity userToUpdate, int role) {
+    public UserEntity openUpdateUser(ActionEvent event, UserEntity userToUpdate, Role role) {
 
         switch (role) {
-            case 1:
+            case Admin:
                 rolename = LanguageHandler.getText("admin");
                 break;
-            case 2:
+            case Manufacture:
                 rolename = LanguageHandler.getText("manufacture");
                 break;
-            case 3:
+            case Producer:
                 rolename = LanguageHandler.getText("producer");
                 break;
-            case 4:
+            case Actor:
                 rolename = LanguageHandler.getText("actor");
                 break;
         }
@@ -223,7 +223,7 @@ public class UpdateUserController implements Initializable {
             closeDialog(event);
 
         } else {
-            setStatusText("Something went wrong");
+            setStatusText(LanguageHandler.getText("somethingWrong"));
         }
 
     }
@@ -248,5 +248,6 @@ public class UpdateUserController implements Initializable {
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
+
 
 }

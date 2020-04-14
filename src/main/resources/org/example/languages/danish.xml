@@ -60,6 +60,15 @@
     <usernameLabel>Brugernavn</usernameLabel>
     <passwordLabel>Kodeord</passwordLabel>
 
+    <companyCreated>blev oprettet</companyCreated>
+    <companyNotCreated>blev ikke oprettet</companyNotCreated>
+    <companyUpdated>blev redigeret</companyUpdated>
+    <companyNotUpdated>blev ikke redigeret</companyNotUpdated>
+    <companyDeleted>blev slettet</companyDeleted>
+    <companyNotDeleted>blev ikke slettet</companyNotDeleted>
+    <somethingWrong>Der gik noget galt</somethingWrong>
+
+
 
 
 

@@ -12,6 +12,6 @@ public interface IPersistenceCompany
     List<CompanyEntity> getCompanies();
     boolean deleteCompany(CompanyEntity companyEntity);
     boolean updateCompany(CompanyEntity companyEntity);
-    Long createCompany(CompanyEntity companyEntity);
+    long createCompany(CompanyEntity companyEntity);
 
 }

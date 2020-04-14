@@ -59,5 +59,13 @@
     <usernameLabel>Username</usernameLabel>
     <passwordLabel>Password</passwordLabel>
 
+    <companyCreated>was created</companyCreated>
+    <companyNotCreated>was not created</companyNotCreated>
+    <companyUpdated>was updated</companyUpdated>
+    <companyNotUpdated>was not updated</companyNotUpdated>
+    <companyDeleted>was deleted</companyDeleted>
+    <companyNotDeleted>was not deleted</companyNotDeleted>
+    <somethingWrong>Something went wrong</somethingWrong>
+
 
 </language>

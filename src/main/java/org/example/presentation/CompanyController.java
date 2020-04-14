@@ -64,8 +64,6 @@ public class CompanyController implements Initializable {
 
     private ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
 
-    private CompanyEntity company = null;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -142,7 +140,7 @@ public class CompanyController implements Initializable {
             companyStage.initModality(Modality.WINDOW_MODAL);
             companyStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             companyStage.setResizable(false);
-            companyStage.showAndWait();
+            companyStage.show();
 
 
         } catch (IOException e) {
@@ -156,15 +154,15 @@ public class CompanyController implements Initializable {
     public void createCompany(ActionEvent event) throws IOException {
         CompanyEntity newCompany = new CompanyEntity(companyNameInput.getText());
 
-        Long id = domainHandler.company().createCompany(newCompany);
+        long id = domainHandler.company().createCompany(newCompany);
 
-        if (id != null) {
+        if (id != 0) {
             newCompany.setId(id);
-            setStatusText(newCompany.getName() + " was created");
+            setStatusText(newCompany.getName() + " "+LanguageHandler.getText("companyCreated"));
             companyEntities.add(newCompany);
 
         } else {
-            setStatusText(newCompany.getName() + " wasn't created");
+            setStatusText(newCompany.getName() + " "+LanguageHandler.getText("companyNotCreated"));
         }
 
 
@@ -175,12 +173,14 @@ public class CompanyController implements Initializable {
         CompanyEntity updatedCompany = new CompanyEntity(companyNameToUpdate.getText());
         updatedCompany.setId(Long.parseLong(companyId.getText()));
 
-        if (domainHandler.company().updateCompany(updatedCompany)) {
-            setStatusText(updatedCompany.getName() + " was updated");
+        boolean companyWasUpdated = domainHandler.company().updateCompany(updatedCompany);
+
+        if (companyWasUpdated) {
+            setStatusText(updatedCompany.getName() + " "+LanguageHandler.getText("companyUpdated"));
             companyEntities.remove(companyList.getSelectionModel().getSelectedItem());
             companyEntities.add(updatedCompany);
         } else {
-            setStatusText(updatedCompany.getName() + " wasn't updated");
+            setStatusText(updatedCompany.getName() + " "+LanguageHandler.getText("companyNotUpdated"));
         }
     }
 
@@ -188,11 +188,13 @@ public class CompanyController implements Initializable {
     public void deleteCompany(ActionEvent event) throws IOException {
         CompanyEntity selectedCompany = companyList.getSelectionModel().getSelectedItem();
 
-        if (domainHandler.company().deleteCompany(selectedCompany)) {
-            setStatusText(selectedCompany.getName() + " deleted");
+        boolean companyWasDeleted = domainHandler.company().deleteCompany(selectedCompany);
+
+        if (companyWasDeleted) {
+            setStatusText(selectedCompany.getName() + " "+LanguageHandler.getText("companyDeleted"));
             companyEntities.remove(selectedCompany);
         } else {
-            setStatusText(selectedCompany.getName() + " wasn't deleted");
+            setStatusText(selectedCompany.getName() + " "+LanguageHandler.getText("companyNotDeleted"));
         }
     }
 

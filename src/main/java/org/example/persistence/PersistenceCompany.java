@@ -48,13 +48,12 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
                         "DELETE FROM company WHERE \"company\".id = ? ");
                 preparedStatement.setLong(1,companyEntity.getId());
-                preparedStatement.execute();
+                return preparedStatement.execute();
             }
             catch (SQLException e) {
                 e.printStackTrace();
                 return false;
             }
-            return true;
     }
 
     @Override
@@ -69,18 +68,18 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
             preparedStatement.setLong(2,id);
 
 
-            preparedStatement.execute();
+            return preparedStatement.execute();
 
         }
         catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-        return true;
+
     }
 
     @Override
-    public Long createCompany(CompanyEntity companyEntity) {
+    public long createCompany(CompanyEntity companyEntity) {
 
         try {
 
@@ -93,7 +92,7 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
             //checks if the resultSet contains any rows
             if (!resultSet.next())
             {
-                return 0L;
+                return 0;
             }
 
 
