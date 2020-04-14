@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <language>
     <username>Brugernavn</username>
-    <password>Adgangskode</password>
+    <password>Adgangskode:*</password>
+    <firstName>Fornavn:*</firstName>
+    <middleName>Mellemnavn:</middleName>
+    <lastName>Efternavn:*</lastName>
+    <email>Email:*</email>
+    <title>Titel:*</title>
+    <company>Firma:*</company>
+    <createBtn>Opret</createBtn>
+    <cancelBtn>Afbryd</cancelBtn>
+    <updateBtn>Opdater</updateBtn>
+
+
 </language>
 

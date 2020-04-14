@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <language>
     <username>Username</username>
-    <password>Password</password>
+    <password>Password:*</password>
+    <firstName>First name:*</firstName>
+    <middleName>Middle name:</middleName>
+    <lastName>Last name:*</lastName>
+    <email>Email:*</email>
+    <title>Title:*</title>
+    <company>Company:*</company>
+    <createBtn>Create</createBtn>
+    <cancelBtn>Cancel</cancelBtn>
 </language>

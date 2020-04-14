@@ -13,19 +13,19 @@
 
 <VBox fx:id="createUserRoot" alignment="CENTER_LEFT" prefHeight="618.0" prefWidth="400.0" spacing="15.0" stylesheets="@css/UsermangementStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.CreateUserController">
    <children>
-      <Label text="First name:*" />
+      <Label fx:id="firstNameCreate" text="First name:*" />
       <TextField fx:id="firstname" />
-      <Label text="Middle name:" />
+      <Label fx:id="middleNameCreate" text="Middle name:" />
       <TextField fx:id="middelname" />
-      <Label text="Last name:*" />
+      <Label fx:id="lastNameCreate" text="Last name:*" />
       <TextField fx:id="lastname" />
-      <Label text="Email:*" />
+      <Label fx:id="emailCreate" text="Email:*" />
       <TextField fx:id="email" />
-      <Label text="Company:*" />
+      <Label fx:id="companyCreate" text="Company:*" />
       <ComboBox fx:id="companyList" prefHeight="26.0" prefWidth="208.0" />
-      <Label text="Title:*" />
+      <Label fx:id="titleCreate" text="Title:*" />
       <TextField fx:id="title" />
-      <Label text="Password:*" />
+      <Label fx:id="passwordCreate" text="Password:*" />
       <PasswordField fx:id="password" />
       <HBox prefHeight="42.0" prefWidth="200.0">
          <children>

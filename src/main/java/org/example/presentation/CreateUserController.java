@@ -16,6 +16,8 @@ import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
 import org.example.entity.UserEntity;
+import org.example.presentation.multipleLanguages.Language;
+import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +39,26 @@ public class CreateUserController implements Initializable {
     private TextField title;
     @FXML
     private TextField password;
+
+    @FXML
+    private Label firstNameCreate;
+    @FXML
+    private Label middleNameCreate;
+    @FXML
+    private Label lastNameCreate;
+    @FXML
+    private Label emailCreate;
+    @FXML
+    private Label companyCreate;
+    @FXML
+    private Label titleCreate;
+    @FXML
+    private Label passwordCreate;
+    @FXML
+    private Button createUserFromInput;
+    @FXML
+    private Button btnCancel;
+
 
     @FXML
     private ComboBox<CompanyEntity> companyList;
@@ -71,6 +93,7 @@ public class CreateUserController implements Initializable {
                     }
                 };
             }
+
         };
 
         companyList.setCellFactory(cellFactory);
@@ -78,6 +101,15 @@ public class CreateUserController implements Initializable {
         companyEntities.addAll(domainHandler.company().getCompanies());
         companyList.setItems(companyEntities);
 
+        firstNameCreate.setText(LanguageHandler.getText("firstName"));
+        middleNameCreate.setText(LanguageHandler.getText("middleName"));
+        lastNameCreate.setText(LanguageHandler.getText("lastName"));
+        emailCreate.setText(LanguageHandler.getText("email"));
+        titleCreate.setText(LanguageHandler.getText("title"));
+        companyCreate.setText(LanguageHandler.getText("company"));
+        passwordCreate.setText(LanguageHandler.getText("password"));
+        createUserFromInput.setText(LanguageHandler.getText("createBtn"));
+        btnCancel.setText(LanguageHandler.getText("cancelBtn"));
     }
 
 

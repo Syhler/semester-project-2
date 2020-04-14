@@ -13,21 +13,21 @@
 
 <VBox fx:id="updateUserRoot" alignment="CENTER_LEFT" prefHeight="618.0" prefWidth="400.0" spacing="15.0" stylesheets="@css/UsermangementStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.UpdateUserController">
    <children>
-      <Label text="First name:*" />
+      <Label fx:id="firstNameUpdate" text="First name:*" />
       <TextField fx:id="firstname" />
-      <Label text="Middle name:" />
+      <Label fx:id="middleNameUpdate" text="Middle name:" />
       <TextField fx:id="middelname" />
-      <Label text="Last name:*" />
+      <Label fx:id="lastNameUpdate" text="Last name:*" />
       <TextField fx:id="lastname" />
-      <Label text="Email:*" />
+      <Label fx:id="emailUpdate" text="Email:*" />
       <TextField fx:id="email" />
-      <Label text="Title:*" />
+      <Label fx:id="titleUpdate" text="Title:*" />
       <TextField fx:id="title" />
-      <Label fx:id="companyLabel" text="Company:*" />
+      <Label fx:id="companyUpdate" text="Company:*" />
       <ComboBox fx:id="companyList" prefHeight="26.0" prefWidth="208.0" />
-      <Label fx:id="roleLabel" text="Role*" />
+      <Label fx:id="roleUpdate" text="Role*" />
       <ComboBox fx:id="roleList" prefHeight="26.0" prefWidth="208.0" />
-      <Label text="Password:*" />
+      <Label fx:id="passwordUpdate" text="Password:*" />
       <PasswordField fx:id="password" />
       <HBox prefHeight="46.0" prefWidth="200.0">
          <children>

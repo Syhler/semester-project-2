@@ -17,6 +17,7 @@ import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
+import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,6 +39,25 @@ public class UpdateUserController implements Initializable {
     private TextField title;
     @FXML
     private TextField password;
+
+    @FXML
+    private Label firstNameUpdate;
+    @FXML
+    private Label middleNameUpdate;
+    @FXML
+    private Label lastNameUpdate;
+    @FXML
+    private Label emailUpdate;
+    @FXML
+    private Label companyUpdate;
+    @FXML
+    private Label titleUpdate;
+    @FXML
+    private Label passwordUpdate;
+    @FXML
+    private Button createUserFromInput;
+    @FXML
+    private Button btnCancel;
 
     @FXML
     private ComboBox<CompanyEntity> companyList;
@@ -80,6 +100,16 @@ public class UpdateUserController implements Initializable {
         companyList.setButtonCell(cellFactory.call(null));
         companyEntities.addAll(domainHandler.company().getCompanies());
         companyList.setItems(companyEntities);
+
+        firstNameUpdate.setText(LanguageHandler.getText("firstName"));
+        middleNameUpdate.setText(LanguageHandler.getText("middleName"));
+        lastNameUpdate.setText(LanguageHandler.getText("lastName"));
+        emailUpdate.setText(LanguageHandler.getText("email"));
+        titleUpdate.setText(LanguageHandler.getText("title"));
+        companyUpdate.setText(LanguageHandler.getText("company"));
+        passwordUpdate.setText(LanguageHandler.getText("password"));
+        createUserFromInput.setText(LanguageHandler.getText("updateBtn"));
+        btnCancel.setText(LanguageHandler.getText("cancelBtn"));
 
         roleList.getItems().addAll(Role.Admin, Role.Manufacture, Role.Producer, Role.Actor);
 
