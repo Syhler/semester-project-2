@@ -17,14 +17,14 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         connection = initializeDatabase();
     }
 
-    private long programInformation(String description, String title, int language_id, long program_id) {
+    private long programInformation(ProgramEntity programEntity, long language_id) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO programInformation" +
                     "(description, title,language_id,program_id ) VALUES (?,?,?,?) RETURNING id");
-            stmt.setString(1, description);
-            stmt.setString(2, title);
-            stmt.setInt(3, language_id);
-            stmt.setLong(4, program_id);
+            stmt.setString(1, programEntity.getDescription());
+            stmt.setString(2, programEntity.getName());
+            stmt.setLong(3, language_id);
+            stmt.setLong(4, programEntity.getId());
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 // 1 is the index for id
@@ -38,20 +38,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }
 
-    private int credit(String user, String program) {
-        try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO credits(\"user\", program)" + "VALUES (?,?)");
-            stmt.setString(1, user);
-            stmt.setString(2, program);
-            ResultSet resultSet = stmt.executeQuery();
-            return resultSet.getInt("credit_id");
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
-        }
-
-    }
 
     private boolean companyProgram(long program_id, long company_id) {
         try {
@@ -84,29 +71,30 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }
 
-    private void insertProducer(ProgramEntity programEntity,long programId){
+    private void insertProducer(List<UserEntity> producer,long programId){
         try {
             PreparedStatement statementProducer = connection.prepareStatement(
                     "insert INTO programproducer(program_id, producer_id) " + "values (?,?)");
             connection.setAutoCommit(false);
-            for (UserEntity user : programEntity.getProducer()) {
+            for (UserEntity user : producer) {
                 statementProducer.setLong(1,programId);
                 statementProducer.setLong(2,user.getId());
                 statementProducer.addBatch();
             }
            int[] count = statementProducer.executeBatch();
             connection.commit();
+            connection.setAutoCommit(true);
 
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
-    private void insertCredit(ProgramEntity programEntity, long programId){
+    private void insertCredit(List<CreditEntity> credits, long programId){
         try {
             PreparedStatement statementCredit  = connection.prepareStatement("INSERT INTO credit(program,\"user\") "
                     +"values(?,?)");
             connection.setAutoCommit(false);
-        for ( CreditEntity credit: programEntity.getCredits()) {
+        for ( CreditEntity credit: credits) {
 
             statementCredit.setLong(1,programId);
             statementCredit.setLong(2,credit.getActor().getId());
@@ -122,29 +110,19 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }
 
-    private int language(String name) {
-        try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO language(name)" + "VALUES (?) ");
-            stmt.setString(1, name);
-            ResultSet resultSet = stmt.executeQuery();
-            return resultSet.getInt("language_id");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
-        }
-
-    }
 
     @Override
     public boolean createProgram(ProgramEntity programEntity) {
-        long programId = insertProgram();
-        programInformation(programEntity.getDescription(),programEntity.getName(),1,programId);
-        companyProgram(programId,programEntity.getCompany().getId());
-        insertProducer(programEntity,programId);
-        insertCredit(programEntity,programId);
 
-        return false;
+        programEntity.setId(insertProgram());
+        programInformation(programEntity,1);
+        companyProgram(programEntity.getCompany().getId(), programEntity.getId());
+        insertProducer(programEntity.getProducer(),programEntity.getId());
+        insertCredit(programEntity.getCredits(),programEntity.getId());
+
+        return true;
     }
+    
     //soft deleting instead of just outright deleting
     /*public boolean deleteCredit(ProgramEntity programEntity){
         try {
@@ -199,13 +177,13 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     }*/
 
 
-    public boolean softDeleteProgramTable(ProgramEntity programEntity){
+    public boolean softDeleteProgramTable(long programID){
         try {
             PreparedStatement statement =connection.prepareStatement("UPDATE program SET timestamp_for_deletion = ? " +
                     "WHERE id = ? ");
 
             statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
-            statement.setLong(2,programEntity.getId());
+            statement.setLong(2,programID);
             statement.executeUpdate();
             //connection.commit();
             return true;
@@ -219,7 +197,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     @Override
     public boolean deleteProgram(ProgramEntity programEntity) {
-        softDeleteProgramTable(programEntity);
+        softDeleteProgramTable(programEntity.getId());
 
 
         return true;
@@ -314,7 +292,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT programinformation.description ," +
                     " programinformation.title , programinformation.program_id FROM programinformation, program  where programinformation.program_id = ? ");
-            stmt.setLong(1, programEntity.getPrograminformationId());
+            stmt.setLong(1, programEntity.getId());
 
             var resultSet = stmt.executeQuery();
 
@@ -340,7 +318,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     public List<ProgramEntity> getAllPrograms() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT programinformation.title , " +
+            stmt = connection.prepareStatement("SELECT distinct on (programinformation.program_id) programinformation.title , " +
                     "programinformation.program_id from programinformation");
 
             ResultSet sqlReturnValues = stmt.executeQuery();
