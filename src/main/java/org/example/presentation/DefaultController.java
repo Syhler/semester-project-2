@@ -9,6 +9,8 @@ import javafx.scene.control.Dialog;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.UserEntity;
+import org.example.presentation.multipleLanguages.Language;
+import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class DefaultController {
 
@@ -22,8 +24,15 @@ public class DefaultController {
     @FXML
     public void initialize() {
 
+        /**
+         * Language
+         */
+        login.setText(LanguageHandler.getText("login"));
+        profileNavigation.setText(LanguageHandler.getText("profile"));
+        usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
+
         if (CurrentUser.getInstance().getUserEntity() != null) {
-            login.setText("Logout");
+            login.setText(LanguageHandler.getText("logoff"));
             login.setOnAction(this::logout);
             profileNavigation.setVisible(true);
 
@@ -39,7 +48,7 @@ public class DefaultController {
         var userEntity = authenticationController.openLoginStage(event);
 
         if (userEntity != null) {
-            login.setText("Logout");
+            login.setText(LanguageHandler.getText("logoff"));
             login.setOnAction(this::logout);
             profileNavigation.setVisible(true);
 
@@ -52,7 +61,7 @@ public class DefaultController {
     private void logout(ActionEvent event) {
         if (CurrentUser.getInstance().getUserEntity() != null) {
             CurrentUser.getInstance().init(null); //Logs off
-            login.setText("Login");
+            login.setText(LanguageHandler.getText("login"));
             login.setOnAction(this::goToLogin);
 
             usermanagementBtn.setVisible(false);

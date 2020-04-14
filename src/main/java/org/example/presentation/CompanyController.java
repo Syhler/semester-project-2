@@ -138,7 +138,7 @@ public class CompanyController implements Initializable {
             companyStage.setScene(new Scene(myLoader.load()));
             CompanyController createusercontrol = myLoader.getController();
 
-            companyStage.setTitle("Companies");
+            companyStage.setTitle(LanguageHandler.getText("companyTitle"));
             companyStage.initModality(Modality.WINDOW_MODAL);
             companyStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             companyStage.setResizable(false);

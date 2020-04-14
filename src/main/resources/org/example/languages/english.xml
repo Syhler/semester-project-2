@@ -3,7 +3,7 @@
     <username>Username</username>
     <password>Password</password>
     <nameColumn>Name</nameColumn>
-    <companyColumn>Company</companyColumn>
+    <companyColumn>Companies</companyColumn>
     <titleColumn>Title</titleColumn>
     <createdbyColumn>Created By</createdbyColumn>
     <createdColumn>Created</createdColumn>
@@ -15,7 +15,8 @@
     <createPopup>Create</createPopup>
     <editBtn>Edit</editBtn>
     <deleteSelected>Delete</deleteSelected>
-    <login>Logoff</login>
+    <login>Login</login>
+    <logoff>Logoff</logoff>
     <searchNavigation>Search</searchNavigation>
     <createCompanyLabel>Create Company</createCompanyLabel>
     <companyNameLabel>Name:</companyNameLabel>
@@ -25,4 +26,8 @@
     <updateCompanyLabelName>Name:</updateCompanyLabelName>
     <updateCompany>Update</updateCompany>
     <deleteCompany>Delete</deleteCompany>
+    <profile>Profile</profile>
+    <usermanagementBtn>User Management</usermanagementBtn>
+    <closeCompany>Close</closeCompany>
+    <companyTitle>Companies</companyTitle>
 </language>

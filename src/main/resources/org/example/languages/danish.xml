@@ -3,7 +3,7 @@
     <username>Brugernavn</username>
     <password>Adgangskode</password>
     <nameColumn>Navn</nameColumn>
-    <companyColumn>Firma</companyColumn>
+    <companyColumn>Firmaer</companyColumn>
     <titleColumn>Titel</titleColumn>
     <createdbyColumn>Oprettet af</createdbyColumn>
     <createdColumn>Oprettet</createdColumn>
@@ -15,7 +15,8 @@
     <createPopup>Opret</createPopup>
     <editBtn>Rediger</editBtn>
     <deleteSelected>Slet</deleteSelected>
-    <login>Logud</login>
+    <login>Logind</login>
+    <logoff>Logud</logoff>
     <searchNavigation>Søgning</searchNavigation>
     <createCompanyLabel>Opret Firma</createCompanyLabel>
     <companyNameLabel>Navn:</companyNameLabel>
@@ -25,6 +26,10 @@
     <updateCompanyLabelName>Navn:</updateCompanyLabelName>
     <updateCompany>Opdater</updateCompany>
     <deleteCompany>Slet</deleteCompany>
+    <profile>Profil</profile>
+    <usermanagementBtn>Bruger Administration</usermanagementBtn>
+    <closeCompany>Luk</closeCompany>
+    <companyTitle>Firmaer</companyTitle>
 
 
 

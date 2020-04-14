@@ -82,8 +82,9 @@ public class UsermanagementController implements Initializable {
         createPopup.setText(LanguageHandler.getText("createPopup"));
         editBtn.setText(LanguageHandler.getText("editBtn"));
         deleteSelected.setText(LanguageHandler.getText("deleteSelected"));
-        login.setText(LanguageHandler.getText("login"));
+        login.setText(LanguageHandler.getText("logoff"));
         searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
+        
 
 
 
