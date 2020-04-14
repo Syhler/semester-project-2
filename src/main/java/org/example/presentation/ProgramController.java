@@ -33,6 +33,7 @@ public class ProgramController implements Initializable {
     public Label producerInfoHeader;
     public Label creditInfoHeader;
     public ProgramEntity programEntity;
+    public Button cancelBtn;
     private DomainHandler domainHandler = new DomainHandler();
 
 
@@ -50,7 +51,11 @@ public class ProgramController implements Initializable {
         ControllerUtility.closeProgram(event);
     }
 
-
+    @FXML
+    private void closeProgramInformation(ActionEvent event)
+    {
+        ControllerUtility.closeProgram(event);
+    }
 
     @FXML
     public void goToProgramInfo()

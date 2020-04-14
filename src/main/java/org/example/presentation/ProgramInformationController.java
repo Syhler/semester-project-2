@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import org.example.App;
+import org.example.domain.DomainHandler;
 import org.example.entity.CreditEntity;
 import org.example.entity.ProgramEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
@@ -17,6 +18,7 @@ import java.util.ResourceBundle;
 
 public class ProgramInformationController implements Initializable {
 
+    private DomainHandler domainHandler = new DomainHandler();
 
     public void openView(ProgramEntity programEntity)
     {
@@ -32,8 +34,15 @@ public class ProgramInformationController implements Initializable {
         }
         ProgramController programController = loader.<ProgramController>getController();
 
+        programEntity = domainHandler.program().getProgramById(programEntity);
+
         programController.infoTitle.setText(programEntity.getName());
-        programController.infoCompany.setText(programEntity.getCompany().getName());
+
+        //if (programEntity.getCompany() != null)
+        //{
+            programController.infoCompany.setText(programEntity.getCompany().getName());
+        //}
+
         programController.infoDescription.setText(programEntity.getDescription());
 
         for (int i = 0; i < programEntity.getProducer().size(); i++)
@@ -53,6 +62,7 @@ public class ProgramInformationController implements Initializable {
         programController.companyInfoHeader.setText(LanguageHandler.getText("companyInfoHeader"));
         programController.producerInfoHeader.setText(LanguageHandler.getText("producerInfoHeader"));
         programController.creditInfoHeader.setText(LanguageHandler.getText("creditHeader"));
+        programController.cancelBtn.setText(LanguageHandler.getText("cancel"));
         programController.infoTitle.setEditable(false);
         programController.infoCompany.setEditable(false);
         programController.infoProducer.setEditable(false);
@@ -66,6 +76,7 @@ public class ProgramInformationController implements Initializable {
         stage.setScene(scene);
         stage.showAndWait();
     }
+
 
 
     @Override
