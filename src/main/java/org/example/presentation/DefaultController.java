@@ -89,7 +89,7 @@ public class DefaultController {
     private void openUpdateUser(ActionEvent event) {
         UserEntity userToUpdate = CurrentUser.getInstance().getUserEntity();
         UpdateUserController updateUserController = new UpdateUserController();
-        UserEntity user = updateUserController.openUpdateUser(event, userToUpdate, userToUpdate.getRole().getValue());
+        UserEntity user = updateUserController.openUpdateUser(event, userToUpdate, userToUpdate.getRole());
 
         if (user != null) {
             CurrentUser.getInstance().init(user);

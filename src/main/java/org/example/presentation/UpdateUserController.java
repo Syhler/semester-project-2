@@ -211,7 +211,7 @@ public class UpdateUserController implements Initializable {
         user = new UserEntity(title.getText(), firstname.getText(), middelname.getText(), lastname.getText(), sqlDate, email.getText());
         user.setCompany(companyList.getSelectionModel().getSelectedItem());
         if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Admin) {
-            user.setRole(roleValue);
+            user.setRole(roleValue.getValue());
         } else {
             user.setRole(roleList.getValue());
         }
@@ -219,7 +219,9 @@ public class UpdateUserController implements Initializable {
         user.setCompanyName(user.getCompany().getName());
         user.setId(userToUpdate.getId());
 
-        if (domainHandler.user().updateUser(user, password.getText())) {
+        boolean userWasCreated = domainHandler.user().updateUser(user, password.getText());
+
+        if (userWasCreated) {
             closeDialog(event);
 
         } else {
