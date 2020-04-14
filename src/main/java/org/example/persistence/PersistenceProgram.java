@@ -245,10 +245,10 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     public boolean updateProgram(ProgramEntity programEntity) {
         try {
             PreparedStatement stmt = connection.prepareStatement("UPDATE  programinformation SET title = ?, description = ? " +
-                    " WHERE programinformation.id = ? ");
+                    " WHERE programinformation.program_id = ? ");
             stmt.setString(1,programEntity.getName());
             stmt.setString(2,programEntity.getDescription());
-            stmt.setLong(3,programEntity.getPrograminformationId());
+            stmt.setLong(3,programEntity.getId());
             stmt.executeUpdate();
 
             return true;
