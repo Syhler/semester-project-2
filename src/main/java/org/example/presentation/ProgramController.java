@@ -57,6 +57,9 @@ public class ProgramController implements Initializable {
         ControllerUtility.closeProgram(event);
     }
 
+    /**
+     * On the click of a button, opens scene of the programEntity that user have clicked
+     */
     @FXML
     public void goToProgramInfo()
     {

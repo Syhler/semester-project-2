@@ -34,7 +34,10 @@ public class CreateProgramController implements Initializable {
     public ProgramEntity programEntity;
     private DomainHandler domainHandler = new DomainHandler();
 
-
+    /**
+     * Opens "createProgram.fxml" as a popup scene
+     * @return ProgramEntity of the program created
+     */
     public ProgramEntity openView()
     {
         Parent root = null;
@@ -65,7 +68,11 @@ public class CreateProgramController implements Initializable {
     }
 
 
-
+    /**
+     * On the click of a button, opens the update scene of the program that the user have clicked
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void goToUpdateProgram(ActionEvent event) throws IOException {
         ProgramEntity programEntity = new ProgramEntity(getTitle(), getDescription(),null,null,null);
@@ -87,7 +94,9 @@ public class CreateProgramController implements Initializable {
         return insertDescription.getText();
     }
 
-
+    /**
+     * Calculates, updates and inserts how many characters the user has remaining in the description textArea
+     */
     private void remainingCharactersDesc()
     {
         insertDescription.textProperty().addListener(new ChangeListener<String>() {
@@ -97,6 +106,10 @@ public class CreateProgramController implements Initializable {
             }
         });
     }
+
+    /**
+     * Calculates, updates and inserts how many characters the user has remaining in the title textArea
+     */
     private void remainingCharactersTitle()
     {
         insertTitle.textProperty().addListener(new ChangeListener<String>() {

@@ -62,6 +62,12 @@ public class UpdateProgramController implements Initializable {
         ControllerUtility.closeProgram(event);
     }
 
+    /**
+     * Opens "updateProgram.fxml" as a popup scene.
+     * @param programEntity
+     * @return a programEntity with a title, description and Id.
+     * @throws IOException
+     */
     public ProgramEntity openView(ProgramEntity programEntity) throws IOException {
 
         FXMLLoader loader = null;
@@ -83,6 +89,9 @@ public class UpdateProgramController implements Initializable {
         return updateProgramController.programEntity;
     }
 
+    /**
+     * Calculates, updates and inserts how many characters the user has remaining in the description textArea
+     */
     @FXML
     private void remainingCharactersDesc()
     {
@@ -94,6 +103,9 @@ public class UpdateProgramController implements Initializable {
         });
     }
 
+    /**
+     * Calculates, updates and inserts how many characters the user has remaining in the title textArea
+     */
     @FXML
     private void remainingCharactersTitle()
     {
@@ -105,6 +117,10 @@ public class UpdateProgramController implements Initializable {
         });
     }
 
+    /**
+     * Test method, should be deleted. Creates some companies and put them in a list.
+     * @return list of CompanyEntity
+     */
     public List<CompanyEntity> companyTest()
     {
         CompanyEntity companyTV2 = new CompanyEntity("TV2");
@@ -117,6 +133,9 @@ public class UpdateProgramController implements Initializable {
         return companies;
     }
 
+    /**
+     * Enables user to choose a company from a comboBox
+     */
     public void chooseCompany()
     {
         chooseCompany.getItems().addAll(companyTest());
@@ -144,6 +163,10 @@ public class UpdateProgramController implements Initializable {
     }
 
 
+    /**
+     * Test method, should be deleted. Creates some producers and put them in a list.
+     * @return list of UserEntity
+     */
     public List<UserEntity> producerCreatorTest()
     {
         UserEntity userEntity1 = new UserEntity("Producer", "Hans", "Jørgen", "Producermand1", new Date(), "Hans@email.com");
@@ -160,7 +183,9 @@ public class UpdateProgramController implements Initializable {
         return users;
     }
 
-
+    /**
+     * Enables user to choose a producer from a comboBox
+     */
     public void chooseProducer()
     {
         chooseProducer.getItems().addAll(producerCreatorTest());
@@ -188,6 +213,10 @@ public class UpdateProgramController implements Initializable {
         chooseProducer.setButtonCell(cellFactory.call(null));
     }
 
+    /**
+     * Adds the selected producer from the combobox, to a list and a text area
+     * @param event
+     */
     public void addProducer(ActionEvent event)
     {
         UserEntity producer = chooseProducer.getSelectionModel().getSelectedItem();
@@ -195,7 +224,10 @@ public class UpdateProgramController implements Initializable {
         producers.add(chooseProducer.getSelectionModel().getSelectedItem());
     }
 
-
+    /**
+     * Test method, should be deleted. Creates some CreditEntity and put them in a list
+     * @return list of CreditEntity
+     */
     public List<CreditEntity> creditCreatorTest()
     {
         UserEntity credit1 = new UserEntity("Lydmand", "Hans", "Hans", "Jørgensen", new Date(), "Hans@email.com");
@@ -209,6 +241,9 @@ public class UpdateProgramController implements Initializable {
         return credits;
     }
 
+    /**
+     * Enables user to choose a credit from a comboBox
+     */
     public void chooseCredit()
     {
         chooseCredit.getItems().addAll(creditCreatorTest());
@@ -235,6 +270,10 @@ public class UpdateProgramController implements Initializable {
         chooseCredit.setButtonCell(cellFactory.call(null));
     }
 
+    /**
+     * Adds the selected credit from the combobox, to a list and a text area
+     * @param event
+     */
     public void addCredit(ActionEvent event)
     {
         CreditEntity credit = chooseCredit.getSelectionModel().getSelectedItem();
@@ -242,7 +281,11 @@ public class UpdateProgramController implements Initializable {
         credits.add(chooseCredit.getSelectionModel().getSelectedItem());
     }
 
-
+    /**
+     * On the click of a button, opens a scene where a credit can be made and adds the made credit to a list and text area
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void goToCreateCredit(ActionEvent event) throws IOException {
         CreditController creditController = new CreditController();
@@ -265,6 +308,10 @@ public class UpdateProgramController implements Initializable {
         return updateInsertDescription.getText();
     }
 
+    /**
+     * Updates the different objects in a program
+     * @param event
+     */
     @FXML
     public void updateProgram(ActionEvent event)
     {

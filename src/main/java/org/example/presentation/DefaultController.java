@@ -59,6 +59,11 @@ public class DefaultController implements Initializable
         }
     }
 
+    /**
+     * On the click of a button, opens the scene to create a program
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void goToCreateProgram(ActionEvent event) throws IOException {
 
@@ -71,6 +76,9 @@ public class DefaultController implements Initializable
         }
     }
 
+    /**
+     * Loads the "programList.fxml" scene in the center of the borderpane
+     */
     public void loadProgramList()
     {
         FXMLLoader loader = null;
