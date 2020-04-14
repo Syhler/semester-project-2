@@ -80,6 +80,7 @@ public class UserEntity {
     {
         return firstName +" "+ middleName +" "+ lastName;
     }
+    public String getNameAndTitle() { return firstName +" "+ middleName +" "+ lastName +" - "+ title;}
 
     public String getFirstName() { return firstName; }
     public String getMiddleName() { return middleName; }

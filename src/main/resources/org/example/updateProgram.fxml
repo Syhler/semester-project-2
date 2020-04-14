@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="500.0" prefWidth="400" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.UpdateProgramController">
+<VBox prefHeight="600.0" prefWidth="400" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.UpdateProgramController">
    <children>
       <VBox prefHeight="66.0" prefWidth="395.0" spacing="2.0">
          <children>
@@ -77,10 +77,41 @@
             <Insets left="5.0" top="10.0" />
          </VBox.margin>
       </VBox>
-      <VBox layoutX="10.0" layoutY="317.0" prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+      <VBox layoutX="10.0" layoutY="317.0" prefHeight="250.0" prefWidth="100.0" spacing="2.0">
          <children>
-            <Label fx:id="updateProgCredits" text="Kreditering:" />
-            <Button fx:id="updateCreditBtn" mnemonicParsing="false" onAction="#goToCreateCredit" text="Opret kreditering" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="140.0">
+                     <children>
+                        <Label fx:id="updateProgCredits" text="Kreditering:">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Button fx:id="updateCreditBtn" mnemonicParsing="false" onAction="#goToCreateCredit" text="Opret kreditering">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="150.0">
+                     <children>
+                        <Label fx:id="addCreditHeader" text="Tilføj kreditering" />
+                        <ComboBox fx:id="chooseCredit" prefWidth="200.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                     </children>
+                  </VBox>
+                  <Button fx:id="addCreditButton" mnemonicParsing="false" onAction="#addCredit" text="Tilføj">
+                     <HBox.margin>
+                        <Insets left="10.0" top="22.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <TextArea fx:id="creditList" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets right="5.0" top="5.0" />

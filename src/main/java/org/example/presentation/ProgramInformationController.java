@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import org.example.App;
+import org.example.entity.CreditEntity;
 import org.example.entity.ProgramEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -34,12 +35,24 @@ public class ProgramInformationController implements Initializable {
         programController.infoTitle.setText(programEntity.getName());
         programController.infoCompany.setText(programEntity.getCompany().getName());
         programController.infoDescription.setText(programEntity.getDescription());
-        programController.infoProducer.setText(programEntity.getProducer().toString());
-        programController.infoCredits.setText(programEntity.getCredits().toString());
+
+        for (int i = 0; i < programEntity.getProducer().size(); i++)
+        {
+            programController.infoProducer.appendText(programEntity.getProducer().get(i).getName()+"\n");
+        }
+
+        for (int i = 0; i < programEntity.getCredits().size(); i++)
+        {
+            programController.infoCredits.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle()+"\n");
+        }
+
         programController.programInfo.setMinWidth(400);
 
         programController.updateProgInfoBtn.setText(LanguageHandler.getText("updateProgram"));
         programController.deleteProgBtn.setText(LanguageHandler.getText("deleteProgram"));
+        programController.companyInfoHeader.setText(LanguageHandler.getText("companyInfoHeader"));
+        programController.producerInfoHeader.setText(LanguageHandler.getText("producerInfoHeader"));
+        programController.creditInfoHeader.setText(LanguageHandler.getText("creditHeader"));
         programController.infoTitle.setEditable(false);
         programController.infoCompany.setEditable(false);
         programController.infoProducer.setEditable(false);

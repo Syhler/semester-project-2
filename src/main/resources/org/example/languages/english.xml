@@ -33,5 +33,9 @@
     <emailPrompt>Insert credit email here</emailPrompt>
     <add>Add</add>
     <programInformationStageTitle>Program information</programInformationStageTitle>
+    <addCreditHeader>Add credit</addCreditHeader>
+    <companyInfoHeader>Produced by</companyInfoHeader>
+    <producerInfoHeader>Producers</producerInfoHeader>
+    <creditHeader>Credits</creditHeader>
 
 </language>
