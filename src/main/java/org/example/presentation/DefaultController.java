@@ -171,7 +171,7 @@ public class DefaultController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createProgram.setText(LanguageHandler.getText("createProgram"));
-        loggedInAs.setText(LanguageHandler.getText("loggedInAs"));
+        //loggedInAs.setText(LanguageHandler.getText("loggedInAs"));
         loadProgramList();
 
     }

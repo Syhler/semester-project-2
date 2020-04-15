@@ -414,6 +414,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             createUserIfdoesntExists(programEntity.getCredits());
             updateProducerForProgram(programEntity);
             updateCredit(programEntity);
+            updateCompanyProgram(programEntity);
             stmt.executeUpdate();
 
             return true;
@@ -627,11 +628,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     private UserEntity createUserEntityFromResultSet(ResultSet resultSet) throws SQLException {
         var user = new UserEntity(
                 resultSet.getLong("id"),
-                resultSet.getString("title"),
                 resultSet.getString("firstName"),
                 resultSet.getString("middleName"),
                 resultSet.getString("lastName"),
-                resultSet.getString("email"));
+                resultSet.getString("email"),
+                resultSet.getString("title"));
         return user;
 
     }

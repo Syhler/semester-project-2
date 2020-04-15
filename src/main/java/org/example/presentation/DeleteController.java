@@ -46,8 +46,7 @@ public class DeleteController  implements Initializable {
     @FXML
     public void deleteProgramYes(ActionEvent event) throws IOException
     {
-        ProgramController programController = new ProgramController();
-        programController.deleteProgram(event);
+        //programInformationController.deleteProgram(event);
         ControllerUtility.closeProgram(event);
     }
 

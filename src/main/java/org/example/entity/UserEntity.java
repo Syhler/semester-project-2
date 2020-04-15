@@ -42,6 +42,7 @@ public class UserEntity {
         this.lastName = lastName;
         this.email = email;
         this.title = title;
+        this.fullName = firstName+" "+middleName+" "+lastName;
     }
 
     public UserEntity(String firstName, String middleName, String lastName, String email, CompanyEntity company, Role role, String title, UserEntity createdBy, Date createdAt) {
@@ -54,6 +55,7 @@ public class UserEntity {
         this.title = title;
         this.createdBy = createdBy;
         this.createdAt = createdAt;
+        this.fullName = firstName+" "+middleName+" "+lastName;
     }
 
     public String getFullName() {

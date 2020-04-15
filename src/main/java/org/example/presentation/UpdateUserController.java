@@ -135,7 +135,7 @@ public class UpdateUserController implements Initializable {
             // Selecting the users current company in company Combobox
 
             for (CompanyEntity company : companyEntities) {
-                if (userToUpdate.getCompany().getId().equals(company.getId())) {
+                if (userToUpdate.getCompany().getId() == company.getId()) {
                     updateUserController.companyList.getSelectionModel().select(companyEntities.indexOf(company));
                 }
             }

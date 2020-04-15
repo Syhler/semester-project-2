@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.App;
-import org.example.domain.Credit;
 import org.example.domain.DomainHandler;
 import org.example.entity.*;
 import org.example.presentation.multipleLanguages.LanguageHandler;
@@ -76,28 +75,26 @@ public class UpdateProgramController implements Initializable {
         UpdateProgramController updateProgramController = loader.<UpdateProgramController>getController();
 
 
-        //if (programEntity.getName() != null) {
+        if (programEntity != null) {
             updateProgramController.updateInsertTitle.setText(programEntity.getName());
-        //}
-        //if (programEntity.getDescription() != null) {
             updateProgramController.updateInsertDescription.setText(programEntity.getDescription());
-       // }
+        }
 
-        /*if (programEntity.getCompany() != null) {
+        if (programEntity != null && programEntity.getCompany() != null) {
             updateProgramController.chooseCompany.getSelectionModel().select(programEntity.getCompany());
         }
 
-        if (programEntity.getProducer() != null) {
+        if (programEntity != null && programEntity.getProducer() != null) {
             for (int i = 0; i < programEntity.getProducer().size(); i++) {
                 updateProgramController.producerList.appendText(programEntity.getProducer().get(i).getName() + "\n");
             }
         }
 
-        if (programEntity.getCredits() != null) {
+        if (programEntity != null && programEntity.getCredits() != null) {
             for (int i = 0; i < programEntity.getCredits().size(); i++) {
                 updateProgramController.creditList.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
             }
-        }*/
+        }
 
         updateProgramController.programId = programEntity.getId();
 
@@ -141,18 +138,14 @@ public class UpdateProgramController implements Initializable {
     }
 
     /**
-     * Test method, should be deleted. Creates some companies and put them in a list.
+     * Gets all companies from the database and puts them in a list
      * @return list of CompanyEntity
      */
-    public List<CompanyEntity> companyTest()
+    public List<CompanyEntity> companiesFromDatabase()
     {
-        CompanyEntity companyTV2 = new CompanyEntity("TV2");
-        CompanyEntity companyDR1 = new CompanyEntity("DR");
-        CompanyEntity companyBlue = new CompanyEntity("BLU");
         List<CompanyEntity> companies = new ArrayList<>();
-        companies.add(companyBlue);
-        companies.add(companyTV2);
-        companies.add(companyDR1);
+        companies = domainHandler.company().getCompanies();
+
         return companies;
     }
 
@@ -161,7 +154,7 @@ public class UpdateProgramController implements Initializable {
      */
     public void chooseCompany()
     {
-        chooseCompany.getItems().addAll(companyTest());
+        chooseCompany.getItems().addAll(companiesFromDatabase());
 
         Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactory = new Callback<>() {
 
@@ -187,22 +180,14 @@ public class UpdateProgramController implements Initializable {
 
 
     /**
-     * Test method, should be deleted. Creates some producers and put them in a list.
+     * Gets all producers from the database and puts them in a list
      * @return list of UserEntity
      */
-    public List<UserEntity> producerCreatorTest()
+    public List<UserEntity> producersFromDatabase()
     {
-        UserEntity userEntity1 = new UserEntity("Producer", "Hans", "Jørgen", "Producermand1", new Date(), "Hans@email.com");
-        UserEntity userEntity2 = new UserEntity("Producer", "Jørgen", "Hans", "Producermand2", new Date(), "Hans@email.com");
-        UserEntity userEntity3 = new UserEntity("Producer", "Bent", "Karl", "Producermand3", new Date(), "Hans@email.com");
-        UserEntity userEntity6 = new UserEntity("Producer", "Mogens", "Søren", "Producermand6", new Date(), "Hans@email.com");
-
         List<UserEntity> users = new ArrayList<UserEntity>();
-        users.add(userEntity1);
-        users.add(userEntity2);
-        users.add(userEntity3);
-        users.add(userEntity6);
 
+        users = domainHandler.user().getUserByRole(Role.Producer);
         return users;
     }
 
@@ -211,7 +196,7 @@ public class UpdateProgramController implements Initializable {
      */
     public void chooseProducer()
     {
-        chooseProducer.getItems().addAll(producerCreatorTest());
+        chooseProducer.getItems().addAll(producersFromDatabase());
 
         Callback<ListView<UserEntity>, ListCell<UserEntity>> cellFactory = new Callback<>() {
 

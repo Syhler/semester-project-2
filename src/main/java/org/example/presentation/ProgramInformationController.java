@@ -6,7 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
@@ -21,12 +24,24 @@ import java.util.ResourceBundle;
 public class ProgramInformationController implements Initializable {
     private DomainHandler domainHandler = new DomainHandler();
     public ProgramEntity programEntity;
+    public TextArea infoTitle;
+    public TextArea infoCompany;
+    public TextArea infoProducer;
+    public TextArea infoDescription;
+    public TextArea infoCredits;
+    public VBox programInfo;
+    public Button updateProgInfoBtn;
+    public Button deleteProgBtn;
+    public Label companyInfoHeader;
+    public Label producerInfoHeader;
+    public Label creditInfoHeader;
+    public Button cancelBtn;
 
     /**
      * Opens "programInformation.fxml" as a popup scene
-     * @param programEntity of the program that should open
+     * @param programEntityObject of the program that should open
      */
-    public void openView(ProgramEntity programEntity)
+    public void openView(ProgramEntity programEntityObject)
     {
         Parent root = null;
         FXMLLoader loader = null;
@@ -38,47 +53,46 @@ public class ProgramInformationController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ProgramController programController = loader.<ProgramController>getController();
 
-        programEntity = domainHandler.program().getProgramById(programEntity);
+        if (loader == null) return;
+        ProgramInformationController programInformationController = loader.getController();
+        this.programEntity = domainHandler.program().getProgramById(programEntityObject);
+        programInformationController.programEntity = this.programEntity;
 
-        if (programEntity.getName() != null) {
-            programController.infoTitle.setText(programEntity.getName());
+        if (programEntity != null) {
+            programInformationController.infoTitle.setText(programEntity.getName());
+            programInformationController.infoDescription.setText(programEntity.getDescription());
         }
 
-        if (programEntity.getCompany() != null) {
-            programController.infoCompany.setText(programEntity.getCompany().getName());
+        if (programEntity != null && programEntity.getCompany() != null) {
+            programInformationController.infoCompany.setText(programEntity.getCompany().getName());
         }
 
-        if (programEntity.getDescription() != null) {
-            programController.infoDescription.setText(programEntity.getDescription());
-        }
-
-        if (programEntity.getProducer() != null) {
+        if (programEntity != null && programEntity.getProducer() != null) {
             for (int i = 0; i < programEntity.getProducer().size(); i++) {
-                programController.infoProducer.appendText(programEntity.getProducer().get(i).getName() + "\n");
+                programInformationController.infoProducer.appendText(programEntity.getProducer().get(i).getFullName() + "\n");
             }
         }
 
-        if (programEntity.getCredits() != null) {
+        if (programEntity != null && programEntity.getCredits() != null) {
             for (int i = 0; i < programEntity.getCredits().size(); i++) {
-                programController.infoCredits.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
+                programInformationController.infoCredits.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
             }
         }
 
-        programController.programInfo.setMinWidth(400);
+        programInformationController.programInfo.setMinWidth(400);
 
-        programController.updateProgInfoBtn.setText(LanguageHandler.getText("updateProgram"));
-        programController.deleteProgBtn.setText(LanguageHandler.getText("deleteProgram"));
-        programController.companyInfoHeader.setText(LanguageHandler.getText("companyInfoHeader"));
-        programController.producerInfoHeader.setText(LanguageHandler.getText("producerInfoHeader"));
-        programController.creditInfoHeader.setText(LanguageHandler.getText("creditHeader"));
-        programController.cancelBtn.setText(LanguageHandler.getText("cancel"));
-        programController.infoTitle.setEditable(false);
-        programController.infoCompany.setEditable(false);
-        programController.infoProducer.setEditable(false);
-        programController.infoDescription.setEditable(false);
-        programController.infoCredits.setEditable(false);
+        programInformationController.updateProgInfoBtn.setText(LanguageHandler.getText("updateProgram"));
+        programInformationController.deleteProgBtn.setText(LanguageHandler.getText("deleteProgram"));
+        programInformationController.companyInfoHeader.setText(LanguageHandler.getText("companyInfoHeader"));
+        programInformationController.producerInfoHeader.setText(LanguageHandler.getText("producerInfoHeader"));
+        programInformationController.creditInfoHeader.setText(LanguageHandler.getText("creditHeader"));
+        programInformationController.cancelBtn.setText(LanguageHandler.getText("cancel"));
+        programInformationController.infoTitle.setEditable(false);
+        programInformationController.infoCompany.setEditable(false);
+        programInformationController.infoProducer.setEditable(false);
+        programInformationController.infoDescription.setEditable(false);
+        programInformationController.infoCredits.setEditable(false);
 
         Scene scene = new Scene(root);
 
@@ -100,5 +114,18 @@ public class ProgramInformationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    @FXML
+    public void deleteProgram(ActionEvent event) throws IOException {
+        domainHandler.program().deleteProgram(programEntity);
+        closeProgramInformation(event);
+    }
+
+    @FXML
+    private void closeProgramInformation(ActionEvent event)
+    {
+        ControllerUtility.closeProgram(event);
+        //Men den her skal jo egentlig lukke det specifikke "programInformation" og ikke bare den nuværende scene. :angry:
     }
 }
