@@ -77,12 +77,8 @@ public class CreateUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        /**
-         * Call to UsermangementUtilities to get cellfactory
-         *
-         * @return Callback for cellfactory
-         */
-        var cellFactory = UsermanagementUtilities.cellFactoryUsermanagemnt();
+
+        var cellFactory = UsermanagementUtilities.cellFactoryUserManagement();
 
         // setting cellFactory to companylist adding items from OobervableList to Combobox
 
@@ -143,7 +139,7 @@ public class CreateUserController implements Initializable {
     public void createUserFromInput(ActionEvent event) throws Exception {
 
         String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText());
-        if (validationMessage != "")
+        if (validationMessage != null)
         {
             setStatusText(validationMessage);
             return;
@@ -155,7 +151,7 @@ public class CreateUserController implements Initializable {
 
         user = new UserEntity(title.getText(), firstname.getText(), middelname.getText(), lastname.getText(), sqlDate, email.getText());
         user.setCompany(companyList.getSelectionModel().getSelectedItem());
-        user.setRole(roleValue.getValue());
+        user.setRole(roleValue);
         user.setCreatedBy(CurrentUser.getInstance().getUserEntity());
         user.setCreatedByName(user.getCreatedBy().getFirstName());
         user.setCompanyName(user.getCompany().getName());

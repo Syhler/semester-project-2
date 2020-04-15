@@ -52,6 +52,10 @@ public class UserEntity {
         this.role = Role.getRoleById(role);
     }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -109,10 +113,6 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public UserEntity getCreatedBy() {

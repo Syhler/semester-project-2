@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class UsermanagementController implements Initializable {
+public class UserManagementController implements Initializable {
     private DomainHandler domainHandler = new DomainHandler();
     // Function Buttons Create, Read, Update, Delete
     @FXML

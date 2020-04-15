@@ -13,17 +13,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
-import org.example.entity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.utilities.UsermanagementUtilities;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class CompanyController implements Initializable {
@@ -82,12 +79,7 @@ public class CompanyController implements Initializable {
         closeCompany.setText(LanguageHandler.getText("closeCompany"));
 
 
-        /**
-         * Call to UsermangementUtilities to get cellfactory
-         *
-         * @return Callback for cellfactory
-         */
-        var cellFactory = UsermanagementUtilities.cellFactoryUsermanagemnt();
+        var cellFactory = UsermanagementUtilities.cellFactoryUserManagement();
 
         companyList.setCellFactory(cellFactory);
         companyEntities.addAll(domainHandler.company().getCompanies());
@@ -124,7 +116,6 @@ public class CompanyController implements Initializable {
         try {
             FXMLLoader myLoader = App.getLoader("company");
             companyStage.setScene(new Scene(myLoader.load()));
-            CompanyController createusercontrol = myLoader.getController();
 
             companyStage.setTitle(LanguageHandler.getText("companyTitle"));
             companyStage.initModality(Modality.WINDOW_MODAL);

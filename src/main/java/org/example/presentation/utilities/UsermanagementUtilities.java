@@ -12,7 +12,12 @@ public class UsermanagementUtilities {
 
     // Cell factory for createUser, usermanagementTable, updateUser
 
-    public static Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>>  cellFactoryUsermanagemnt()
+    /**
+     * Call to UsermangementUtilities to get cellfactory
+     *
+     * @return Callback for cellfactory
+     */
+    public static Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactoryUserManagement()
     {
         return new Callback<>() {
 
@@ -59,7 +64,7 @@ public class UsermanagementUtilities {
     }
 
     public static String formValidation(String firstname, String lastname, String email, CompanyEntity company, String title, String password){
-        String msgToReturn = "";
+        String msgToReturn = null;
 
         if (firstname.isEmpty()) {
             msgToReturn = (LanguageHandler.getText("firstnameEmpty"));

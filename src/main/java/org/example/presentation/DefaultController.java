@@ -57,7 +57,7 @@ public class DefaultController {
             login.setOnAction(this::logout);
             profileNavigation.setVisible(true);
 
-            if (userEntity.getRole().getValue() < 4) {
+            if (userEntity.getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
             }
         }

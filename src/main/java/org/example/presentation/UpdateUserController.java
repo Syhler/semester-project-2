@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
@@ -79,12 +78,10 @@ public class UpdateUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        /**
-         * Call to UsermangementUtilities to get cellfactory
-         *
-         * @return Callback for cellfactory
-         */
-        var cellFactory = UsermanagementUtilities.cellFactoryUsermanagemnt();
+
+        var cellFactory = UsermanagementUtilities.cellFactoryUserManagement();
+
+
         companyList.setCellFactory(cellFactory);
         companyList.setButtonCell(cellFactory.call(null));
 
