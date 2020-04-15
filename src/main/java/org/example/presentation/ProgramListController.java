@@ -67,6 +67,8 @@ public class ProgramListController implements Initializable {
      */
     public void updateProgramList()
     {
+        listGridPane.getChildren().clear();
+
         int rowSize = 0;
         int columnSize = 0;
 
