@@ -9,6 +9,10 @@ import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class ControllerUtility {
 
+    /**
+     * Closes the scene when a button is clicked
+     * @param event
+     */
     public static void closeProgram(ActionEvent event)
     {
         Node source = (Node) event.getSource();

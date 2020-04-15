@@ -57,6 +57,7 @@ public class CreateProgramController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("createProgramStageTitle"));
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.showAndWait();
         return createProgramController.programEntity;
     }
@@ -83,6 +84,8 @@ public class CreateProgramController implements Initializable {
 
         closeCreateProgram(event);
     }
+
+
 
     public String getTitle()
     {

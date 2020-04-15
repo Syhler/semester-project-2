@@ -6,11 +6,11 @@
     <showMore>Show more</showMore>
     <updateProgram>Update</updateProgram>
     <deleteProgram>Delete</deleteProgram>
-    <descriptionHeader>Description:</descriptionHeader>
-    <titleHeader>Title</titleHeader>
+    <descriptionHeader>Description*</descriptionHeader>
+    <titleHeader>Title*</titleHeader>
     <loggedInAs>Logged in as user:</loggedInAs>
     <createProgramStageTitle>Create Program</createProgramStageTitle>
-    <programCompany>Company</programCompany>
+    <programCompany>Company*</programCompany>
     <programCredits>Credits</programCredits>
     <cancel>Cancel</cancel>
     <insertTitle>Insert title here</insertTitle>
@@ -19,17 +19,17 @@
     <updateProgramStageTitle>Update Program</updateProgramStageTitle>
     <updateCredits>Update credits</updateCredits>
     <remainingCharacters>characters remaining</remainingCharacters>
-    <producer>Producer</producer>
+    <producer>Producer*</producer>
     <insertProducer>Insert producer here</insertProducer>
     <createCreditStageTitle>Create credit</createCreditStageTitle>
-    <firstName>First name</firstName>
+    <firstName>First name*</firstName>
     <firstNamePrompt>Insert first </firstNamePrompt>
-    <middleName>Middle name</middleName>
+    <middleName>Middle name*</middleName>
     <middleNamePrompt>Insert middle name here</middleNamePrompt>
-    <lastName>Last name</lastName>
+    <lastName>Last name*</lastName>
     <lastNamePrompt>Insert last name here</lastNamePrompt>
     <creditTitlePrompt>Insert credit title here</creditTitlePrompt>
-    <emailHeader>Email</emailHeader>
+    <emailHeader>Email*</emailHeader>
     <emailPrompt>Insert credit email here</emailPrompt>
     <add>Add</add>
     <programInformationStageTitle>Program information</programInformationStageTitle>
@@ -37,5 +37,9 @@
     <companyInfoHeader>Produced by</companyInfoHeader>
     <producerInfoHeader>Producers</producerInfoHeader>
     <creditHeader>Credits</creditHeader>
+    <deleteProgramStageTitle>Delete program</deleteProgramStageTitle>
+    <deleteWarningText>You sure you want to delete this program?</deleteWarningText>
+    <yes>Yes</yes>
+    <no>No</no>
 
 </language>

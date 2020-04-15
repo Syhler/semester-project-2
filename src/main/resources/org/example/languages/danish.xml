@@ -6,11 +6,11 @@
     <showMore>Vis mere</showMore>
     <updateProgram>Opdater</updateProgram>
     <deleteProgram>Slet</deleteProgram>
-    <descriptionHeader>Beskrivelse</descriptionHeader>
-    <titleHeader>Titel</titleHeader>
+    <descriptionHeader>Beskrivelse*</descriptionHeader>
+    <titleHeader>Titel*</titleHeader>
     <loggedInAs>Logged ind som bruger:</loggedInAs>
     <createProgramStageTitle>Opret Program</createProgramStageTitle>
-    <programCompany>Producent</programCompany>
+    <programCompany>Producent*</programCompany>
     <programCredits>Kreditering</programCredits>
     <cancel>Annuller</cancel>
     <insertTitle>Indsæt titel her</insertTitle>
@@ -19,17 +19,17 @@
     <updateProgramStageTitle>Opdater Program</updateProgramStageTitle>
     <updateCredits>Opdater kreditering</updateCredits>
     <remainingCharacters>tegn tilbage</remainingCharacters>
-    <producer>Producer</producer>
+    <producer>Producer*</producer>
     <insertProducer>Indsæt producer her</insertProducer>
     <createCreditStageTitle>Opret kreditering</createCreditStageTitle>
-    <firstName>Fornavn</firstName>
+    <firstName>Fornavn*</firstName>
     <firstNamePrompt>Indsæt fornavn her</firstNamePrompt>
-    <middleName>Mellemnavn</middleName>
+    <middleName>Mellemnavn*</middleName>
     <middleNamePrompt>Indsæt mellemnavn her</middleNamePrompt>
-    <lastName>Efternavn</lastName>
+    <lastName>Efternavn*</lastName>
     <lastNamePrompt>Insæt efternavn her</lastNamePrompt>
     <creditTitlePrompt>Indsæt kreditorers titel her</creditTitlePrompt>
-    <emailHeader>Email</emailHeader>
+    <emailHeader>Email*</emailHeader>
     <emailPrompt>Indsæt kreditorers email her</emailPrompt>
     <add>Tilføj</add>
     <programInformationStageTitle>Program information</programInformationStageTitle>
@@ -37,5 +37,9 @@
     <companyInfoHeader>Produceret af</companyInfoHeader>
     <producerInfoHeader>Producere</producerInfoHeader>
     <creditHeader>Kreditering</creditHeader>
+    <deleteProgramStageTitle>Slet program</deleteProgramStageTitle>
+    <deleteWarningText>Er du sikker på at du vil slette dette program?</deleteWarningText>
+    <yes>Ja</yes>
+    <no>Nej</no>
 
 </language>

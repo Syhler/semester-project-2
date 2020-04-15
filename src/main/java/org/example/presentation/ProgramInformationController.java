@@ -1,5 +1,7 @@
 package org.example.presentation;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -17,8 +19,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ProgramInformationController implements Initializable {
-
     private DomainHandler domainHandler = new DomainHandler();
+    public ProgramEntity programEntity;
 
     /**
      * Opens "programInformation.fxml" as a popup scene
@@ -40,20 +42,28 @@ public class ProgramInformationController implements Initializable {
 
         programEntity = domainHandler.program().getProgramById(programEntity);
 
-        programController.infoTitle.setText(programEntity.getName());
-
-        programController.infoCompany.setText(programEntity.getCompany().getName());
-
-        programController.infoDescription.setText(programEntity.getDescription());
-
-        for (int i = 0; i < programEntity.getProducer().size(); i++)
-        {
-            programController.infoProducer.appendText(programEntity.getProducer().get(i).getName()+"\n");
+        if (programEntity.getName() != null) {
+            programController.infoTitle.setText(programEntity.getName());
         }
 
-        for (int i = 0; i < programEntity.getCredits().size(); i++)
-        {
-            programController.infoCredits.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle()+"\n");
+        if (programEntity.getCompany() != null) {
+            programController.infoCompany.setText(programEntity.getCompany().getName());
+        }
+
+        if (programEntity.getDescription() != null) {
+            programController.infoDescription.setText(programEntity.getDescription());
+        }
+
+        if (programEntity.getProducer() != null) {
+            for (int i = 0; i < programEntity.getProducer().size(); i++) {
+                programController.infoProducer.appendText(programEntity.getProducer().get(i).getName() + "\n");
+            }
+        }
+
+        if (programEntity.getCredits() != null) {
+            for (int i = 0; i < programEntity.getCredits().size(); i++) {
+                programController.infoCredits.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
+            }
         }
 
         programController.programInfo.setMinWidth(400);
@@ -75,9 +85,16 @@ public class ProgramInformationController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("programInformationStageTitle"));
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.showAndWait();
     }
 
+    /*public void updateProgramInformation(ActionEvent event) throws IOException {
+
+        UpdateProgramController updateProgramController = new UpdateProgramController();
+        this.programEntity = updateProgramController.openView(programEntity);
+        ControllerUtility.closeProgram(event);
+    }*/
 
 
     @Override

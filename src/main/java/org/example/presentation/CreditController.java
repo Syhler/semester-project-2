@@ -68,6 +68,7 @@ public class CreditController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle(LanguageHandler.getText("createCreditStageTitle"));
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.showAndWait();
             return creditController.creditActor;
         } catch (IOException e) {

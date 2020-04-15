@@ -64,8 +64,8 @@ public class UpdateProgramController implements Initializable {
 
     /**
      * Opens "updateProgram.fxml" as a popup scene.
-     * @param programEntity
-     * @return a programEntity with a title, description and Id.
+     * @param programEntity of the program that you want to open
+     * @return a programEntity with its different variables filled.
      * @throws IOException
      */
     public ProgramEntity openView(ProgramEntity programEntity) throws IOException {
@@ -75,8 +75,29 @@ public class UpdateProgramController implements Initializable {
         Parent node = loader.load();
         UpdateProgramController updateProgramController = loader.<UpdateProgramController>getController();
 
-        updateProgramController.updateInsertTitle.setText(programEntity.getName());
-        updateProgramController.updateInsertDescription.setText(programEntity.getDescription());
+        //if (programEntity.getName() != null) {
+            updateProgramController.updateInsertTitle.setText(programEntity.getName());
+        //}
+        //if (programEntity.getDescription() != null) {
+            updateProgramController.updateInsertDescription.setText(programEntity.getDescription());
+       // }
+
+        /*if (programEntity.getCompany() != null) {
+            updateProgramController.chooseCompany.getSelectionModel().select(programEntity.getCompany());
+        }
+
+        if (programEntity.getProducer() != null) {
+            for (int i = 0; i < programEntity.getProducer().size(); i++) {
+                updateProgramController.producerList.appendText(programEntity.getProducer().get(i).getName() + "\n");
+            }
+        }
+
+        if (programEntity.getCredits() != null) {
+            for (int i = 0; i < programEntity.getCredits().size(); i++) {
+                updateProgramController.creditList.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
+            }
+        }*/
+
         programId = programEntity.getId();
 
         Scene scene = new Scene(node);
@@ -84,6 +105,7 @@ public class UpdateProgramController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("updateProgramStageTitle"));
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.showAndWait();
 
         return updateProgramController.programEntity;

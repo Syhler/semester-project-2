@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.example.domain.DomainHandler;
 import org.example.entity.ProgramEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
@@ -46,15 +47,23 @@ public class ProgramController implements Initializable {
     }
 
     @FXML
-    private void deleteProgram(ActionEvent event) throws IOException {
-        domainHandler.program().deleteProgram(programEntity);
-        ControllerUtility.closeProgram(event);
+    public void deleteProgram(ActionEvent event) throws IOException {
+        //domainHandler.program().deleteProgram(programEntity);
+        closeProgramInformation(event);
+    }
+
+    //Bruges ikke lige nu.
+    @FXML
+    private void openDelete(ActionEvent event) throws  IOException {
+        DeleteController deleteController = new DeleteController();
+        deleteController.openView();
     }
 
     @FXML
     private void closeProgramInformation(ActionEvent event)
     {
         ControllerUtility.closeProgram(event);
+        //Men den her skal jo egentlig lukke det specifikke "programInformation" og ikke bare den nuværende scene. :angry:
     }
 
     /**
@@ -66,6 +75,13 @@ public class ProgramController implements Initializable {
         ProgramInformationController programInformationController = new ProgramInformationController();
         programInformationController.openView(programEntity);
     }
+
+    /*@FXML
+    public void goToUpdateProgramInformation(ActionEvent event) throws IOException
+    {
+        ProgramInformationController programInformationController = new ProgramInformationController();
+        programInformationController.updateProgramInformation(event);
+    }*/
 
     @FXML
     private void updateProgram() throws IOException {
