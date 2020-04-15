@@ -3,7 +3,7 @@ import org.example.entity.*;
 import java.util.List;
 
 public interface IUser {
-   public Boolean createUser(UserEntity userEntity);
+   public long createUser(UserEntity userEntity,String password) throws Exception;
 
    public Boolean removeUser(UserEntity userEntity);
 
@@ -11,7 +11,7 @@ public interface IUser {
 
    public List<UserEntity> getAllUser();
 
-   public Boolean updateUser(UserEntity userEntity);
+   public Boolean updateUser(UserEntity userEntity, String password);
 
    public List<UserEntity> getUserByCompany(CompanyEntity companyEntity);
 

@@ -1,14 +1,14 @@
 package org.example.entity;
 
 public class CompanyEntity {
-    private String id;
+    private Long id;
     private String name;
 
     public CompanyEntity(String name) {
         this.name = name;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -16,7 +16,7 @@ public class CompanyEntity {
         this.name = name;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

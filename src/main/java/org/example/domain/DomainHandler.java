@@ -12,6 +12,10 @@ public class DomainHandler implements IDomainHandler {
         return null;
     }
     public IUser user(){
-        return null;
+        return new User();
+    }
+    public ICompany company()
+    {
+        return new Company();
     }
 }

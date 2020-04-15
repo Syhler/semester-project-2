@@ -20,4 +20,10 @@ public class PersistenceHandler implements IPersistenceHandler {
     public IPersistenceProgram program() {
         return null;
     }
+
+    @Override
+    public IPersistenceCompany company()
+    {
+        return new PersistenceCompany();
+    }
 }

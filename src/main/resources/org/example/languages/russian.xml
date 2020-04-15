@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<language>
+    <username>имя пользователя</username>
+    <password>пароль</password>
+    <nameColumn>имя</nameColumn>
+    <companyColumn>компания</companyColumn>
+    <titleColumn>название</titleColumn>
+    <createdbyColumn>созданный</createdbyColumn>
+    <createdColumn>созданный</createdColumn>
+    <companyBtn>компания</companyBtn>
+    <displayAdmins>админы</displayAdmins>
+    <displayManufactures>производители</displayManufactures>
+    <displayProducers>производители</displayProducers>
+    <displayActors>актеры</displayActors>
+    <createPopup>создать</createPopup>
+    <editBtn>редактировать</editBtn>
+    <deleteSelected>Удалить</deleteSelected>
+    <login>Войти</login>
+    <logoff>Выход</logoff>
+    <searchNavigation>поиск</searchNavigation>
+    <createCompanyLabel>Создать компанию</createCompanyLabel>
+    <companyNameLabel>имя:</companyNameLabel>
+    <createCompany>создать</createCompany>
+    <updateCompanyLabel>Обновить компанию :</updateCompanyLabel>
+    <companyIdLabel>ID:</companyIdLabel>
+    <updateCompanyLabelName>имя:</updateCompanyLabelName>
+    <updateCompany>обновление</updateCompany>
+    <deleteCompany>Удалить</deleteCompany>
+    <profile>профиль</profile>
+    <usermanagementBtn>Администрирование пользователей</usermanagementBtn>
+    <closeCompany>близко</closeCompany>
+    <companyTitle>название компании</companyTitle>
+    <updateUserTitle>обновление пользователя</updateUserTitle>
+    <createUserTitle>создать</createUserTitle>
+    <admin>Администратор</admin>
+    <manufacture>производство</manufacture>
+    <producer>продюсер</producer>
+    <actor>актер</actor>
+    <firstnameEmpty>Имя должно быть заполнено</firstnameEmpty>
+    <lastnameEmpty>Фамилия должна быть указана</lastnameEmpty>
+    <emailEmpty>Email должен быть заполнен</emailEmpty>
+    <companyEmpty>Компания должна быть выбрана</companyEmpty>
+    <titleEmpty>Название должно быть заполнено</titleEmpty>
+    <passwordEmpty>Пароль должен быть введен</passwordEmpty>
+    <usernameEmpty>Имя пользователя должно быть заполнено</usernameEmpty>
+    <Authentication>войти</Authentication>
+    <usernameOrPassword>Неверное имя пользователя или пароль</usernameOrPassword>
+    <usernameLabel>имя пользователя</usernameLabel>
+    <passwordLabel>пароль</passwordLabel>
+
+</language>
+

@@ -1,21 +1,34 @@
 package org.example.domain;
 
+import org.example.domain.password.PasswordHashing;
 import org.example.entity.CompanyEntity;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
 import org.example.persistence.IPersistenceHandler;
+import org.example.persistence.PersistenceHandler;
 
 import java.util.List;
 
 public class User implements IUser {
-    private IPersistenceHandler persistenceHandler;
+    private IPersistenceHandler persistenceHandler = new PersistenceHandler();
 
-    public Boolean createUser(UserEntity userEntity) {
-        return false;
+    public long createUser(UserEntity userEntity,String password) {
+        var passwordSalt = PasswordHashing.generateSalt();
+        try {
+
+            var encryptedPassword = PasswordHashing.sha256(password,passwordSalt);
+            return persistenceHandler.user().createUser(userEntity, encryptedPassword, passwordSalt);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return 0;
+
     }
 
     public Boolean removeUser(UserEntity userEntity) {
-        return false;
+        return persistenceHandler.user().deleteUser(userEntity);
     }
 
     public UserEntity getUserById(String id) {
@@ -26,9 +39,20 @@ public class User implements IUser {
         return null;
     }
 
-    public Boolean updateUser(UserEntity userEntity) {
+    public Boolean updateUser(UserEntity userEntity, String password) {
+        var passwordSalt = PasswordHashing.generateSalt();
+        try {
+
+            var encryptedPassword = PasswordHashing.sha256(password,passwordSalt);
+            return persistenceHandler.user().updateUser(userEntity,encryptedPassword,passwordSalt);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         return false;
     }
+
 
     public List<UserEntity> getUserByCompany(CompanyEntity company) {
         return null;
@@ -36,7 +60,8 @@ public class User implements IUser {
     }
 
     public List<UserEntity> getUserByRole(Role role) {
-        return null;
+
+        return persistenceHandler.user().getUserByRole(role);
 
     }
 
