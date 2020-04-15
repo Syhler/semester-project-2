@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
+import org.example.entity.Role;
 import org.example.entity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -86,7 +87,8 @@ public class CreditController implements Initializable {
     public void createActor(ActionEvent event) throws IOException {
         UserEntity actorCredit = new UserEntity(creaditTitlePrompt.getText(), firstNamePrompt.getText(),
                 middleNamePrompt.getText(), lastNamePrompt.getText(), new Date(), emailPrompt.getText());
-
+        actorCredit.setRole(Role.Actor);
+        actorCredit.setCreatedBy(CurrentUser.getInstance().getUserEntity());
         creditActor = actorCredit;
 
         closeCreateCredit(event);

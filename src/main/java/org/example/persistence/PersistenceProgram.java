@@ -5,6 +5,7 @@ import org.example.entity.CreditEntity;
 import org.example.entity.ProgramEntity;
 import org.example.entity.UserEntity;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -274,14 +275,22 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             preparedStatement.setString(2,userEntity.getFirstName());
             preparedStatement.setString(3,userEntity.getMiddleName());
             preparedStatement.setString(4,userEntity.getLastName());
-           preparedStatement.setLong(5,userEntity.getCreatedBy().getId());
+            if (userEntity.getCreatedBy() != null){
+                preparedStatement.setLong(5,userEntity.getCreatedBy().getId());
+            }else preparedStatement.setNull(5, Types.BIGINT);
 
             preparedStatement.setDate(6,sqlDate);
             preparedStatement.setString(7,userEntity.getEmail());
             preparedStatement.setString(8,encryptedPassword);
             preparedStatement.setString(9,passwordSalt);
-            if (userEntity.getRole() != null){preparedStatement.setInt(10,userEntity.getRole().getValue());}
-            if (userEntity.getCompany() != null){preparedStatement.setLong(11,userEntity.getCompany().getId());}
+            if (userEntity.getRole() != null){
+                preparedStatement.setInt(10,userEntity.getRole().getValue());
+            }
+            if (userEntity.getCompany() != null){
+                preparedStatement.setLong(11,userEntity.getCompany().getId());
+            }else {
+                preparedStatement.setNull(11,Types.BIGINT);
+            }
 
 
             var resultSet = preparedStatement.executeQuery();
