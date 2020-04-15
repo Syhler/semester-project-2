@@ -26,7 +26,11 @@ public class ProgramListController implements Initializable {
     public VBox programList;
     public List<ProgramEntity> programEntityList = new ArrayList<ProgramEntity>();
 
-
+    /**
+     * Loads the "program.fxml", gives it a title based on the given ProgramEntity
+     * @param programEntity
+     * @return
+     */
     public Node showProgramList(ProgramEntity programEntity)
     {
         if (programEntity == null)
@@ -58,6 +62,9 @@ public class ProgramListController implements Initializable {
         return programmer;
     }
 
+    /**
+     * Updates the program list, by adding rows and columns to the gridpane, so the list fits with the programs in it
+     */
     public void updateProgramList()
     {
         int rowSize = 0;

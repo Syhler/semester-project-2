@@ -18,8 +18,8 @@ public class ControllerUtility {
 
     /**
      * Sets max character size of a text area, based on a given max size.
-     * @param textArea
-     * @param maxSize
+     * @param textArea that you want to set a limit on
+     * @param maxSize int variable with a given size you want the text area to be limited to
      */
     public static void maxTextSize(TextArea textArea, int maxSize)
     {
@@ -29,8 +29,8 @@ public class ControllerUtility {
 
     /**
      * Finds the remaining characters available in a text area, based on a given max size of the text area.
-     * @param textArea
-     * @param maxSize
+     * @param textArea that you want to check remaining number of characters on
+     * @param maxSize int variable with a given size you want the text area to be limited to
      * @return Number of remaining characters available, plus an explaining text
      */
     public static String remainingCharacters(TextArea textArea, int maxSize)

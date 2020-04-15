@@ -20,6 +20,10 @@ public class ProgramInformationController implements Initializable {
 
     private DomainHandler domainHandler = new DomainHandler();
 
+    /**
+     * Opens "programInformation.fxml" as a popup scene
+     * @param programEntity of the program that should open
+     */
     public void openView(ProgramEntity programEntity)
     {
         Parent root = null;
@@ -38,10 +42,7 @@ public class ProgramInformationController implements Initializable {
 
         programController.infoTitle.setText(programEntity.getName());
 
-        //if (programEntity.getCompany() != null)
-        //{
-            programController.infoCompany.setText(programEntity.getCompany().getName());
-        //}
+        programController.infoCompany.setText(programEntity.getCompany().getName());
 
         programController.infoDescription.setText(programEntity.getDescription());
 

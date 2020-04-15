@@ -53,6 +53,10 @@ public class CreditController implements Initializable {
 
     }
 
+    /**
+     * Opens "createCredit.fxml" as a popup scene
+     * @return a UserEntity with its different variables
+     */
     public UserEntity openView() {
         FXMLLoader loader = null;
         try {
@@ -72,6 +76,11 @@ public class CreditController implements Initializable {
         }
     }
 
+    /**
+     * Creates a UserEntity and sets its parameters to what has been entered in the text areas in the "createCredits" scene
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void createActor(ActionEvent event) throws IOException {
         UserEntity actorCredit = new UserEntity(creaditTitlePrompt.getText(), firstNamePrompt.getText(),
