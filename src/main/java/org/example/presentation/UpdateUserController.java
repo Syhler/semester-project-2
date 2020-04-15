@@ -18,6 +18,7 @@ import org.example.entity.CompanyEntity;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.utilities.UsermanagementUtilities;
 
 import java.io.IOException;
 import java.net.URL;
@@ -69,7 +70,7 @@ public class UpdateUserController implements Initializable {
 
     private ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
 
-    private String rolename = "";
+    private String titleName = "";
     private Role roleValue;
 
     private UserEntity userToUpdate = null;
@@ -77,25 +78,13 @@ public class UpdateUserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactory = new Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>>() {
 
-            @Override
-            public ListCell<CompanyEntity> call(ListView<CompanyEntity> l) {
-                return new ListCell<CompanyEntity>() {
-
-                    @Override
-                    protected void updateItem(CompanyEntity item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getName());
-                        }
-                    }
-                };
-            }
-        };
-
+        /**
+         * Call to UsermangementUtilities to get cellfactory
+         *
+         * @return Callback for cellfactory
+         */
+        var cellFactory = UsermanagementUtilities.cellFactoryUsermanagemnt();
         companyList.setCellFactory(cellFactory);
         companyList.setButtonCell(cellFactory.call(null));
 
@@ -126,20 +115,7 @@ public class UpdateUserController implements Initializable {
      */
     public UserEntity openUpdateUser(ActionEvent event, UserEntity userToUpdate, Role role) {
 
-        switch (role) {
-            case Admin:
-                rolename = LanguageHandler.getText("admin");
-                break;
-            case Manufacture:
-                rolename = LanguageHandler.getText("manufacture");
-                break;
-            case Producer:
-                rolename = LanguageHandler.getText("producer");
-                break;
-            case Actor:
-                rolename = LanguageHandler.getText("actor");
-                break;
-        }
+        titleName = UsermanagementUtilities.setStageTitleCreateUpdateUser(role);
 
         var updateUserStage = new Stage();
 
@@ -167,7 +143,7 @@ public class UpdateUserController implements Initializable {
             updateUserController.title.setText(userToUpdate.getTitle());
             updateUserController.roleList.setValue(userToUpdate.getRole());
 
-            updateUserStage.setTitle(LanguageHandler.getText("updateUserTitle") +" "+ rolename);
+            updateUserStage.setTitle(LanguageHandler.getText("updateUserTitle") +" "+ titleName);
             updateUserStage.initModality(Modality.WINDOW_MODAL);
             updateUserStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             updateUserStage.setResizable(false);
@@ -183,23 +159,10 @@ public class UpdateUserController implements Initializable {
 
     @FXML
     public void updateUserFromInput(ActionEvent event) throws IOException {
-        if (firstname.getText().isEmpty()) {
-            setStatusText(LanguageHandler.getText("firstnameEmpty"));
-            return;
-        } else if (lastname.getText().isEmpty()) {
-            setStatusText(LanguageHandler.getText("lastnameEmpty"));
-            return;
-        } else if (email.getText().isEmpty()) {
-            setStatusText(LanguageHandler.getText("emailEmpty"));
-            return;
-        } else if (companyList.getSelectionModel().isEmpty()) {
-            setStatusText(LanguageHandler.getText("companyEmpty"));
-            return;
-        } else if (title.getText().isEmpty()) {
-            setStatusText(LanguageHandler.getText("titleEmpty"));
-            return;
-        } else if (password.getText().isEmpty()) {
-            setStatusText(LanguageHandler.getText("passwordEmpty"));
+        String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText());
+        if (validationMessage != "")
+        {
+            setStatusText(validationMessage);
             return;
         }
 

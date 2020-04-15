@@ -19,6 +19,7 @@ import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
 import org.example.entity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.utilities.UsermanagementUtilities;
 
 import java.io.IOException;
 import java.net.URL;
@@ -81,31 +82,14 @@ public class CompanyController implements Initializable {
         closeCompany.setText(LanguageHandler.getText("closeCompany"));
 
 
+        /**
+         * Call to UsermangementUtilities to get cellfactory
+         *
+         * @return Callback for cellfactory
+         */
+        var cellFactory = UsermanagementUtilities.cellFactoryUsermanagemnt();
 
-        Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactoryComp = new Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>>() {
-
-            @Override
-            public ListCell<CompanyEntity> call(ListView<CompanyEntity> l) {
-                return new ListCell<CompanyEntity>() {
-
-                    @Override
-                    protected void updateItem(CompanyEntity item, boolean empty) {
-                        super.updateItem(item, empty);
-
-                        if (item == null || empty) {
-                            setDisable(false);
-                            setGraphic(null);
-                            setText("");
-                        } else {
-                            setText(item.getName());
-                        }
-                    }
-                };
-            }
-        };
-
-
-        companyList.setCellFactory(cellFactoryComp);
+        companyList.setCellFactory(cellFactory);
         companyEntities.addAll(domainHandler.company().getCompanies());
 
         companyList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CompanyEntity>() {

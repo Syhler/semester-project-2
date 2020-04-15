@@ -17,8 +17,8 @@ import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
-import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.utilities.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -69,7 +69,7 @@ public class CreateUserController implements Initializable {
 
     private ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
 
-    private String rolename = "";
+    private String titleName = "";
     private Role roleValue;
 
     private UserEntity user = null;
@@ -77,25 +77,15 @@ public class CreateUserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactory = new Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>>() {
 
-            @Override
-            public ListCell<CompanyEntity> call(ListView<CompanyEntity> l) {
-                return new ListCell<CompanyEntity>() {
+        /**
+         * Call to UsermangementUtilities to get cellfactory
+         *
+         * @return Callback for cellfactory
+         */
+        var cellFactory = UsermanagementUtilities.cellFactoryUsermanagemnt();
 
-                    @Override
-                    protected void updateItem(CompanyEntity item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getName());
-                        }
-                    }
-                };
-            }
-
-        };
+        // setting cellFactory to companylist adding items from OobervableList to Combobox
 
         companyList.setCellFactory(cellFactory);
         companyList.setButtonCell(cellFactory.call(null));
@@ -120,20 +110,8 @@ public class CreateUserController implements Initializable {
      * @return currentUser
      */
     public UserEntity openCreateUser(ActionEvent event, Role role) {
-        switch (role) {
-            case Admin:
-                rolename = LanguageHandler.getText("admin");
-                break;
-            case Manufacture:
-                rolename = LanguageHandler.getText("manufacture");
-                break;
-            case Producer:
-                rolename = LanguageHandler.getText("producer");
-                break;
-            case Actor:
-                rolename = LanguageHandler.getText("actor");
-                break;
-        }
+
+        titleName = UsermanagementUtilities.setStageTitleCreateUpdateUser(role);
 
         var createUserStage = new Stage();
 
@@ -143,7 +121,7 @@ public class CreateUserController implements Initializable {
             CreateUserController createusercontrol = myLoader.getController();
             createusercontrol.roleValue = role;
 
-            createUserStage.setTitle(LanguageHandler.getText("createUserTitle") +" "+ rolename);
+            createUserStage.setTitle(LanguageHandler.getText("createUserTitle") +" "+ titleName);
             createUserStage.initModality(Modality.WINDOW_MODAL);
             createUserStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             createUserStage.setResizable(false);
@@ -159,23 +137,11 @@ public class CreateUserController implements Initializable {
 
     @FXML
     public void createUserFromInput(ActionEvent event) throws Exception {
-        if (firstname.getText().isEmpty()) {
-            setStatusText(LanguageHandler.getText("firstnameEmpty"));
-            return;
-        } else if (lastname.getText().isEmpty()) {
-            setStatusText(LanguageHandler.getText("lastnameEmpty"));
-            return;
-        } else if (email.getText().isEmpty()) {
-            setStatusText(LanguageHandler.getText("emailEmpty"));
-            return;
-        } else if (companyList.getSelectionModel().isEmpty()) {
-            setStatusText(LanguageHandler.getText("companyEmpty"));
-            return;
-        } else if (title.getText().isEmpty()) {
-            setStatusText(LanguageHandler.getText("titleEmpty"));
-            return;
-        } else if (password.getText().isEmpty()) {
-            setStatusText(LanguageHandler.getText("passwordEmpty"));
+
+        String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText());
+        if (validationMessage != "")
+        {
+            setStatusText(validationMessage);
             return;
         }
 
