@@ -246,6 +246,157 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         return true;
     }
 
+    public void createUserIfdoesntExists(List<CreditEntity> creditList){
+
+
+        for (CreditEntity credit: creditList) {
+            if (credit.getActor().getId() == 0){
+                long actorID = createUser(credit.getActor(),"a","b");
+                credit.getActor().setId(actorID);
+            }
+        }
+
+    }
+
+    public long createUser(UserEntity userEntity,String passwordSalt, String encryptedPassword) {
+        java.util.Date utilDate = userEntity.getCreatedAt();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+
+
+        try {
+
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "Insert INTO \"user\" (title,firstname, middlename, lastname, createdby, createdat, email, password,passwordsalt ,role, company)" +
+                    " values (?,?,?,?,?,?,?,?,?,?,?) returning id;");
+
+            preparedStatement.setString(1,userEntity.getTitle());
+            preparedStatement.setString(2,userEntity.getFirstName());
+            preparedStatement.setString(3,userEntity.getMiddleName());
+            preparedStatement.setString(4,userEntity.getLastName());
+           preparedStatement.setLong(5,userEntity.getCreatedBy().getId());
+
+            preparedStatement.setDate(6,sqlDate);
+            preparedStatement.setString(7,userEntity.getEmail());
+            preparedStatement.setString(8,encryptedPassword);
+            preparedStatement.setString(9,passwordSalt);
+            if (userEntity.getRole() != null){preparedStatement.setInt(10,userEntity.getRole().getValue());}
+            if (userEntity.getCompany() != null){preparedStatement.setLong(11,userEntity.getCompany().getId());}
+
+
+            var resultSet = preparedStatement.executeQuery();
+
+            //checks if the resultSet contains any rows
+            if (!resultSet.next())
+            {
+                return 0;
+            }
+
+
+            return resultSet.getLong("id");
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+
+    public boolean updateCompanyProgram(ProgramEntity programEntity){
+        try {
+            PreparedStatement stmt = connection.prepareStatement("select company from companyprogram where program = ?");
+            stmt.setLong(1,programEntity.getId());
+            PreparedStatement statement = connection.prepareStatement("insert into companyprogram(company, program) values (?,?)");
+            connection.setAutoCommit(false);
+            ResultSet resultSet = stmt.executeQuery();
+            ArrayList<Long> companyList = new ArrayList<>();
+            while (resultSet.next()){
+                companyList.add(resultSet.getLong("company"));
+            }
+            if (companyList.isEmpty()){
+                statement.setLong(1,programEntity.getCompany().getId());
+                statement.setLong(2,programEntity.getId());
+                statement.addBatch();
+            }else {
+                if (resultSet.getLong("company") != programEntity.getCompany().getId() ){
+                    statement.setLong(1,programEntity.getCompany().getId());
+                    statement.setLong(2,programEntity.getId());
+                    statement.addBatch();
+                }
+            }
+            statement.executeBatch();
+            connection.commit();
+            connection.setAutoCommit(true);
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateCredit(ProgramEntity programEntity){
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT into credit(\"user\", program) values (?, ?)");
+                connection.setAutoCommit(false);
+            for (CreditEntity credit:programEntity.getCredits()) {
+                if (credit.getProgramId() == 0){
+                    statement.setLong(1,credit.getActor().getId());
+                    statement.setLong(2,programEntity.getId());
+                    statement.addBatch();
+                }
+            }
+                statement.executeBatch();
+                connection.commit();
+                connection.setAutoCommit(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateProducerForProgram(ProgramEntity programEntity){
+        try {
+            PreparedStatement stmt = connection.prepareStatement("select producer_id  from programproducer where program_id = ?");
+            stmt.setLong(1,programEntity.getId());
+            ResultSet resultSet = stmt.executeQuery();
+            PreparedStatement statement = connection.prepareStatement("insert into programproducer(producer_id, program_id) values (?,?)");
+            connection.setAutoCommit(false);
+            ArrayList<Long> idList = new ArrayList<>();
+            while(resultSet.next()){
+                    idList.add(resultSet.getLong("producer_id"));
+            }
+
+            if (!idList.isEmpty()){
+                for (UserEntity producer: programEntity.getProducer()) {
+                    if (resultSet.getLong("producer_id") != producer.getId() ){
+                        statement.setLong(1,producer.getId());
+                        statement.setLong(2,programEntity.getId());
+                        statement.addBatch();
+                    }
+                }
+            }else for (UserEntity producer: programEntity.getProducer()) {
+                statement.setLong(1,producer.getId());
+                statement.setLong(2,programEntity.getId());
+                statement.addBatch();
+            }
+            statement.executeBatch();
+            connection.commit();
+            connection.setAutoCommit(true);
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     /**
      * updates a programs infomation in the programinformation table.
      * @param programEntity
@@ -259,6 +410,10 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             stmt.setString(1,programEntity.getName());
             stmt.setString(2,programEntity.getDescription());
             stmt.setLong(3,programEntity.getId());
+
+            createUserIfdoesntExists(programEntity.getCredits());
+            updateProducerForProgram(programEntity);
+            updateCredit(programEntity);
             stmt.executeUpdate();
 
             return true;
@@ -385,16 +540,19 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     public List<ProgramEntity> getAllPrograms() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT distinct on (programinformation.program_id) programinformation.title , " +
-                    "programinformation.program_id from programinformation");
+            stmt = connection.prepareStatement("SELECT distinct on (programinformation.program_id) programinformation.title ," +
+                    "programinformation.program_id, timestamp_for_deletion from programinformation " +
+                    "inner join program on programinformation.program_id = program.id ");
+
+
 
             ResultSet sqlReturnValues = stmt.executeQuery();
             List<ProgramEntity> returnvalue = new ArrayList<>();
 
             while (sqlReturnValues.next()) {
-                
-                returnvalue.add(new ProgramEntity(sqlReturnValues.getLong("program_id"),sqlReturnValues.getString("title")));
-
+                if (sqlReturnValues.getTimestamp("timestamp_for_deletion")==null) {
+                    returnvalue.add(new ProgramEntity(sqlReturnValues.getLong("program_id"), sqlReturnValues.getString("title")));
+                }
             }
             return returnvalue;
         } catch (SQLException e) {

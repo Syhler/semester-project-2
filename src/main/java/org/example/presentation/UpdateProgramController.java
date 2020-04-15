@@ -75,6 +75,7 @@ public class UpdateProgramController implements Initializable {
         Parent node = loader.load();
         UpdateProgramController updateProgramController = loader.<UpdateProgramController>getController();
 
+
         //if (programEntity.getName() != null) {
             updateProgramController.updateInsertTitle.setText(programEntity.getName());
         //}
@@ -98,7 +99,7 @@ public class UpdateProgramController implements Initializable {
             }
         }*/
 
-        programId = programEntity.getId();
+        updateProgramController.programId = programEntity.getId();
 
         Scene scene = new Scene(node);
 
@@ -254,7 +255,9 @@ public class UpdateProgramController implements Initializable {
     {
         UserEntity credit1 = new UserEntity("Lydmand", "Hans", "Hans", "Jørgensen", new Date(), "Hans@email.com");
         CreditEntity creditEntity1 = new CreditEntity(0,credit1);
-        UserEntity credit2 = new UserEntity("Kameramand", "Bo", "Jørgen", "Hansen", new Date(), "Hans@email.com");
+        CompanyEntity companyEntity = new CompanyEntity(1,"hans");
+        UserEntity creator = new UserEntity(1);
+        UserEntity credit2 = new UserEntity( "Bo", "Jørgen", "Hansen", "Hans@email.com", companyEntity,Role.Actor,"Kameramand",creator, new Date() );
         CreditEntity creditEntity2 = new CreditEntity(0,credit2);
 
         List<CreditEntity> credits = new ArrayList<CreditEntity>();

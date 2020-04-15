@@ -41,6 +41,19 @@ public class UserEntity {
         this.title = title;
     }
 
+    public UserEntity(String firstName, String middleName, String lastName, String email, CompanyEntity company, Role role, String title, UserEntity createdBy, Date createdAt) {
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.email = email;
+        this.company = company;
+        this.role = role;
+        this.title = title;
+        this.createdBy = createdBy;
+        this.createdAt = createdAt;
+    }
+
     public void setCompany(CompanyEntity company) {
         this.company = company;
     }
@@ -80,8 +93,15 @@ public class UserEntity {
     {
         return firstName +" "+ middleName +" "+ lastName;
     }
+
+    public UserEntity getCreatedBy() {
+        return createdBy;
+    }
     public String getNameAndTitle() { return firstName +" "+ middleName +" "+ lastName +" - "+ title;}
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
     public String getFirstName() { return firstName; }
     public String getMiddleName() { return middleName; }
     public String getLastName() { return lastName; }
