@@ -7,4 +7,5 @@ public interface IDomainHandler
     public IProgram program();
     public ICredit credit();
     public IUser user();
+    public ICompany company();
 }

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <language>
     <username>Brugernavn</username>
+
+    <password>Adgangskode:*</password>
+    <firstName>Fornavn:*</firstName>
+    <middleName>Mellemnavn:</middleName>
+    <lastName>Efternavn:*</lastName>
+    <email>Email:*</email>
+    <title>Titel:*</title>
+    <company>Firma:*</company>
+    <createBtn>Opret</createBtn>
+    <cancelBtn>Afbryd</cancelBtn>
+    <updateBtn>Opdater</updateBtn>
     <password>Adgangskode</password>
     <createProgram>Opret Program</createProgram>
     <showMore>Vis mere</showMore>
@@ -41,5 +52,58 @@
     <deleteWarningText>Er du sikker på at du vil slette dette program?</deleteWarningText>
     <yes>Ja</yes>
     <no>Nej</no>
+    <nameColumn>Navn</nameColumn>
+    <companyColumn>Firmaer</companyColumn>
+    <titleColumn>Titel</titleColumn>
+    <createdbyColumn>Oprettet af</createdbyColumn>
+    <createdColumn>Oprettet</createdColumn>
+    <companyBtn>Firma</companyBtn>
+    <displayAdmins>Admins</displayAdmins>
+    <displayManufactures>Producenter</displayManufactures>
+    <displayProducers>Producere</displayProducers>
+    <displayActors>Aktører</displayActors>
+    <createPopup>Opret</createPopup>
+    <editBtn>Rediger</editBtn>
+    <deleteSelected>Slet</deleteSelected>
+    <login>Logind</login>
+    <logoff>Logud</logoff>
+    <searchNavigation>Søgning</searchNavigation>
+    <createCompanyLabel>Opret Firma</createCompanyLabel>
+    <companyNameLabel>Navn:</companyNameLabel>
+    <createCompany>Opret</createCompany>
+    <updateCompanyLabel>Opdater Firma:</updateCompanyLabel>
+    <companyIdLabel>ID:</companyIdLabel>
+    <updateCompanyLabelName>Navn:</updateCompanyLabelName>
+    <updateCompany>Opdater</updateCompany>
+    <deleteCompany>Slet</deleteCompany>
+    <profile>Profil</profile>
+    <usermanagementBtn>Bruger Administration</usermanagementBtn>
+    <closeCompany>Luk</closeCompany>
+    <companyTitle>Firmaer</companyTitle>
+    <updateUserTitle>Opdater</updateUserTitle>
+    <createUserTitle>Opret</createUserTitle>
+    <admin>Admin</admin>
+    <manufacture>Producent</manufacture>
+    <producer>Producer</producer>
+    <actor>Aktør</actor>
+    <firstnameEmpty>Fornavn skal udfyldes</firstnameEmpty>
+    <lastnameEmpty>Efternavn skal udfyldes</lastnameEmpty>
+    <emailEmpty>Email skal udfyldes</emailEmpty>
+    <companyEmpty>Der skal vælges et firma</companyEmpty>
+    <titleEmpty>Titel skal udfyldes</titleEmpty>
+    <passwordEmpty>Kodeord skal udfyldes</passwordEmpty>
+    <usernameEmpty>Brugernavn skal udfyldes</usernameEmpty>
+    <Authentication>Login</Authentication>
+    <usernameOrPassword>Brugernavn eller password er forkert</usernameOrPassword>
+    <usernameLabel>Brugernavn</usernameLabel>
+    <passwordLabel>Kodeord</passwordLabel>
+    <companyCreated>blev oprettet</companyCreated>
+    <companyNotCreated>blev ikke oprettet</companyNotCreated>
+    <companyUpdated>blev redigeret</companyUpdated>
+    <companyNotUpdated>blev ikke redigeret</companyNotUpdated>
+    <companyDeleted>blev slettet</companyDeleted>
+    <companyNotDeleted>blev ikke slettet</companyNotDeleted>
+    <somethingWrong>Der gik noget galt</somethingWrong>
+
 
 </language>

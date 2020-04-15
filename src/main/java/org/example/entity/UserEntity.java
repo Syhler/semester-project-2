@@ -8,12 +8,17 @@ public class UserEntity {
     private String firstName;
     private String middleName;
     private String lastName;
+    private String fullName;
     private String email;
     private CompanyEntity company;
+    private String companyName;
     private Role role;
     private String title;
     private UserEntity createdBy;
     private Date createdAt;
+    private String createdByName;
+
+
 
     public UserEntity(String title, String firstName, String middleName, String lastName,
                       Date createdAt, String email) {
@@ -21,11 +26,9 @@ public class UserEntity {
         this.middleName = middleName;
         this.lastName = lastName;
         this.email = email;
-        this.createdBy = createdBy;
         this.createdAt = createdAt;
-        this.company = company;
-        this.role = role;
         this.title = title;
+        this.fullName = firstName+" "+middleName+" "+lastName;
     }
 
     public UserEntity(long id) {
@@ -42,7 +45,6 @@ public class UserEntity {
     }
 
     public UserEntity(String firstName, String middleName, String lastName, String email, CompanyEntity company, Role role, String title, UserEntity createdBy, Date createdAt) {
-        this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -54,12 +56,20 @@ public class UserEntity {
         this.createdAt = createdAt;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
     public void setCompany(CompanyEntity company) {
         this.company = company;
     }
 
     public void setRole(int role) {
         this.role = Role.getRoleById(role);
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public void setTitle(String title) {
@@ -89,22 +99,71 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getName()
-    {
-        return firstName +" "+ middleName +" "+ lastName;
+    public String getName() {
+        return firstName + " " + middleName + " " + lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public UserEntity getCreatedBy() {
         return createdBy;
     }
+
     public String getNameAndTitle() { return firstName +" "+ middleName +" "+ lastName +" - "+ title;}
+
+    public void setCreatedByName(String name){
+        this.createdByName = name;
+    }
+
+    public String getCreatedByName(){
+        return createdByName;
+    }
 
     public Date getCreatedAt() {
         return createdAt;
     }
-    public String getFirstName() { return firstName; }
-    public String getMiddleName() { return middleName; }
-    public String getLastName() { return lastName; }
-    public String getEmail() { return email; }
 
+
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 }

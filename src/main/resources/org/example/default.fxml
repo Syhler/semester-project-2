@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ToolBar?>
 <BorderPane fx:id="borderPane" prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.DefaultController">
    <left>
       <VBox BorderPane.alignment="CENTER">
@@ -20,7 +21,6 @@
                      </VBox.margin>
                   </Button>
                   <Region VBox.vgrow="ALWAYS" />
-                  <Button fx:id="login" onAction="#goToLogin" text="Login" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -35,12 +35,20 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="loggedInAs" alignment="TOP_LEFT" maxWidth="Infinity" prefHeight="17.0" prefWidth="850.0" text="Logged in as:" HBox.hgrow="ALWAYS">
+            <!--<Label fx:id="loggedInAs" alignment="TOP_LEFT" maxWidth="Infinity" prefHeight="17.0" prefWidth="850.0" text="Logged in as:" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets bottom="10.0" left="5.0" top="5.0" />
                </HBox.margin>
-            </Label>
+            </Label>-->
+            <ToolBar fx:id="navigation" layoutX="-6.0" layoutY="-5.0" prefHeight="36.0" prefWidth="705.0">
+               <items>
+                  <Button fx:id="login" onAction="#goToLogin" text="Login" />
+                  <Button fx:id="usermanagementBtn" mnemonicParsing="false" onAction="#goToUsermanagement" text="Usermanagement" visible="false" />
+                  <Button fx:id="profileNavigation" mnemonicParsing="false" onAction="#openUpdateUser" text="Profile" visible="false" />
+               </items>
+            </ToolBar>
          </children>
       </HBox>
    </top>
 </BorderPane>
+

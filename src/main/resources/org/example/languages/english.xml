@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <language>
     <username>Username</username>
+
+    <password>Password:*</password>
+    <firstName>First name:*</firstName>
+    <middleName>Middle name:</middleName>
+    <lastName>Last name:*</lastName>
+    <email>Email:*</email>
+    <title>Title:*</title>
+    <company>Company:*</company>
+    <createBtn>Create</createBtn>
+    <cancelBtn>Cancel</cancelBtn>
+    <updateBtn>Update</updateBtn>
     <password>Password</password>
     <createProgram>Create Program</createProgram>
     <showMore>Show more</showMore>
@@ -41,5 +52,57 @@
     <deleteWarningText>You sure you want to delete this program?</deleteWarningText>
     <yes>Yes</yes>
     <no>No</no>
+    <nameColumn>Name</nameColumn>
+    <companyColumn>Companies</companyColumn>
+    <titleColumn>Title</titleColumn>
+    <createdbyColumn>Created By</createdbyColumn>
+    <createdColumn>Created</createdColumn>
+    <companyBtn>Company</companyBtn>
+    <displayAdmins>Admins</displayAdmins>
+    <displayManufactures>Manufactures</displayManufactures>
+    <displayProducers>Producers</displayProducers>
+    <displayActors>Actors</displayActors>
+    <createPopup>Create</createPopup>
+    <editBtn>Edit</editBtn>
+    <deleteSelected>Delete</deleteSelected>
+    <login>Login</login>
+    <logoff>Logoff</logoff>
+    <searchNavigation>Search</searchNavigation>
+    <createCompanyLabel>Create Company</createCompanyLabel>
+    <companyNameLabel>Name:</companyNameLabel>
+    <createCompany>Create</createCompany>
+    <updateCompanyLabel>Update Company:</updateCompanyLabel>
+    <companyIdLabel>ID:</companyIdLabel>
+    <updateCompanyLabelName>Name:</updateCompanyLabelName>
+    <updateCompany>Update</updateCompany>
+    <deleteCompany>Delete</deleteCompany>
+    <profile>Profile</profile>
+    <usermanagementBtn>User Management</usermanagementBtn>
+    <closeCompany>Close</closeCompany>
+    <companyTitle>Companies</companyTitle>
+    <updateUserTitle>Update</updateUserTitle>
+    <createUserTitle>Create</createUserTitle>
+    <admin>Admin</admin>
+    <manufacture>manufacture</manufacture>
+    <producer>Producer</producer>
+    <actor>Actor</actor>
+    <firstnameEmpty>Firstname is empty</firstnameEmpty>
+    <lastnameEmpty>Lastname is empty</lastnameEmpty>
+    <emailEmpty>Email is empty</emailEmpty>
+    <companyEmpty>A company must be selected</companyEmpty>
+    <titleEmpty>Title is empty</titleEmpty>
+    <passwordEmpty>Password is empty</passwordEmpty>
+    <usernameEmpty>Username is empty</usernameEmpty>
+    <Authentication>Authentication</Authentication>
+    <usernameOrPassword>Username or password were incorrect</usernameOrPassword>
+    <usernameLabel>Username</usernameLabel>
+    <passwordLabel>Password</passwordLabel>
+    <companyCreated>was created</companyCreated>
+    <companyNotCreated>was not created</companyNotCreated>
+    <companyUpdated>was updated</companyUpdated>
+    <companyNotUpdated>was not updated</companyNotUpdated>
+    <companyDeleted>was deleted</companyDeleted>
+    <companyNotDeleted>was not deleted</companyNotDeleted>
+    <somethingWrong>Something went wrong</somethingWrong>
 
 </language>
