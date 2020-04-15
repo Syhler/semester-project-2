@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.CompanyEntity;
@@ -135,6 +134,11 @@ public class CreateUserController implements Initializable {
         }
     }
 
+    /**
+     * Creates a userEntity from the input fields closes createuserController if create was succesfull
+     * @param event
+     * @throws Exception
+     */
     @FXML
     public void createUserFromInput(ActionEvent event) throws Exception {
 
@@ -168,11 +172,19 @@ public class CreateUserController implements Initializable {
 
     }
 
+    /**
+     * Closes stage depending on event argument
+     * @param event
+     */
     @FXML
     public void cancel(ActionEvent event) {
         closeDialog(event);
     }
 
+    /**
+     * Sets feedback text if inputs etc are wrong or missing
+     * @param text
+     */
     private void setStatusText(String text) {
         statusText.setText(text);
         statusText.setVisible(true);

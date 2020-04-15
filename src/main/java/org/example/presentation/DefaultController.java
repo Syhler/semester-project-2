@@ -43,6 +43,10 @@ public class DefaultController {
         }
     }
 
+    /**
+     * Opens AuthenticationController for login, closes if login was succesfull
+     * @param event
+     */
     @FXML
     private void goToLogin(ActionEvent event) {
         AuthenticationController authenticationController = new AuthenticationController();
@@ -59,6 +63,11 @@ public class DefaultController {
         }
     }
 
+    /**
+     * Logs out the current user sets CurrentUser to null
+     * @param event
+     * @throws IOException
+     */
     private void logout(ActionEvent event) {
         if (CurrentUser.getInstance().getUserEntity() != null) {
             CurrentUser.getInstance().init(null); //Logs off
@@ -85,6 +94,10 @@ public class DefaultController {
         App.setRoot("usermanagement");
     }
 
+    /**
+     * Opens updateuser so user can update his/her own interformation only
+     * @param event
+     */
     @FXML
     private void openUpdateUser(ActionEvent event) {
         UserEntity userToUpdate = CurrentUser.getInstance().getUserEntity();

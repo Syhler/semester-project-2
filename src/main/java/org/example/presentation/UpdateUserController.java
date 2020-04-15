@@ -103,6 +103,9 @@ public class UpdateUserController implements Initializable {
 
         roleList.getItems().addAll(Role.Admin, Role.Manufacture, Role.Producer, Role.Actor);
 
+        /**
+         * removes the select role option incase user doesn't have admin priviledge
+         */
         if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Admin) {
             roleList.setDisable(true);
         }
@@ -157,6 +160,11 @@ public class UpdateUserController implements Initializable {
         }
     }
 
+    /**
+     * Updates the chosen user according to input fields, closes dialog if succesfull
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void updateUserFromInput(ActionEvent event) throws IOException {
         String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText());
@@ -193,11 +201,19 @@ public class UpdateUserController implements Initializable {
 
     }
 
+    /**
+     * Closes stage depending on event argument
+     * @param event
+     */
     @FXML
     public void cancel(ActionEvent event) {
         closeDialog(event);
     }
 
+    /**
+     * Sets feedback text if inputs etc are wrong or missing
+     * @param text
+     */
     private void setStatusText(String text) {
         statusText.setText(text);
         statusText.setVisible(true);

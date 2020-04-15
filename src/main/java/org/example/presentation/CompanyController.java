@@ -94,6 +94,12 @@ public class CompanyController implements Initializable {
 
         companyList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CompanyEntity>() {
 
+            /**
+             * Adds an eventlistener to the ListView cells, so data from clicked cell is displayed in update company inputs
+             * @param observable
+             * @param oldValue
+             * @param newValue
+             */
             @Override
             public void changed(ObservableValue<? extends CompanyEntity> observable, CompanyEntity oldValue, CompanyEntity newValue) {
                 companyNameToUpdate.setText(newValue.getName());
@@ -133,7 +139,12 @@ public class CompanyController implements Initializable {
 
     }
 
-
+    /**
+     * Creates company from input fields and returns the id from database
+     * @param event
+     * @throws IOException
+     * @Return long ID from database
+     */
     @FXML
     public void createCompany(ActionEvent event) throws IOException {
         CompanyEntity newCompany = new CompanyEntity(companyNameInput.getText());
@@ -152,6 +163,12 @@ public class CompanyController implements Initializable {
 
     }
 
+    /**
+     * Updates selected company from the list with new name
+     * @param event
+     * @throws IOException
+     * @Return boolean, true if company was updated succesfully
+     */
     @FXML
     public void updateCompany(ActionEvent event) throws IOException {
         CompanyEntity updatedCompany = new CompanyEntity(companyNameToUpdate.getText());
@@ -168,6 +185,12 @@ public class CompanyController implements Initializable {
         }
     }
 
+    /**
+     * Deletes selected company from list
+     * @param event
+     * @throws IOException
+     * @Return boolean, true if company was deleted
+     */
     @FXML
     public void deleteCompany(ActionEvent event) throws IOException {
         CompanyEntity selectedCompany = companyList.getSelectionModel().getSelectedItem();
@@ -182,11 +205,19 @@ public class CompanyController implements Initializable {
         }
     }
 
+    /**
+     * Closes stage depending on event argument
+     * @param event
+     */
     @FXML
     public void cancel(ActionEvent event) {
         closeDialog(event);
     }
 
+    /**
+     * Sets feedback text if inputs etc are wrong or missing
+     * @param text
+     */
     private void setStatusText(String text) {
         statusText.setText(text);
         statusText.setVisible(true);

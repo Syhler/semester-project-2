@@ -66,7 +66,7 @@ public class UsermanagementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         /**
-         * Language
+         * Language for all buttons, labels, feedback texts etc
          */
         col_name.setText(LanguageHandler.getText("nameColumn"));
         col_company.setText(LanguageHandler.getText("companyColumn"));
@@ -124,6 +124,10 @@ public class UsermanagementController implements Initializable {
         table.getSelectionModel().select(0);
     }
 
+    /**
+     * Opens CreateUserController and Fxml
+     * @param event
+     */
     @FXML
     private void openCreateUser(ActionEvent event) {
         CreateUserController createusercontroller = new CreateUserController();
@@ -134,6 +138,10 @@ public class UsermanagementController implements Initializable {
         }
     }
 
+    /**
+     * Opens CompanyController and Fxml
+     * @param event
+     */
     @FXML
     private void openCompanyController(ActionEvent event) {
         CompanyController companyController = new CompanyController();
@@ -141,6 +149,11 @@ public class UsermanagementController implements Initializable {
         companyAddToggle.setSelected(false);
     }
 
+    /**
+     * Opens UpdateUserController and Fxml
+     * @param event
+     * @return Updated UserEntity
+     */
     @FXML
     private void openUpdateUser(ActionEvent event) {
 
@@ -157,6 +170,10 @@ public class UsermanagementController implements Initializable {
         }
     }
 
+    /**
+     * Checks which togglebutton is active in the usermangementController and displays users acording to the button
+     * @param event
+     */
     @FXML
     private void displayByRole(ActionEvent event) {
         Object displayByRole = event.getSource();
@@ -194,7 +211,11 @@ public class UsermanagementController implements Initializable {
         table.getSelectionModel().select(0);
     }
 
-
+    /**
+     * Logs out the current user sets CurrentUser to null
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void logout(ActionEvent event) throws IOException {
         if (CurrentUser.getInstance().getUserEntity() != null) {
@@ -203,16 +224,28 @@ public class UsermanagementController implements Initializable {
         }
     }
 
+    /**
+     * Changes to default controller and fxml (start screen)
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void goToDefault(ActionEvent event) throws IOException {
         App.setRoot("default");
     }
 
+    /**
+     * Delets the selected user, removes from list if succesfull
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void deleteUser(ActionEvent event) throws IOException {
         UserEntity selectedUser = table.getSelectionModel().getSelectedItem();
 
-        if (domainHandler.user().removeUser(selectedUser)) {
+        boolean userWasRemoved = domainHandler.user().removeUser(selectedUser);
+
+        if (userWasRemoved) {
             userList.remove(selectedUser);
         }
     }
