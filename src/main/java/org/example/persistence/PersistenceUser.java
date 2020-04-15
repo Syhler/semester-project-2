@@ -151,8 +151,9 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         List<UserEntity> users = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name, \"user\".company " +
-                    "from \"user\", company where \"user\".role = ?  and company.id = \"user\".company ORDER BY \"user\".id ASC");
+                    "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  " +
+                    "company.id, company.name, \"user\".company from \"user\" " +
+                    "left join company on company.id = \"user\".company where \"user\".role = ? ORDER BY \"user\".id ASC");
             preparedStatement.setInt(1, role.getValue());
 
             var resultSet = preparedStatement.executeQuery();
@@ -275,12 +276,14 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
                         resultSet.getDate("createdAt"),
                         resultSet.getString("email"));
 
-        var company = new CompanyEntity(resultSet.getString("name"));
+        if (resultSet.getString("name") != null)
+        {
+            var company = new CompanyEntity(resultSet.getString("name"));
+            company.setId(resultSet.getLong(12)); //9 equal company id
+            user.setCompany(company);
+            user.setCompanyName(company.getName());
+        }
 
-        company.setId(resultSet.getLong(12)); //9 equal company id
-
-        user.setCompany(company);
-        user.setCompanyName(company.getName());
         user.setRole(resultSet.getInt("role"));
         user.setId(resultSet.getLong(1)); // 1 equal user id
 

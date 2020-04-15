@@ -19,7 +19,6 @@ import org.example.presentation.multipleLanguages.LanguageHandler;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -236,18 +235,14 @@ public class UpdateProgramController implements Initializable {
      * Test method, should be deleted. Creates some CreditEntity and put them in a list
      * @return list of CreditEntity
      */
-    public List<CreditEntity> creditCreatorTest()
+    public List<CreditEntity> creditsFromDatabase()
     {
-        UserEntity credit1 = new UserEntity("Lydmand", "Hans", "Hans", "Jørgensen", new Date(), "Hans@email.com");
-        CreditEntity creditEntity1 = new CreditEntity(0,credit1);
-        CompanyEntity companyEntity = new CompanyEntity(1,"hans");
-        UserEntity creator = new UserEntity(1);
-        UserEntity credit2 = new UserEntity( "Bo", "Jørgen", "Hansen", "Hans@email.com", companyEntity,Role.Actor,"Kameramand",creator, new Date() );
-        CreditEntity creditEntity2 = new CreditEntity(0,credit2);
-
         List<CreditEntity> credits = new ArrayList<CreditEntity>();
-        credits.add(creditEntity1);
-        credits.add(creditEntity2);
+        var actors = domainHandler.user().getUserByRole(Role.Actor);
+        for (UserEntity actor: actors) {
+            credits.add(new CreditEntity(actor));
+        }
+
         return credits;
     }
 
@@ -256,7 +251,7 @@ public class UpdateProgramController implements Initializable {
      */
     public void chooseCredit()
     {
-        chooseCredit.getItems().addAll(creditCreatorTest());
+        chooseCredit.getItems().addAll(creditsFromDatabase());
 
         Callback<ListView<CreditEntity>, ListCell<CreditEntity>> cellFactory = new Callback<>() {
 
