@@ -247,6 +247,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         return true;
     }
 
+    
     public void createUserIfdoesntExists(List<CreditEntity> creditList){
 
 
@@ -315,31 +316,55 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }
 
-    public boolean updateCompanyProgram(ProgramEntity programEntity){
+    public void checkCompanyProgram(ProgramEntity programEntity){
+        PreparedStatement stmt = null;
         try {
-            PreparedStatement stmt = connection.prepareStatement("select company from companyprogram where program = ?");
+            stmt = connection.prepareStatement("select company from companyprogram where program = ?");
             stmt.setLong(1,programEntity.getId());
-            PreparedStatement statement = connection.prepareStatement("insert into companyprogram(company, program) values (?,?)");
-            connection.setAutoCommit(false);
-            ResultSet resultSet = stmt.executeQuery();
             ArrayList<Long> companyList = new ArrayList<>();
+            ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()){
                 companyList.add(resultSet.getLong("company"));
             }
             if (companyList.isEmpty()){
-                statement.setLong(1,programEntity.getCompany().getId());
-                statement.setLong(2,programEntity.getId());
-                statement.addBatch();
-            }else {
-                if (companyList.get(0) != programEntity.getCompany().getId() ){
-                    statement.setLong(1,programEntity.getCompany().getId());
-                    statement.setLong(2,programEntity.getId());
-                    statement.addBatch();
-                }
+                initializeCompanyProgram(programEntity);
             }
-            statement.executeBatch();
-            connection.commit();
-            connection.setAutoCommit(true);
+            updateCompanyProgram(programEntity);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+    }
+    public void initializeCompanyProgram(ProgramEntity programEntity){
+
+        try {
+
+            PreparedStatement statement = connection.prepareStatement("insert into companyprogram(company, program) values (?,?)");
+            statement.setLong(1,programEntity.getCompany().getId());
+            statement.setLong(2,programEntity.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+    }
+
+    public boolean updateCompanyProgram(ProgramEntity programEntity){
+        try {
+
+            PreparedStatement statement1 = connection.prepareStatement("UPDATE companyprogram SET company =? where program = ?");
+            statement1.setLong(1,programEntity.getCompany().getId());
+            statement1.setLong(2,programEntity.getId());
+            statement1.executeUpdate();
+
             return true;
 
         } catch (SQLException e) {
@@ -433,7 +458,8 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             createUserIfdoesntExists(programEntity.getCredits());
             updateProducerForProgram(programEntity);
             updateCredit(programEntity);
-            updateCompanyProgram(programEntity);
+            //updateCompanyProgram(programEntity);
+            checkCompanyProgram(programEntity);
             stmt.executeUpdate();
 
             return true;
