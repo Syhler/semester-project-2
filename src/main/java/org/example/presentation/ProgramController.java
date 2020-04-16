@@ -26,16 +26,6 @@ public class ProgramController implements Initializable {
     private DomainHandler domainHandler = new DomainHandler();
 
 
-    @FXML
-    private void goToCredit() throws IOException {
-    }
-
-    @FXML
-    private void createProgram() throws IOException {
-    }
-
-
-
     /**
      * On the click of a button, opens scene of the programEntity that user have clicked
      */
@@ -45,19 +35,6 @@ public class ProgramController implements Initializable {
         ProgramInformationController programInformationController = new ProgramInformationController();
         programInformationController.openView(programEntity);
     }
-
-
-    @FXML
-    private void updateProgram() throws IOException {
-
-    }
-
-    /*//Bruges ikke lige nu.
-    @FXML
-    private void openDelete(ActionEvent event) throws  IOException {
-        DeleteController deleteController = new DeleteController();
-        deleteController.openView();
-    }*/
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

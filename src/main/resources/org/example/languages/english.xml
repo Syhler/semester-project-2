@@ -104,5 +104,7 @@
     <companyDeleted>was deleted</companyDeleted>
     <companyNotDeleted>was not deleted</companyNotDeleted>
     <somethingWrong>Something went wrong</somethingWrong>
+    <searchBarPrompt>Search here</searchBarPrompt>
+
 
 </language>

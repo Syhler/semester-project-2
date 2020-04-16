@@ -101,11 +101,6 @@ public class ProgramInformationController implements Initializable {
         programInformationController.infoDescription.setEditable(false);
         programInformationController.infoCredits.setEditable(false);
 
-        /*if (CurrentUser.getInstance().getUserEntity() != null && CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
-            updateProgInfoBtn.setVisible(true);
-            deleteProgBtn.setVisible(true);
-        }*/
-
         Scene scene = new Scene(root);
 
         Stage stage = new Stage();
@@ -116,30 +111,53 @@ public class ProgramInformationController implements Initializable {
         stage.showAndWait();
     }
 
+    /**
+     * Updates the current program, and updates the list, so the correct information is entered
+     * @param event
+     * @throws IOException
+     */
     public void updateProgramInformation(ActionEvent event) throws IOException {
         UpdateProgramController updateProgramController = new UpdateProgramController();
         this.programEntity = updateProgramController.openView(programEntity);
-        /*DefaultController defaultController = new DefaultController();
         if (programEntity != null)
         {
-            //programListController.programEntityList.add(programEntity);
-            defaultController.loadProgramList();
-            //programListController.updateProgramList();
-            //programListController.showProgramList(programEntity);
-        }*/
+            try {
+                ProgramListController.getInstance().updateProgramInList(programEntity);
+                ProgramListController.getInstance().updateProgramList();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         ControllerUtility.closeProgram(event);
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        //Sets update and delete button visible if logged in user has correct role
+        if (CurrentUser.getInstance().getUserEntity() != null && CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
+            updateProgInfoBtn.setVisible(true);
+            deleteProgBtn.setVisible(true);
+        }
     }
 
-
+    /**
+     * Deletes the current program
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void deleteProgram(ActionEvent event) throws IOException {
         domainHandler.program().deleteProgram(this.programEntity);
+        if (programEntity != null)
+        {
+            try {
+                ProgramListController.getInstance().removeProgramFromList(programEntity);
+                ProgramListController.getInstance().updateProgramList();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         closeProgramInformation(event);
     }
 
@@ -147,6 +165,5 @@ public class ProgramInformationController implements Initializable {
     private void closeProgramInformation(ActionEvent event)
     {
         ControllerUtility.closeProgram(event);
-        //Men den her skal jo egentlig lukke det specifikke "programInformation" og ikke bare den nuværende scene. :angry:
     }
 }

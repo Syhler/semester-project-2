@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -33,9 +34,10 @@ public class DefaultController implements Initializable
     public Button createProgram;
     @FXML
     public BorderPane borderPane;
-    public Label loggedInAs;
     public Label searchHeader;
     public TextField searchField;
+    public TextField searchBar;
+    public ToolBar navigation;
     private DomainHandler domainHandler = new DomainHandler();
     public ProgramListController programListController;
 
@@ -45,28 +47,7 @@ public class DefaultController implements Initializable
     @FXML
     private Button profileNavigation;
 
-    @FXML
-    public void initialize() {
 
-        /**
-         * Language
-         */
-        login.setText(LanguageHandler.getText("login"));
-        profileNavigation.setText(LanguageHandler.getText("profile"));
-        usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
-
-
-        if (CurrentUser.getInstance().getUserEntity() != null) {
-            login.setText(LanguageHandler.getText("logoff"));
-            login.setOnAction(this::logout);
-            profileNavigation.setVisible(true);
-
-            if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
-                usermanagementBtn.setVisible(true);
-                createProgram.setVisible(true);
-            }
-        }
-    }
 
     /**
      * Opens AuthenticationController for login, closes if login was succesfull
@@ -175,8 +156,28 @@ public class DefaultController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        /**
+         * Language
+         */
+        login.setText(LanguageHandler.getText("login"));
+        profileNavigation.setText(LanguageHandler.getText("profile"));
+        usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
         createProgram.setText(LanguageHandler.getText("createProgram"));
-        //loggedInAs.setText(LanguageHandler.getText("loggedInAs"));
+        searchBar.setPromptText(LanguageHandler.getText("searchBarPrompt"));
+        navigation.prefWidthProperty().bind(borderPane.widthProperty());
+
+        if (CurrentUser.getInstance().getUserEntity() != null) {
+            login.setText(LanguageHandler.getText("logoff"));
+            login.setOnAction(this::logout);
+            profileNavigation.setVisible(true);
+
+            if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
+                usermanagementBtn.setVisible(true);
+                createProgram.setVisible(true);
+            }
+        }
+
         loadProgramList();
     }
 }
