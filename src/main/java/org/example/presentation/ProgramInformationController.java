@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
+import org.example.domain.Program;
 import org.example.entity.CreditEntity;
 import org.example.entity.ProgramEntity;
 import org.example.entity.Role;
@@ -20,6 +21,8 @@ import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProgramInformationController implements Initializable {
@@ -37,6 +40,9 @@ public class ProgramInformationController implements Initializable {
     public Label producerInfoHeader;
     public Label creditInfoHeader;
     public Button cancelBtn;
+    public ProgramListController programListController;
+
+
 
     /**
      * Opens "programInformation.fxml" as a popup scene
@@ -95,36 +101,44 @@ public class ProgramInformationController implements Initializable {
         programInformationController.infoDescription.setEditable(false);
         programInformationController.infoCredits.setEditable(false);
 
+        /*if (CurrentUser.getInstance().getUserEntity() != null && CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
+            updateProgInfoBtn.setVisible(true);
+            deleteProgBtn.setVisible(true);
+        }*/
+
         Scene scene = new Scene(root);
 
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("programInformationStageTitle"));
         stage.setScene(scene);
         stage.setResizable(false);
+
         stage.showAndWait();
     }
 
     public void updateProgramInformation(ActionEvent event) throws IOException {
         UpdateProgramController updateProgramController = new UpdateProgramController();
         this.programEntity = updateProgramController.openView(programEntity);
+        /*DefaultController defaultController = new DefaultController();
+        if (programEntity != null)
+        {
+            //programListController.programEntityList.add(programEntity);
+            defaultController.loadProgramList();
+            //programListController.updateProgramList();
+            //programListController.showProgramList(programEntity);
+        }*/
         ControllerUtility.closeProgram(event);
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
-            updateProgInfoBtn.setVisible(true);
-            deleteProgBtn.setVisible(true);
-        }*/
+
     }
 
 
     @FXML
     public void deleteProgram(ActionEvent event) throws IOException {
-        /*FXMLLoader loader = null;
-        loader = App.getLoader("programInformation");
-        ProgramInformationController programInformationController = loader.getController();*/
         domainHandler.program().deleteProgram(this.programEntity);
         closeProgramInformation(event);
     }

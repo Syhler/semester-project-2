@@ -331,7 +331,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
                 statement.setLong(2,programEntity.getId());
                 statement.addBatch();
             }else {
-                if (resultSet.getLong("company") != programEntity.getCompany().getId() ){
+                if (companyList.get(0) != programEntity.getCompany().getId() ){
                     statement.setLong(1,programEntity.getCompany().getId());
                     statement.setLong(2,programEntity.getId());
                     statement.addBatch();
@@ -381,14 +381,15 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             while(resultSet.next()){
                     idList.add(resultSet.getLong("producer_id"));
             }
-
+            int i = 0;
             if (!idList.isEmpty()){
                 for (UserEntity producer: programEntity.getProducer()) {
-                    if (resultSet.getLong("producer_id") != producer.getId() ){
+                    if (idList.get(i) != producer.getId() ){
                         statement.setLong(1,producer.getId());
                         statement.setLong(2,programEntity.getId());
                         statement.addBatch();
                     }
+                    i++;
                 }
             }else for (UserEntity producer: programEntity.getProducer()) {
                 statement.setLong(1,producer.getId());
