@@ -26,6 +26,23 @@ public class ProgramListController implements Initializable {
     public VBox programList;
     public List<ProgramEntity> programEntityList = new ArrayList<ProgramEntity>();
 
+    private static ProgramListController programListController = null;
+
+    /**
+     * Singleton
+     * @return current active controller
+     * @throws Exception
+     */
+    public static ProgramListController getInstance() throws Exception
+    {
+        if (programListController != null)
+        {
+            return programListController;
+        } else {
+            throw new Exception("programListController is null");
+        }
+    }
+
     /**
      * Loads the "program.fxml", gives it a title based on the given ProgramEntity
      * @param programEntity
@@ -54,12 +71,32 @@ public class ProgramListController implements Initializable {
         return null;
     }
 
+    /**
+     * Updates a programEntity in the list, so that correct information is showed in the ui
+     * @param programEntity of the program you want to update
+     */
+    public void updateProgramInList(ProgramEntity programEntity) {
+        for (ProgramEntity entity : programEntityList) {
+            if (entity.getId() == programEntity.getId()) {
+                entity.setName(programEntity.getName());
+                break;
+            }
+        }
+    }
 
-    public List<ProgramEntity> programList() {
-
-        List<ProgramEntity> programmer = new ArrayList<ProgramEntity>();
-
-        return programmer;
+    /**
+     * Removes a programEntity from the list, so that correct inforamtion is showed in the ui
+     * @param programEntity of the program you want to delete
+     */
+    public void removeProgramFromList(ProgramEntity programEntity)
+    {
+        for (int i = 0; i < programEntityList.size(); i++)
+        {
+            if (programEntityList.get(i).getId() == programEntity.getId()) {
+                programEntityList.remove(i);
+                break;
+            }
+        }
     }
 
     /**
@@ -100,6 +137,6 @@ public class ProgramListController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         scrollPane.setFitToWidth(true);
-
+        ProgramListController.programListController = this;
     }
 }
