@@ -419,8 +419,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
                             producerIdList.add(id);
                         }
                     }
-
-
                 }
             }else for (UserEntity producer: programEntity.getProducer()) {
                 if (!producerIdList.contains(producer.getId())) {
