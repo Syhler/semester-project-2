@@ -381,20 +381,27 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             while(resultSet.next()){
                     idList.add(resultSet.getLong("producer_id"));
             }
-            int i = 0;
+            ArrayList<Long> producerIdList = new ArrayList<>();
+
             if (!idList.isEmpty()){
                 for (UserEntity producer: programEntity.getProducer()) {
-                    if (idList.get(i) != producer.getId() ){
-                        statement.setLong(1,producer.getId());
-                        statement.setLong(2,programEntity.getId());
-                        statement.addBatch();
+                    producerIdList.add(producer.getId());
+                    for (long id: idList) {
+                        if (!producerIdList.contains(id)){
+                            statement.setLong(1,producer.getId());
+                            statement.setLong(2,programEntity.getId());
+                            statement.addBatch();
+                            producerIdList.add(id);
+                        }
                     }
-                    i++;
                 }
             }else for (UserEntity producer: programEntity.getProducer()) {
-                statement.setLong(1,producer.getId());
-                statement.setLong(2,programEntity.getId());
-                statement.addBatch();
+                if (!producerIdList.contains(producer.getId())) {
+                    statement.setLong(1, producer.getId());
+                    statement.setLong(2, programEntity.getId());
+                    statement.addBatch();
+                    producerIdList.add(producer.getId());
+                }
             }
             statement.executeBatch();
             connection.commit();
