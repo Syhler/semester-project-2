@@ -138,7 +138,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     }
 
 
-
+    /**
+     * creates a program.
+     * @param programEntity
+     * @return
+     */
     @Override
     public long createProgram(ProgramEntity programEntity) {
 
@@ -247,7 +251,10 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         return true;
     }
 
-    
+    /**
+     * Checks if user exists if it doesnt it calls the createUser method
+     * @param creditList
+     */
     public void createUserIfdoesntExists(List<CreditEntity> creditList){
 
 
@@ -259,6 +266,14 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
 
     }
+
+    /**
+     * creates a user in the database and maps the data to a userEntity.
+     * @param userEntity
+     * @param passwordSalt
+     * @param encryptedPassword
+     * @return UserEntity
+     */
 
     public long createUser(UserEntity userEntity,String passwordSalt, String encryptedPassword) {
         java.util.Date utilDate = userEntity.getCreatedAt();
@@ -316,6 +331,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }
 
+    /**
+     * checks if company has a reference to program in the database if it doesnt it creates one if it does it updates the
+     * one aleready in the database
+     * @param programEntity
+     */
     public void checkCompanyProgram(ProgramEntity programEntity){
         PreparedStatement stmt = null;
         try {
@@ -339,6 +359,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
 
     }
+
+    /**
+     * creates a reference between a company and a program.
+     * @param programEntity
+     */
     public void initializeCompanyProgram(ProgramEntity programEntity){
 
         try {
@@ -357,6 +382,12 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     }
 
+    /**
+     * updates companyprogram table based on the given data.
+     * @param programEntity
+     * @return
+     */
+
     public boolean updateCompanyProgram(ProgramEntity programEntity){
         try {
 
@@ -373,6 +404,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
     }
 
+    /**
+     * updates the credit table in the database.
+     * @param programEntity
+     * @return
+     */
     public boolean updateCredit(ProgramEntity programEntity){
 
         try {
@@ -395,6 +431,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         return true;
     }
 
+    /**
+     * updates the many to many table between producer and program.
+     * @param programEntity
+     * @return
+     */
     public boolean updateProducerForProgram(ProgramEntity programEntity){
         try {
             PreparedStatement stmt = connection.prepareStatement("select producer_id  from programproducer where program_id = ?");
