@@ -52,7 +52,7 @@
       </VBox>
       <HBox prefHeight="26.0" prefWidth="200.0">
          <children>
-            <Button fx:id="updateProgInfoBtn" mnemonicParsing="false" text="Update">
+            <Button fx:id="updateProgInfoBtn" mnemonicParsing="false" onAction="#updateProgramInformation" text="Update">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>

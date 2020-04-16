@@ -29,6 +29,7 @@ public class DefaultController implements Initializable
 {
 
     public Button login;
+    @FXML
     public Button createProgram;
     @FXML
     public BorderPane borderPane;
@@ -54,6 +55,7 @@ public class DefaultController implements Initializable
         profileNavigation.setText(LanguageHandler.getText("profile"));
         usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
 
+
         if (CurrentUser.getInstance().getUserEntity() != null) {
             login.setText(LanguageHandler.getText("logoff"));
             login.setOnAction(this::logout);
@@ -61,6 +63,7 @@ public class DefaultController implements Initializable
 
             if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
+                createProgram.setVisible(true);
             }
         }
     }
@@ -81,6 +84,7 @@ public class DefaultController implements Initializable
 
             if (userEntity.getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
+                createProgram.setVisible(true);
             }
         }
     }
@@ -98,6 +102,7 @@ public class DefaultController implements Initializable
 
             usermanagementBtn.setVisible(false);
             profileNavigation.setVisible(false);
+            createProgram.setVisible(false);
         }
     }
 
@@ -173,6 +178,5 @@ public class DefaultController implements Initializable
         createProgram.setText(LanguageHandler.getText("createProgram"));
         //loggedInAs.setText(LanguageHandler.getText("loggedInAs"));
         loadProgramList();
-
     }
 }

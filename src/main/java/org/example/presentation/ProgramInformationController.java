@@ -15,6 +15,7 @@ import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.CreditEntity;
 import org.example.entity.ProgramEntity;
+import org.example.entity.Role;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
@@ -103,22 +104,28 @@ public class ProgramInformationController implements Initializable {
         stage.showAndWait();
     }
 
-    /*public void updateProgramInformation(ActionEvent event) throws IOException {
-
+    public void updateProgramInformation(ActionEvent event) throws IOException {
         UpdateProgramController updateProgramController = new UpdateProgramController();
         this.programEntity = updateProgramController.openView(programEntity);
         ControllerUtility.closeProgram(event);
-    }*/
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        /*if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
+            updateProgInfoBtn.setVisible(true);
+            deleteProgBtn.setVisible(true);
+        }*/
     }
+
 
     @FXML
     public void deleteProgram(ActionEvent event) throws IOException {
-        domainHandler.program().deleteProgram(programEntity);
+        /*FXMLLoader loader = null;
+        loader = App.getLoader("programInformation");
+        ProgramInformationController programInformationController = loader.getController();*/
+        domainHandler.program().deleteProgram(this.programEntity);
         closeProgramInformation(event);
     }
 
