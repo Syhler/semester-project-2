@@ -331,7 +331,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
                 statement.setLong(2,programEntity.getId());
                 statement.addBatch();
             }else {
-                if (resultSet.getLong("company") != programEntity.getCompany().getId() ){
+                if (companyList.get(0) != programEntity.getCompany().getId() ){
                     statement.setLong(1,programEntity.getCompany().getId());
                     statement.setLong(2,programEntity.getId());
                     statement.addBatch();
@@ -381,19 +381,29 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             while(resultSet.next()){
                     idList.add(resultSet.getLong("producer_id"));
             }
+            ArrayList<Long> producerIdList = new ArrayList<>();
 
             if (!idList.isEmpty()){
                 for (UserEntity producer: programEntity.getProducer()) {
-                    if (resultSet.getLong("producer_id") != producer.getId() ){
-                        statement.setLong(1,producer.getId());
-                        statement.setLong(2,programEntity.getId());
-                        statement.addBatch();
+                    producerIdList.add(producer.getId());
+                    for (long id: idList) {
+                        if (!producerIdList.contains(id)){
+                            statement.setLong(1,producer.getId());
+                            statement.setLong(2,programEntity.getId());
+                            statement.addBatch();
+                            producerIdList.add(id);
+                        }
                     }
+
+
                 }
             }else for (UserEntity producer: programEntity.getProducer()) {
-                statement.setLong(1,producer.getId());
-                statement.setLong(2,programEntity.getId());
-                statement.addBatch();
+                if (!producerIdList.contains(producer.getId())) {
+                    statement.setLong(1, producer.getId());
+                    statement.setLong(2, programEntity.getId());
+                    statement.addBatch();
+                    producerIdList.add(producer.getId());
+                }
             }
             statement.executeBatch();
             connection.commit();
