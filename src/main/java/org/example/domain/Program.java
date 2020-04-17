@@ -1,6 +1,7 @@
 package org.example.domain;
 
 import org.example.entity.CompanyEntity;
+import org.example.entity.CreditEntity;
 import org.example.entity.ProgramEntity;
 import org.example.entity.UserEntity;
 import org.example.persistence.IPersistenceHandler;
@@ -34,6 +35,16 @@ public class Program implements IProgram {
     }
     public List<ProgramEntity> getProgramsByProducer(UserEntity userEntity){
         return persistenceHandler.program().getProgramsByProducer(userEntity);
+    }
+
+    @Override
+    public boolean removeUserFromProgram(UserEntity user, long programId) {
+        return persistenceHandler.program().removeUserFromProgram(user, programId);
+    }
+
+    @Override
+    public boolean removeCreditFromProgram(CreditEntity creditEntity) {
+        return persistenceHandler.program().removeCreditFromProgram(creditEntity);
     }
 
 }

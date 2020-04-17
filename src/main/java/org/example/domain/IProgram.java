@@ -10,4 +10,7 @@ public interface IProgram  {
     public ProgramEntity getProgramById(ProgramEntity id);
     public List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity);
     public List<ProgramEntity> getProgramsByProducer(UserEntity user);
+
+    boolean removeUserFromProgram(UserEntity user, long programId);
+    boolean removeCreditFromProgram(CreditEntity creditEntity);
 }

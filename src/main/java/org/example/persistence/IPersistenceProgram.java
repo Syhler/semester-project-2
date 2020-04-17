@@ -1,6 +1,7 @@
 package org.example.persistence;
 
 import org.example.entity.CompanyEntity;
+import org.example.entity.CreditEntity;
 import org.example.entity.ProgramEntity;
 import org.example.entity.UserEntity;
 
@@ -15,4 +16,8 @@ public interface IPersistenceProgram
     List<ProgramEntity> getAllPrograms();
     List<ProgramEntity> getProgramsByProducer(UserEntity producer);
     List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity);
+
+    boolean removeUserFromProgram(UserEntity user, long programId);
+
+    boolean removeCreditFromProgram(CreditEntity creditEntity);
 }

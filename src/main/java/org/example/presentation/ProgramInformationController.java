@@ -43,13 +43,13 @@ public class ProgramInformationController implements Initializable {
     public TitledPane producerTitledPane;
     public TitledPane creditsTitledPane;
     @FXML
-    private ListView<UserEntity> creditListView;
+    private ListView<CreditEntity> creditListView;
 
     @FXML
     private ListView<UserEntity> producersListView;
 
     @FXML
-    private ListView<UserEntity> actorListView;
+    private ListView<CreditEntity> actorListView;
 
     private DomainHandler domainHandler = new DomainHandler();
     public ProgramEntity programEntity;
@@ -133,8 +133,11 @@ public class ProgramInformationController implements Initializable {
 
         if (programEntity.getCredits() != null) {
             for (int i = 0; i < programEntity.getCredits().size(); i++) {
-                programInformationController.creditListView.getItems().add(programEntity.getCredits().get(i).getActor());
-                //programInformationController.infoCredits.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
+
+                var credit = programEntity.getCredits().get(i);
+                if (credit.getActor() == null) continue;
+
+                programInformationController.creditListView.getItems().add(credit);
             }
         }
     }
@@ -154,16 +157,32 @@ public class ProgramInformationController implements Initializable {
 
         descriptionTextArea.prefWidthProperty().bind(descriptionPane.widthProperty());
 
-        setListCellFactory(actorListView);
+        setListCellFactoryForCredit(actorListView);
         setListCellFactory(producersListView);
-        setListCellFactory(creditListView);
+        setListCellFactoryForCredit(creditListView);
 
 
     }
 
+    private void setListCellFactoryForCredit(ListView<CreditEntity> listView)
+    {
+        listView.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(CreditEntity item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null || item.getActor() == null) {
+                    setText(null);
+                } else {
+                    setText(item.getActor().getNameAndTitle());
+                }
+            }
+        });
+    }
+
     private void setListCellFactory(ListView<UserEntity> listView)
     {
-        listView.setCellFactory(param -> new ListCell<UserEntity>() {
+        listView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(UserEntity item, boolean empty) {
                 super.updateItem(item, empty);
@@ -231,22 +250,33 @@ public class ProgramInformationController implements Initializable {
     public void actorOnDelete(ActionEvent event)
     {
         var selectedActor = actorListView.getSelectionModel().getSelectedItem();
+        var deleted = domainHandler.program().removeCreditFromProgram(selectedActor);
+
+        if (!deleted) return;
         if (selectedActor == null) return;
+
         actorListView.getItems().remove(selectedActor);
     }
 
     public void producerOnDelete(ActionEvent event)
     {
         var selectedProducer = producersListView.getSelectionModel().getSelectedItem();
+        var deleted = domainHandler.program().removeUserFromProgram(selectedProducer, programEntity.getId());
+
+        if (!deleted) return;
         if (selectedProducer == null) return;
+
         producersListView.getItems().remove(selectedProducer);
     }
 
     public void creditOnDelete(ActionEvent event) {
         var selectedCredit = creditListView.getSelectionModel().getSelectedItem();
+        var deleted = domainHandler.program().removeCreditFromProgram(selectedCredit);
+
+        if (!deleted)return;
         if (selectedCredit == null) return;
+
         creditListView.getItems().remove(selectedCredit);
-        //domainHandler.program().userFromProgram(selectedCredit);
     }
 
     public void descriptionClick(MouseEvent mouseEvent)

@@ -1,9 +1,6 @@
 package org.example.persistence;
 
-import org.example.entity.CompanyEntity;
-import org.example.entity.CreditEntity;
-import org.example.entity.ProgramEntity;
-import org.example.entity.UserEntity;
+import org.example.entity.*;
 
 
 import java.sql.*;
@@ -518,7 +515,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT credit.program, \"user\".id, \"user\".title, \"user\"" +
                     ".firstname, \"user\".middlename ,\"user\".lastname,\"user\".email from credit inner join " +
-                    "\"user\" on credit.\"user\" = \"user\".id where credit.program = ? ");
+                    "\"user\" on credit.\"user\" = \"user\".id where credit.program = ? and timestamp_for_deletion is null ");
             statement.setLong(1,programEntity.getId());
             ResultSet resultSet = statement.executeQuery();
             ArrayList<CreditEntity> creditList = new ArrayList<>();
@@ -538,11 +535,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param programEntity
      * @return list of all the users on a program.
      */
-    public ArrayList<UserEntity> getProducerforProgram(ProgramEntity programEntity){
+    public ArrayList<UserEntity> getProducerForProgram(ProgramEntity programEntity){
         try {
             PreparedStatement statement = connection.prepareStatement("select \"user\".id, \"user\".title,firstname, middlename, lastname, " +
                     "email from programproducer inner join \"user\" on programproducer.producer_id = \"user\".id " +
-                    "where programproducer.program_id = ?");
+                    "where programproducer.program_id = ? and timestamp_for_deletion is null");
             statement.setLong(1,programEntity.getId());
             ResultSet resultSet = statement.executeQuery();
             ArrayList<UserEntity> producerList = new ArrayList<>();
@@ -605,9 +602,13 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             if (!resultSet.next()) {
                 return null;
             }
-            ProgramEntity returnValue = new ProgramEntity(resultSet.getLong("program_id"),resultSet.getString("title"),
-                    resultSet.getString("description"), getCompanyProgram(programEntity),
-                    getProducerforProgram(programEntity), getCreditUser(programEntity));
+            ProgramEntity returnValue = new ProgramEntity(
+                    resultSet.getLong("program_id"),
+                    resultSet.getString("title"),
+                    resultSet.getString("description"),
+                    getCompanyProgram(programEntity),
+                    getProducerForProgram(programEntity),
+                    getCreditUser(programEntity));
 
             return returnValue;
 
@@ -702,22 +703,63 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
     }
 
+    @Override
+    public boolean removeUserFromProgram(UserEntity user, long programId)
+    {
+        try {
+            PreparedStatement statement = connection.prepareStatement("update programProducer set timestamp_for_deletion = ? where program_id = ? and producer_id = ?");
+            statement.setTimestamp(1,new Timestamp(System.currentTimeMillis()));
+            statement.setLong(2, programId);
+            statement.setLong(3, user.getId());
+
+            var updatedRow = statement.executeUpdate();
+            return updatedRow > 0;
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean removeCreditFromProgram(CreditEntity creditEntity) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("update credit set timestamp_for_deletion = ? where program = ? and \"user\" = ?");
+            statement.setTimestamp(1,new Timestamp(System.currentTimeMillis()));
+            statement.setLong(2, creditEntity.getProgramId());
+            statement.setLong(3, creditEntity.getActor().getId());
+
+            var updatedRow = statement.executeUpdate();
+            return updatedRow > 0;
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
 
     /**
-     * Creates a userEntity based on a given resultset.
+     * Creates a userEntity based on a given resultSet.
      * @param resultSet
      * @return A user.
      * @throws SQLException
      */
     private UserEntity createUserEntityFromResultSet(ResultSet resultSet) throws SQLException {
-        var user = new UserEntity(
+        return new UserEntity(
                 resultSet.getLong("id"),
                 resultSet.getString("firstName"),
                 resultSet.getString("middleName"),
                 resultSet.getString("lastName"),
                 resultSet.getString("email"),
                 resultSet.getString("title"));
-        return user;
 
     }
 }
