@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="programInfo" alignment="CENTER" prefHeight="849.0" prefWidth="842.0" stylesheets="@css/ProgramInformation.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.ProgramInformationController">
+<VBox fx:id="programInfo" alignment="CENTER" prefHeight="849.0" prefWidth="842.0" stylesheets="@css/ProgramInformation.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.program.ProgramInformationController">
    <children>
       <Pane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1f1f1f;">
          <children>

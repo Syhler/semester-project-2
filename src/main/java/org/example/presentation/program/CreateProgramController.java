@@ -1,4 +1,4 @@
-package org.example.presentation;
+package org.example.presentation.program;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,8 +12,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
-import org.example.domain.Program;
 import org.example.entity.ProgramEntity;
+import org.example.presentation.ControllerUtility;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;

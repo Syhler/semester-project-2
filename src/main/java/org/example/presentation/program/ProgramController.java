@@ -1,19 +1,13 @@
-package org.example.presentation;
+package org.example.presentation.program;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.example.domain.DomainHandler;
 import org.example.entity.ProgramEntity;
-import org.example.presentation.multipleLanguages.LanguageHandler;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

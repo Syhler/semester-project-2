@@ -8,23 +8,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
-import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.ProgramEntity;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.program.CreateProgramController;
+import org.example.presentation.program.ProgramListController;
 
 public class DefaultController implements Initializable
 {
@@ -104,6 +103,15 @@ public class DefaultController implements Initializable
         }
     }
 
+    @FXML
+    public void searchOnKeyPressed(KeyEvent keyEvent)
+    {
+        if (keyEvent.getCode().equals(KeyCode.ENTER))
+        {
+            System.out.println("searching");
+        }
+    }
+
     /**
      * Loads the "programList.fxml" scene in the center of the borderpane
      */
@@ -134,7 +142,7 @@ public class DefaultController implements Initializable
     }
 
     @FXML
-    private void goToUsermanagement() throws IOException {
+    private void goToUserManagement() throws IOException {
         App.setRoot("usermanagement");
     }
 
@@ -180,4 +188,6 @@ public class DefaultController implements Initializable
 
         loadProgramList();
     }
+
+
 }

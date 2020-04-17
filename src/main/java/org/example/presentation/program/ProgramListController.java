@@ -1,4 +1,4 @@
-package org.example.presentation;
+package org.example.presentation.program;
 
 import java.io.IOException;
 import java.net.URL;

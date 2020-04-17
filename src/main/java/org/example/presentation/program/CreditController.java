@@ -1,10 +1,9 @@
-package org.example.presentation;
+package org.example.presentation.program;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,13 +14,13 @@ import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
+import org.example.presentation.ControllerUtility;
+import org.example.presentation.CurrentUser;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class CreditController implements Initializable {

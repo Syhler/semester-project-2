@@ -1,4 +1,4 @@
-package org.example.presentation;
+package org.example.presentation.program;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,17 +14,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
-import org.example.domain.Program;
 import org.example.entity.CreditEntity;
 import org.example.entity.ProgramEntity;
-import org.example.entity.Role;
 import org.example.entity.UserEntity;
+import org.example.presentation.ControllerUtility;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProgramInformationController implements Initializable {
