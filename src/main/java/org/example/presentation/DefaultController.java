@@ -104,11 +104,13 @@ public class DefaultController implements Initializable
     }
 
     @FXML
-    public void searchOnKeyPressed(KeyEvent keyEvent)
-    {
+    public void searchOnKeyPressed(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode().equals(KeyCode.ENTER))
         {
             System.out.println("searching");
+            var programs = domainHandler.program().search(searchBar.getText());
+            ProgramListController.getInstance().programEntityList = programs;
+            ProgramListController.getInstance().updateProgramList();
         }
     }
 
@@ -122,7 +124,8 @@ public class DefaultController implements Initializable
             loader = App.getLoader("programList");
             Parent node = loader.load();
             programListController = loader.getController();
-            programListController.programEntityList.addAll(domainHandler.program().getAllPrograms());
+            var allPrograms = domainHandler.program().getAllPrograms();
+            programListController.programEntityList.addAll(allPrograms);
             programListController.updateProgramList();
             borderPane.setCenter(node);
         } catch (IOException e) {

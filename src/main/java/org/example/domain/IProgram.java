@@ -13,4 +13,6 @@ public interface IProgram  {
 
     boolean removeUserFromProgram(UserEntity user, long programId);
     boolean removeCreditFromProgram(CreditEntity creditEntity);
+
+    List<ProgramEntity> search(String query);
 }

@@ -1,9 +1,15 @@
 package org.example.persistence;
 
+import org.example.domain.Program;
 import org.example.entity.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class PersistenceProgram extends BasePersistence implements IPersistenceProgram {
 
@@ -774,20 +780,24 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         var sqlForCompany = createCompanySearchSQL(words);
 
         try {
-            var program = new ArrayList<ProgramEntity>();
+            var programs = new ArrayList<ProgramEntity>();
 
             Statement statement = connection.createStatement();
 
             var programResult = statement.executeQuery(sqlForProgram);
-            program.addAll(mapToProgramEntites(programResult, "program_id"));
+            programs.addAll(mapToProgramEntites(programResult, "program_id"));
 
             var creditResult = statement.executeQuery(sqlForCredit);
-            program.addAll(mapToProgramEntites(creditResult, "program"));
+            var programsFromCredits = mapToProgramEntites(creditResult, "program");
+            programs.addAll(programsFromCredits);
 
             var companyResult = statement.executeQuery(sqlForCompany);
-            program.addAll(mapToProgramEntites(companyResult, "program"));
+            var programsFromCompany = mapToProgramEntites(companyResult, "id");
+            programs.addAll(programsFromCompany);
 
-            return program;
+            programs = (ArrayList<ProgramEntity>) programs.stream().filter(distinctByKey(ProgramEntity::getId)).collect(Collectors.toList());
+
+            return programs;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -797,22 +807,45 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     }
 
     /**
+     * who knows????????? https://stackoverflow.com/questions/23699371/java-8-distinct-by-property
+     * @param keyExtractor
+     * @param <T>
+     * @return
+     */
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
+    }
+
+    /**
      * builds a SQL query from the given words
      * @param words query split into words
      * @return SQL query to search on the company name
      */
     private String createCompanySearchSQL(String[] words)
     {
+        /*
         StringBuilder baseSQL = new StringBuilder("select program, name, title" +
                 " from companyprogram" +
                 "    inner join programinformation p on companyProgram.program = p.id" +
                 "    inner join company c on companyProgram.company = c.id");
 
-        var company = "lower(name)";
+         */
+
+        StringBuilder baseSQL = new StringBuilder("select distinct on (program.id) program.id, name, title from companyprogram" +
+                "    left join programinformation on companyProgram.program = programinformation.program_id" +
+                "    left join company on companyProgram.company = company.id" +
+                "    left join program on companyProgram.program = program.id");
+
+        var company = "lower(company.name)";
 
         baseSQL.append(" ").append("where").append(" ").append(company);
 
         buildStringComponent(words, baseSQL, company);
+
+        baseSQL.append(" ").append("and").append(" ").append("program.timestamp_for_deletion is null");
+
+        baseSQL.append(" ").append("order by program.id");
 
 
         return baseSQL.toString();
@@ -825,16 +858,25 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      */
     private String createCreditSearchSQL(String[] words)
     {
+        /*
         StringBuilder baseSQL = new StringBuilder("select distinct(program), programinformation.title" +
                 " from credit" +
                 " inner join \"user\" on credit.\"user\" = \"user\".id" +
                 " inner join programinformation on credit.program = programinformation.id");
 
+         */
+
+        StringBuilder baseSQL = new StringBuilder("select distinct(program), programinformation.title from credit inner join \"user\" on credit.\"user\" = \"user\".id " +
+                "inner join programinformation on credit.program = programinformation.id " +
+                "inner join program on programinformation.program_id = program.id");
+
         var fullName = "lower(concat(\"user\".firstName, ' ',\"user\".middleName,' ', \"user\".lastName))";
 
-        baseSQL.append(" where ").append(fullName);
+        baseSQL.append(" ").append("where").append(" ").append(fullName);
 
         buildStringComponent(words, baseSQL, fullName);
+
+        baseSQL.append(" ").append("and").append(" ").append("program.timestamp_for_deletion is null");
 
         baseSQL.append(" ").append("order by program");
 
@@ -849,13 +891,18 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @return SQL query to search on programs title
      */
     private String createProgramSearchSQL(String[] words) {
-        StringBuilder baseSQL = new StringBuilder("SELECT title, program_id from programinformation");
+        StringBuilder baseSQL = new StringBuilder("SELECT distinct(program_id) ,title  from programinformation inner join program on programinformation.program_id = program.id");
+
         var title = "lower(title)";
 
-        baseSQL.append(" where ").append(title);
+        baseSQL.append(" ").append("where").append(" ").append(title);
 
         //title
         buildStringComponent(words, baseSQL, title);
+
+        baseSQL.append(" ").append("and").append(" ").append("timestamp_for_deletion is null");
+
+        baseSQL.append(" ").append("order by program_id");
 
         return baseSQL.toString();
     }

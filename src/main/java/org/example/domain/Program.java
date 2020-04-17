@@ -47,4 +47,9 @@ public class Program implements IProgram {
         return persistenceHandler.program().removeCreditFromProgram(creditEntity);
     }
 
+    @Override
+    public List<ProgramEntity> search(String query) {
+        return persistenceHandler.program().search(query);
+    }
+
 }
