@@ -6,9 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.App;
@@ -17,6 +18,7 @@ import org.example.domain.Program;
 import org.example.entity.CreditEntity;
 import org.example.entity.ProgramEntity;
 import org.example.entity.Role;
+import org.example.entity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
@@ -26,21 +28,44 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProgramInformationController implements Initializable {
+
+    public ContextMenu producerListViewContextMenu;
+    public ContextMenu creditsListViewContextMenu;
+    public ContextMenu actorListViewContextMenu;
+    public Button updateBtn;
+    public Button deleteBtn;
+    public TextArea descriptionTextArea;
+    public Label title;
+    public Pane descriptionPane;
+    public Label productionCompany;
+
+    public TitledPane actorTitledPane;
+    public TitledPane producerTitledPane;
+    public TitledPane creditsTitledPane;
+    @FXML
+    private ListView<UserEntity> creditListView;
+
+    @FXML
+    private ListView<UserEntity> producersListView;
+
+    @FXML
+    private ListView<UserEntity> actorListView;
+
     private DomainHandler domainHandler = new DomainHandler();
     public ProgramEntity programEntity;
-    public TextArea infoTitle;
-    public TextArea infoCompany;
-    public TextArea infoProducer;
-    public TextArea infoDescription;
-    public TextArea infoCredits;
+    //public TextArea infoTitle;
+    //public TextArea infoCompany;
+    //public TextArea infoProducer;
+    //public TextArea infoDescription;
+    //public TextArea infoCredits;
     public VBox programInfo;
-    public Button updateProgInfoBtn;
-    public Button deleteProgBtn;
-    public Label companyInfoHeader;
-    public Label producerInfoHeader;
-    public Label creditInfoHeader;
-    public Button cancelBtn;
-    public ProgramListController programListController;
+    //public Button updateProgInfoBtn;
+    //public Button deleteProgBtn;
+    //public Label companyInfoHeader;
+    //public Label producerInfoHeader;
+    //public Label creditInfoHeader;
+    //public Button cancelBtn;
+    //public ProgramListController programListController;
 
 
 
@@ -61,66 +86,113 @@ public class ProgramInformationController implements Initializable {
             e.printStackTrace();
         }
 
-        if (loader == null) return;
+        if (loader == null || root == null) return;
         ProgramInformationController programInformationController = loader.getController();
         this.programEntity = domainHandler.program().getProgramById(programEntityObject);
         programInformationController.programEntity = this.programEntity;
 
-        if (programEntity != null) {
-            programInformationController.infoTitle.setText(programEntity.getName());
-            programInformationController.infoDescription.setText(programEntity.getDescription());
+        if (programEntity != null)
+        {
+            setupText(programInformationController);
         }
 
-        if (programEntity != null && programEntity.getCompany() != null) {
-            programInformationController.infoCompany.setText(programEntity.getCompany().getName());
-        }
 
-        if (programEntity != null && programEntity.getProducer() != null) {
-            for (int i = 0; i < programEntity.getProducer().size(); i++) {
-                programInformationController.infoProducer.appendText(programEntity.getProducer().get(i).getFullName() + "\n");
-            }
-        }
 
-        if (programEntity != null && programEntity.getCredits() != null) {
-            for (int i = 0; i < programEntity.getCredits().size(); i++) {
-                programInformationController.infoCredits.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
-            }
-        }
+        programInformationController.actorTitledPane.setText(LanguageHandler.getText("actorInfoHeader"));
+        programInformationController.producerTitledPane.setText(LanguageHandler.getText("producerInfoHeader"));
+        programInformationController.creditsTitledPane.setText(LanguageHandler.getText("creditHeader"));
 
-        programInformationController.programInfo.setMinWidth(400);
+        programInformationController.updateBtn.setText(LanguageHandler.getText("updateProgram"));
+        programInformationController.deleteBtn.setText(LanguageHandler.getText("deleteProgram"));
 
-        programInformationController.updateProgInfoBtn.setText(LanguageHandler.getText("updateProgram"));
-        programInformationController.deleteProgBtn.setText(LanguageHandler.getText("deleteProgram"));
-        programInformationController.companyInfoHeader.setText(LanguageHandler.getText("companyInfoHeader"));
-        programInformationController.producerInfoHeader.setText(LanguageHandler.getText("producerInfoHeader"));
-        programInformationController.creditInfoHeader.setText(LanguageHandler.getText("creditHeader"));
-        programInformationController.cancelBtn.setText(LanguageHandler.getText("cancel"));
-        programInformationController.infoTitle.setEditable(false);
-        programInformationController.infoCompany.setEditable(false);
-        programInformationController.infoProducer.setEditable(false);
-        programInformationController.infoDescription.setEditable(false);
-        programInformationController.infoCredits.setEditable(false);
 
         Scene scene = new Scene(root);
 
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("programInformationStageTitle"));
         stage.setScene(scene);
-        stage.setResizable(false);
 
         stage.showAndWait();
     }
+
+    private void setupText(ProgramInformationController programInformationController)
+    {
+        programInformationController.title.setText(programEntity.getName());
+        programInformationController.descriptionTextArea.setText(programEntity.getDescription());
+        if (programEntity.getCompany() != null) {
+            programInformationController.productionCompany.setText(LanguageHandler.getText("companyInfoHeader") + ": " + programEntity.getCompany().getName());
+        }
+
+        if (programEntity.getProducer() != null) {
+            for (int i = 0; i < programEntity.getProducer().size(); i++)
+            {
+                programInformationController.producersListView.getItems().add(programEntity.getProducer().get(i));
+                //programInformationController.infoProducer.appendText(programEntity.getProducer().get(i).getFullName() + "\n");
+            }
+        }
+
+        if (programEntity.getCredits() != null) {
+            for (int i = 0; i < programEntity.getCredits().size(); i++) {
+                programInformationController.creditListView.getItems().add(programEntity.getCredits().get(i).getActor());
+                //programInformationController.infoCredits.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
+            }
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Sets update and delete button visible if logged in user has correct role
+        if (!ControllerUtility.gotAccessToProgram(programEntity))
+        {
+            updateBtn.setVisible(false);
+            deleteBtn.setVisible(false);
+            actorListViewContextMenu.getItems().get(0).setVisible(false);
+            producerListViewContextMenu.getItems().get(0).setVisible(false);
+            creditsListViewContextMenu.getItems().get(0).setVisible(false);
+
+        }
+
+        descriptionTextArea.prefWidthProperty().bind(descriptionPane.widthProperty());
+
+        setListCellFactory(actorListView);
+        setListCellFactory(producersListView);
+        setListCellFactory(creditListView);
+
+
+    }
+
+    private void setListCellFactory(ListView<UserEntity> listView)
+    {
+        listView.setCellFactory(param -> new ListCell<UserEntity>() {
+            @Override
+            protected void updateItem(UserEntity item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null || item.getNameAndTitle() == null) {
+                    setText(null);
+                } else {
+                    setText(item.getNameAndTitle());
+                }
+            }
+        });
+    }
+
 
     /**
      * Updates the current program, and updates the list, so the correct information is entered
      * @param event
      * @throws IOException
      */
-    public void updateProgramInformation(ActionEvent event) throws IOException {
+    @FXML
+    public void updateOnAction(ActionEvent event) throws IOException {
         UpdateProgramController updateProgramController = new UpdateProgramController();
         this.programEntity = updateProgramController.openView(programEntity);
+
         if (programEntity != null)
         {
+            setupText(this);
+            domainHandler.program().updateProgram(programEntity);
+
             try {
                 ProgramListController.getInstance().updateProgramInList(programEntity);
                 ProgramListController.getInstance().updateProgramList();
@@ -128,18 +200,10 @@ public class ProgramInformationController implements Initializable {
                 e.printStackTrace();
             }
         }
-        ControllerUtility.closeProgram(event);
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Sets update and delete button visible if logged in user has correct role
-        if (CurrentUser.getInstance().getUserEntity() != null && CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
-            updateProgInfoBtn.setVisible(true);
-            deleteProgBtn.setVisible(true);
-        }
-    }
+
 
     /**
      * Deletes the current program
@@ -147,7 +211,7 @@ public class ProgramInformationController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void deleteProgram(ActionEvent event) throws IOException {
+    public void deleteOnAction(ActionEvent event) throws IOException {
         domainHandler.program().deleteProgram(this.programEntity);
         if (programEntity != null)
         {
@@ -158,12 +222,44 @@ public class ProgramInformationController implements Initializable {
                 e.printStackTrace();
             }
         }
-        closeProgramInformation(event);
+        ControllerUtility.closeProgram(event);
+
     }
 
-    @FXML
-    private void closeProgramInformation(ActionEvent event)
+
+
+    public void actorOnDelete(ActionEvent event)
     {
-        ControllerUtility.closeProgram(event);
+        var selectedActor = actorListView.getSelectionModel().getSelectedItem();
+        if (selectedActor == null) return;
+        actorListView.getItems().remove(selectedActor);
+    }
+
+    public void producerOnDelete(ActionEvent event)
+    {
+        var selectedProducer = producersListView.getSelectionModel().getSelectedItem();
+        if (selectedProducer == null) return;
+        producersListView.getItems().remove(selectedProducer);
+    }
+
+    public void creditOnDelete(ActionEvent event) {
+        var selectedCredit = creditListView.getSelectionModel().getSelectedItem();
+        if (selectedCredit == null) return;
+        creditListView.getItems().remove(selectedCredit);
+        //domainHandler.program().userFromProgram(selectedCredit);
+    }
+
+    public void descriptionClick(MouseEvent mouseEvent)
+    {
+        //Maybe for the future
+        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+            if(mouseEvent.getClickCount() == 2){
+
+                if (!ControllerUtility.gotAccessToProgram(programEntity)) return;
+
+                descriptionTextArea.setEditable(true);
+
+            }
+        }
     }
 }

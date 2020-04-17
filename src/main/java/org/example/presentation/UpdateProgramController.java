@@ -77,25 +77,25 @@ public class UpdateProgramController implements Initializable {
         if (programEntity != null) {
             updateProgramController.updateInsertTitle.setText(programEntity.getName());
             updateProgramController.updateInsertDescription.setText(programEntity.getDescription());
-        }
 
-        if (programEntity != null && programEntity.getCompany() != null) {
-            updateProgramController.chooseCompany.getSelectionModel().select(programEntity.getCompany());
-        }
 
-        if (programEntity != null && programEntity.getProducer() != null) {
-            for (int i = 0; i < programEntity.getProducer().size(); i++) {
-                updateProgramController.producerList.appendText(programEntity.getProducer().get(i).getName() + "\n");
+            if (programEntity.getProducer() != null) {
+                for (int i = 0; i < programEntity.getProducer().size(); i++) {
+                    updateProgramController.producerList.appendText(programEntity.getProducer().get(i).getName() + "\n");
+                }
             }
-        }
 
-        if (programEntity != null && programEntity.getCredits() != null) {
-            for (int i = 0; i < programEntity.getCredits().size(); i++) {
-                updateProgramController.creditList.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
+            if (programEntity.getCredits() != null) {
+                for (int i = 0; i < programEntity.getCredits().size(); i++) {
+                    updateProgramController.creditList.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
+                }
             }
+
+            updateProgramController.programId = programEntity.getId();
         }
 
-        updateProgramController.programId = programEntity.getId();
+
+
 
         Scene scene = new Scene(node);
 
@@ -179,23 +179,13 @@ public class UpdateProgramController implements Initializable {
 
 
     /**
-     * Gets all producers from the database and puts them in a list
-     * @return list of UserEntity
-     */
-    public List<UserEntity> producersFromDatabase()
-    {
-        List<UserEntity> users = new ArrayList<UserEntity>();
-
-        users = domainHandler.user().getUserByRole(Role.Producer);
-        return users;
-    }
-
-    /**
      * Enables user to choose a producer from a comboBox
      */
     public void chooseProducer()
     {
-        chooseProducer.getItems().addAll(producersFromDatabase());
+        var producers = domainHandler.user().getUserByRole(Role.Producer);
+
+        chooseProducer.getItems().addAll(producers);
 
         Callback<ListView<UserEntity>, ListCell<UserEntity>> cellFactory = new Callback<>() {
 
@@ -322,16 +312,12 @@ public class UpdateProgramController implements Initializable {
     {
         company = chooseCompany.getSelectionModel().getSelectedItem();
 
-        String title;
-        title = getTitle();
+        String title = getTitle();
 
-        String description;
-        description = getDescription();
+        String description = getDescription();;
 
-        ProgramEntity program = new ProgramEntity(programId, title, description, company, producers, credits);
+        programEntity = new ProgramEntity(programId, title, description, company, producers, credits);
 
-        programEntity = program;
-        domainHandler.program().updateProgram(program);
         closeUpdateProgram(event);
     }
 

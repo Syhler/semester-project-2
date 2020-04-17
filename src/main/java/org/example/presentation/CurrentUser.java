@@ -1,11 +1,21 @@
 package org.example.presentation;
 
+import org.example.entity.ProgramEntity;
+import org.example.entity.Role;
 import org.example.entity.UserEntity;
 
 public class CurrentUser {
 
     private static CurrentUser single_instance = null;
     private UserEntity currentUser;
+
+    public static CurrentUser getInstance()
+    {
+        if (single_instance == null)
+            single_instance = new CurrentUser();
+
+        return single_instance;
+    }
 
     public UserEntity getUserEntity() {
         return currentUser;
@@ -15,11 +25,18 @@ public class CurrentUser {
         this.currentUser = userEntity;
     }
 
-    public static CurrentUser getInstance()
+    public boolean gotAccessToProgram(ProgramEntity programEntity)
     {
-        if (single_instance == null)
-            single_instance = new CurrentUser();
+        if (currentUser.getRole() == Role.Admin) return true;
 
-        return single_instance;
+        for (var producer: programEntity.getProducer()) {
+            if (producer.getId() == currentUser.getId())
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
+
 }
