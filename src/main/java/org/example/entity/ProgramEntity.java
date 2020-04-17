@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ProgramEntity {
     private long id;
-    private long programinformationId;
+    private long programInformationId;
     private String name;
     private String description;
     private CompanyEntity company;
@@ -87,13 +87,12 @@ public class ProgramEntity {
         credits.remove(credit);
     }
 
-
-    public long getPrograminformationId() {
-        return programinformationId;
+    public long getProgramInformationId() {
+        return programInformationId;
     }
 
-    public void setPrograminformationId(long programinformationId) {
-        this.programinformationId = programinformationId;
+    public void setProgramInformationId(long programInformationId) {
+        this.programInformationId = programInformationId;
     }
 
     public long getId() {
