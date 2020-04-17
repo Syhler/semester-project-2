@@ -9,9 +9,11 @@ module org.example {
     opens org.example.presentation to javafx.fxml;
     opens org.example.entity to javafx.base;
     opens org.example.presentation.program to javafx.fxml;
+    opens org.example.presentation.dialogControllers to javafx.fxml;
 
     exports org.example;
     exports org.example.entity;
     exports org.example.presentation;
     exports org.example.presentation.program;
+    exports org.example.presentation.dialogControllers;
 }

@@ -23,12 +23,13 @@ public class ProgramEntity {
         this.credits = credits;
     }
 
-    public ProgramEntity(String name, String description, CompanyEntity company, List<UserEntity> producer,
-                         List<CreditEntity> credits) {
+    public ProgramEntity(String name, String description, CompanyEntity company, List<UserEntity> producer, List<CreditEntity> credits) {
 
         this.name = name;
         this.description = description;
         this.company = company;
+        this.name = name;
+        this.description = description;
         this.producer = producer;
         this.credits = credits;
     }
@@ -107,6 +108,7 @@ public class ProgramEntity {
     public String toString() {
         return "ID: " + id + " Name: " + name + " Description: " + description + " Company: " + company +
                 " Producer: " + Arrays.asList(producer) + " Credits: " + Arrays.asList(credits);
+
     }
 
 }

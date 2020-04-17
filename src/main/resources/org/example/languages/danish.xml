@@ -106,5 +106,13 @@
     <somethingWrong>Der gik noget galt</somethingWrong>
     <searchBarPrompt>Søg her</searchBarPrompt>
     <actorInfoHeader>Skuespiller</actorInfoHeader>
+    <noProgramsImported>Ingen programmer blev importeret...</noProgramsImported>
+    <noFile>Ingen fil blev fundet</noFile>
+    <programs>programmer</programs>
+    <succeedImport>Succesfuldt importeret</succeedImport>
+    <noSave>Ingen lokation blev fundet</noSave>
+    <noExport>Ingen programmer var eksporteret</noExport>
+    <succeedExport>Succesfuldt eksporteret</succeedExport>
+
 
 </language>

@@ -1,5 +1,6 @@
 package org.example.presentation;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +25,11 @@ import org.example.entity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.example.domain.Export;
+import org.example.domain.Import;
+import org.example.presentation.dialogControllers.ImportExportDialogController;
 
 public class DefaultController implements Initializable
 {
@@ -101,6 +107,86 @@ public class DefaultController implements Initializable
             programListController.programEntityList.add(programEntity);
             programListController.updateProgramList();
         }
+    }
+
+    /**
+     * IMPORTANT - should be copied into program controller, when ready
+     */
+    @FXML
+    private void export(ActionEvent event) {
+        var fileChooserStage = new Stage();
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
+
+        //ask the user where to save the file
+        var file = fileChooser.showSaveDialog(fileChooserStage);
+
+        ImportExportDialogController controller = new ImportExportDialogController();
+
+
+        if (file == null)
+        {
+            controller.openDialog(event, LanguageHandler.getText("noSave"), "Export Dialog");
+            return;
+        }
+
+        var exportedPrograms = Export.program(null, file.getPath());
+
+        if (exportedPrograms != null)
+        {
+            controller.openDialog(event, LanguageHandler.getText("succeedExport"), "Export Dialog");
+        }
+        else
+        {
+            controller.openDialog(event, LanguageHandler.getText("noExport"), "Export Dialog");
+        }
+
+    }
+
+    @FXML
+    private void importFile(ActionEvent event)
+    {
+
+        var selectedFile = getFileFromFileChoose();
+
+        ImportExportDialogController controller = new ImportExportDialogController();
+
+        if (selectedFile == null)
+        {
+            controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
+            return;
+        }
+
+        var loadedPrograms = Import.loadPrograms(selectedFile);
+
+        if (loadedPrograms.isEmpty())
+        {
+            controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
+        }
+        else
+        {
+            controller.openDialog(event,
+                    LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
+                            LanguageHandler.getText("programs"), "Import Dialog");
+        }
+    }
+
+
+    /**
+     * open a fileChooser and return the file
+     * @return the file the user have chosen from the file chooser
+     */
+    private File getFileFromFileChoose()
+    {
+        var fileChooserStage = new Stage();
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
+
+        return fileChooser.showOpenDialog(fileChooserStage);
     }
 
     @FXML
