@@ -19,6 +19,10 @@ public class ProgramInformation
         this.description = description;
     }
 
+    public ProgramInformation() {
+
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }

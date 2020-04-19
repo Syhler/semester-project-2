@@ -33,7 +33,7 @@ public class ProgramInformationMapper
                 programInformation.getId(),
                 programInformation.getTitle(),
                 programInformation.getDescription(),
-                programInformation.getLanguage().getValue()
+                (programInformation.getLanguage() != null) ? programInformation.getLanguage().getValue() : 1
         );
     }
 

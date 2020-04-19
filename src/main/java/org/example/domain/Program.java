@@ -43,7 +43,12 @@ public class Program
         return producers;
     }
 
-    public ProgramInformation getProgramInformation() {
+    public ProgramInformation getProgramInformation()
+    {
+        if (programInformation == null)
+        {
+            programInformation = new ProgramInformation();
+        }
         return programInformation;
     }
 

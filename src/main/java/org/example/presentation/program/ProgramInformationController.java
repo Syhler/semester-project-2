@@ -130,24 +130,26 @@ public class ProgramInformationController implements Initializable {
 
     private void setupText(ProgramInformationController programInformationController)
     {
-        programInformationController.title.setText(program.getProgramInformation().getTitle());
-        programInformationController.descriptionTextArea.setText(program.getProgramInformation().getDescription());
-        if (program.getCompany() != null) {
-            programInformationController.productionCompany.setText(LanguageHandler.getText("companyInfoHeader") + ": " + program.getCompany().getName());
+        var tempProgram = programInformationController.program;
+
+        programInformationController.title.setText(tempProgram.getProgramInformation().getTitle());
+        programInformationController.descriptionTextArea.setText(tempProgram.getProgramInformation().getDescription());
+        if (tempProgram.getCompany() != null) {
+            programInformationController.productionCompany.setText(LanguageHandler.getText("companyInfoHeader") + ": " + tempProgram.getCompany().getName());
         }
 
-        if (program.getProducers() != null) {
-            for (int i = 0; i < program.getProducers().size(); i++)
+        if (tempProgram.getProducers() != null) {
+            for (int i = 0; i < tempProgram.getProducers().size(); i++)
             {
-                programInformationController.producersListView.getItems().add(program.getProducers().get(i));
+                programInformationController.producersListView.getItems().add(tempProgram.getProducers().get(i));
                 //programInformationController.infoProducer.appendText(programEntity.getProducer().get(i).getFullName() + "\n");
             }
         }
 
-        if (program.getCredits() != null) {
-            for (int i = 0; i < program.getCredits().size(); i++) {
+        if (tempProgram.getCredits() != null) {
+            for (int i = 0; i < tempProgram.getCredits().size(); i++) {
 
-                var credit = program.getCredits().get(i);
+                var credit = tempProgram.getCredits().get(i);
                 if (credit.getUser() == null) continue;
 
                 programInformationController.creditListView.getItems().add(credit);
@@ -324,7 +326,7 @@ public class ProgramInformationController implements Initializable {
 
     public void creditOnDelete(ActionEvent event) {
 
-        var selectedCredit = actorListView.getSelectionModel().getSelectedItem();
+        var selectedCredit = creditListView.getSelectionModel().getSelectedItem();
         //var deleted = domainHandler.program().removeCreditFromProgram(selectedActor);
         var wasDeleted = program.deleteCredit(selectedCredit);
 

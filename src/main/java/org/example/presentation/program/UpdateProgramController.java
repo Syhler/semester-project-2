@@ -92,6 +92,7 @@ public class UpdateProgramController implements Initializable {
         Parent node = loader.load();
         UpdateProgramController updateProgramController = loader.<UpdateProgramController>getController();
 
+        updateProgramController.globalProgram = program;
 
         if (program != null) {
             updateProgramController.updateInsertTitle.setText(program.getProgramInformation().getTitle());
