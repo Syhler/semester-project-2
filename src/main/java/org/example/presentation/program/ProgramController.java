@@ -11,13 +11,18 @@ import org.example.entity.ProgramEntity;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProgramController implements Initializable {
+public class ProgramController implements Initializable
+{
+    @FXML
     public VBox program;
-    public VBox programThumbnail;
+    @FXML
+    private VBox programThumbnail;
+    @FXML
     public Label title;
-    public ImageView programImage;
+    @FXML
+    private ImageView programImage;
+
     public ProgramEntity programEntity;
-    private DomainHandler domainHandler = new DomainHandler();
 
 
     /**

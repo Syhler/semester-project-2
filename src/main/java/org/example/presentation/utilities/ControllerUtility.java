@@ -1,4 +1,4 @@
-package org.example.presentation;
+package org.example.presentation.utilities;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import org.example.entity.ProgramEntity;
+import org.example.presentation.CurrentUser;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class ControllerUtility {

@@ -20,6 +20,8 @@ import java.util.Optional;
 
 public class Import
 {
+    private static DomainHandler domainHandler = new DomainHandler();
+
     /**
      * loads program from an xml file
      * @param file the file to retrieve programs from
@@ -50,6 +52,10 @@ public class Import
         }
 
         //upload to the database.
+        for (var program : programEntites) {
+            domainHandler.program().createProgram(program);
+        }
+
         return programEntites;
     }
 
@@ -125,14 +131,21 @@ public class Import
         var title = element.getAttribute("title");
         var titleOriginal = element.getAttribute("title_original");
         var description = element.getAttribute("description");
+        CompanyEntity companyEntity = null;
         var companies = getCompanies(element);
+        if (companies.size() > 0)
+        {
+            //redo this if we allow multiple companies
+            companyEntity = companies.get(0);
+        }
+
 
         if (title.equals(titleOriginal)) titleOriginal = "";
 
-        return  new ProgramEntity(
+        return new ProgramEntity(
                 title + " " + titleOriginal,
                 description,
-                companies,
+                companyEntity,
                 new ArrayList<>(),
                 new ArrayList<>()
         );

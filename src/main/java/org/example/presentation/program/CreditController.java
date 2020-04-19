@@ -11,10 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.domain.DomainHandler;
 import org.example.entity.Role;
 import org.example.entity.UserEntity;
-import org.example.presentation.ControllerUtility;
+import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.CurrentUser;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -24,20 +23,33 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class CreditController implements Initializable {
-    public Label emailHeader;
-    public TextField emailPrompt;
-    private DomainHandler domainHandler;
-    public Label firstNameHeader;
-    public TextField firstNamePrompt;
-    public Label middleNameHeader;
-    public TextField middleNamePrompt;
-    public Label lastNameHeader;
-    public TextField lastNamePrompt;
-    public Label creditTitleHeader;
-    public TextField creaditTitlePrompt;
-    public Button createCreditBtn;
-    public Button cancelBtn;
-    public UserEntity creditActor;
+
+    @FXML
+    private Label emailHeader;
+    @FXML
+    private TextField emailPrompt;
+    @FXML
+    private Label firstNameHeader;
+    @FXML
+    private TextField firstNamePrompt;
+    @FXML
+    private Label middleNameHeader;
+    @FXML
+    private TextField middleNamePrompt;
+    @FXML
+    private Label lastNameHeader;
+    @FXML
+    private TextField lastNamePrompt;
+    @FXML
+    private Label creditTitleHeader;
+    @FXML
+    private TextField creaditTitlePrompt;
+    @FXML
+    private Button createCreditBtn;
+    @FXML
+    private Button cancelBtn;
+    @FXML
+    private UserEntity creditActor;
 
 
     @FXML

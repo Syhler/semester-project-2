@@ -11,13 +11,16 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
+import org.example.domain.Export;
 import org.example.entity.CreditEntity;
 import org.example.entity.ProgramEntity;
 import org.example.entity.UserEntity;
-import org.example.presentation.ControllerUtility;
+import org.example.presentation.utilities.ControllerUtility;
+import org.example.presentation.dialogControllers.ImportExportDialogController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
@@ -26,19 +29,45 @@ import java.util.ResourceBundle;
 
 public class ProgramInformationController implements Initializable {
 
-    public ContextMenu producerListViewContextMenu;
-    public ContextMenu creditsListViewContextMenu;
-    public ContextMenu actorListViewContextMenu;
-    public Button updateBtn;
-    public Button deleteBtn;
-    public TextArea descriptionTextArea;
-    public Label title;
-    public Pane descriptionPane;
-    public Label productionCompany;
+    @FXML
+    private ContextMenu producerListViewContextMenu;
 
-    public TitledPane actorTitledPane;
-    public TitledPane producerTitledPane;
-    public TitledPane creditsTitledPane;
+    @FXML
+    private ContextMenu creditsListViewContextMenu;
+
+    @FXML
+    private ContextMenu actorListViewContextMenu;
+
+    @FXML
+    private Button updateBtn;
+
+    @FXML
+    private Button deleteBtn;
+
+    @FXML
+    private TextArea descriptionTextArea;
+
+    @FXML
+    private Label title;
+
+    @FXML
+    private Pane descriptionPane;
+
+    @FXML
+    private Label productionCompany;
+
+    @FXML
+    private TitledPane actorTitledPane;
+
+    @FXML
+    private TitledPane producerTitledPane;
+
+    @FXML
+    private TitledPane creditsTitledPane;
+
+    @FXML
+    private Button exportBtn;
+
     @FXML
     private ListView<CreditEntity> creditListView;
 
@@ -50,19 +79,7 @@ public class ProgramInformationController implements Initializable {
 
     private DomainHandler domainHandler = new DomainHandler();
     public ProgramEntity programEntity;
-    //public TextArea infoTitle;
-    //public TextArea infoCompany;
-    //public TextArea infoProducer;
-    //public TextArea infoDescription;
-    //public TextArea infoCredits;
     public VBox programInfo;
-    //public Button updateProgInfoBtn;
-    //public Button deleteProgBtn;
-    //public Label companyInfoHeader;
-    //public Label producerInfoHeader;
-    //public Label creditInfoHeader;
-    //public Button cancelBtn;
-    //public ProgramListController programListController;
 
 
 
@@ -139,6 +156,40 @@ public class ProgramInformationController implements Initializable {
         }
     }
 
+    @FXML
+    public void exportOnAction(ActionEvent event)
+    {
+        var fileChooserStage = new Stage();
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
+
+        //ask the user where to save the file
+        var file = fileChooser.showSaveDialog(fileChooserStage);
+
+        ImportExportDialogController controller = new ImportExportDialogController();
+
+
+        if (file == null)
+        {
+            controller.openDialog(event, LanguageHandler.getText("noSave"), "Export Dialog");
+            return;
+        }
+
+        var exportedPrograms = Export.program(programEntity, file.getPath());
+
+        if (exportedPrograms != null)
+        {
+            controller.openDialog(event, LanguageHandler.getText("succeedExport"), "Export Dialog");
+        }
+        else
+        {
+            controller.openDialog(event, LanguageHandler.getText("noExport"), "Export Dialog");
+        }
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Sets update and delete button visible if logged in user has correct role
@@ -149,6 +200,7 @@ public class ProgramInformationController implements Initializable {
             actorListViewContextMenu.getItems().get(0).setVisible(false);
             producerListViewContextMenu.getItems().get(0).setVisible(false);
             creditsListViewContextMenu.getItems().get(0).setVisible(false);
+            exportBtn.setVisible(false);
 
         }
 
@@ -289,4 +341,6 @@ public class ProgramInformationController implements Initializable {
             }
         }
     }
+
+
 }

@@ -1,6 +1,5 @@
 package org.example.persistence;
 
-import org.example.domain.Program;
 import org.example.entity.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param company_id
      * @return
      */
-    private boolean companyProgram(long program_id, long company_id) {
+    private boolean insertCompany(long program_id, long company_id) {
         try {
             PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO companyProgram(program,company)" + "VALUES (?,?)");
@@ -85,6 +84,28 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
            e.printStackTrace();
            return 0;
        }
+
+    }
+
+    /**
+     * Inserts a null timestamp into the program table in the database so that a program id is set.
+     * @return the programs id.
+     */
+    private long insertProgram(long programId){
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO program(id,timestamp_for_deletion) values (?,? ) RETURNING id");
+            statement.setLong(1, programId);
+            statement.setTimestamp(2,null);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getLong("id");
+            }
+            return 0;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
 
     }
 
@@ -147,12 +168,24 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     @Override
     public long createProgram(ProgramEntity programEntity) {
 
-        long programId = insertProgram();
+        long programId = 0;
+
+
+        programId = insertProgram();
+
         programEntity.setId(programId);
         programInformation(programEntity,1);
         if (programEntity.getCompany() != null)
         {
-            companyProgram(programEntity.getCompany().getId(), programEntity.getId());
+            if (programEntity.getCompany().getId() == 0)
+            {
+                new PersistenceHandler().company().createCompany(programEntity.getCompany());
+            }
+            else
+            {
+                insertCompany(programEntity.getCompany().getId(), programEntity.getId());
+            }
+
         }
         if (programEntity.getProducer() != null)
         {

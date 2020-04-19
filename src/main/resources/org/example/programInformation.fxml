@@ -111,6 +111,7 @@
             <HBox alignment="CENTER" prefWidth="200.0" spacing="100.0">
                <children>
                   <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateOnAction" text="Update" />
+                  <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportOnAction" text="Export" />
                   <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteOnAction" text="Delete" />
                </children>
                <VBox.margin>

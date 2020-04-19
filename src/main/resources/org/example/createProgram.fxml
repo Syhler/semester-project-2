@@ -55,7 +55,7 @@
       </VBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="createProgBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToUpdateProgram" text="Create Program">
+            <Button fx:id="createProgramBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToUpdateProgram" text="Create Program">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>

@@ -16,6 +16,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Export
@@ -116,7 +117,7 @@ public class Export
 
         //set attributes
         Attr id = document.createAttribute("id");
-        id.setValue(programEntity.getId());
+        id.setValue(String.valueOf(programEntity.getId()));
         program.setAttributeNode(id);
 
         Attr title = document.createAttribute("title");
@@ -127,8 +128,11 @@ public class Export
         description.setValue(programEntity.getName());
         program.setAttributeNode(description);
 
+        List<CompanyEntity> companyEntities = new ArrayList<>();
+        companyEntities.add(programEntity.getCompany());
+
         addProducerToFile(roles, document, programEntity.getProducer());
-        addCompaniesToFile(roles, document, programEntity.getCompanies());
+        addCompaniesToFile(roles, document, companyEntities);
         addCreditsToFile(credits, document, programEntity.getCredits());
     }
 

@@ -14,7 +14,7 @@ import javafx.util.Callback;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.*;
-import org.example.presentation.ControllerUtility;
+import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
@@ -25,32 +25,54 @@ import java.util.ResourceBundle;
 
 public class UpdateProgramController implements Initializable {
 
-    public Button cancelBtn;
-    public Label updateProgTitle;
-    public TextArea updateInsertTitle;
-    public Label updateProgDescription;
-    public TextArea updateInsertDescription;
-    public Label updateProgCompany;
-    public Label updateProgCredits;
-    public Button updateCreditBtn;
-    public Button updateProgramBtn;
-    public Label remainingCharactersDesc;
-    public int maxSizeDesc = 500;
-    public Label remainingCharactersTitle;
-    public int maxSizeTitle = 100;
-    public Label updateProgProducer;
-    public ComboBox<CompanyEntity> chooseCompany;
-    public ComboBox<UserEntity> chooseProducer;
-    public TextArea creditList;
-    public TextArea producerList;
-    public Button addSelectedProducer;
-    public List<UserEntity> producers = new ArrayList<UserEntity>();
-    public List<CreditEntity> credits = new ArrayList<CreditEntity>();
-    public CompanyEntity company;
-    public ProgramEntity programEntity;
-    public Label addCreditHeader;
-    public ComboBox<CreditEntity> chooseCredit;
-    public Button addCreditButton;
+    @FXML
+    private Button cancelBtn;
+    @FXML
+    private Label updateProgramTitle;
+    @FXML
+    private TextArea updateInsertTitle;
+    @FXML
+    private Label updateProgramDescription;
+    @FXML
+    private TextArea updateInsertDescription;
+    @FXML
+    private Label updateProgramCompany;
+    @FXML
+    private Label updateProgramCredits;
+    @FXML
+    private Button updateCreditBtn;
+    @FXML
+    private Button updateProgramBtn;
+    @FXML
+    private Label remainingCharactersDesc;
+    @FXML
+    private Label remainingCharactersTitle;
+    @FXML
+    private Label updateProgramProducer;
+    @FXML
+    private ComboBox<CompanyEntity> chooseCompany;
+    @FXML
+    private ComboBox<UserEntity> chooseProducer;
+    @FXML
+    private TextArea creditList;
+    @FXML
+    private TextArea producerList;
+    @FXML
+    private Button addSelectedProducer;
+    @FXML
+    private Label addCreditHeader;
+    @FXML
+    private ComboBox<CreditEntity> chooseCredit;
+    @FXML
+    private Button addCreditButton;
+
+    private int maxSizeTitle = 100;
+    private int maxSizeDesc = 1000;
+    private List<UserEntity> producers = new ArrayList<UserEntity>();
+    private List<CreditEntity> credits = new ArrayList<CreditEntity>();
+    private CompanyEntity company;
+    private ProgramEntity programEntity;
+
     private DomainHandler domainHandler = new DomainHandler();
     private long programId;
 
@@ -65,7 +87,6 @@ public class UpdateProgramController implements Initializable {
      * Opens "updateProgram.fxml" as a popup scene.
      * @param programEntity of the program that you want to open
      * @return a programEntity with its different variables filled.
-     * @throws IOException
      */
     public ProgramEntity openView(ProgramEntity programEntity) throws IOException {
 
@@ -349,14 +370,14 @@ public class UpdateProgramController implements Initializable {
         addSelectedProducer.setText(LanguageHandler.getText("add"));
         updateProgramBtn.setText(LanguageHandler.getText("updateProgram"));
         cancelBtn.setText(LanguageHandler.getText("cancel"));
-        updateProgTitle.setText(LanguageHandler.getText("titleHeader"));
+        updateProgramTitle.setText(LanguageHandler.getText("titleHeader"));
         updateInsertTitle.setPromptText(LanguageHandler.getText("insertTitle"));
-        updateProgDescription.setText(LanguageHandler.getText("descriptionHeader"));
+        updateProgramDescription.setText(LanguageHandler.getText("descriptionHeader"));
         updateInsertDescription.setPromptText(LanguageHandler.getText("insertDescription"));
-        updateProgCompany.setText(LanguageHandler.getText("programCompany"));
-        updateProgCredits.setText(LanguageHandler.getText("programCredits"));
+        updateProgramCompany.setText(LanguageHandler.getText("programCompany"));
+        updateProgramCredits.setText(LanguageHandler.getText("programCredits"));
         updateCreditBtn.setText(LanguageHandler.getText("createCreditStageTitle"));
-        updateProgProducer.setText(LanguageHandler.getText("producer"));
+        updateProgramProducer.setText(LanguageHandler.getText("producer"));
         addCreditButton.setText(LanguageHandler.getText("add"));
         addCreditHeader.setText(LanguageHandler.getText("addCreditHeader"));
 

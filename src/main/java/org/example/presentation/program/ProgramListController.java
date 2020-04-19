@@ -19,12 +19,15 @@ import org.example.domain.DomainHandler;
 import org.example.entity.ProgramEntity;
 
 public class ProgramListController implements Initializable {
-    public ScrollPane scrollPane;
-    public GridPane listGridPane;
-    private DomainHandler domainHandler;
     @FXML
-    public VBox programList;
-    public List<ProgramEntity> programEntityList = new ArrayList<ProgramEntity>();
+    private ScrollPane scrollPane;
+    @FXML
+    private GridPane listGridPane;
+
+    @FXML
+    private VBox programList;
+
+    public List<ProgramEntity> programEntityList = new ArrayList<>();
 
     private static ProgramListController programListController = null;
 

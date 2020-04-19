@@ -4,14 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCode;
@@ -27,31 +25,31 @@ import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.example.domain.Export;
 import org.example.domain.Import;
 import org.example.presentation.dialogControllers.ImportExportDialogController;
 
 public class DefaultController implements Initializable
 {
 
-    public Button login;
     @FXML
-    public Button createProgram;
+    private Button login;
     @FXML
-    public BorderPane borderPane;
-    public Label searchHeader;
-    public TextField searchField;
-    public TextField searchBar;
-    public ToolBar navigation;
-    private DomainHandler domainHandler = new DomainHandler();
-    public ProgramListController programListController;
-
-
+    private Button createProgram;
     @FXML
-    public Button usermanagementBtn;
+    private BorderPane borderPane;
+    @FXML
+    private TextField searchBar;
+    @FXML
+    private ToolBar navigation;
+    @FXML
+    private Button importBtn;
+    @FXML
+    private Button usermanagementBtn;
     @FXML
     private Button profileNavigation;
 
+    private DomainHandler domainHandler = new DomainHandler();
+    private ProgramListController programListController;
 
 
     /**
@@ -71,6 +69,11 @@ public class DefaultController implements Initializable
             if (userEntity.getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
                 createProgram.setVisible(true);
+            }
+
+            if (userEntity.getRole() == Role.Admin)
+            {
+                importBtn.setVisible(true);
             }
         }
     }
@@ -109,46 +112,7 @@ public class DefaultController implements Initializable
         }
     }
 
-    /**
-     * IMPORTANT - should be copied into program controller, when ready
-     */
-    @FXML
-    private void export(ActionEvent event) {
-        var fileChooserStage = new Stage();
-
-        FileChooser fileChooser = new FileChooser();
-
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
-
-        //ask the user where to save the file
-        var file = fileChooser.showSaveDialog(fileChooserStage);
-
-        ImportExportDialogController controller = new ImportExportDialogController();
-
-
-        if (file == null)
-        {
-            controller.openDialog(event, LanguageHandler.getText("noSave"), "Export Dialog");
-            return;
-        }
-
-        var exportedPrograms = Export.program(null, file.getPath());
-
-        if (exportedPrograms != null)
-        {
-            controller.openDialog(event, LanguageHandler.getText("succeedExport"), "Export Dialog");
-        }
-        else
-        {
-            controller.openDialog(event, LanguageHandler.getText("noExport"), "Export Dialog");
-        }
-
-    }
-
-    @FXML
-    private void importFile(ActionEvent event)
-    {
-
+    public void importOnAction(ActionEvent event) throws Exception {
         var selectedFile = getFileFromFileChoose();
 
         ImportExportDialogController controller = new ImportExportDialogController();
@@ -171,8 +135,10 @@ public class DefaultController implements Initializable
                     LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
                             LanguageHandler.getText("programs"), "Import Dialog");
         }
-    }
 
+        ProgramListController.getInstance().programEntityList.addAll(loadedPrograms);
+        ProgramListController.getInstance().updateProgramList();
+    }
 
     /**
      * open a fileChooser and return the file
@@ -219,17 +185,6 @@ public class DefaultController implements Initializable
         }
     }
 
-
-    @FXML
-    private void goToSearch() throws IOException {
-
-    }
-
-    @FXML
-    private void goToProgram() throws IOException {
-
-    }
-
     @FXML
     private void goToUserManagement() throws IOException {
         App.setRoot("usermanagement");
@@ -273,10 +228,16 @@ public class DefaultController implements Initializable
                 usermanagementBtn.setVisible(true);
                 createProgram.setVisible(true);
             }
+
+            if (CurrentUser.getInstance().getUserEntity().getRole() == Role.Admin)
+            {
+                importBtn.setVisible(true);
+            }
         }
 
         loadProgramList();
     }
+
 
 
 }

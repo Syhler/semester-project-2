@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainHandler;
 import org.example.entity.ProgramEntity;
-import org.example.presentation.ControllerUtility;
+import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
@@ -21,17 +21,28 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CreateProgramController implements Initializable {
-    public Button cancelCreateProgram;
-    public Label createProgTitle;
-    public Label createProgDescription;
-    public TextArea insertTitle;
-    public TextArea insertDescription;
-    public Button createProgBtn;
-    public Label remainingCharactersDesc;
-    public Label remainingCharactersTitle;
-    public int maxSizeDesc = 500;
-    public int maxSizeTitle = 100;
-    public ProgramEntity programEntity;
+    @FXML
+    private Button cancelCreateProgram;
+    @FXML
+    private Label createProgTitle;
+    @FXML
+    private Label createProgDescription;
+    @FXML
+    private TextArea insertTitle;
+    @FXML
+    private TextArea insertDescription;
+    @FXML
+    private Button createProgramBtn;
+    @FXML
+    private Label remainingCharactersDesc;
+    @FXML
+    private Label remainingCharactersTitle;
+
+    private int maxSizeDesc = 1000;
+    private int maxSizeTitle = 100;
+    private ProgramEntity programEntity;
+
+
     private DomainHandler domainHandler = new DomainHandler();
 
     /**
@@ -138,6 +149,6 @@ public class CreateProgramController implements Initializable {
         cancelCreateProgram.setText(LanguageHandler.getText("cancel"));
         insertTitle.setPromptText(LanguageHandler.getText("insertTitle"));
         insertDescription.setPromptText(LanguageHandler.getText("insertDescription"));
-        createProgBtn.setText(LanguageHandler.getText("createProgram"));
+        createProgramBtn.setText(LanguageHandler.getText("createProgram"));
     }
 }

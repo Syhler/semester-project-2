@@ -62,10 +62,6 @@ public class UserEntity {
         return fullName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public void setCompany(CompanyEntity company) {
         this.company = company;
     }
@@ -92,18 +88,6 @@ public class UserEntity {
 
     public String getTitle() {
         return title;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public void setCreatedBy(UserEntity createdBy) {
