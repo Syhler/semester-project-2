@@ -1,4 +1,4 @@
-package org.example.presentation;
+package org.example.presentation.usermangement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,17 +8,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.App;
-import org.example.OLDdomain.DomainHandler;
-import org.example.OLDentity.Role;
-import org.example.OLDentity.UserEntity;
+import org.example.domain.DomainFacade;
+import org.example.domain.Role;
+import org.example.domain.User;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.utilities.CurrentUser;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class UserManagementController implements Initializable {
-    private DomainHandler domainHandler = new DomainHandler();
+    private DomainFacade domainHandler = new DomainFacade();
     // Function Buttons Create, Read, Update, Delete
     @FXML
     private ToggleButton displayAdmins;
@@ -44,22 +45,22 @@ public class UserManagementController implements Initializable {
 
     // Table objects
     @FXML
-    private TableView<UserEntity> table;
+    private TableView<User> table;
     @FXML
-    private TableColumn<UserEntity, String> col_id;
+    private TableColumn<User, String> col_id;
     @FXML
-    private TableColumn<UserEntity, String> col_name;
+    private TableColumn<User, String> col_name;
     @FXML
-    private TableColumn<UserEntity, String> col_company;
+    private TableColumn<User, String> col_company;
     @FXML
-    private TableColumn<UserEntity, String> col_title;
+    private TableColumn<User, String> col_title;
     @FXML
-    private TableColumn<UserEntity, String> col_createdBy;
+    private TableColumn<User, String> col_createdBy;
     @FXML
-    private TableColumn<UserEntity, String> col_created;
+    private TableColumn<User, String> col_created;
 
 
-    private ObservableList<UserEntity> userList = FXCollections.observableArrayList();
+    private ObservableList<User> userList = FXCollections.observableArrayList();
 
     private Role roleTap;
 
@@ -86,7 +87,7 @@ public class UserManagementController implements Initializable {
 
         companyAddToggle.setVisible(false);
 
-        switch (CurrentUser.getInstance().getUserEntity().getRole()) {
+        switch (CurrentUser.getInstance().getUser().getRole()) {
             case Admin:
                 displayAdmins.fire();
                 displayAdmins.setSelected(true);
@@ -131,7 +132,7 @@ public class UserManagementController implements Initializable {
     @FXML
     private void openCreateUser(ActionEvent event) {
         CreateUserController createusercontroller = new CreateUserController();
-        UserEntity user = createusercontroller.openCreateUser(event, roleTap);
+        User user = createusercontroller.openCreateUser(event, roleTap);
 
         if (user != null) {
             userList.add(user);
@@ -157,9 +158,10 @@ public class UserManagementController implements Initializable {
     @FXML
     private void openUpdateUser(ActionEvent event) {
 
-        UserEntity userToUpdate = table.getSelectionModel().getSelectedItem();
+        User userToUpdate = table.getSelectionModel().getSelectedItem();
         UpdateUserController updateUserController = new UpdateUserController();
-        UserEntity user = updateUserController.openUpdateUser(event, userToUpdate, roleTap);
+
+        User user = updateUserController.openUpdateUser(event, userToUpdate);
 
         if (user != null) {
             userList.remove(userToUpdate);
@@ -180,28 +182,28 @@ public class UserManagementController implements Initializable {
         userList.clear();
 
         if (displayByRole == displayAdmins) {
-            userList.addAll(domainHandler.user().getUserByRole(Role.Admin));
+            userList.addAll(domainHandler.getUserByRole(Role.Admin));
             roleTap = Role.Admin;
             displayManufactures.setSelected(false);
             displayProducers.setSelected(false);
             displayActors.setSelected(false);
         }
         if (displayByRole == displayManufactures) {
-            userList.addAll(domainHandler.user().getUserByRole(Role.Manufacture));
+            userList.addAll(domainHandler.getUserByRole(Role.Manufacture));
             roleTap = Role.Manufacture;
             displayAdmins.setSelected(false);
             displayProducers.setSelected(false);
             displayActors.setSelected(false);
         }
         if (displayByRole == displayProducers) {
-            userList.addAll(domainHandler.user().getUserByRole(Role.Producer));
+            userList.addAll(domainHandler.getUserByRole(Role.Producer));
             roleTap = Role.Producer;
             displayManufactures.setSelected(false);
             displayAdmins.setSelected(false);
             displayActors.setSelected(false);
         }
         if (displayByRole == displayActors) {
-            userList.addAll(domainHandler.user().getUserByRole(Role.Actor));
+            userList.addAll(domainHandler.getUserByRole(Role.Actor));
             roleTap = Role.Actor;
             displayManufactures.setSelected(false);
             displayProducers.setSelected(false);
@@ -218,7 +220,7 @@ public class UserManagementController implements Initializable {
      */
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        if (CurrentUser.getInstance().getUserEntity() != null) {
+        if (CurrentUser.getInstance().getUser() != null) {
             CurrentUser.getInstance().init(null); //Logs off
             App.setRoot("default");
         }
@@ -241,9 +243,9 @@ public class UserManagementController implements Initializable {
      */
     @FXML
     private void deleteUser(ActionEvent event) throws IOException {
-        UserEntity selectedUser = table.getSelectionModel().getSelectedItem();
+        User selectedUser = table.getSelectionModel().getSelectedItem();
 
-        boolean userWasRemoved = domainHandler.user().removeUser(selectedUser);
+        boolean userWasRemoved = selectedUser.delete();
 
         if (userWasRemoved) {
             userList.remove(selectedUser);

@@ -73,7 +73,7 @@ public class UserMapper
                 (user.getName() != null) ? user.getName().getLastName() : "",
                 user.getEmail(),
                 CompanyMapper.map(user.getCompany()),
-                (user.getRole() != null) ? user.getRole().roleValue : 0,
+                (user.getRole() != null) ? user.getRole().getValue() : 0,
                 map(user.getCreatedBy()),
                 user.getCreatedAt()
         );

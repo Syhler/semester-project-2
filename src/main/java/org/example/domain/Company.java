@@ -14,6 +14,10 @@ public class Company
         this.id = id;
     }
 
+    public Company(String name) {
+        this.name = name;
+    }
+
     public boolean update()
     {
         var mapped = CompanyMapper.map(this);
@@ -24,6 +28,10 @@ public class Company
     {
         var mapped = CompanyMapper.map(this);
         return persistenceHandler.company().deleteCompany(mapped);
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {

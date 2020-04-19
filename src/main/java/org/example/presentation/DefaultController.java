@@ -16,17 +16,18 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import org.example.App;
-import org.example.OLDdomain.DomainHandler;
-import org.example.OLDentity.ProgramEntity;
-import org.example.OLDentity.Role;
-import org.example.OLDentity.UserEntity;
+import org.example.domain.DomainFacade;
+import org.example.domain.Program;
+import org.example.domain.Role;
+import org.example.domain.User;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.example.OLDdomain.Import;
 import org.example.presentation.dialogControllers.ImportExportDialogController;
+import org.example.presentation.usermangement.UpdateUserController;
+import org.example.presentation.utilities.CurrentUser;
 
 public class DefaultController implements Initializable
 {
@@ -48,7 +49,7 @@ public class DefaultController implements Initializable
     @FXML
     private Button profileNavigation;
 
-    private DomainHandler domainHandler = new DomainHandler();
+    private DomainFacade domainHandler = new DomainFacade();
     private ProgramListController programListController;
 
 
@@ -84,7 +85,7 @@ public class DefaultController implements Initializable
      * @throws IOException
      */
     private void logout(ActionEvent event) {
-        if (CurrentUser.getInstance().getUserEntity() != null) {
+        if (CurrentUser.getInstance().getUser() != null) {
             CurrentUser.getInstance().init(null); //Logs off
             login.setText(LanguageHandler.getText("login"));
             login.setOnAction(this::goToLogin);
@@ -104,10 +105,10 @@ public class DefaultController implements Initializable
     private void goToCreateProgram(ActionEvent event) throws IOException {
 
         CreateProgramController createProgramController = new CreateProgramController();
-        ProgramEntity programEntity = createProgramController.openView();
+        Program programEntity = createProgramController.openView();
         if (programEntity != null)
         {
-            programListController.programEntityList.add(programEntity);
+            programListController.listOfPrograms.add(programEntity);
             programListController.updateProgramList();
         }
     }
@@ -123,6 +124,7 @@ public class DefaultController implements Initializable
             return;
         }
 
+        /*
         var loadedPrograms = Import.loadPrograms(selectedFile);
 
         if (loadedPrograms.isEmpty())
@@ -136,8 +138,10 @@ public class DefaultController implements Initializable
                             LanguageHandler.getText("programs"), "Import Dialog");
         }
 
-        ProgramListController.getInstance().programEntityList.addAll(loadedPrograms);
+        ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
         ProgramListController.getInstance().updateProgramList();
+
+         */
     }
 
     /**
@@ -160,8 +164,7 @@ public class DefaultController implements Initializable
         if (keyEvent.getCode().equals(KeyCode.ENTER))
         {
             System.out.println("searching");
-            var programs = domainHandler.program().search(searchBar.getText());
-            ProgramListController.getInstance().programEntityList = programs;
+            ProgramListController.getInstance().listOfPrograms = domainHandler.search(searchBar.getText());
             ProgramListController.getInstance().updateProgramList();
         }
     }
@@ -176,8 +179,10 @@ public class DefaultController implements Initializable
             loader = App.getLoader("programList");
             Parent node = loader.load();
             programListController = loader.getController();
-            var allPrograms = domainHandler.program().getAllPrograms();
-            programListController.programEntityList.addAll(allPrograms);
+
+            var allPrograms = domainHandler.getAllPrograms();
+
+            programListController.listOfPrograms.addAll(allPrograms);
             programListController.updateProgramList();
             borderPane.setCenter(node);
         } catch (IOException e) {
@@ -196,9 +201,9 @@ public class DefaultController implements Initializable
      */
     @FXML
     private void openUpdateUser(ActionEvent event) {
-        UserEntity userToUpdate = CurrentUser.getInstance().getUserEntity();
+        User userToUpdate = CurrentUser.getInstance().getUser();
         UpdateUserController updateUserController = new UpdateUserController();
-        UserEntity user = updateUserController.openUpdateUser(event, userToUpdate, userToUpdate.getRole());
+        User user = updateUserController.openUpdateUser(event, userToUpdate);
 
         if (user != null) {
             CurrentUser.getInstance().init(user);
@@ -219,17 +224,17 @@ public class DefaultController implements Initializable
         searchBar.setPromptText(LanguageHandler.getText("searchBarPrompt"));
         navigation.prefWidthProperty().bind(borderPane.widthProperty());
 
-        if (CurrentUser.getInstance().getUserEntity() != null) {
+        if (CurrentUser.getInstance().getUser() != null) {
             login.setText(LanguageHandler.getText("logoff"));
             login.setOnAction(this::logout);
             profileNavigation.setVisible(true);
 
-            if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
+            if (CurrentUser.getInstance().getUser().getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
                 createProgram.setVisible(true);
             }
 
-            if (CurrentUser.getInstance().getUserEntity().getRole() == Role.Admin)
+            if (CurrentUser.getInstance().getUser().getRole() == Role.Admin)
             {
                 importBtn.setVisible(true);
             }

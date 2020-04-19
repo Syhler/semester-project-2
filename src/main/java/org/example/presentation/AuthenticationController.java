@@ -10,9 +10,10 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.OLDdomain.DomainHandler;
-import org.example.OLDentity.UserEntity;
+import org.example.domain.DomainFacade;
+import org.example.domain.User;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.utilities.CurrentUser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,7 +32,7 @@ public class AuthenticationController implements Initializable {
     @FXML
     private Label passwordLabel;
 
-    private DomainHandler domainHandler = new DomainHandler();
+    private DomainFacade domainHandler = new DomainFacade();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,7 +44,7 @@ public class AuthenticationController implements Initializable {
      * Opens the login page and waits until the user have logged in or cancel
      * @return currentUser
      */
-    public UserEntity openLoginStage(ActionEvent event)
+    public User openLoginStage(ActionEvent event)
     {
         var loginStage = new Stage();
 
@@ -60,7 +61,7 @@ public class AuthenticationController implements Initializable {
         loginStage.initOwner(((Node)event.getTarget()).getScene().getWindow());
         loginStage.setResizable(false);
         loginStage.showAndWait();
-        return CurrentUser.getInstance().getUserEntity();
+        return CurrentUser.getInstance().getUser();
     }
 
 
@@ -78,7 +79,7 @@ public class AuthenticationController implements Initializable {
             return;
         }
 
-        var user = domainHandler.authentication().login(usernameField.getText(), passwordField.getText());
+        var user = domainHandler.getAuthentication().login(usernameField.getText(), passwordField.getText());
 
         if (user != null)
         {

@@ -1,6 +1,8 @@
 package org.example.domain;
 
+import org.example.domain.mapper.CreditMapper;
 import org.example.domain.mapper.ProgramMapper;
+import org.example.domain.mapper.UserMapper;
 import org.example.persistence.PersistenceHandler;
 
 import java.util.List;
@@ -24,16 +26,6 @@ public class Program
         this.company = company;
     }
 
-    public boolean update()
-    {
-        var mapped = ProgramMapper.map(this);
-        return persistenceHandler.program().updateProgram(mapped);
-    }
-
-    public boolean delete()
-    {
-        return persistenceHandler.program().deleteProgram(id);
-    }
 
     public long getId() {
         return id;
@@ -54,4 +46,48 @@ public class Program
     public ProgramInformation getProgramInformation() {
         return programInformation;
     }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public void setCredits(List<Credit> credits) {
+        this.credits = credits;
+    }
+
+    public void setProducers(List<User> producers) {
+        this.producers = producers;
+    }
+
+    public boolean deleteCredit(Credit creditToDelete) {
+        var mapped = CreditMapper.map(creditToDelete);
+
+        credits.removeIf(credit -> credit.getUser().getId() == credit.getUser().getId());
+
+        return persistenceHandler.program().removeCreditFromProgram(mapped);
+    }
+
+    public boolean deleteProducer(User producerToDelete) {
+        var mapped = UserMapper.map(producerToDelete);
+
+        producers.removeIf(producer -> producer.getId() == producerToDelete.getId());
+
+        return persistenceHandler.program().removeUserFromProgram(mapped, id);
+
+    }
+
+    public boolean update()
+    {
+        var mapped = ProgramMapper.map(this);
+        return persistenceHandler.program().updateProgram(mapped);
+    }
+
+    public boolean delete()
+    {
+        return persistenceHandler.program().deleteProgram(id);
+    }
+
+
+
+
 }

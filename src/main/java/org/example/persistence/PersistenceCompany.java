@@ -21,7 +21,7 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
 
 
     @Override
-    public List<CompanyEntity> getCompanies() {
+    public List<CompanyEntity> getAllCompanies() {
         List<CompanyEntity> companies = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +

@@ -12,8 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.App;
-import org.example.OLDdomain.DomainHandler;
-import org.example.OLDentity.*;
+import org.example.domain.*;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -50,9 +49,9 @@ public class UpdateProgramController implements Initializable {
     @FXML
     private Label updateProgramProducer;
     @FXML
-    private ComboBox<CompanyEntity> chooseCompany;
+    private ComboBox<Company> chooseCompany;
     @FXML
-    private ComboBox<UserEntity> chooseProducer;
+    private ComboBox<User> chooseProducer;
     @FXML
     private TextArea creditList;
     @FXML
@@ -62,19 +61,17 @@ public class UpdateProgramController implements Initializable {
     @FXML
     private Label addCreditHeader;
     @FXML
-    private ComboBox<CreditEntity> chooseCredit;
+    private ComboBox<Credit> chooseCredit;
     @FXML
     private Button addCreditButton;
 
     private int maxSizeTitle = 100;
     private int maxSizeDesc = 1000;
-    private List<UserEntity> producers = new ArrayList<UserEntity>();
-    private List<CreditEntity> credits = new ArrayList<CreditEntity>();
-    private CompanyEntity company;
-    private ProgramEntity programEntity;
+    private List<User> producers = new ArrayList<>();
+    private List<Credit> credits = new ArrayList<>();
+    private Program globalProgram;
 
-    private DomainHandler domainHandler = new DomainHandler();
-    private long programId;
+    private DomainFacade domainHandler = new DomainFacade();
 
 
     @FXML
@@ -85,10 +82,10 @@ public class UpdateProgramController implements Initializable {
 
     /**
      * Opens "updateProgram.fxml" as a popup scene.
-     * @param programEntity of the program that you want to open
+     * @param program of the program that you want to open
      * @return a programEntity with its different variables filled.
      */
-    public ProgramEntity openView(ProgramEntity programEntity) throws IOException {
+    public Program openView(Program program) throws IOException {
 
         FXMLLoader loader = null;
         loader = App.getLoader("updateProgram");
@@ -96,24 +93,25 @@ public class UpdateProgramController implements Initializable {
         UpdateProgramController updateProgramController = loader.<UpdateProgramController>getController();
 
 
-        if (programEntity != null) {
-            updateProgramController.updateInsertTitle.setText(programEntity.getName());
-            updateProgramController.updateInsertDescription.setText(programEntity.getDescription());
+        if (program != null) {
+            updateProgramController.updateInsertTitle.setText(program.getProgramInformation().getTitle());
+            updateProgramController.updateInsertDescription.setText(program.getProgramInformation().getDescription());
 
 
-            if (programEntity.getProducer() != null) {
-                for (int i = 0; i < programEntity.getProducer().size(); i++) {
-                    updateProgramController.producerList.appendText(programEntity.getProducer().get(i).getName() + "\n");
+            if (program.getProducers() != null) {
+                for (int i = 0; i < program.getProducers().size(); i++) {
+                    updateProgramController.producerList.appendText(program.getProducers().get(i).getName() + "\n");
                 }
             }
 
-            if (programEntity.getCredits() != null) {
-                for (int i = 0; i < programEntity.getCredits().size(); i++) {
-                    updateProgramController.creditList.appendText(programEntity.getCredits().get(i).getActor().getNameAndTitle() + "\n");
+            if (program.getCredits() != null) {
+                for (int i = 0; i < program.getCredits().size(); i++) {
+                    var user = program.getCredits().get(i).getUser();
+                    updateProgramController.creditList.appendText(user.getFullName() +  ": " + user.getTitle()  +"\n");
                 }
             }
 
-            updateProgramController.programId = programEntity.getId();
+            //updateProgramController.programId = program.getId();
         }
 
 
@@ -127,7 +125,7 @@ public class UpdateProgramController implements Initializable {
         stage.setResizable(false);
         stage.showAndWait();
 
-        return updateProgramController.programEntity;
+        return updateProgramController.globalProgram;
     }
 
     /**
@@ -158,33 +156,23 @@ public class UpdateProgramController implements Initializable {
         });
     }
 
-    /**
-     * Gets all companies from the database and puts them in a list
-     * @return list of CompanyEntity
-     */
-    public List<CompanyEntity> companiesFromDatabase()
-    {
-        List<CompanyEntity> companies = new ArrayList<>();
-        companies = domainHandler.company().getCompanies();
-
-        return companies;
-    }
 
     /**
      * Enables user to choose a company from a comboBox
      */
     public void chooseCompany()
     {
-        chooseCompany.getItems().addAll(companiesFromDatabase());
+        var companies = domainHandler.getAllCompanies();
+        chooseCompany.getItems().addAll(companies);
 
-        Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactory = new Callback<>() {
+        Callback<ListView<Company>, ListCell<Company>> cellFactory = new Callback<>() {
 
             @Override
-            public ListCell<CompanyEntity> call(ListView<CompanyEntity> l) {
-                return new ListCell<CompanyEntity>() {
+            public ListCell<Company> call(ListView<Company> l) {
+                return new ListCell<>() {
 
                     @Override
-                    protected void updateItem(CompanyEntity item, boolean empty) {
+                    protected void updateItem(Company item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item == null || empty) {
                             setGraphic(null);
@@ -205,23 +193,23 @@ public class UpdateProgramController implements Initializable {
      */
     public void chooseProducer()
     {
-        var producers = domainHandler.user().getUserByRole(Role.Producer);
+        var producers = domainHandler.getUserByRole(Role.Producer);
 
         chooseProducer.getItems().addAll(producers);
 
-        Callback<ListView<UserEntity>, ListCell<UserEntity>> cellFactory = new Callback<>() {
+        Callback<ListView<User>, ListCell<User>> cellFactory = new Callback<>() {
 
             @Override
-            public ListCell<UserEntity> call(ListView<UserEntity> l) {
-                return new ListCell<UserEntity>() {
+            public ListCell<User> call(ListView<User> user) {
+                return new ListCell<>() {
 
                     @Override
-                    protected void updateItem(UserEntity item, boolean empty) {
+                    protected void updateItem(User item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item == null || empty) {
                             setGraphic(null);
                         } else {
-                            setText(item.getName());
+                            setText(item.getFullName());
                         }
                     }
                 };
@@ -238,8 +226,10 @@ public class UpdateProgramController implements Initializable {
      */
     public void addProducer(ActionEvent event)
     {
-        UserEntity producer = chooseProducer.getSelectionModel().getSelectedItem();
-        producerList.appendText(producer.getName()+"\n");
+        User producer = chooseProducer.getSelectionModel().getSelectedItem();
+
+        producerList.appendText(producer.getFullName()+"\n");
+
         producers.add(chooseProducer.getSelectionModel().getSelectedItem());
     }
 
@@ -247,12 +237,12 @@ public class UpdateProgramController implements Initializable {
      * Test method, should be deleted. Creates some CreditEntity and put them in a list
      * @return list of CreditEntity
      */
-    public List<CreditEntity> creditsFromDatabase()
+    public List<Credit> getActorsFromDatabase()
     {
-        List<CreditEntity> credits = new ArrayList<CreditEntity>();
-        var actors = domainHandler.user().getUserByRole(Role.Actor);
-        for (UserEntity actor: actors) {
-            credits.add(new CreditEntity(actor));
+        List<Credit> credits = new ArrayList<>();
+        var actors = domainHandler.getUserByRole(Role.Actor);
+        for (User actor: actors) {
+            credits.add(new Credit(actor));
         }
 
         return credits;
@@ -263,21 +253,21 @@ public class UpdateProgramController implements Initializable {
      */
     public void chooseCredit()
     {
-        chooseCredit.getItems().addAll(creditsFromDatabase());
+        chooseCredit.getItems().addAll(getActorsFromDatabase());
 
-        Callback<ListView<CreditEntity>, ListCell<CreditEntity>> cellFactory = new Callback<>() {
+        Callback<ListView<Credit>, ListCell<Credit>> cellFactory = new Callback<>() {
 
             @Override
-            public ListCell<CreditEntity> call(ListView<CreditEntity> l) {
-                return new ListCell<CreditEntity>() {
+            public ListCell<Credit> call(ListView<Credit> l) {
+                return new ListCell<Credit>() {
 
                     @Override
-                    protected void updateItem(CreditEntity item, boolean empty) {
+                    protected void updateItem(Credit item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item == null || empty) {
                             setGraphic(null);
                         } else {
-                            setText(item.getActor().getNameAndTitle());
+                            setText(item.getUser().getFullName() + ": " + item.getUser().getTitle());
                         }
                     }
                 };
@@ -293,8 +283,10 @@ public class UpdateProgramController implements Initializable {
      */
     public void addCredit(ActionEvent event)
     {
-        CreditEntity credit = chooseCredit.getSelectionModel().getSelectedItem();
-        creditList.appendText(credit.getActor().getNameAndTitle()+"\n");
+        Credit credit = chooseCredit.getSelectionModel().getSelectedItem();
+
+        creditList.appendText(credit.getUser().getFullName() + ": " + credit.getUser().getTitle()+"\n");
+
         credits.add(chooseCredit.getSelectionModel().getSelectedItem());
     }
 
@@ -306,24 +298,15 @@ public class UpdateProgramController implements Initializable {
     @FXML
     public void goToCreateCredit(ActionEvent event) throws IOException {
         CreditController creditController = new CreditController();
-        UserEntity credit = creditController.openView();
+        User credit = creditController.openView();
 
         if (credit == null) return;
 
-        creditList.appendText(credit.getNameAndTitle() +"\n");
-        CreditEntity creditEntity = new CreditEntity(0,credit);
+        creditList.appendText(credit.getFullName() + ": " + credit.getTitle()+"\n");
+        Credit creditEntity = new Credit(0,credit);
         credits.add(creditEntity);
     }
 
-    public String getTitle()
-    {
-        return updateInsertTitle.getText();
-    }
-
-    public String getDescription()
-    {
-        return updateInsertDescription.getText();
-    }
 
     /**
      * Updates the different objects in a program
@@ -332,13 +315,22 @@ public class UpdateProgramController implements Initializable {
     @FXML
     public void updateProgram(ActionEvent event)
     {
-        company = chooseCompany.getSelectionModel().getSelectedItem();
+        Company company = chooseCompany.getSelectionModel().getSelectedItem();
 
-        String title = getTitle();
+        String title = updateInsertTitle.getText();
 
-        String description = getDescription();;
+        String description = updateInsertDescription.getText();;
 
-        programEntity = new ProgramEntity(programId, title, description, company, producers, credits);
+        //globalProgram = new Program(programId, title, description, company, producers, credits);
+
+        globalProgram.getProgramInformation().setTitle(title);
+        globalProgram.getProgramInformation().setDescription(description);
+        globalProgram.setCompany(company);
+        globalProgram.setProducers(producers);
+        globalProgram.setCredits(credits);
+
+        globalProgram.update();
+
 
         closeUpdateProgram(event);
     }

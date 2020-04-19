@@ -10,6 +10,10 @@ public class Credit
         this.user = user;
     }
 
+    public Credit(User user) {
+        this.user = user;
+    }
+
     public long getProgramId() {
         return programId;
     }

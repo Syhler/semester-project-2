@@ -14,11 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.OLDdomain.DomainHandler;
-import org.example.OLDdomain.Export;
-import org.example.OLDentity.CreditEntity;
-import org.example.OLDentity.ProgramEntity;
-import org.example.OLDentity.UserEntity;
+import org.example.domain.Credit;
+import org.example.domain.DomainFacade;
+import org.example.domain.Program;
+import org.example.domain.User;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.dialogControllers.ImportExportDialogController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
@@ -69,25 +68,25 @@ public class ProgramInformationController implements Initializable {
     private Button exportBtn;
 
     @FXML
-    private ListView<CreditEntity> creditListView;
+    private ListView<Credit> creditListView;
 
     @FXML
-    private ListView<UserEntity> producersListView;
+    private ListView<User> producersListView;
 
     @FXML
-    private ListView<CreditEntity> actorListView;
+    private ListView<Credit> actorListView;
 
-    private DomainHandler domainHandler = new DomainHandler();
-    public ProgramEntity programEntity;
+    private DomainFacade domainHandler = new DomainFacade();
+    public Program program;
     public VBox programInfo;
 
 
 
     /**
      * Opens "programInformation.fxml" as a popup scene
-     * @param programEntityObject of the program that should open
+     * @param programObject of the program that should open
      */
-    public void openView(ProgramEntity programEntityObject)
+    public void openView(Program programObject)
     {
         Parent root = null;
         FXMLLoader loader = null;
@@ -102,10 +101,10 @@ public class ProgramInformationController implements Initializable {
 
         if (loader == null || root == null) return;
         ProgramInformationController programInformationController = loader.getController();
-        this.programEntity = domainHandler.program().getProgramById(programEntityObject);
-        programInformationController.programEntity = this.programEntity;
 
-        if (programEntity != null)
+        programInformationController.program = domainHandler.getProgramById(programObject.getId());
+
+        if (programInformationController.program != null)
         {
             setupText(programInformationController);
         }
@@ -131,25 +130,25 @@ public class ProgramInformationController implements Initializable {
 
     private void setupText(ProgramInformationController programInformationController)
     {
-        programInformationController.title.setText(programEntity.getName());
-        programInformationController.descriptionTextArea.setText(programEntity.getDescription());
-        if (programEntity.getCompany() != null) {
-            programInformationController.productionCompany.setText(LanguageHandler.getText("companyInfoHeader") + ": " + programEntity.getCompany().getName());
+        programInformationController.title.setText(program.getProgramInformation().getTitle());
+        programInformationController.descriptionTextArea.setText(program.getProgramInformation().getDescription());
+        if (program.getCompany() != null) {
+            programInformationController.productionCompany.setText(LanguageHandler.getText("companyInfoHeader") + ": " + program.getCompany().getName());
         }
 
-        if (programEntity.getProducer() != null) {
-            for (int i = 0; i < programEntity.getProducer().size(); i++)
+        if (program.getProducers() != null) {
+            for (int i = 0; i < program.getProducers().size(); i++)
             {
-                programInformationController.producersListView.getItems().add(programEntity.getProducer().get(i));
+                programInformationController.producersListView.getItems().add(program.getProducers().get(i));
                 //programInformationController.infoProducer.appendText(programEntity.getProducer().get(i).getFullName() + "\n");
             }
         }
 
-        if (programEntity.getCredits() != null) {
-            for (int i = 0; i < programEntity.getCredits().size(); i++) {
+        if (program.getCredits() != null) {
+            for (int i = 0; i < program.getCredits().size(); i++) {
 
-                var credit = programEntity.getCredits().get(i);
-                if (credit.getActor() == null) continue;
+                var credit = program.getCredits().get(i);
+                if (credit.getUser() == null) continue;
 
                 programInformationController.creditListView.getItems().add(credit);
             }
@@ -177,7 +176,7 @@ public class ProgramInformationController implements Initializable {
             return;
         }
 
-        var exportedPrograms = Export.program(programEntity, file.getPath());
+        /*var exportedPrograms = Export.program(program, file.getPath());
 
         if (exportedPrograms != null)
         {
@@ -187,13 +186,15 @@ public class ProgramInformationController implements Initializable {
         {
             controller.openDialog(event, LanguageHandler.getText("noExport"), "Export Dialog");
         }
+
+         */
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Sets update and delete button visible if logged in user has correct role
-        if (!ControllerUtility.gotAccessToProgram(programEntity))
+        if (!ControllerUtility.gotAccessToProgram(program))
         {
             updateBtn.setVisible(false);
             deleteBtn.setVisible(false);
@@ -213,33 +214,33 @@ public class ProgramInformationController implements Initializable {
 
     }
 
-    private void setListCellFactoryForCredit(ListView<CreditEntity> listView)
+    private void setListCellFactoryForCredit(ListView<Credit> listView)
     {
         listView.setCellFactory(param -> new ListCell<>() {
             @Override
-            protected void updateItem(CreditEntity item, boolean empty) {
+            protected void updateItem(Credit item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (empty || item == null || item.getActor() == null) {
+                if (empty || item == null || item.getUser() == null) {
                     setText(null);
                 } else {
-                    setText(item.getActor().getNameAndTitle());
+                    setText(item.getUser().getFullName() + ": " + item.getUser().getTitle());
                 }
             }
         });
     }
 
-    private void setListCellFactory(ListView<UserEntity> listView)
+    private void setListCellFactory(ListView<User> listView)
     {
         listView.setCellFactory(param -> new ListCell<>() {
             @Override
-            protected void updateItem(UserEntity item, boolean empty) {
+            protected void updateItem(User item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (empty || item == null || item.getNameAndTitle() == null) {
+                if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getNameAndTitle());
+                    setText(item.getFullName() + ": " + item.getTitle());
                 }
             }
         });
@@ -254,15 +255,15 @@ public class ProgramInformationController implements Initializable {
     @FXML
     public void updateOnAction(ActionEvent event) throws IOException {
         UpdateProgramController updateProgramController = new UpdateProgramController();
-        this.programEntity = updateProgramController.openView(programEntity);
+        this.program = updateProgramController.openView(program);
 
-        if (programEntity != null)
+        if (program != null)
         {
             setupText(this);
-            domainHandler.program().updateProgram(programEntity);
+            //domainHandler.program().updateProgram(program);
 
             try {
-                ProgramListController.getInstance().updateProgramInList(programEntity);
+                ProgramListController.getInstance().updateProgramInList(program);
                 ProgramListController.getInstance().updateProgramList();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -280,11 +281,13 @@ public class ProgramInformationController implements Initializable {
      */
     @FXML
     public void deleteOnAction(ActionEvent event) throws IOException {
-        domainHandler.program().deleteProgram(this.programEntity);
-        if (programEntity != null)
+        //domainHandler.program().deleteProgram(this.program);
+        program.delete();
+
+        if (program != null)
         {
             try {
-                ProgramListController.getInstance().removeProgramFromList(programEntity);
+                ProgramListController.getInstance().removeProgramFromList(program);
                 ProgramListController.getInstance().updateProgramList();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -299,9 +302,10 @@ public class ProgramInformationController implements Initializable {
     public void actorOnDelete(ActionEvent event)
     {
         var selectedActor = actorListView.getSelectionModel().getSelectedItem();
-        var deleted = domainHandler.program().removeCreditFromProgram(selectedActor);
+        //var deleted = domainHandler.program().removeCreditFromProgram(selectedActor);
+        var wasDeleted = program.deleteCredit(selectedActor);
 
-        if (!deleted) return;
+        if (!wasDeleted) return;
         if (selectedActor == null) return;
 
         actorListView.getItems().remove(selectedActor);
@@ -310,19 +314,21 @@ public class ProgramInformationController implements Initializable {
     public void producerOnDelete(ActionEvent event)
     {
         var selectedProducer = producersListView.getSelectionModel().getSelectedItem();
-        var deleted = domainHandler.program().removeUserFromProgram(selectedProducer, programEntity.getId());
+        var wasDeleted = program.deleteProducer(selectedProducer);
 
-        if (!deleted) return;
+        if (!wasDeleted) return;
         if (selectedProducer == null) return;
 
         producersListView.getItems().remove(selectedProducer);
     }
 
     public void creditOnDelete(ActionEvent event) {
-        var selectedCredit = creditListView.getSelectionModel().getSelectedItem();
-        var deleted = domainHandler.program().removeCreditFromProgram(selectedCredit);
 
-        if (!deleted)return;
+        var selectedCredit = actorListView.getSelectionModel().getSelectedItem();
+        //var deleted = domainHandler.program().removeCreditFromProgram(selectedActor);
+        var wasDeleted = program.deleteCredit(selectedCredit);
+
+        if (!wasDeleted) return;
         if (selectedCredit == null) return;
 
         creditListView.getItems().remove(selectedCredit);
@@ -334,7 +340,7 @@ public class ProgramInformationController implements Initializable {
         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
             if(mouseEvent.getClickCount() == 2){
 
-                if (!ControllerUtility.gotAccessToProgram(programEntity)) return;
+                if (!ControllerUtility.gotAccessToProgram(program)) return;
 
                 descriptionTextArea.setEditable(true);
 

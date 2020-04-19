@@ -12,7 +12,7 @@ public interface IPersistenceProgram
     List<ProgramEntity> importPrograms(List<ProgramEntity> programEntities);
     boolean deleteProgram(long programId);
     boolean updateProgram(ProgramEntity programEntity);
-    ProgramEntity getProgramById(int id);
+    ProgramEntity getProgramById(long id);
     List<ProgramEntity> getAllPrograms();
     List<ProgramEntity> getProgramsByProducer(UserEntity producer);
     List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity);

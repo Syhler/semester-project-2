@@ -485,7 +485,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             createUserIfDoesntExists(programEntity.getCredits());
             updateProducerForProgram(programEntity);
             updateCredit(programEntity);
-            //updateCompanyProgram(programEntity);
             checkCompanyProgram(programEntity);
             stmt.executeUpdate();
 
@@ -501,7 +500,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * Selects information on every actor on a given program.
      * @return list of all the actors on a program.
      */
-    public ArrayList<CreditEntity> getCreditUser(int programId){
+    public ArrayList<CreditEntity> getCreditUser(long programId){
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT credit.program, \"user\".id, \"user\".title, \"user\"" +
                     ".firstname, \"user\".middlename ,\"user\".lastname,\"user\".email from credit inner join " +
@@ -524,7 +523,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * Selects information on all producers on a given program
      * @return list of all the users on a program.
      */
-    private ArrayList<UserEntity> getProducerForProgram(int programId){
+    private ArrayList<UserEntity> getProducerForProgram(long programId){
         try {
             PreparedStatement statement = connection.prepareStatement("select \"user\".id, \"user\".title,firstname, middlename, lastname, " +
                     "email from programproducer inner join \"user\" on programproducer.producer_id = \"user\".id " +
@@ -549,7 +548,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * Selects information the company that is connected to the program
      * @return A company entity
      */
-    private CompanyEntity getCompanyProgram(int programId){
+    private CompanyEntity getCompanyProgram(long programId){
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT company.name , company.id from company" +
                     " inner join companyprogram  on company.id = companyprogram.company where program = ?");
@@ -571,11 +570,10 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
 
     /**
      * Returns information based on a given programs id.
-     * @param programEntity
      * @return A progrmaentity
      */
     @Override
-    public ProgramEntity getProgramById(int programId) {
+    public ProgramEntity getProgramById(long programId) {
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT programinformation.description ," +
                     " programinformation.title , programinformation.program_id FROM programinformation, program  where programinformation.program_id = ? ");

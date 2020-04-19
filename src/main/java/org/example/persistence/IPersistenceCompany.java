@@ -8,7 +8,7 @@ import java.util.List;
 public interface IPersistenceCompany
 {
 
-    List<CompanyEntity> getCompanies();
+    List<CompanyEntity> getAllCompanies();
     boolean deleteCompany(CompanyEntity companyEntity);
     boolean updateCompany(CompanyEntity companyEntity);
     long createCompany(CompanyEntity companyEntity);

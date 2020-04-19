@@ -4,9 +4,11 @@ package org.example.domain;
 
 
 
+import org.example.domain.mapper.CompanyMapper;
 import org.example.domain.mapper.ProgramInformationMapper;
 import org.example.domain.mapper.ProgramMapper;
 import org.example.domain.mapper.UserMapper;
+import org.example.domain.password.PasswordHashing;
 import org.example.persistence.PersistenceHandler;
 import org.example.persistence.entities.ProgramEntity;
 import org.example.persistence.entities.UserEntity;
@@ -17,7 +19,7 @@ public class DomainFacade
 {
     private PersistenceHandler persistenceHandler = new PersistenceHandler();
 
-    public Program getProgramById(int programId)
+    public Program getProgramById(long programId)
     {
         ProgramEntity programEntity = persistenceHandler.program().getProgramById(programId);
 
@@ -38,6 +40,20 @@ public class DomainFacade
         return UserMapper.map(userEntities);
     }
 
+    public List<User> getUserByRole(Role role)
+    {
+        var users = persistenceHandler.user().getUserByRole(role.getValue());
+
+        return UserMapper.map(users);
+    }
+
+    public List<Company> getAllCompanies()
+    {
+        var companies = persistenceHandler.company().getAllCompanies();
+
+        return CompanyMapper.map(companies);
+    }
+
     public Program createProgram(ProgramInformation programInformation)
     {
         var programInformationEntity = ProgramInformationMapper.map(programInformation);
@@ -47,22 +63,46 @@ public class DomainFacade
         return ProgramMapper.map(createdProgram);
     }
 
+    public Authentication getAuthentication()
+    {
+        return new Authentication();
+    }
+
     public Program createProgram(List<ProgramInformation> programInformations)
     {
         return null;
     }
 
-    public Company createCompany()
+    public Company createCompany(Company company)
     {
-        return null;
+        var companyEntity = CompanyMapper.map(company);
+        var id = persistenceHandler.company().createCompany(companyEntity);
+        company.setId(id);
+        return company;
     }
 
-    public User createUser()
+    public User createUser(User user, String password)
     {
-        return null;
+        var userEntity = UserMapper.map(user);
+
+        var passwordSalt = PasswordHashing.generateSalt();
+        try {
+
+            var encryptedPassword = PasswordHashing.sha256(password,passwordSalt);
+            var id = persistenceHandler.user().createUser(userEntity, encryptedPassword, passwordSalt);
+            user.setId(id);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return user;
     }
 
 
+    public List<Program> search(String query) {
+        var programEntites = persistenceHandler.program().search(query);
+
+        return ProgramMapper.map(programEntites);
+    }
 }
 
 

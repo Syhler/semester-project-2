@@ -11,8 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.OLDdomain.DomainHandler;
-import org.example.OLDentity.ProgramEntity;
+import org.example.domain.DomainFacade;
+import org.example.domain.Program;
+import org.example.domain.ProgramInformation;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
@@ -40,16 +41,16 @@ public class CreateProgramController implements Initializable {
 
     private int maxSizeDesc = 1000;
     private int maxSizeTitle = 100;
-    private ProgramEntity programEntity;
+    private Program program;
 
 
-    private DomainHandler domainHandler = new DomainHandler();
+    private DomainFacade domainHandler = new DomainFacade();
 
     /**
      * Opens "createProgram.fxml" as a popup scene
      * @return ProgramEntity of the program created
      */
-    public ProgramEntity openView()
+    public Program openView()
     {
         Parent root = null;
         FXMLLoader loader = null;
@@ -70,7 +71,7 @@ public class CreateProgramController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.showAndWait();
-        return createProgramController.programEntity;
+        return createProgramController.program;
     }
 
     @FXML
@@ -87,23 +88,23 @@ public class CreateProgramController implements Initializable {
      */
     @FXML
     public void goToUpdateProgram(ActionEvent event) throws IOException {
-        ProgramEntity programEntity = new ProgramEntity(getTitle(), getDescription(),null,null,null);
-        long programId = domainHandler.program().createProgram(programEntity);
-        programEntity.setId(programId);
+        ProgramInformation programInformation = new ProgramInformation(getTitle(), getDescription());
+        program = domainHandler.createProgram(programInformation);
+
         UpdateProgramController updateProgramController = new UpdateProgramController();
-        this.programEntity = updateProgramController.openView(programEntity);
+        this.program = updateProgramController.openView(program);
 
         closeCreateProgram(event);
     }
 
 
 
-    public String getTitle()
+    private String getTitle()
     {
         return insertTitle.getText();
     }
 
-    public String getDescription()
+    private String getDescription()
     {
         return insertDescription.getText();
     }

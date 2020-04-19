@@ -15,7 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.example.App;
-import org.example.OLDentity.ProgramEntity;
+import org.example.domain.Program;
 
 public class ProgramListController implements Initializable {
     @FXML
@@ -26,7 +26,7 @@ public class ProgramListController implements Initializable {
     @FXML
     private VBox programList;
 
-    public List<ProgramEntity> programEntityList = new ArrayList<>();
+    public List<Program> listOfPrograms = new ArrayList<>();
 
     private static ProgramListController programListController = null;
 
@@ -47,12 +47,12 @@ public class ProgramListController implements Initializable {
 
     /**
      * Loads the "program.fxml", gives it a title based on the given ProgramEntity
-     * @param programEntity
+     * @param program
      * @return
      */
-    public Node showProgramList(ProgramEntity programEntity)
+    public Node showProgramList(Program program)
     {
-        if (programEntity == null)
+        if (program == null)
         {
             return null;
         }
@@ -61,10 +61,10 @@ public class ProgramListController implements Initializable {
             loader = App.getLoader("program");
             Parent node = loader.load();
             ProgramController programController = loader.<ProgramController>getController();
-            programController.title.setText(programEntity.getName());
+            programController.title.setText(program.getProgramInformation().getTitle());
             programController.program.prefWidthProperty().bind(listGridPane.widthProperty());
             //programController.program.setMaxWidth(240);
-            programController.programEntity = programEntity;
+            programController.programEntity = program;
 
             return node;
         } catch (IOException e) {
@@ -75,12 +75,12 @@ public class ProgramListController implements Initializable {
 
     /**
      * Updates a programEntity in the list, so that correct information is showed in the ui
-     * @param programEntity of the program you want to update
+     * @param program of the program you want to update
      */
-    public void updateProgramInList(ProgramEntity programEntity) {
-        for (ProgramEntity entity : programEntityList) {
-            if (entity.getId() == programEntity.getId()) {
-                entity.setName(programEntity.getName());
+    public void updateProgramInList(Program program) {
+        for (Program temp : listOfPrograms) {
+            if (temp.getId() == program.getId()) {
+                temp.getProgramInformation().setTitle(program.getProgramInformation().getTitle());
                 break;
             }
         }
@@ -88,14 +88,14 @@ public class ProgramListController implements Initializable {
 
     /**
      * Removes a programEntity from the list, so that correct inforamtion is showed in the ui
-     * @param programEntity of the program you want to delete
+     * @param program of the program you want to delete
      */
-    public void removeProgramFromList(ProgramEntity programEntity)
+    public void removeProgramFromList(Program program)
     {
-        for (int i = 0; i < programEntityList.size(); i++)
+        for (int i = 0; i < listOfPrograms.size(); i++)
         {
-            if (programEntityList.get(i).getId() == programEntity.getId()) {
-                programEntityList.remove(i);
+            if (listOfPrograms.get(i).getId() == program.getId()) {
+                listOfPrograms.remove(i);
                 break;
             }
         }
@@ -111,7 +111,7 @@ public class ProgramListController implements Initializable {
         int rowSize = 0;
         int columnSize = 0;
 
-        for (int i = 0; i < programEntityList.size(); i++)
+        for (int i = 0; i < listOfPrograms.size(); i++)
         {
             if (i%4 == 0)
             {
@@ -126,7 +126,7 @@ public class ProgramListController implements Initializable {
                 columnSize = 0;
             }
 
-            listGridPane.add(showProgramList(programEntityList.get(i)),columnSize,rowSize);
+            listGridPane.add(showProgramList(listOfPrograms.get(i)),columnSize,rowSize);
         }
     }
 

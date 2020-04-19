@@ -11,10 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.OLDentity.Role;
-import org.example.OLDentity.UserEntity;
+import org.example.domain.Role;
+import org.example.domain.User;
 import org.example.presentation.utilities.ControllerUtility;
-import org.example.presentation.CurrentUser;
+import org.example.presentation.utilities.CurrentUser;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
@@ -49,27 +49,13 @@ public class CreditController implements Initializable {
     @FXML
     private Button cancelBtn;
     @FXML
-    private UserEntity creditActor;
-
-
-    @FXML
-    private void createCredit() throws IOException {
-
-    }
-    @FXML
-    private void updateCredit() throws IOException {
-
-    }
-    @FXML
-    private void deleteCredit() throws IOException {
-
-    }
+    private User creditActor;
 
     /**
      * Opens "createCredit.fxml" as a popup scene
      * @return a UserEntity with its different variables
      */
-    public UserEntity openView() {
+    public User openView() {
         FXMLLoader loader = null;
         try {
             loader = App.getLoader("createCredit");
@@ -91,16 +77,19 @@ public class CreditController implements Initializable {
 
     /**
      * Creates a UserEntity and sets its parameters to what has been entered in the text areas in the "createCredits" scene
-     * @param event
-     * @throws IOException
      */
     @FXML
-    public void createActor(ActionEvent event) throws IOException {
-        UserEntity actorCredit = new UserEntity(creaditTitlePrompt.getText(), firstNamePrompt.getText(),
-                middleNamePrompt.getText(), lastNamePrompt.getText(), new Date(), emailPrompt.getText());
-        actorCredit.setRole(Role.Actor);
-        actorCredit.setCreatedBy(CurrentUser.getInstance().getUserEntity());
-        creditActor = actorCredit;
+    public void createActor(ActionEvent event) {
+        //TODO create company
+        creditActor = new User(
+                creaditTitlePrompt.getText(),
+                firstNamePrompt.getText(),
+                middleNamePrompt.getText(),
+                lastNamePrompt.getText(),
+                new Date(),
+                emailPrompt.getText(),
+                Role.Actor,
+                CurrentUser.getInstance().getUser());
 
         closeCreateCredit(event);
     }

@@ -1,13 +1,13 @@
-package org.example.presentation;
+package org.example.presentation.utilities;
 
-import org.example.OLDentity.ProgramEntity;
-import org.example.OLDentity.Role;
-import org.example.OLDentity.UserEntity;
+import org.example.domain.Program;
+import org.example.domain.Role;
+import org.example.domain.User;
 
 public class CurrentUser {
 
     private static CurrentUser single_instance = null;
-    private UserEntity currentUser;
+    private User currentUser;
 
     public static CurrentUser getInstance()
     {
@@ -17,19 +17,19 @@ public class CurrentUser {
         return single_instance;
     }
 
-    public UserEntity getUserEntity() {
+    public User getUser() {
         return currentUser;
     }
 
-    public void init(UserEntity userEntity) {
+    public void init(User userEntity) {
         this.currentUser = userEntity;
     }
 
-    public boolean gotAccessToProgram(ProgramEntity programEntity)
+    public boolean gotAccessToProgram(Program programEntity)
     {
         if (currentUser.getRole() == Role.Admin) return true;
 
-        for (var producer: programEntity.getProducer()) {
+        for (var producer: programEntity.getProducers()) {
             if (producer.getId() == currentUser.getId())
             {
                 return true;

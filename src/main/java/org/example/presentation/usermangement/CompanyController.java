@@ -1,4 +1,4 @@
-package org.example.presentation;
+package org.example.presentation.usermangement;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,8 +14,8 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.OLDdomain.DomainHandler;
-import org.example.OLDentity.CompanyEntity;
+import org.example.domain.Company;
+import org.example.domain.DomainFacade;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.utilities.UsermanagementUtilities;
 
@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 
 public class CompanyController implements Initializable {
 
-    private DomainHandler domainHandler = new DomainHandler();
+    private DomainFacade domainHandler = new DomainFacade();
     @FXML
     private Button createCompany;
     @FXML
@@ -55,12 +55,12 @@ public class CompanyController implements Initializable {
     private TextField companyNameToUpdate;
 
     @FXML
-    private ListView<CompanyEntity> companyList;
+    private ListView<Company> companyList;
 
     @FXML
     private Label statusText;
 
-    private ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
+    private ObservableList<Company> companyEntities = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -82,18 +82,16 @@ public class CompanyController implements Initializable {
         var cellFactory = UsermanagementUtilities.cellFactoryUserManagement();
 
         companyList.setCellFactory(cellFactory);
-        companyEntities.addAll(domainHandler.company().getCompanies());
+        var companies = domainHandler.getAllCompanies();
+        companyEntities.addAll(companies);
 
-        companyList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CompanyEntity>() {
+        companyList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Company>() {
 
             /**
              * Adds an eventlistener to the ListView cells, so data from clicked cell is displayed in update company inputs
-             * @param observable
-             * @param oldValue
-             * @param newValue
              */
             @Override
-            public void changed(ObservableValue<? extends CompanyEntity> observable, CompanyEntity oldValue, CompanyEntity newValue) {
+            public void changed(ObservableValue<? extends Company> observable, Company oldValue, Company newValue) {
                 companyNameToUpdate.setText(newValue.getName());
                 companyId.setText(String.valueOf(newValue.getId()));
             }
@@ -138,19 +136,17 @@ public class CompanyController implements Initializable {
      */
     @FXML
     public void createCompany(ActionEvent event) throws IOException {
-        CompanyEntity newCompany = new CompanyEntity(companyNameInput.getText());
+        Company newCompany = new Company(companyNameInput.getText());
 
-        long id = domainHandler.company().createCompany(newCompany);
+        newCompany = domainHandler.createCompany(newCompany);
 
-        if (id != 0) {
-            newCompany.setId(id);
+        if (newCompany.getId() != 0) {
             setStatusText(newCompany.getName() + " "+LanguageHandler.getText("companyCreated"));
             companyEntities.add(newCompany);
 
         } else {
             setStatusText(newCompany.getName() + " "+LanguageHandler.getText("companyNotCreated"));
         }
-
 
     }
 
@@ -162,10 +158,10 @@ public class CompanyController implements Initializable {
      */
     @FXML
     public void updateCompany(ActionEvent event) throws IOException {
-        CompanyEntity updatedCompany = new CompanyEntity(companyNameToUpdate.getText());
+        Company updatedCompany = new Company(companyNameToUpdate.getText());
         updatedCompany.setId(Long.parseLong(companyId.getText()));
 
-        boolean companyWasUpdated = domainHandler.company().updateCompany(updatedCompany);
+        boolean companyWasUpdated = updatedCompany.update();
 
         if (companyWasUpdated) {
             setStatusText(updatedCompany.getName() + " "+LanguageHandler.getText("companyUpdated"));
@@ -184,9 +180,9 @@ public class CompanyController implements Initializable {
      */
     @FXML
     public void deleteCompany(ActionEvent event) throws IOException {
-        CompanyEntity selectedCompany = companyList.getSelectionModel().getSelectedItem();
+        Company selectedCompany = companyList.getSelectionModel().getSelectedItem();
 
-        boolean companyWasDeleted = domainHandler.company().deleteCompany(selectedCompany);
+        boolean companyWasDeleted = selectedCompany.delete();
 
         if (companyWasDeleted) {
             setStatusText(selectedCompany.getName() + " "+LanguageHandler.getText("companyDeleted"));

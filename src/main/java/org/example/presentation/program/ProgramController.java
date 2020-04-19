@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import org.example.OLDentity.ProgramEntity;
+import org.example.domain.Program;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +21,7 @@ public class ProgramController implements Initializable
     @FXML
     private ImageView programImage;
 
-    public ProgramEntity programEntity;
+    public Program programEntity;
 
 
     /**
