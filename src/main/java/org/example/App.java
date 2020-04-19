@@ -4,15 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.entity.CompanyEntity;
-import org.example.entity.CreditEntity;
-import org.example.entity.ProgramEntity;
-import org.example.entity.UserEntity;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * JavaFX App

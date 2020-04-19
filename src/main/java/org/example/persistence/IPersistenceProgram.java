@@ -1,18 +1,18 @@
 package org.example.persistence;
 
-import org.example.entity.CompanyEntity;
-import org.example.entity.CreditEntity;
-import org.example.entity.ProgramEntity;
-import org.example.entity.UserEntity;
+
+import org.example.domain.ProgramInformation;
+import org.example.persistence.entities.*;
 
 import java.util.List;
 
 public interface IPersistenceProgram
 {
-    long createProgram(ProgramEntity programEntity);
-    boolean deleteProgram(ProgramEntity programEntity);
+    ProgramEntity createProgram(ProgramInformationEntity programEntity);
+    List<ProgramEntity> importPrograms(List<ProgramEntity> programEntities);
+    boolean deleteProgram(long programId);
     boolean updateProgram(ProgramEntity programEntity);
-    ProgramEntity getProgramById(ProgramEntity programEntity);
+    ProgramEntity getProgramById(int id);
     List<ProgramEntity> getAllPrograms();
     List<ProgramEntity> getProgramsByProducer(UserEntity producer);
     List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity);

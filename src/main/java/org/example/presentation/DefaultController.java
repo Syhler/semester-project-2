@@ -16,16 +16,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import org.example.App;
-import org.example.domain.DomainHandler;
-import org.example.entity.ProgramEntity;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
+import org.example.OLDdomain.DomainHandler;
+import org.example.OLDentity.ProgramEntity;
+import org.example.OLDentity.Role;
+import org.example.OLDentity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.example.domain.Import;
+import org.example.OLDdomain.Import;
 import org.example.presentation.dialogControllers.ImportExportDialogController;
 
 public class DefaultController implements Initializable

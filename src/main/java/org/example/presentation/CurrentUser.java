@@ -1,8 +1,8 @@
 package org.example.presentation;
 
-import org.example.entity.ProgramEntity;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
+import org.example.OLDentity.ProgramEntity;
+import org.example.OLDentity.Role;
+import org.example.OLDentity.UserEntity;
 
 public class CurrentUser {
 

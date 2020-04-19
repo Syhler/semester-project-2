@@ -15,8 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.example.App;
-import org.example.domain.DomainHandler;
-import org.example.entity.ProgramEntity;
+import org.example.OLDentity.ProgramEntity;
 
 public class ProgramListController implements Initializable {
     @FXML

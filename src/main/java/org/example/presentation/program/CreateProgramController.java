@@ -11,8 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.domain.DomainHandler;
-import org.example.entity.ProgramEntity;
+import org.example.OLDdomain.DomainHandler;
+import org.example.OLDentity.ProgramEntity;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 

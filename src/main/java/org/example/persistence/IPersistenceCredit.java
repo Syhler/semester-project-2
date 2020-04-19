@@ -1,6 +1,7 @@
 package org.example.persistence;
 
-import org.example.entity.CreditEntity;
+
+import org.example.persistence.entities.CreditEntity;
 
 import java.util.List;
 

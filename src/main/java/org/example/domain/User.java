@@ -1,68 +1,72 @@
 package org.example.domain;
 
-import org.example.domain.password.PasswordHashing;
-import org.example.entity.CompanyEntity;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
-import org.example.persistence.IPersistenceHandler;
-import org.example.persistence.PersistenceHandler;
-
+import java.util.Date;
 import java.util.List;
 
-public class User implements IUser {
-    private IPersistenceHandler persistenceHandler = new PersistenceHandler();
+public class User
+{
+    private long id;
+    private String title;
+    private Name name;
+    private Date createdAt;
+    private User createdBy;
+    private String email;
+    private Role role;
+    private Company company;
 
-    public long createUser(UserEntity userEntity,String password) {
-        var passwordSalt = PasswordHashing.generateSalt();
-        try {
 
-            var encryptedPassword = PasswordHashing.sha256(password,passwordSalt);
-            return persistenceHandler.user().createUser(userEntity, encryptedPassword, passwordSalt);
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return 0;
-
+    public User(long id, String title, Name name, Date createdAt, User createdBy, String email, Role role, Company company) {
+        this.id = id;
+        this.title = title;
+        this.name = name;
+        this.createdAt = createdAt;
+        this.createdBy = createdBy;
+        this.email = email;
+        this.role = role;
+        this.company = company;
     }
 
-    public Boolean removeUser(UserEntity userEntity) {
-        return persistenceHandler.user().deleteUser(userEntity);
-    }
-
-    public UserEntity getUserById(String id) {
+    public Credit addCredit(String userID)
+    {
         return null;
     }
 
-    public List<UserEntity> getAllUser() {
+    public User addProducer(String userID)
+    {
         return null;
     }
 
-    public Boolean updateUser(UserEntity userEntity, String password) {
-        var passwordSalt = PasswordHashing.generateSalt();
-        try {
+    
 
-            var encryptedPassword = PasswordHashing.sha256(password,passwordSalt);
-            return persistenceHandler.user().updateUser(userEntity,encryptedPassword,passwordSalt);
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return false;
+    public long getId() {
+        return id;
     }
 
-
-    public List<UserEntity> getUserByCompany(CompanyEntity company) {
-        return null;
-
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public List<UserEntity> getUserByRole(Role role) {
-
-        return persistenceHandler.user().getUserByRole(role);
-
+    public Company getCompany() {
+        return company;
     }
 
+    public Name getName() {
+        return name;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
 }

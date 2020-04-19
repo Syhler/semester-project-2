@@ -12,10 +12,10 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.domain.DomainHandler;
-import org.example.entity.CompanyEntity;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
+import org.example.OLDdomain.DomainHandler;
+import org.example.OLDentity.CompanyEntity;
+import org.example.OLDentity.Role;
+import org.example.OLDentity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.utilities.*;
 

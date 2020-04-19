@@ -8,9 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.App;
-import org.example.domain.DomainHandler;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
+import org.example.OLDdomain.DomainHandler;
+import org.example.OLDentity.Role;
+import org.example.OLDentity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;

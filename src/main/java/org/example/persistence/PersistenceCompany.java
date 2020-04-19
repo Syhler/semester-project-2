@@ -1,6 +1,7 @@
 package org.example.persistence;
 
-import org.example.entity.CompanyEntity;
+import org.example.persistence.entities.CompanyEntity;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,7 +59,7 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
 
     @Override
     public boolean updateCompany(CompanyEntity companyEntity) {
-        Long id = companyEntity.getId();
+        long id = companyEntity.getId();
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement("" +
@@ -110,10 +111,10 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
     }
 
     private CompanyEntity createCompanyEntityFromResultSet(ResultSet resultSet) throws SQLException {
-        var company = new CompanyEntity(resultSet.getString("name"));
-        company.setId(resultSet.getLong("id"));
 
-        return company;
+        return new CompanyEntity(
+                resultSet.getLong("id"),
+                resultSet.getString("name"));
 
     }
 }

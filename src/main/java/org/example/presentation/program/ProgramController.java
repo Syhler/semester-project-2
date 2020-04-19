@@ -5,8 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import org.example.domain.DomainHandler;
-import org.example.entity.ProgramEntity;
+import org.example.OLDentity.ProgramEntity;
 
 import java.net.URL;
 import java.util.ResourceBundle;

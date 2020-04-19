@@ -1,14 +1,16 @@
-package org.example.entity;
+package org.example.domain;
 
-public enum Role {
-    Admin(1),
-    Manufacture(2),
-    Producer(3),
-    Actor(4);
+public enum Language{
+
+
+    Danish(1),
+
+    English(2);
+
 
     public final int roleValue;
 
-    Role(int roleValue) {
+    Language(int roleValue) {
         this.roleValue = roleValue;
     }
 
@@ -16,9 +18,9 @@ public enum Role {
         return this.roleValue;
     }
 
-    public static Role getRoleById(int roleId)
+    public static Language getLanguageById(int roleId)
     {
-        for (var role : Role.values())
+        for (var role : Language.values())
         {
             if (role.getValue() == roleId)
             {
@@ -26,6 +28,6 @@ public enum Role {
             }
         }
 
-      return null;
+        return null;
     }
 }

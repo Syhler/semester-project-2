@@ -1,55 +1,57 @@
 package org.example.domain;
 
-import org.example.entity.CompanyEntity;
-import org.example.entity.CreditEntity;
-import org.example.entity.ProgramEntity;
-import org.example.entity.UserEntity;
-import org.example.persistence.IPersistenceHandler;
+import org.example.domain.mapper.ProgramMapper;
 import org.example.persistence.PersistenceHandler;
-
 
 import java.util.List;
 
-public class Program implements IProgram {
-    private IPersistenceHandler persistenceHandler = new PersistenceHandler();
+public class Program
+{
+
+    private PersistenceHandler persistenceHandler = new PersistenceHandler();
+    private long id;
+    private ProgramInformation programInformation;
+    private List<Credit> credits;
+    private List<User> producers;
+    private Company company;
 
 
-
-    public long createProgram(ProgramEntity programEntity){
-        return persistenceHandler.program().createProgram(programEntity);
-    }
-    public Boolean deleteProgram(ProgramEntity programEntity){
-        return persistenceHandler.program().deleteProgram(programEntity);
-    }
-    public Boolean updateProgram(ProgramEntity programEntity){
-        return persistenceHandler.program().updateProgram(programEntity);
-    }
-    public List<ProgramEntity> getAllPrograms(){
-        return persistenceHandler.program().getAllPrograms();
-    }
-    public ProgramEntity getProgramById(ProgramEntity id){
-        return persistenceHandler.program().getProgramById(id);
-    }
-    public List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity){
-        return persistenceHandler.program().getProgramsByCompany(companyEntity);
-    }
-    public List<ProgramEntity> getProgramsByProducer(UserEntity userEntity){
-        return persistenceHandler.program().getProgramsByProducer(userEntity);
+    public Program(long id, ProgramInformation programInformation, List<Credit> credits, List<User> producers, Company company) {
+        this.id = id;
+        this.programInformation = programInformation;
+        this.credits = credits;
+        this.producers = producers;
+        this.company = company;
     }
 
-    @Override
-    public boolean removeUserFromProgram(UserEntity user, long programId) {
-        return persistenceHandler.program().removeUserFromProgram(user, programId);
+    public boolean update()
+    {
+        var mapped = ProgramMapper.map(this);
+        return persistenceHandler.program().updateProgram(mapped);
     }
 
-    @Override
-    public boolean removeCreditFromProgram(CreditEntity creditEntity) {
-        return persistenceHandler.program().removeCreditFromProgram(creditEntity);
+    public boolean delete()
+    {
+        return persistenceHandler.program().deleteProgram(id);
     }
 
-    @Override
-    public List<ProgramEntity> search(String query) {
-        return persistenceHandler.program().search(query);
+    public long getId() {
+        return id;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public List<Credit> getCredits() {
+        return credits;
+    }
+
+    public List<User> getProducers() {
+        return producers;
+    }
+
+    public ProgramInformation getProgramInformation() {
+        return programInformation;
+    }
 }

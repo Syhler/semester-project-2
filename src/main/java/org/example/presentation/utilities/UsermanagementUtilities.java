@@ -2,10 +2,9 @@ package org.example.presentation.utilities;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.util.Callback;
-import org.example.entity.CompanyEntity;
-import org.example.entity.Role;
+import org.example.OLDentity.CompanyEntity;
+import org.example.OLDentity.Role;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class UsermanagementUtilities {

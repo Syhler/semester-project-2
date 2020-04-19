@@ -10,8 +10,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.domain.DomainHandler;
-import org.example.entity.UserEntity;
+import org.example.OLDdomain.DomainHandler;
+import org.example.OLDentity.UserEntity;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;

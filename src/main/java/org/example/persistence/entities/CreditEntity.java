@@ -1,6 +1,8 @@
-package org.example.entity;
+package org.example.persistence.entities;
 
-public class CreditEntity {
+public class CreditEntity
+{
+
     private long programId;
     private UserEntity actor;
 
@@ -9,27 +11,11 @@ public class CreditEntity {
         this.actor = actor;
     }
 
-
-    public CreditEntity(UserEntity userEntity) {
-        this.actor = userEntity;
-    }
-
-
     public long getProgramId() {
         return programId;
-    }
-
-    public void setProgramId(long programId) {
-        this.programId = programId;
     }
 
     public UserEntity getActor() {
         return actor;
     }
-
-    public void setActor(UserEntity actor) {
-        this.actor = actor;
-    }
-
-
 }
