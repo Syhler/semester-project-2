@@ -93,6 +93,7 @@ public class DefaultController implements Initializable
             usermanagementBtn.setVisible(false);
             profileNavigation.setVisible(false);
             createProgram.setVisible(false);
+            importBtn.setVisible(false);
         }
     }
 

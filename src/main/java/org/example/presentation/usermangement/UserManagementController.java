@@ -1,5 +1,6 @@
 package org.example.presentation.usermangement;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -116,9 +117,17 @@ public class UserManagementController implements Initializable {
 
         col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("fullName"));
-        col_company.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+        col_company.setCellValueFactory(user -> new SimpleStringProperty(
+                (user.getValue().getCompany() != null)
+                        ? user.getValue().getCompany().getName()
+                        : "" ));
+
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        col_createdBy.setCellValueFactory(new PropertyValueFactory<>("createdByName"));
+        col_createdBy.setCellValueFactory(user -> new SimpleStringProperty(
+                (user.getValue().getCreatedBy() != null)
+                        ? user.getValue().getFullName()
+                        : "" ));
+
         col_created.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
         table.setItems(userList);
 

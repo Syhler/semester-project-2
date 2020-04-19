@@ -85,8 +85,10 @@ public class UpdateUserController implements Initializable {
 
         companyList.setCellFactory(cellFactory);
         companyList.setButtonCell(cellFactory.call(null));
+
         var companies = domainHandler.getAllCompanies();
         companyEntities.addAll(companies);
+
         companyList.setItems(companyEntities);
 
         firstNameUpdate.setText(LanguageHandler.getText("firstName"));
@@ -132,13 +134,14 @@ public class UpdateUserController implements Initializable {
             updateUserController.lastname.setText(userToUpdate.getName().getLastName());
             updateUserController.email.setText(userToUpdate.getEmail());
 
-            //companyEntities.addAll(domainHandler.company().getCompanies()); TODO(MIGHT BE A PROBLEM)
+            var companies = domainHandler.getAllCompanies();
+            companyEntities.addAll(companies);
 
             // Selecting the users current company in company Combobox
-
             for (Company company : companyEntities) {
                 if (userToUpdate.getCompany().getId() == company.getId()) {
                     updateUserController.companyList.getSelectionModel().select(companyEntities.indexOf(company));
+                    break;
                 }
             }
 
@@ -167,7 +170,7 @@ public class UpdateUserController implements Initializable {
     @FXML
     public void updateUserFromInput(ActionEvent event) throws IOException {
         String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText());
-        if (!validationMessage.equals(""))
+        if (validationMessage != null)
         {
             setStatusText(validationMessage);
             return;

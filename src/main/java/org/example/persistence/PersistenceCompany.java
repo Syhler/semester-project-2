@@ -49,7 +49,10 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
                         "DELETE FROM company WHERE \"company\".id = ? ");
                 preparedStatement.setLong(1,companyEntity.getId());
-                return preparedStatement.execute();
+                var rows = preparedStatement.executeUpdate();
+                if (rows > 0) return true;
+
+                return false;
             }
             catch (SQLException e) {
                 e.printStackTrace();
