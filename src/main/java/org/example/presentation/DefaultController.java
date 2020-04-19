@@ -20,6 +20,7 @@ import org.example.domain.DomainFacade;
 import org.example.domain.Program;
 import org.example.domain.Role;
 import org.example.domain.User;
+import org.example.domain.io.Import;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
@@ -125,8 +126,9 @@ public class DefaultController implements Initializable
             return;
         }
 
-        /*
+
         var loadedPrograms = Import.loadPrograms(selectedFile);
+
 
         if (loadedPrograms.isEmpty())
         {
@@ -134,15 +136,18 @@ public class DefaultController implements Initializable
         }
         else
         {
+            loadedPrograms = domainHandler.importPrograms(loadedPrograms);
+
             controller.openDialog(event,
                     LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
                             LanguageHandler.getText("programs"), "Import Dialog");
+            ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
+            ProgramListController.getInstance().updateProgramList();
         }
 
-        ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
-        ProgramListController.getInstance().updateProgramList();
 
-         */
+
+
     }
 
     /**

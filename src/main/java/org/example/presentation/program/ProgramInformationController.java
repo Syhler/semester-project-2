@@ -178,7 +178,7 @@ public class ProgramInformationController implements Initializable {
             return;
         }
 
-        /*var exportedPrograms = Export.program(program, file.getPath());
+        var exportedPrograms = program.export(file.getPath());
 
         if (exportedPrograms != null)
         {
@@ -189,7 +189,6 @@ public class ProgramInformationController implements Initializable {
             controller.openDialog(event, LanguageHandler.getText("noExport"), "Export Dialog");
         }
 
-         */
     }
 
 

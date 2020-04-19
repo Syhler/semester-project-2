@@ -63,15 +63,20 @@ public class DomainFacade
         return ProgramMapper.map(createdProgram);
     }
 
+    public List<Program> importPrograms(List<Program> programs)
+    {
+        var mapped = ProgramMapper.mapToEntity(programs);
+
+        var importedPrograms = persistenceHandler.program().importPrograms(mapped);
+
+        return ProgramMapper.map(importedPrograms);
+    }
+
     public Authentication getAuthentication()
     {
         return new Authentication();
     }
 
-    public Program createProgram(List<ProgramInformation> programInformations)
-    {
-        return null;
-    }
 
     public Company createCompany(Company company)
     {

@@ -1,10 +1,13 @@
 package org.example.domain;
 
+import org.example.domain.io.Export;
 import org.example.domain.mapper.CreditMapper;
 import org.example.domain.mapper.ProgramMapper;
 import org.example.domain.mapper.UserMapper;
 import org.example.persistence.PersistenceHandler;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Program
@@ -23,6 +26,14 @@ public class Program
         this.programInformation = programInformation;
         this.credits = credits;
         this.producers = producers;
+        this.company = company;
+    }
+
+    public Program(String title, String description, Company company)
+    {
+        this.producers = new ArrayList<>();
+        this.credits = new ArrayList<>();
+        this.programInformation = new ProgramInformation(title, description);
         this.company = company;
     }
 
@@ -79,6 +90,11 @@ public class Program
 
         return persistenceHandler.program().removeUserFromProgram(mapped, id);
 
+    }
+
+    public File export(String filePath)
+    {
+        return Export.program(this, filePath);
     }
 
     public boolean update()

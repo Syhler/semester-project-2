@@ -28,6 +28,20 @@ public class ProgramMapper
 
     }
 
+    public static List<ProgramEntity> mapToEntity(List<Program> programs)
+    {
+        if (programs == null) return null;
+
+        var temp = new ArrayList<ProgramEntity>();
+
+        for (var program : programs)
+        {
+            temp.add(map(program));
+        }
+
+        return temp;
+    }
+
     public static ProgramEntity map(Program program)
     {
         if (program == null) return null;

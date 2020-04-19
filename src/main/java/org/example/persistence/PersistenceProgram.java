@@ -182,31 +182,33 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     @Override
     public List<ProgramEntity> importPrograms(List<ProgramEntity> programEntities) {
 
-        /*
-        if (programEntity.getCompanyEntity() != null)
-        {
-            if (programEntity.getCompanyEntity().getId() == 0)
+        for (var program : programEntities) {
+            long programId = insertProgram();
+            program.setId(programId);
+            if (program.getCompanyEntity() != null)
             {
-                new PersistenceHandler().company().createCompany(programEntity.getCompanyEntity());
+                if (program.getCompanyEntity().getId() == 0)
+                {
+                    new PersistenceHandler().company().createCompany(program.getCompanyEntity());
+                }
+                else
+                {
+                    insertCompany(program.getCompanyEntity().getId(), program.getId());
+                }
+
             }
-            else
+            if (program.getProducer() != null)
             {
-                insertCompany(programEntity.getCompanyEntity().getId(), programEntity.getId());
+                insertProducer(program.getProducer(),program.getId());
             }
-
-        }
-        if (programEntity.getProducer() != null)
-        {
-            insertProducer(programEntity.getProducer(),programEntity.getId());
-        }
-        if (programEntity.getCredits() != null)
-        {
-            insertCredit(programEntity.getCredits(),programEntity.getId());
+            if (program.getCredits() != null)
+            {
+                insertCredit(program.getCredits(),program.getId());
+            }
         }
 
-         */
 
-        return null;
+        return programEntities;
     }
 
     /**
