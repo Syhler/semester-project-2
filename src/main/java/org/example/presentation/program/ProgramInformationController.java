@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.Credit;
@@ -86,7 +88,7 @@ public class ProgramInformationController implements Initializable {
      * Opens "programInformation.fxml" as a popup scene
      * @param programObject of the program that should open
      */
-    public void openView(Program programObject)
+    public void openView(Program programObject, MouseEvent event)
     {
         Parent root = null;
         FXMLLoader loader = null;
@@ -124,6 +126,9 @@ public class ProgramInformationController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("programInformationStageTitle"));
         stage.setScene(scene);
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
 
         stage.showAndWait();
     }
@@ -256,7 +261,7 @@ public class ProgramInformationController implements Initializable {
     @FXML
     public void updateOnAction(ActionEvent event) throws IOException {
         UpdateProgramController updateProgramController = new UpdateProgramController();
-        this.program = updateProgramController.openView(program);
+        this.program = updateProgramController.openView(program, event);
 
         if (program != null)
         {

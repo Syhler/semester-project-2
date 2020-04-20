@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import org.example.domain.Program;
 
@@ -28,10 +29,10 @@ public class ProgramController implements Initializable
      * On the click of a button, opens scene of the programEntity that user have clicked
      */
     @FXML
-    public void goToProgramInfo()
+    public void goToProgramInfo(MouseEvent event)
     {
         ProgramInformationController programInformationController = new ProgramInformationController();
-        programInformationController.openView(programEntity);
+        programInformationController.openView(programEntity, event);
     }
 
     @Override

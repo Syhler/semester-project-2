@@ -6,9 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainFacade;
@@ -50,7 +52,7 @@ public class CreateProgramController implements Initializable {
      * Opens "createProgram.fxml" as a popup scene
      * @return ProgramEntity of the program created
      */
-    public Program openView()
+    public Program openView(ActionEvent event)
     {
         Parent root = null;
         FXMLLoader loader = null;
@@ -70,6 +72,8 @@ public class CreateProgramController implements Initializable {
         stage.setTitle(LanguageHandler.getText("createProgramStageTitle"));
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
         stage.showAndWait();
         return createProgramController.program;
     }
@@ -92,7 +96,7 @@ public class CreateProgramController implements Initializable {
         program = domainHandler.createProgram(programInformation);
 
         UpdateProgramController updateProgramController = new UpdateProgramController();
-        this.program = updateProgramController.openView(program);
+        this.program = updateProgramController.openView(program, event);
 
         closeCreateProgram(event);
     }

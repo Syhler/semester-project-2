@@ -4,11 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.Role;
@@ -55,7 +57,7 @@ public class CreditController implements Initializable {
      * Opens "createCredit.fxml" as a popup scene
      * @return a UserEntity with its different variables
      */
-    public User openView() {
+    public User openView(ActionEvent event) {
         FXMLLoader loader = null;
         try {
             loader = App.getLoader("createCredit");
@@ -67,6 +69,8 @@ public class CreditController implements Initializable {
             stage.setTitle(LanguageHandler.getText("createCreditStageTitle"));
             stage.setScene(scene);
             stage.setResizable(false);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
             stage.showAndWait();
             return creditController.creditActor;
         } catch (IOException e) {
