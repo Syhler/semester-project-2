@@ -1,0 +1,87 @@
+/*------------------------------------------------- Background Colors ------------------------------------------------>*/
+
+#program{
+    -fx-background-color: #1E1E1E;
+    -fx-border-color: #19ACD5;
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+}
+#program:hover{
+    -fx-background-color:#19ACD5;
+}
+#title{
+    -fx-text-fill: #fff;
+}
+
+
+#scrollPane, #listGridPane{
+    -fx-background-color:#383838;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+}
+#scrollPane:hover, #listGridPane:hover{
+    -fx-cursor: hand;
+}
+/*------------------------------------------------- Buttons ---------------------------------------------------------->*/
+.button, .toggle-button{
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-background-color: #282828;
+    -fx-text-fill: #999992;
+    -fx-font-weight: bold;
+}
+.button:hover, .toggle-button:hover{
+    -fx-cursor: hand;
+}
+#navigation .button{
+
+}
+#navigation .button:hover{
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
+}
+#usersByRoleHbox .button{
+
+}
+#usersByRoleHbox .button:hover, #companyAddToggle:hover{
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
+}
+#usersByRoleHbox .toggle-button:selected, #companyAddToggle:selected{
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
+}
+
+#createPopup ,#createCompany, #updateCompany{
+    -fx-background-color: #19CB94;
+    -fx-text-fill: #fff;
+}
+#deleteSelected, #deleteCompany{
+    -fx-background-color: #ED5E68;
+    -fx-text-fill: #fff;
+}
+#editBtn{
+    -fx-text-fill: #fff;
+    -fx-background-color: #484848;
+}
+#createUserFromInput, #btnCancel{
+    -fx-background-color:#19ACD5;
+    -fx-text-fill: #fff;
+}
+#createUserFromInput:hover, #btnCancel:hover{
+    -fx-background-color:#1E1E1E;
+}
+/*------------------------------------------------- Controls -------------------------------------------------------->*/
+
+/*------------------------------------------------- Table ----------------------------------------------------------->*/
+
+/*------------------------------------------------- Labels ---------------------------------------------------------->*/
+
+/*------------------------------------------------- Inputs ---------------------------------------------------------->*/
+.text-field{
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+
+
+

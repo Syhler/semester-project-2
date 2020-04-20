@@ -169,7 +169,7 @@ public class UpdateUserController implements Initializable {
      */
     @FXML
     public void updateUserFromInput(ActionEvent event) throws IOException {
-        String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText());
+        String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText(),event);
         if (validationMessage != null)
         {
             setStatusText(validationMessage);
@@ -200,11 +200,16 @@ public class UpdateUserController implements Initializable {
             user.setRole(roleList.getValue());
         }
 
-        //user.setCompanyName(user.getCompany().getName());
+        boolean userWasUpdated = false;
 
-        //user.setId(userToUpdate.getId());
+        if (password.getText().isEmpty())
+        {
+            userWasUpdated = user.update();
+        } else {
+            userWasUpdated = user.update(password.getText());
+        }
 
-        boolean userWasUpdated = user.update(password.getText());
+
 
         if (userWasUpdated) {
             closeDialog(event);

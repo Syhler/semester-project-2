@@ -147,6 +147,12 @@ public class User
         return persistenceHandler.user().updateUser(mapped, encryptedPassword, salt);
     }
 
+    public boolean update() {
+        var mapped = UserMapper.map(this);
+
+        return persistenceHandler.user().updateUser(mapped);
+    }
+
     public boolean delete()
     {
         var mapped = UserMapper.map(this);

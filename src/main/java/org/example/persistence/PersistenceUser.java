@@ -91,6 +91,13 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         }
     }
 
+    /**
+     * Updating user with password change
+     * @param userEntity
+     * @param encryptedPassword
+     * @param passwordSalt
+     * @return
+     */
     @Override
     public boolean updateUser(UserEntity userEntity, String encryptedPassword, String passwordSalt) {
         java.util.Date utilDate = userEntity.getCreatedAt();
@@ -113,6 +120,41 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
             preparedStatement.setInt(9,userEntity.getRole());
             preparedStatement.setLong(10,userEntity.getCompanyEntity().getId());
             preparedStatement.setLong(11,userEntity.getId());
+
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Updating user without password change
+     * @param userEntity
+     * @return
+     */
+    @Override
+    public boolean updateUser(UserEntity userEntity) {
+        java.util.Date utilDate = userEntity.getCreatedAt();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+        try {
+
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "UPDATE \"user\" SET title = ?, firstname = ?,middlename = ?," +
+                    "lastname = ?,createdat = ?,email = ?,role = ?,company = ?" +
+                    "WHERE \"user\".id = ?;");
+            preparedStatement.setString(1,userEntity.getTitle());
+            preparedStatement.setString(2,userEntity.getFirstName());
+            preparedStatement.setString(3,userEntity.getMiddleName());
+            preparedStatement.setString(4,userEntity.getLastName());
+            preparedStatement.setDate(5,sqlDate);
+            preparedStatement.setString(6,userEntity.getEmail());
+            preparedStatement.setInt(7,userEntity.getRole());
+            preparedStatement.setLong(8,userEntity.getCompanyEntity().getId());
+            preparedStatement.setLong(9,userEntity.getId());
 
             preparedStatement.execute();
 

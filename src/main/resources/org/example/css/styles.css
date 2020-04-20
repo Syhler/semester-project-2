@@ -1,0 +1,90 @@
+/*------------------------------------------------- Background Colors ------------------------------------------------>*/
+
+#createProgramVbox, #createCreditVbox, #updateProgramVbox{
+    -fx-background-color: #383838;
+}
+
+/*------------------------------------------------- Buttons ---------------------------------------------------------->*/
+.button, .toggle-button{
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-background-color: #282828;
+    -fx-text-fill: #999992;
+    -fx-font-weight: bold;
+}
+.button:hover, .toggle-button:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
+}
+
+/*------------------------------------------------- Controls -------------------------------------------------------->*/
+.separator *.line{
+    -fx-text-fill: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+/*------------------------------------------------- Table ----------------------------------------------------------->*/
+#col_id,#col_company,#col_createdBy,#col_name,#col_title,#col_created{
+   -fx-alignment: CENTER;
+}
+#table:focused{
+    -fx-background-color: transparent;
+}
+#table .column-header{
+    -fx-background-color: transparent;
+}
+#table .column-header-background{
+    -fx-background-color:#383838 ;
+}
+#table .column-header .label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #fff;
+}
+.table-row-cell{
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color:transparent;
+}
+.table-view{
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+.QHeaderView {
+    background-color: transparent;
+}
+#table .table-cell{
+    -fx-text-fill: #fafafa;
+    -fx-alignment: CENTER;
+}
+#table .column-cell{
+    -fx-alignment: CENTER;
+}
+.table-row-cell{
+ -fx-background-color: #1E1E1E;
+}
+.table-row-cell:hover{
+    -fx-cursor: hand;
+}
+.table-row-cell:odd{
+    -fx-background-color: #383838;
+}
+.table-row-cell:selected, .table-row-cell:focused{
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
+    -fx-text-background-color: #fff;
+}
+/*------------------------------------------------- Labels ---------------------------------------------------------->*/
+.label{
+    -fx-text-fill: #fff;
+}
+/*------------------------------------------------- Inputs ---------------------------------------------------------->*/
+.text-field, .text-area{
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+.vbox .label{
+    -fx-text-fill: #000;
+}
+
+
+

@@ -72,3 +72,16 @@
     -fx-faint-focus-color: white;
 }
 
+.button, .toggle-button{
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-background-color: #282828;
+    -fx-text-fill: #999992;
+    -fx-font-weight: bold;
+}
+.button:hover, .toggle-button:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
+}
+

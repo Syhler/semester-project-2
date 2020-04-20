@@ -139,7 +139,7 @@ public class CreateUserController implements Initializable {
     @FXML
     public void createUserFromInput(ActionEvent event) throws Exception {
 
-        String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText());
+        String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText(),event);
         if (validationMessage != null)
         {
             setStatusText(validationMessage);
