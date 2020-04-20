@@ -1,4 +1,4 @@
-package org.example.presentation;
+package org.example.presentation.usermangement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,11 +12,12 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.domain.DomainHandler;
-import org.example.entity.CompanyEntity;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
+import org.example.domain.Company;
+import org.example.domain.DomainFacade;
+import org.example.domain.Role;
+import org.example.domain.User;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.utilities.CurrentUser;
 import org.example.presentation.utilities.UsermanagementUtilities;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class UpdateUserController implements Initializable {
 
-    private DomainHandler domainHandler = new DomainHandler();
+    private DomainFacade domainHandler = new DomainFacade();
     @FXML
     private TextField firstname;
     @FXML
@@ -60,20 +61,20 @@ public class UpdateUserController implements Initializable {
     private Button btnCancel;
 
     @FXML
-    private ComboBox<CompanyEntity> companyList;
+    private ComboBox<Company> companyList;
     @FXML
     private ComboBox<Role> roleList;
 
     @FXML
     private Label statusText;
 
-    private ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
+    private ObservableList<Company> companyEntities = FXCollections.observableArrayList();
 
     private String titleName = "";
     private Role roleValue;
 
-    private UserEntity userToUpdate = null;
-    private UserEntity user = null;
+    private User userToUpdate = null;
+    private User user = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,7 +86,9 @@ public class UpdateUserController implements Initializable {
         companyList.setCellFactory(cellFactory);
         companyList.setButtonCell(cellFactory.call(null));
 
-        companyEntities.addAll(domainHandler.company().getCompanies());
+        var companies = domainHandler.getAllCompanies();
+        companyEntities.addAll(companies);
+
         companyList.setItems(companyEntities);
 
         firstNameUpdate.setText(LanguageHandler.getText("firstName"));
@@ -101,9 +104,9 @@ public class UpdateUserController implements Initializable {
         roleList.getItems().addAll(Role.Admin, Role.Manufacture, Role.Producer, Role.Actor);
 
         /**
-         * removes the select role option incase user doesn't have admin priviledge
+         * removes the select role option increase user doesn't have admin privilege
          */
-        if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Admin) {
+        if (CurrentUser.getInstance().getUser().getRole() != Role.Admin) {
             roleList.setDisable(true);
         }
     }
@@ -113,9 +116,9 @@ public class UpdateUserController implements Initializable {
      *
      * @return UserEntity
      */
-    public UserEntity openUpdateUser(ActionEvent event, UserEntity userToUpdate, Role role) {
+    public User openUpdateUser(ActionEvent event, User userToUpdate) {
 
-        titleName = UsermanagementUtilities.setStageTitleCreateUpdateUser(role);
+        titleName = UsermanagementUtilities.setStageTitleCreateUpdateUser(userToUpdate.getRole());
 
         var updateUserStage = new Stage();
 
@@ -123,20 +126,22 @@ public class UpdateUserController implements Initializable {
             FXMLLoader myLoader = App.getLoader("userManagementUpdate");
             updateUserStage.setScene(new Scene(myLoader.load()));
             UpdateUserController updateUserController = myLoader.getController();
-            updateUserController.roleValue = role;
+            updateUserController.roleValue = userToUpdate.getRole();
             updateUserController.userToUpdate = userToUpdate;
 
-            updateUserController.firstname.setText(userToUpdate.getFirstName());
-            updateUserController.middelname.setText(userToUpdate.getMiddleName());
-            updateUserController.lastname.setText(userToUpdate.getLastName());
+            updateUserController.firstname.setText(userToUpdate.getName().getFirstName());
+            updateUserController.middelname.setText(userToUpdate.getName().getFirstMiddleName());
+            updateUserController.lastname.setText(userToUpdate.getName().getLastName());
             updateUserController.email.setText(userToUpdate.getEmail());
-            companyEntities.addAll(domainHandler.company().getCompanies());
+
+            var companies = domainHandler.getAllCompanies();
+            companyEntities.addAll(companies);
 
             // Selecting the users current company in company Combobox
-
-            for (CompanyEntity company : companyEntities) {
-                if (userToUpdate.getCompany().getId().equals(company.getId())) {
+            for (Company company : companyEntities) {
+                if (userToUpdate.getCompany().getId() == company.getId()) {
                     updateUserController.companyList.getSelectionModel().select(companyEntities.indexOf(company));
+                    break;
                 }
             }
 
@@ -165,7 +170,7 @@ public class UpdateUserController implements Initializable {
     @FXML
     public void updateUserFromInput(ActionEvent event) throws IOException {
         String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText());
-        if (validationMessage != "")
+        if (validationMessage != null)
         {
             setStatusText(validationMessage);
             return;
@@ -176,20 +181,32 @@ public class UpdateUserController implements Initializable {
         java.util.Date utilDate = currentDate;
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-        user = new UserEntity(title.getText(), firstname.getText(), middelname.getText(), lastname.getText(), sqlDate, email.getText());
-        user.setCompany(companyList.getSelectionModel().getSelectedItem());
-        if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Admin) {
-            user.setRole(roleValue.getValue());
+        user = new User(
+                userToUpdate.getId(),
+                title.getText(),
+                firstname.getText(),
+                middelname.getText(),
+                lastname.getText(),
+                sqlDate,
+                email.getText(),
+                null,
+                userToUpdate.getCreatedBy(),
+                companyList.getSelectionModel().getSelectedItem());
+
+
+        if (CurrentUser.getInstance().getUser().getRole() != Role.Admin) {
+            user.setRole(roleValue);
         } else {
             user.setRole(roleList.getValue());
         }
 
-        user.setCompanyName(user.getCompany().getName());
-        user.setId(userToUpdate.getId());
+        //user.setCompanyName(user.getCompany().getName());
 
-        boolean userWasCreated = domainHandler.user().updateUser(user, password.getText());
+        //user.setId(userToUpdate.getId());
 
-        if (userWasCreated) {
+        boolean userWasUpdated = user.update(password.getText());
+
+        if (userWasUpdated) {
             closeDialog(event);
 
         } else {

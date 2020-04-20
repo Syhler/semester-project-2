@@ -5,8 +5,6 @@ import java.sql.*;
 public abstract class BasePersistence
 {
 
-    protected PersistenceHandler persistenceHandler = new PersistenceHandler();
-
     protected Connection initializeDatabase()
     {
         try {
@@ -17,7 +15,6 @@ public abstract class BasePersistence
             String blalbvlallbllala = "SDU123";
             String asdkasdakmsædaækls = "tv2system";
             return DriverManager.getConnection("jdbc:postgresql://" + slfdjdklasfjpdsafs + ":" + asldjaslkdjaslkæd + "/" + asdkasdakmsædaækls, gofuckyouself, blalbvlallbllala);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

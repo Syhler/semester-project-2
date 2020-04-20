@@ -1,4 +1,4 @@
-package org.example.presentation;
+package org.example.presentation.usermangement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,10 +12,10 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.domain.DomainHandler;
-import org.example.entity.CompanyEntity;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
+import org.example.domain.Company;
+import org.example.domain.DomainFacade;
+import org.example.domain.Role;
+import org.example.domain.User;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.utilities.*;
 
@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class CreateUserController implements Initializable {
 
-    private DomainHandler domainHandler = new DomainHandler();
+    private DomainFacade domainHandler = new DomainFacade();
     @FXML
     private TextField firstname;
     @FXML
@@ -61,17 +61,17 @@ public class CreateUserController implements Initializable {
 
 
     @FXML
-    private ComboBox<CompanyEntity> companyList;
+    private ComboBox<Company> companyList;
 
     @FXML
     private Label statusText;
 
-    private ObservableList<CompanyEntity> companyEntities = FXCollections.observableArrayList();
+    private ObservableList<Company> companyEntities = FXCollections.observableArrayList();
 
     private String titleName = "";
     private Role roleValue;
 
-    private UserEntity user = null;
+    private User user = null;
 
 
     @Override
@@ -84,7 +84,8 @@ public class CreateUserController implements Initializable {
 
         companyList.setCellFactory(cellFactory);
         companyList.setButtonCell(cellFactory.call(null));
-        companyEntities.addAll(domainHandler.company().getCompanies());
+        var companies = domainHandler.getAllCompanies();
+        companyEntities.addAll(companies);
         companyList.setItems(companyEntities);
 
         firstNameCreate.setText(LanguageHandler.getText("firstName"));
@@ -104,7 +105,7 @@ public class CreateUserController implements Initializable {
      *
      * @return currentUser
      */
-    public UserEntity openCreateUser(ActionEvent event, Role role) {
+    public User openCreateUser(ActionEvent event, Role role) {
 
         titleName = UsermanagementUtilities.setStageTitleCreateUpdateUser(role);
 
@@ -149,17 +150,23 @@ public class CreateUserController implements Initializable {
         java.util.Date utilDate = currentDate;
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-        user = new UserEntity(title.getText(), firstname.getText(), middelname.getText(), lastname.getText(), sqlDate, email.getText());
-        user.setCompany(companyList.getSelectionModel().getSelectedItem());
-        user.setRole(roleValue);
-        user.setCreatedBy(CurrentUser.getInstance().getUserEntity());
-        user.setCreatedByName(user.getCreatedBy().getFirstName());
-        user.setCompanyName(user.getCompany().getName());
+        user = new User(
+                title.getText(),
+                firstname.getText(),
+                middelname.getText(),
+                lastname.getText(),
+                sqlDate,
+                email.getText(),
+                roleValue,
+                CurrentUser.getInstance().getUser(),
+                companyList.getSelectionModel().getSelectedItem());
 
-        long userID = domainHandler.user().createUser(user, password.getText());
+        //user.setCreatedByName(user.getCreatedBy().getFirstName());
+        //user.setCompanyName(user.getCompany().getName());
 
-        if (userID != 0) {
-            user.setId(userID);
+        var createdUser = domainHandler.createUser(user, password.getText());
+
+        if (createdUser != null) {
             closeDialog(event);
 
         } else {

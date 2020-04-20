@@ -1,27 +1,24 @@
 package org.example.domain;
 
-import org.example.entity.CreditEntity;
-import org.example.persistence.PersistenceHandler;
-
-import java.io.File;
-import java.util.List;
-
-public class Credit implements ICredit
+public class Credit
 {
-    private PersistenceHandler persistenceHandler;
+    private User user;
+    private long programId;
 
-    public List<CreditEntity> getAllCredits(){
-        return null;
-    }
-    public List<CreditEntity> importCredit(File file){
-        return null;
-    }
-    public File exportCredit(String credit){
-        return null;
-    }
-    public List<Credit> getCreditsByProgram(String id){
-        return null;
+    public Credit(long programId, User user) {
+        this.programId = programId;
+        this.user = user;
     }
 
+    public Credit(User user) {
+        this.user = user;
+    }
 
+    public long getProgramId() {
+        return programId;
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

@@ -1,9 +1,8 @@
 package org.example.persistence;
 
-import org.example.entity.CompanyEntity;
-import org.example.entity.CreditEntity;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
+
+import org.example.persistence.entities.CompanyEntity;
+import org.example.persistence.entities.UserEntity;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public interface IPersistenceUser
     UserEntity getUserById(long id);
     boolean updateUser(UserEntity userEntity, String encryptedPassword, String passwordSalt);
     boolean deleteUser(UserEntity userEntity);
-    List<UserEntity> getUserByRole(Role role);
+    List<UserEntity> getUserByRole(int roleId); //idk?
     List<UserEntity> getUserByCompany(CompanyEntity companyEntity);
     List<UserEntity> getAllUsers();
     UserEntity getUserByLoginInformation(String username, String password);

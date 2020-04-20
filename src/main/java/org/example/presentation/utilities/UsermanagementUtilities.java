@@ -2,10 +2,9 @@ package org.example.presentation.utilities;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.util.Callback;
-import org.example.entity.CompanyEntity;
-import org.example.entity.Role;
+import org.example.domain.Company;
+import org.example.domain.Role;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class UsermanagementUtilities {
@@ -17,16 +16,16 @@ public class UsermanagementUtilities {
      *
      * @return Callback for cellfactory
      */
-    public static Callback<ListView<CompanyEntity>, ListCell<CompanyEntity>> cellFactoryUserManagement()
+    public static Callback<ListView<Company>, ListCell<Company>> cellFactoryUserManagement()
     {
         return new Callback<>() {
 
             @Override
-            public ListCell<CompanyEntity> call(ListView<CompanyEntity> l) {
-                return new ListCell<CompanyEntity>() {
+            public ListCell<Company> call(ListView<Company> l) {
+                return new ListCell<Company>() {
 
                     @Override
-                    protected void updateItem(CompanyEntity item, boolean empty) {
+                    protected void updateItem(Company item, boolean empty) {
                         super.updateItem(item, empty);
 
                         if (item == null || empty) {
@@ -63,12 +62,12 @@ public class UsermanagementUtilities {
         return rolename;
     }
 
-    public static String formValidation(String firstname, String lastname, String email, CompanyEntity company, String title, String password){
+    public static String formValidation(String firstName, String lastName, String email, Company company, String title, String password){
         String msgToReturn = null;
 
-        if (firstname.isEmpty()) {
+        if (firstName.isEmpty()) {
             msgToReturn = (LanguageHandler.getText("firstnameEmpty"));
-        } else if (lastname.isEmpty()) {
+        } else if (lastName.isEmpty()) {
             msgToReturn = (LanguageHandler.getText("lastnameEmpty"));
         } else if (email.isEmpty()) {
             msgToReturn = (LanguageHandler.getText("emailEmpty"));

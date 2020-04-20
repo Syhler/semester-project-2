@@ -1,6 +1,7 @@
 package org.example.persistence;
 
-import org.example.entity.CompanyEntity;
+import org.example.persistence.entities.CompanyEntity;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
 
 
     @Override
-    public List<CompanyEntity> getCompanies() {
+    public List<CompanyEntity> getAllCompanies() {
         List<CompanyEntity> companies = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
@@ -48,7 +49,10 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
                 PreparedStatement preparedStatement = connection.prepareStatement("" +
                         "DELETE FROM company WHERE \"company\".id = ? ");
                 preparedStatement.setLong(1,companyEntity.getId());
-                return preparedStatement.execute();
+                var rows = preparedStatement.executeUpdate();
+                if (rows > 0) return true;
+
+                return false;
             }
             catch (SQLException e) {
                 e.printStackTrace();
@@ -58,7 +62,7 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
 
     @Override
     public boolean updateCompany(CompanyEntity companyEntity) {
-        Long id = companyEntity.getId();
+        long id = companyEntity.getId();
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement("" +
@@ -110,10 +114,10 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
     }
 
     private CompanyEntity createCompanyEntityFromResultSet(ResultSet resultSet) throws SQLException {
-        var company = new CompanyEntity(resultSet.getString("name"));
-        company.setId(resultSet.getLong("id"));
 
-        return company;
+        return new CompanyEntity(
+                resultSet.getLong("id"),
+                resultSet.getString("name"));
 
     }
 }

@@ -1,8 +1,8 @@
 package org.example.persistence;
 
-import org.example.entity.CompanyEntity;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
+import org.example.persistence.entities.CompanyEntity;
+import org.example.persistence.entities.UserEntity;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +21,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
     }
 
     @Override
-    public long createUser(UserEntity userEntity ,String encryptedPassword, String passwordSalt) {
+    public long createUser(UserEntity userEntity , String encryptedPassword, String passwordSalt) {
         java.util.Date utilDate = userEntity.getCreatedAt();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
@@ -39,8 +39,8 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
             preparedStatement.setString(7,userEntity.getEmail());
             preparedStatement.setString(8,encryptedPassword);
             preparedStatement.setString(9,passwordSalt);
-            preparedStatement.setInt(10,userEntity.getRole().getValue());
-            preparedStatement.setLong(11,userEntity.getCompany().getId());
+            preparedStatement.setInt(10,userEntity.getRole());
+            preparedStatement.setLong(11,userEntity.getCompanyEntity().getId());
 
             var resultSet = preparedStatement.executeQuery();
             //checks if the resultSet contains any rows
@@ -52,10 +52,6 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
 
                 return resultSet.getLong("id");
 
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -114,16 +110,12 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
             preparedStatement.setString(6,userEntity.getEmail());
             preparedStatement.setString(7,encryptedPassword);
             preparedStatement.setString(8,passwordSalt);
-            preparedStatement.setInt(9,userEntity.getRole().getValue());
-            preparedStatement.setLong(10,userEntity.getCompany().getId());
+            preparedStatement.setInt(9,userEntity.getRole());
+            preparedStatement.setLong(10,userEntity.getCompanyEntity().getId());
             preparedStatement.setLong(11,userEntity.getId());
 
             preparedStatement.execute();
 
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -147,13 +139,14 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
     }
 
     @Override
-    public List<UserEntity> getUserByRole(Role role) {
+    public List<UserEntity> getUserByRole(int roleId) {
         List<UserEntity> users = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name, \"user\".company " +
-                    "from \"user\", company where \"user\".role = ?  and company.id = \"user\".company ORDER BY \"user\".id ASC");
-            preparedStatement.setInt(1, role.getValue());
+                    "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  " +
+                    "company.id, company.name, \"user\".company from \"user\" " +
+                    "left join company on company.id = \"user\".company where \"user\".role = ? ORDER BY \"user\".id ASC");
+            preparedStatement.setInt(1, roleId);
 
             var resultSet = preparedStatement.executeQuery();
 
@@ -268,26 +261,29 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
      */
     private UserEntity createUserEntityFromResultSet(ResultSet resultSet) throws SQLException {
         var user = new UserEntity(
+                        resultSet.getLong(1),  // 1 equal user id
                         resultSet.getString("title"),
                         resultSet.getString("firstName"),
                         resultSet.getString("middleName"),
                         resultSet.getString("lastName"),
                         resultSet.getDate("createdAt"),
-                        resultSet.getString("email"));
+                        resultSet.getString("email"),
+                        resultSet.getInt("role"));
 
-        var company = new CompanyEntity(resultSet.getString("name"));
-        company.setId(resultSet.getLong(12)); //9 equal company id
-
-        user.setCompany(company);
-        user.setCompanyName(company.getName());
-        user.setRole(resultSet.getInt("role"));
-        user.setId(resultSet.getLong(1)); // 1 equal user id
+        if (resultSet.getString("name") != null)
+        {
+            var company = new CompanyEntity(
+                    resultSet.getLong(12), //12 equal company id
+                    resultSet.getString("name"));
+            user.setCompanyEntity(company);
+            //user.setCompanyName(company.getName());
+        }
 
         //Makes a recursion call. It will loop through until an user isn't createdBy is null
         if (resultSet.getString("createdBy") != null)
         {
             user.setCreatedBy(getUserById(resultSet.getLong("createdBy")));
-            user.setCreatedByName(user.getCreatedBy().getFirstName());
+            //user.setCreatedByName(user.getCreatedBy().getFirstName());
         }
 
         return user;

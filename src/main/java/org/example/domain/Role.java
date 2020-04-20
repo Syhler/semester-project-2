@@ -1,4 +1,4 @@
-package org.example.entity;
+package org.example.domain;
 
 public enum Role {
     Admin(1),
@@ -6,7 +6,7 @@ public enum Role {
     Producer(3),
     Actor(4);
 
-    public final int roleValue;
+    private final int roleValue;
 
     Role(int roleValue) {
         this.roleValue = roleValue;

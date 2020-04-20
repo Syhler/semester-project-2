@@ -1,47 +1,58 @@
 package org.example.presentation;
 
+import java.io.File;
 import java.io.IOException;
-
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import org.example.App;
-import org.example.domain.DomainHandler;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
-import org.example.presentation.multipleLanguages.Language;
+import org.example.domain.DomainFacade;
+import org.example.domain.Program;
+import org.example.domain.Role;
+import org.example.domain.User;
+import org.example.domain.io.Import;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.program.CreateProgramController;
+import org.example.presentation.program.ProgramListController;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.example.presentation.dialogControllers.ImportExportDialogController;
+import org.example.presentation.usermangement.UpdateUserController;
+import org.example.presentation.utilities.CurrentUser;
 
-public class DefaultController {
-
-    public Button login;
+public class DefaultController implements Initializable
+{
 
     @FXML
-    public Button usermanagementBtn;
+    private Button login;
+    @FXML
+    private Button createProgram;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private TextField searchBar;
+    @FXML
+    private ToolBar navigation;
+    @FXML
+    private Button importBtn;
+    @FXML
+    private Button usermanagementBtn;
     @FXML
     private Button profileNavigation;
 
-    @FXML
-    public void initialize() {
+    private DomainFacade domainHandler = new DomainFacade();
+    private ProgramListController programListController;
 
-        /**
-         * Language
-         */
-        login.setText(LanguageHandler.getText("login"));
-        profileNavigation.setText(LanguageHandler.getText("profile"));
-        usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
-
-        if (CurrentUser.getInstance().getUserEntity() != null) {
-            login.setText(LanguageHandler.getText("logoff"));
-            login.setOnAction(this::logout);
-            profileNavigation.setVisible(true);
-
-            if (CurrentUser.getInstance().getUserEntity().getRole() != Role.Actor) {
-                usermanagementBtn.setVisible(true);
-            }
-        }
-    }
 
     /**
      * Opens AuthenticationController for login, closes if login was succesfull
@@ -59,6 +70,12 @@ public class DefaultController {
 
             if (userEntity.getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
+                createProgram.setVisible(true);
+            }
+
+            if (userEntity.getRole() == Role.Admin)
+            {
+                importBtn.setVisible(true);
             }
         }
     }
@@ -69,28 +86,117 @@ public class DefaultController {
      * @throws IOException
      */
     private void logout(ActionEvent event) {
-        if (CurrentUser.getInstance().getUserEntity() != null) {
+        if (CurrentUser.getInstance().getUser() != null) {
             CurrentUser.getInstance().init(null); //Logs off
             login.setText(LanguageHandler.getText("login"));
             login.setOnAction(this::goToLogin);
 
             usermanagementBtn.setVisible(false);
             profileNavigation.setVisible(false);
+            createProgram.setVisible(false);
+            importBtn.setVisible(false);
+        }
+    }
+
+    /**
+     * On the click of a button, opens the scene to create a program
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void goToCreateProgram(ActionEvent event) throws IOException {
+
+        CreateProgramController createProgramController = new CreateProgramController();
+        Program programEntity = createProgramController.openView();
+        if (programEntity != null)
+        {
+            programListController.listOfPrograms.add(programEntity);
+            programListController.updateProgramList();
+        }
+    }
+
+    public void importOnAction(ActionEvent event) throws Exception {
+        var selectedFile = getFileFromFileChoose();
+
+        ImportExportDialogController controller = new ImportExportDialogController();
+
+        if (selectedFile == null)
+        {
+            controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
+            return;
+        }
+
+
+        var loadedPrograms = Import.loadPrograms(selectedFile);
+
+
+        if (loadedPrograms.isEmpty())
+        {
+            controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
+        }
+        else
+        {
+            loadedPrograms = domainHandler.importPrograms(loadedPrograms);
+
+            controller.openDialog(event,
+                    LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
+                            LanguageHandler.getText("programs"), "Import Dialog");
+            ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
+            ProgramListController.getInstance().updateProgramList();
+        }
+
+
+
+
+    }
+
+    /**
+     * open a fileChooser and return the file
+     * @return the file the user have chosen from the file chooser
+     */
+    private File getFileFromFileChoose()
+    {
+        var fileChooserStage = new Stage();
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
+
+        return fileChooser.showOpenDialog(fileChooserStage);
+    }
+
+    @FXML
+    public void searchOnKeyPressed(KeyEvent keyEvent) throws Exception {
+        if (keyEvent.getCode().equals(KeyCode.ENTER))
+        {
+            ProgramListController.getInstance().listOfPrograms = domainHandler.search(searchBar.getText());
+            ProgramListController.getInstance().updateProgramList();
+        }
+    }
+
+    /**
+     * Loads the "programList.fxml" scene in the center of the borderpane
+     */
+    public void loadProgramList()
+    {
+        FXMLLoader loader = null;
+        try {
+            loader = App.getLoader("programList");
+            Parent node = loader.load();
+            programListController = loader.getController();
+
+            var allPrograms = domainHandler.getAllPrograms();
+
+            programListController.listOfPrograms.addAll(allPrograms);
+            programListController.updateProgramList();
+            borderPane.setCenter(node);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     @FXML
-    private void goToSearch() throws IOException {
-
-    }
-
-    @FXML
-    private void goToProgram() throws IOException {
-
-    }
-
-    @FXML
-    private void goToUsermanagement() throws IOException {
+    private void goToUserManagement() throws IOException {
         App.setRoot("usermanagement");
     }
 
@@ -100,13 +206,48 @@ public class DefaultController {
      */
     @FXML
     private void openUpdateUser(ActionEvent event) {
-        UserEntity userToUpdate = CurrentUser.getInstance().getUserEntity();
+        User userToUpdate = CurrentUser.getInstance().getUser();
         UpdateUserController updateUserController = new UpdateUserController();
-        UserEntity user = updateUserController.openUpdateUser(event, userToUpdate, userToUpdate.getRole());
+        User user = updateUserController.openUpdateUser(event, userToUpdate);
 
         if (user != null) {
             CurrentUser.getInstance().init(user);
         }
 
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        /**
+         * Language
+         */
+        login.setText(LanguageHandler.getText("login"));
+        profileNavigation.setText(LanguageHandler.getText("profile"));
+        usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
+        createProgram.setText(LanguageHandler.getText("createProgram"));
+        searchBar.setPromptText(LanguageHandler.getText("searchBarPrompt"));
+        navigation.prefWidthProperty().bind(borderPane.widthProperty());
+
+        if (CurrentUser.getInstance().getUser() != null) {
+            login.setText(LanguageHandler.getText("logoff"));
+            login.setOnAction(this::logout);
+            profileNavigation.setVisible(true);
+
+            if (CurrentUser.getInstance().getUser().getRole() != Role.Actor) {
+                usermanagementBtn.setVisible(true);
+                createProgram.setVisible(true);
+            }
+
+            if (CurrentUser.getInstance().getUser().getRole() == Role.Admin)
+            {
+                importBtn.setVisible(true);
+            }
+        }
+
+        loadProgramList();
+    }
+
+
+
 }

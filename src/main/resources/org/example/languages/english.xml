@@ -12,8 +12,46 @@
     <createBtn>Create</createBtn>
     <cancelBtn>Cancel</cancelBtn>
     <updateBtn>Update</updateBtn>
-
     <password>Password</password>
+    <createProgram>Create Program</createProgram>
+    <showMore>Show more</showMore>
+    <updateProgram>Update</updateProgram>
+    <deleteProgram>Delete</deleteProgram>
+    <descriptionHeader>Description*</descriptionHeader>
+    <titleHeader>Title*</titleHeader>
+    <loggedInAs>Logged in as user:</loggedInAs>
+    <createProgramStageTitle>Create Program</createProgramStageTitle>
+    <programCompany>Company*</programCompany>
+    <programCredits>Credits</programCredits>
+    <cancel>Cancel</cancel>
+    <insertTitle>Insert title here</insertTitle>
+    <insertDescription>Insert description here</insertDescription>
+    <insertCompany>Insert company here</insertCompany>
+    <updateProgramStageTitle>Update Program</updateProgramStageTitle>
+    <updateCredits>Update credits</updateCredits>
+    <remainingCharacters>characters remaining</remainingCharacters>
+    <producer>Producer*</producer>
+    <insertProducer>Insert producer here</insertProducer>
+    <createCreditStageTitle>Create credit</createCreditStageTitle>
+    <firstName>First name*</firstName>
+    <firstNamePrompt>Insert first </firstNamePrompt>
+    <middleName>Middle name*</middleName>
+    <middleNamePrompt>Insert middle name here</middleNamePrompt>
+    <lastName>Last name*</lastName>
+    <lastNamePrompt>Insert last name here</lastNamePrompt>
+    <creditTitlePrompt>Insert credit title here</creditTitlePrompt>
+    <emailHeader>Email*</emailHeader>
+    <emailPrompt>Insert credit email here</emailPrompt>
+    <add>Add</add>
+    <programInformationStageTitle>Program information</programInformationStageTitle>
+    <addCreditHeader>Add credit</addCreditHeader>
+    <companyInfoHeader>Produced by</companyInfoHeader>
+    <producerInfoHeader>Producers</producerInfoHeader>
+    <creditHeader>Credits</creditHeader>
+    <deleteProgramStageTitle>Delete program</deleteProgramStageTitle>
+    <deleteWarningText>You sure you want to delete this program?</deleteWarningText>
+    <yes>Yes</yes>
+    <no>No</no>
     <nameColumn>Name</nameColumn>
     <companyColumn>Companies</companyColumn>
     <titleColumn>Title</titleColumn>
@@ -59,7 +97,6 @@
     <usernameOrPassword>Username or password were incorrect</usernameOrPassword>
     <usernameLabel>Username</usernameLabel>
     <passwordLabel>Password</passwordLabel>
-
     <companyCreated>was created</companyCreated>
     <companyNotCreated>was not created</companyNotCreated>
     <companyUpdated>was updated</companyUpdated>
@@ -67,6 +104,13 @@
     <companyDeleted>was deleted</companyDeleted>
     <companyNotDeleted>was not deleted</companyNotDeleted>
     <somethingWrong>Something went wrong</somethingWrong>
-
-
+    <searchBarPrompt>Search here</searchBarPrompt>
+    <actorInfoHeader>Actor</actorInfoHeader>
+    <noProgramsImported>No programs was imported...</noProgramsImported>
+    <noFile>No file have been found</noFile>
+    <programs>program(s)</programs>
+    <succeedImport>Successfully imported</succeedImport>
+    <noSave>No Save location have been found</noSave>
+    <noExport>No programs was exported</noExport>
+    <succeedExport>Successfully exported</succeedExport>
 </language>

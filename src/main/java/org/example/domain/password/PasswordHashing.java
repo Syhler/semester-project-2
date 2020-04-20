@@ -83,5 +83,4 @@ public class PasswordHashing
 
         return bytesToHex(bytes);
     }
-
 }

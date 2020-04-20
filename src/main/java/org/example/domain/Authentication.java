@@ -1,11 +1,11 @@
 package org.example.domain;
 
+import org.example.domain.mapper.UserMapper;
 import org.example.domain.password.PasswordHashing;
-import org.example.entity.UserEntity;
 import org.example.persistence.IPersistenceHandler;
 import org.example.persistence.PersistenceHandler;
 
-public class Authentication implements IAuthentication
+public class Authentication
 {
     private IPersistenceHandler persistenceHandler = new PersistenceHandler();
 
@@ -13,7 +13,7 @@ public class Authentication implements IAuthentication
      * tries to login, it succeed if UserEntity gets returned.
      * @return a object of userEntity
      */
-    public UserEntity login(String username, String password)
+    public User login(String username, String password)
     {
         try {
 
@@ -23,21 +23,11 @@ public class Authentication implements IAuthentication
             if (password == null) return null;
 
             var hashedPassword = PasswordHashing.sha256(password, passwordSalt);
-            return persistenceHandler.user().getUserByLoginInformation(username, hashedPassword);
+            var user = persistenceHandler.user().getUserByLoginInformation(username, hashedPassword);
+            return UserMapper.map(user);
 
         } catch (Exception e) {
             return null;
         }
     }
-
-    public Boolean logout(User user)
-    {
-
-        return false;
-    }
-
-
-
-
-
 }

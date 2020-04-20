@@ -1,10 +1,8 @@
 package org.example.persistence;
 
-import java.sql.Connection;
 
-public class PersistenceHandler implements IPersistenceHandler {
-
-
+public class PersistenceHandler implements IPersistenceHandler
+{
 
     @Override
     public IPersistenceUser user() {
@@ -18,7 +16,7 @@ public class PersistenceHandler implements IPersistenceHandler {
 
     @Override
     public IPersistenceProgram program() {
-        return null;
+        return new PersistenceProgram();
     }
 
     @Override

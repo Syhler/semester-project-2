@@ -1,15 +1,14 @@
 package org.example.persistence;
 
-import org.example.entity.CompanyEntity;
-import org.example.entity.Role;
-import org.example.entity.UserEntity;
+
+import org.example.persistence.entities.CompanyEntity;
 
 import java.util.List;
 
 public interface IPersistenceCompany
 {
 
-    List<CompanyEntity> getCompanies();
+    List<CompanyEntity> getAllCompanies();
     boolean deleteCompany(CompanyEntity companyEntity);
     boolean updateCompany(CompanyEntity companyEntity);
     long createCompany(CompanyEntity companyEntity);
