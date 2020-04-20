@@ -1,8 +1,5 @@
 package org.example.persistence.entities;
 
-
-import org.example.domain.ProgramInformation;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package org.example.persistence;
 
-import org.example.domain.ProgramInformation;
 import org.example.persistence.entities.*;
 
 import java.sql.*;
@@ -26,7 +25,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param language_id
      * @return
      */
-    private long createProgramInformation(ProgramEntity programEntity, long language_id) {
+    private long insertProgramInformation(ProgramEntity programEntity, long language_id) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO programInformation" +
                     "(description, title,language_id,program_id ) VALUES (?,?,?,?) RETURNING id");
@@ -174,7 +173,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         var program = new ProgramEntity(programId, programInformation);
 
 
-        createProgramInformation(program,1);
+        insertProgramInformation(program,1);
 
         return program;
     }
@@ -185,6 +184,9 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         for (var program : programEntities) {
             long programId = insertProgram();
             program.setId(programId);
+
+            insertProgramInformation(program, 1);
+
             if (program.getCompanyEntity() != null)
             {
                 if (program.getCompanyEntity().getId() == 0)

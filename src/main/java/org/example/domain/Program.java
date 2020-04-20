@@ -21,7 +21,8 @@ public class Program
     private Company company;
 
 
-    public Program(long id, ProgramInformation programInformation, List<Credit> credits, List<User> producers, Company company) {
+    public Program(long id, ProgramInformation programInformation, List<Credit> credits,
+                   List<User> producers, Company company) {
         this.id = id;
         this.programInformation = programInformation;
         this.credits = credits;
@@ -78,7 +79,7 @@ public class Program
     public boolean deleteCredit(Credit creditToDelete) {
         var mapped = CreditMapper.map(creditToDelete);
 
-        credits.removeIf(credit -> credit.getUser().getId() == credit.getUser().getId());
+        credits.removeIf(credit -> credit.getUser().getId() == creditToDelete.getUser().getId());
 
         return persistenceHandler.program().removeCreditFromProgram(mapped);
     }

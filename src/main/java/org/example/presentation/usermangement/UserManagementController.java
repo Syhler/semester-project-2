@@ -117,12 +117,14 @@ public class UserManagementController implements Initializable {
 
         col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+
         col_company.setCellValueFactory(user -> new SimpleStringProperty(
                 (user.getValue().getCompany() != null)
                         ? user.getValue().getCompany().getName()
                         : "" ));
 
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
+
         col_createdBy.setCellValueFactory(user -> new SimpleStringProperty(
                 (user.getValue().getCreatedBy() != null)
                         ? user.getValue().getFullName()
