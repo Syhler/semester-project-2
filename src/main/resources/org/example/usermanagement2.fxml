@@ -69,14 +69,14 @@
                </VBox.margin>
             </HBox>
             <TableView fx:id="table" editable="true" prefHeight="595.0" prefWidth="1201.0" VBox.vgrow="ALWAYS">
-               <columns>
-                  <TableColumn fx:id="col_id" minWidth="60.0" text="ID" />
-                  <TableColumn fx:id="col_name" minWidth="280.0" prefWidth="300.0" text="Name" />
+              <columns>
+                <TableColumn fx:id="col_id" minWidth="60.0" text="ID" />
+                <TableColumn fx:id="col_name" minWidth="280.0" prefWidth="300.0" text="Name" />
                   <TableColumn fx:id="col_company" minWidth="200.0" prefWidth="220.0" text="Company" />
                   <TableColumn fx:id="col_title" minWidth="280.0" prefWidth="300.0" text="Title" />
                   <TableColumn fx:id="col_createdBy" minWidth="180.0" prefWidth="200.0" text="Created By" />
                   <TableColumn fx:id="col_created" minWidth="170.0" prefWidth="174.0" text="Created" />
-               </columns>
+              </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
