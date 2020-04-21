@@ -296,7 +296,7 @@ public class UserManagementController implements Initializable {
     private void goToCreateProgram(ActionEvent event) throws IOException {
 
         CreateProgramController createProgramController = new CreateProgramController();
-        Program programEntity = createProgramController.openView();
+        Program programEntity = createProgramController.openView(event);
         createProgram.setSelected(false);
         if (programEntity != null && programListController != null)
         {
