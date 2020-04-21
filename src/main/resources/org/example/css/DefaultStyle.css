@@ -3,9 +3,10 @@
 #usermanagementPane, #navigation, #defaultPane{
     -fx-background-color: #1E1E1E;
 }
-#createUserRoot, #updateUserRoot, #companyPane, #borderPane, #scrollPane{
+#createUserRoot, #updateUserRoot, #companyPane, #borderPane, #scrollPane, #listGridPane{
     -fx-background-color:#383838;
 }
+
 /*------------------------------------------------- Buttons ---------------------------------------------------------->*/
 .button, .toggle-button{
     -fx-background-radius: 0px;
@@ -66,7 +67,31 @@
     -fx-text-fill: #fff;
 }
 /*------------------------------------------------- Controls -------------------------------------------------------->*/
+.scroll-pane {
+    -fx-background-color: black;
+}
 
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #19ACD5;
+    -fx-background-radius: 5em;
+}
 /*------------------------------------------------- Table ----------------------------------------------------------->*/
 
 /*------------------------------------------------- Labels ---------------------------------------------------------->*/

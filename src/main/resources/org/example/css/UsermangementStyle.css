@@ -82,7 +82,7 @@
     -fx-background-color: transparent;
 }
 #table .column-header{
-    -fx-background-color: transparent;
+    -fx-background-color:#383838 ;
 }
 #table .column-header-background{
     -fx-background-color:#383838 ;
