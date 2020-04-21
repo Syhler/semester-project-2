@@ -65,7 +65,7 @@
     <createPopup>Opret</createPopup>
     <editBtn>Rediger</editBtn>
     <deleteSelected>Slet</deleteSelected>
-    <login>Logind</login>
+    <login>Login</login>
     <logoff>Logud</logoff>
     <searchNavigation>Søgning</searchNavigation>
     <createCompanyLabel>Opret Firma</createCompanyLabel>
@@ -113,6 +113,7 @@
     <noSave>Ingen lokation blev fundet</noSave>
     <noExport>Ingen programmer var eksporteret</noExport>
     <succeedExport>Succesfuldt eksporteret</succeedExport>
-
+    <import>Importer</import>
+    <export>Eksporter</export>
 
 </language>

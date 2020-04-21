@@ -113,4 +113,6 @@
     <noSave>No Save location have been found</noSave>
     <noExport>No programs was exported</noExport>
     <succeedExport>Successfully exported</succeedExport>
+    <import>Import</import>
+    <export>Export</export>
 </language>

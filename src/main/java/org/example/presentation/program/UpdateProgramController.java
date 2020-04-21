@@ -6,10 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.App;
@@ -86,7 +88,7 @@ public class UpdateProgramController implements Initializable {
      * @param program of the program that you want to open
      * @return a programEntity with its different variables filled.
      */
-    public Program openView(Program program) throws IOException {
+    public Program openView(Program program, ActionEvent event) throws IOException {
 
         FXMLLoader loader = null;
         loader = App.getLoader("updateProgram");
@@ -123,6 +125,9 @@ public class UpdateProgramController implements Initializable {
         stage.setScene(scene);
         stage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
         stage.setResizable(false);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
+
         stage.showAndWait();
 
         return updateProgramController.globalProgram;
@@ -298,7 +303,7 @@ public class UpdateProgramController implements Initializable {
     @FXML
     public void goToCreateCredit(ActionEvent event) throws IOException {
         CreditController creditController = new CreditController();
-        User credit = creditController.openView();
+        User credit = creditController.openView(event);
 
         if (credit == null) return;
 

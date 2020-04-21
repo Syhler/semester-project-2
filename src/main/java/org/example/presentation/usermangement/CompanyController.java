@@ -121,7 +121,7 @@ public class CompanyController implements Initializable {
             companyStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             companyStage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
             companyStage.setResizable(false);
-            companyStage.show();
+            companyStage.showAndWait();
 
 
         } catch (IOException e) {

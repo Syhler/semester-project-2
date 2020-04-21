@@ -20,18 +20,27 @@
 #navigation .button{
 
 }
-#navigation .button:hover{
+#navigation .toggle-button:hover{
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
+}
+#navigation .toggle-button:selected{
     -fx-background-color: #19ACD5;
     -fx-text-fill: #fff;
 }
 #usersByRoleHbox .button{
 
 }
-#usersByRoleHbox .button:hover, #companyAddToggle:hover{
+#companyAddToggle:selected{
     -fx-background-color: #19ACD5;
     -fx-text-fill: #fff;
 }
-#usersByRoleHbox .toggle-button:selected, #companyAddToggle:selected{
+
+#usersByRoleHbox .toggle-button:hover, #companyAddToggle:hover{
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
+}
+#usersByRoleHbox .toggle-button:selected{
     -fx-background-color: #19ACD5;
     -fx-text-fill: #fff;
 }
@@ -47,6 +56,10 @@
 #editBtn{
     -fx-text-fill: #fff;
     -fx-background-color: #484848;
+}
+#editBtn:hover, #editBtn:selected{
+    -fx-text-fill: #fff;
+    -fx-background-color: #19ACD5;
 }
 #createUserFromInput, #btnCancel{
     -fx-background-color:#19ACD5;
@@ -69,7 +82,7 @@
     -fx-background-color: transparent;
 }
 #table .column-header{
-    -fx-background-color: transparent;
+    -fx-background-color:#383838 ;
 }
 #table .column-header-background{
     -fx-background-color:#383838 ;

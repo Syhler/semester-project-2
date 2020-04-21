@@ -3,6 +3,9 @@ package org.example.presentation;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -39,9 +42,9 @@ public class DefaultController implements Initializable
     @FXML
     public ComboBox<LanguageModel> selectLanguage;
     @FXML
-    private Button login;
+    private ToggleButton login;
     @FXML
-    private Button createProgram;
+    private ToggleButton createProgram;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -49,11 +52,13 @@ public class DefaultController implements Initializable
     @FXML
     private ToolBar navigation;
     @FXML
-    private Button importBtn;
+    private ToggleButton importBtn;
     @FXML
-    private Button usermanagementBtn;
+    private ToggleButton usermanagementBtn;
     @FXML
-    private Button profileNavigation;
+    private ToggleButton profileNavigation;
+    @FXML
+    private ToggleButton searchNavigation;
 
     private int sprog;
 
@@ -71,11 +76,12 @@ public class DefaultController implements Initializable
     private void goToLogin(ActionEvent event) {
         AuthenticationController authenticationController = new AuthenticationController();
         var userEntity = authenticationController.openLoginStage(event);
-
+        login.setSelected(false);
         if (userEntity != null) {
             login.setText(LanguageHandler.getText("logoff"));
             login.setOnAction(this::logout);
             profileNavigation.setVisible(true);
+
 
             if (userEntity.getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
@@ -116,7 +122,8 @@ public class DefaultController implements Initializable
     private void goToCreateProgram(ActionEvent event) throws IOException {
 
         CreateProgramController createProgramController = new CreateProgramController();
-        Program programEntity = createProgramController.openView();
+        createProgram.setSelected(false);
+        Program programEntity = createProgramController.openView(event);
         if (programEntity != null)
         {
             programListController.listOfPrograms.add(programEntity);
@@ -132,6 +139,7 @@ public class DefaultController implements Initializable
         if (selectedFile == null)
         {
             controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
+            importBtn.setSelected(false);
             return;
         }
 
@@ -142,6 +150,7 @@ public class DefaultController implements Initializable
         if (loadedPrograms.isEmpty())
         {
             controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
+            importBtn.setSelected(false);
         }
         else
         {
@@ -152,6 +161,7 @@ public class DefaultController implements Initializable
                             LanguageHandler.getText("programs"), "Import Dialog");
             ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
             ProgramListController.getInstance().updateProgramList();
+            importBtn.setSelected(false);
         }
     }
 
@@ -174,7 +184,9 @@ public class DefaultController implements Initializable
     public void searchOnKeyPressed(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode().equals(KeyCode.ENTER))
         {
-            ProgramListController.getInstance().listOfPrograms = domainHandler.search(searchBar.getText());
+            var programs = domainHandler.search(searchBar.getText());
+            setImages(programs);
+            ProgramListController.getInstance().listOfPrograms = programs;
             ProgramListController.getInstance().updateProgramList();
         }
     }
@@ -191,6 +203,7 @@ public class DefaultController implements Initializable
             programListController = loader.getController();
 
             var allPrograms = domainHandler.getAllPrograms();
+            setImages(allPrograms);
 
             programListController.listOfPrograms.addAll(allPrograms);
             programListController.updateProgramList();
@@ -198,6 +211,22 @@ public class DefaultController implements Initializable
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setImages(List<Program> programs)
+    {
+        var listOfImages = new ArrayList<Image>();
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/kim.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/mænd.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/nah.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/dal.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/3.jpg")));
+
+        for (var program : programs) {
+            program.setImage(listOfImages.get(new Random().nextInt(listOfImages.size())));
+        }
+
+
     }
 
     @FXML
@@ -214,9 +243,10 @@ public class DefaultController implements Initializable
         User userToUpdate = CurrentUser.getInstance().getUser();
         UpdateUserController updateUserController = new UpdateUserController();
         User user = updateUserController.openUpdateUser(event, userToUpdate);
-
+        profileNavigation.setSelected(false);
         if (user != null) {
             CurrentUser.getInstance().init(user);
+
         }
 
     }
@@ -251,6 +281,8 @@ public class DefaultController implements Initializable
         usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
         createProgram.setText(LanguageHandler.getText("createProgram"));
         searchBar.setPromptText(LanguageHandler.getText("searchBarPrompt"));
+        searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
+        importBtn.setText(LanguageHandler.getText("import"));
     }
 
     private void currentLanguage()
@@ -278,7 +310,9 @@ public class DefaultController implements Initializable
          * Language
          */
         setButtonLanguage();
+
         navigation.prefWidthProperty().bind(borderPane.widthProperty());
+        searchNavigation.setSelected(true);
 
         if (CurrentUser.getInstance().getUser() != null) {
             login.setText(LanguageHandler.getText("logoff"));
