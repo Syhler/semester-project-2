@@ -2,9 +2,7 @@
 
 #program{
     -fx-background-color: #1E1E1E;
-    -fx-border-color: #19ACD5;
-    -fx-border-style: solid;
-    -fx-border-width: 1;
+    
 }
 #program:hover{
     -fx-background-color:#19ACD5;

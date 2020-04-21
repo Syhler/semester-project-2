@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="program" onMouseClicked="#goToProgramInfo" prefHeight="220.0" stylesheets="@css/ProgramThumbStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.program.ProgramController">
+<VBox fx:id="program" onMouseClicked="#goToProgramInfo" prefHeight="220.0" stylesheets="@css/ProgramThumbStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.program.ProgramController">
    <children>
       <VBox fx:id="programThumbnail" alignment="CENTER">
          <children>
-            <ImageView fx:id="programImage" fitHeight="150.0" fitWidth="240.0" pickOnBounds="true">
+            <ImageView fx:id="programImage" fitHeight="150.0" fitWidth="245.0" pickOnBounds="true">
                <image>
                   <Image url="@loginImages/stockProgramPhoto.png" />
                </image>
@@ -27,6 +22,9 @@
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </VBox.margin>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
             </Label>
          </children>
       </VBox>

@@ -69,12 +69,12 @@ public class DefaultController implements Initializable
     private void goToLogin(ActionEvent event) {
         AuthenticationController authenticationController = new AuthenticationController();
         var userEntity = authenticationController.openLoginStage(event);
-
+        login.setSelected(false);
         if (userEntity != null) {
             login.setText(LanguageHandler.getText("logoff"));
             login.setOnAction(this::logout);
             profileNavigation.setVisible(true);
-            login.setSelected(false);
+
 
             if (userEntity.getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
