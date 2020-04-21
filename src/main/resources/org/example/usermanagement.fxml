@@ -16,17 +16,15 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ToolBar fx:id="navigation" maxHeight="40.0" prefHeight="40.0" prefWidth="1270.0" stylesheets="@css/UsermangementStyle.css" VBox.vgrow="NEVER">
+            <ToolBar fx:id="navigation" prefHeight="36.0" prefWidth="1282.0">
                <items>
-                  <Button fx:id="login" mnemonicParsing="false" onAction="#logout" text="Logout" />
-                  <Button fx:id="searchNavigation" mnemonicParsing="false" onAction="#goToDefault" text="Search" />
+                  <ToggleButton fx:id="login" mnemonicParsing="false" onAction="#logout" text="Login" />
+                  <ToggleButton fx:id="searchNavigation" mnemonicParsing="false" onAction="#goToDefault" text="Search" />
+                  <ToggleButton fx:id="usermanagementBtn" mnemonicParsing="false" text="Usermanagement" />
+                  <ToggleButton fx:id="profileNavigation" mnemonicParsing="false" onAction="#openUpdateUser" text="Profile" />
+                  <ToggleButton fx:id="createProgram" mnemonicParsing="false" onAction="#goToCreateProgram" text="Create Program" />
+                  <ToggleButton fx:id="importBtn" mnemonicParsing="false" onAction="#importOnAction" text="Import" />
                </items>
-               <padding>
-                  <Insets top="-1.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="7.0" />
-               </VBox.margin>
             </ToolBar>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
                <children>
@@ -55,11 +53,11 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="editBtn" mnemonicParsing="false" onAction="#openUpdateUser" prefHeight="40.0" prefWidth="100.0" text="Edit">
+                        <ToggleButton fx:id="editBtn" mnemonicParsing="false" onAction="#openUpdateUser" prefHeight="40.0" prefWidth="100.0" text="Edit">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
-                        </Button>
+                        </ToggleButton>
                         <Button fx:id="deleteSelected" mnemonicParsing="false" onAction="#deleteUser" prefHeight="40.0" prefWidth="100.0" text="Delete" />
                      </children>
                   </HBox>

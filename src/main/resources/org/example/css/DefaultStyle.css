@@ -16,6 +16,12 @@
 }
 .button:hover, .toggle-button:hover{
     -fx-cursor: hand;
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
+}
+.toggle-button:selected{
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
 }
 #navigation .button{
 
@@ -54,6 +60,10 @@
 }
 #createUserFromInput:hover, #btnCancel:hover{
     -fx-background-color:#1E1E1E;
+}
+#searchNavigation{
+    -fx-background-color: #19ACD5;
+    -fx-text-fill: #fff;
 }
 /*------------------------------------------------- Controls -------------------------------------------------------->*/
 

@@ -119,7 +119,7 @@ public class CompanyController implements Initializable {
             companyStage.initModality(Modality.WINDOW_MODAL);
             companyStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             companyStage.setResizable(false);
-            companyStage.show();
+            companyStage.showAndWait();
 
 
         } catch (IOException e) {
