@@ -50,9 +50,7 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
                         "DELETE FROM company WHERE \"company\".id = ? ");
                 preparedStatement.setLong(1,companyEntity.getId());
                 var rows = preparedStatement.executeUpdate();
-                if (rows > 0) return true;
-
-                return false;
+                return rows > 0;
             }
             catch (SQLException e) {
                 e.printStackTrace();
@@ -71,9 +69,8 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
             preparedStatement.setString(1,companyEntity.getName());
             preparedStatement.setLong(2,id);
 
-
-            return preparedStatement.execute();
-
+            var rows = preparedStatement.executeUpdate();
+            return rows > 0;
         }
         catch (SQLException e) {
             e.printStackTrace();

@@ -73,8 +73,8 @@
 
 /*------------------------------------------------- Inputs ---------------------------------------------------------->*/
 .text-field{
-    -fx-border-radius: 0px;
-    -fx-background-radius: 0px;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
 }
 
 

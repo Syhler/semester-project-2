@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
@@ -8,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" prefHeight="720" prefWidth="1280" stylesheets="@css/DefaultStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.DefaultController">
+<BorderPane fx:id="borderPane" prefHeight="720" prefWidth="1280" stylesheets="@css/DefaultStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.DefaultController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +33,7 @@
             </HBox>
             <TextField fx:id="searchBar" onKeyPressed="#searchOnKeyPressed" promptText="Search">
                <VBox.margin>
-                  <Insets bottom="20.0" left="200.0" right="200.0" top="20.0" />
+                  <Insets left="400.0" right="400.0" top="30.0" />
                </VBox.margin>
             </TextField>
          </children>

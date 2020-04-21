@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -123,6 +124,7 @@ public class ProgramInformationController implements Initializable {
 
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("programInformationStageTitle"));
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
         stage.setScene(scene);
 
         stage.showAndWait();

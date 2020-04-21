@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
@@ -119,6 +120,7 @@ public class CreateUserController implements Initializable {
 
             createUserStage.setTitle(LanguageHandler.getText("createUserTitle") +" "+ titleName);
             createUserStage.initModality(Modality.WINDOW_MODAL);
+            createUserStage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
             createUserStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             createUserStage.setResizable(false);
             createUserStage.showAndWait();
@@ -139,7 +141,7 @@ public class CreateUserController implements Initializable {
     @FXML
     public void createUserFromInput(ActionEvent event) throws Exception {
 
-        String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText(),event);
+        String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText());
         if (validationMessage != null)
         {
             setStatusText(validationMessage);
