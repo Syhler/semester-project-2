@@ -8,13 +8,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.DomainFacade;
+import org.example.domain.Program;
 import org.example.domain.Role;
 import org.example.domain.User;
+import org.example.domain.io.Import;
+import org.example.presentation.dialogControllers.ImportExportDialogController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.program.CreateProgramController;
+import org.example.presentation.program.ProgramListController;
 import org.example.presentation.utilities.CurrentUser;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,14 +41,21 @@ public class UserManagementController implements Initializable {
     @FXML
     private Button createPopup;
     @FXML
-    private Button editBtn;
+    private ToggleButton editBtn;
     @FXML
     private Button deleteSelected;
     @FXML
-    private Button login;
+    private ToggleButton login;
     @FXML
-    private Button searchNavigation;
-
+    private ToggleButton searchNavigation;
+    @FXML
+    private ToggleButton createProgram;
+    @FXML
+    private ToggleButton importBtn;
+    @FXML
+    private ToggleButton usermanagementBtn;
+    @FXML
+    private ToggleButton profileNavigation;
     @FXML
     private ToggleButton companyAddToggle;
 
@@ -62,7 +77,7 @@ public class UserManagementController implements Initializable {
 
 
     private ObservableList<User> userList = FXCollections.observableArrayList();
-
+    private ProgramListController programListController;
     private Role roleTap;
 
     @Override
@@ -85,7 +100,12 @@ public class UserManagementController implements Initializable {
         deleteSelected.setText(LanguageHandler.getText("deleteSelected"));
         login.setText(LanguageHandler.getText("logoff"));
         searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
+        login.setText(LanguageHandler.getText("login"));
+        profileNavigation.setText(LanguageHandler.getText("profile"));
+        usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
+        createProgram.setText(LanguageHandler.getText("createProgram"));
 
+        usermanagementBtn.setSelected(true);
         companyAddToggle.setVisible(false);
 
         switch (CurrentUser.getInstance().getUser().getRole()) {
@@ -159,6 +179,7 @@ public class UserManagementController implements Initializable {
         CompanyController companyController = new CompanyController();
         companyController.openCompanyController(event);
         companyAddToggle.setSelected(false);
+
     }
 
     /**
@@ -173,9 +194,12 @@ public class UserManagementController implements Initializable {
         UpdateUserController updateUserController = new UpdateUserController();
 
         User user = updateUserController.openUpdateUser(event, userToUpdate);
+        profileNavigation.setSelected(false);
+        editBtn.setSelected(false);
 
         if (user != null) {
             userList.remove(userToUpdate);
+
 
             if (user.getRole() == roleTap) {
                 userList.add(user);
@@ -261,5 +285,76 @@ public class UserManagementController implements Initializable {
         if (userWasRemoved) {
             userList.remove(selectedUser);
         }
+    }
+
+    /**
+     * On the click of a button, opens the scene to create a program
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void goToCreateProgram(ActionEvent event) throws IOException {
+
+        CreateProgramController createProgramController = new CreateProgramController();
+        Program programEntity = createProgramController.openView(event);
+        createProgram.setSelected(false);
+        if (programEntity != null && programListController != null)
+        {
+            if (programListController.listOfPrograms != null)
+            {
+                programListController.listOfPrograms.add(programEntity);
+                programListController.updateProgramList();
+            }
+        }
+    }
+
+    public void importOnAction(ActionEvent event) throws Exception {
+        var selectedFile = getFileFromFileChoose();
+
+        ImportExportDialogController controller = new ImportExportDialogController();
+
+        if (selectedFile == null)
+        {
+            controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
+            return;
+        }
+
+
+        var loadedPrograms = Import.loadPrograms(selectedFile);
+
+
+        if (loadedPrograms.isEmpty())
+        {
+            controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
+        }
+        else
+        {
+            loadedPrograms = domainHandler.importPrograms(loadedPrograms);
+
+            controller.openDialog(event,
+                    LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
+                            LanguageHandler.getText("programs"), "Import Dialog");
+            ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
+            ProgramListController.getInstance().updateProgramList();
+        }
+
+        importBtn.setSelected(false);
+
+
+    }
+
+    /**
+     * open a fileChooser and return the file
+     * @return the file the user have chosen from the file chooser
+     */
+    private File getFileFromFileChoose()
+    {
+        var fileChooserStage = new Stage();
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
+
+        return fileChooser.showOpenDialog(fileChooserStage);
     }
 }

@@ -3,25 +3,32 @@ package org.example.presentation;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import org.example.App;
-import org.example.domain.DomainFacade;
-import org.example.domain.Program;
-import org.example.domain.Role;
-import org.example.domain.User;
+import org.example.domain.*;
 import org.example.domain.io.Import;
+import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.multipleLanguages.LanguageModel;
+import org.example.presentation.multipleLanguages.LanguageSelector;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
 import javafx.stage.FileChooser;
@@ -32,11 +39,12 @@ import org.example.presentation.utilities.CurrentUser;
 
 public class DefaultController implements Initializable
 {
-
     @FXML
-    private Button login;
+    public ComboBox<LanguageModel> selectLanguage;
     @FXML
-    private Button createProgram;
+    private ToggleButton login;
+    @FXML
+    private ToggleButton createProgram;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -44,14 +52,20 @@ public class DefaultController implements Initializable
     @FXML
     private ToolBar navigation;
     @FXML
-    private Button importBtn;
+    private ToggleButton importBtn;
     @FXML
-    private Button usermanagementBtn;
+    private ToggleButton usermanagementBtn;
     @FXML
-    private Button profileNavigation;
+    private ToggleButton profileNavigation;
+    @FXML
+    private ToggleButton searchNavigation;
+
+    private int sprog;
 
     private DomainFacade domainHandler = new DomainFacade();
     private ProgramListController programListController;
+
+
 
 
     /**
@@ -62,11 +76,12 @@ public class DefaultController implements Initializable
     private void goToLogin(ActionEvent event) {
         AuthenticationController authenticationController = new AuthenticationController();
         var userEntity = authenticationController.openLoginStage(event);
-
+        login.setSelected(false);
         if (userEntity != null) {
             login.setText(LanguageHandler.getText("logoff"));
             login.setOnAction(this::logout);
             profileNavigation.setVisible(true);
+
 
             if (userEntity.getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
@@ -107,7 +122,8 @@ public class DefaultController implements Initializable
     private void goToCreateProgram(ActionEvent event) throws IOException {
 
         CreateProgramController createProgramController = new CreateProgramController();
-        Program programEntity = createProgramController.openView();
+        createProgram.setSelected(false);
+        Program programEntity = createProgramController.openView(event);
         if (programEntity != null)
         {
             programListController.listOfPrograms.add(programEntity);
@@ -123,6 +139,7 @@ public class DefaultController implements Initializable
         if (selectedFile == null)
         {
             controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
+            importBtn.setSelected(false);
             return;
         }
 
@@ -133,6 +150,7 @@ public class DefaultController implements Initializable
         if (loadedPrograms.isEmpty())
         {
             controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
+            importBtn.setSelected(false);
         }
         else
         {
@@ -143,11 +161,8 @@ public class DefaultController implements Initializable
                             LanguageHandler.getText("programs"), "Import Dialog");
             ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
             ProgramListController.getInstance().updateProgramList();
+            importBtn.setSelected(false);
         }
-
-
-
-
     }
 
     /**
@@ -169,7 +184,9 @@ public class DefaultController implements Initializable
     public void searchOnKeyPressed(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode().equals(KeyCode.ENTER))
         {
-            ProgramListController.getInstance().listOfPrograms = domainHandler.search(searchBar.getText());
+            var programs = domainHandler.search(searchBar.getText());
+            setImages(programs);
+            ProgramListController.getInstance().listOfPrograms = programs;
             ProgramListController.getInstance().updateProgramList();
         }
     }
@@ -186,6 +203,7 @@ public class DefaultController implements Initializable
             programListController = loader.getController();
 
             var allPrograms = domainHandler.getAllPrograms();
+            setImages(allPrograms);
 
             programListController.listOfPrograms.addAll(allPrograms);
             programListController.updateProgramList();
@@ -193,6 +211,22 @@ public class DefaultController implements Initializable
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setImages(List<Program> programs)
+    {
+        var listOfImages = new ArrayList<Image>();
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/kim.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/mænd.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/nah.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/dal.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/3.jpg")));
+
+        for (var program : programs) {
+            program.setImage(listOfImages.get(new Random().nextInt(listOfImages.size())));
+        }
+
+
     }
 
     @FXML
@@ -209,25 +243,76 @@ public class DefaultController implements Initializable
         User userToUpdate = CurrentUser.getInstance().getUser();
         UpdateUserController updateUserController = new UpdateUserController();
         User user = updateUserController.openUpdateUser(event, userToUpdate);
-
+        profileNavigation.setSelected(false);
         if (user != null) {
             CurrentUser.getInstance().init(user);
+
         }
 
     }
+    public void chooseLanguage()
+    {
+        LanguageModel danish = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/loginUserIcon.png")), Language.Danish);
+        LanguageModel english = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")), Language.English);
+        ObservableList<LanguageModel> options = FXCollections.observableArrayList();
+        options.addAll(danish, english);
+        selectLanguage.setItems(options);
+        selectLanguage.setCellFactory(c -> new LanguageSelector());
+        selectLanguage.setButtonCell(new LanguageSelector());
+    }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void setLanguage()
+    {
+        selectLanguage.valueProperty().addListener(new ChangeListener<LanguageModel>() {
+            @Override
+            public void changed(ObservableValue<? extends LanguageModel> observableValue, LanguageModel languageModel, LanguageModel t1) {
+                if (t1 != null && t1.getLanguage() != null) {
+                    LanguageHandler.initLanguage(t1.getLanguage());
+                    setButtonLanguage();
+                }
+            }
+        });
+    }
 
-        /**
-         * Language
-         */
+    private void setButtonLanguage()
+    {
         login.setText(LanguageHandler.getText("login"));
         profileNavigation.setText(LanguageHandler.getText("profile"));
         usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
         createProgram.setText(LanguageHandler.getText("createProgram"));
         searchBar.setPromptText(LanguageHandler.getText("searchBarPrompt"));
+        searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
+        importBtn.setText(LanguageHandler.getText("import"));
+    }
+
+    private void currentLanguage()
+    {
+        for (int i = 0; i < selectLanguage.getItems().size(); i++) {
+
+            if (selectLanguage.getItems().get(i).getLanguage() == LanguageHandler.getLanguage())
+            {
+                selectLanguage.getSelectionModel().select(i);
+                break;
+            }
+        }
+    }
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        setLanguage();
+        chooseLanguage();
+        currentLanguage();
+
+        /**
+         * Language
+         */
+        setButtonLanguage();
+
         navigation.prefWidthProperty().bind(borderPane.widthProperty());
+        searchNavigation.setSelected(true);
 
         if (CurrentUser.getInstance().getUser() != null) {
             login.setText(LanguageHandler.getText("logoff"));

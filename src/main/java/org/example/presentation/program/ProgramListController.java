@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.example.App;
@@ -22,6 +23,7 @@ public class ProgramListController implements Initializable {
     private ScrollPane scrollPane;
     @FXML
     private GridPane listGridPane;
+
 
     @FXML
     private VBox programList;
@@ -63,6 +65,8 @@ public class ProgramListController implements Initializable {
             ProgramController programController = loader.<ProgramController>getController();
             programController.title.setText(program.getProgramInformation().getTitle());
             programController.program.prefWidthProperty().bind(listGridPane.widthProperty());
+            programController.programImage.setImage(program.getImage());
+
             //programController.program.setMaxWidth(240);
             programController.programEntity = program;
 

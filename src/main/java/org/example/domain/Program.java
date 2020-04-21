@@ -1,5 +1,6 @@
 package org.example.domain;
 
+import javafx.scene.image.Image;
 import org.example.domain.io.Export;
 import org.example.domain.mapper.CreditMapper;
 import org.example.domain.mapper.ProgramMapper;
@@ -19,6 +20,7 @@ public class Program
     private List<Credit> credits;
     private List<User> producers;
     private Company company;
+    private Image image;
 
 
     public Program(long id, ProgramInformation programInformation, List<Credit> credits,
@@ -38,6 +40,13 @@ public class Program
         this.company = company;
     }
 
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public Image getImage() {
+        return image;
+    }
 
     public long getId() {
         return id;

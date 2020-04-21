@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.example.presentation.DefaultController;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import java.io.IOException;
@@ -18,7 +19,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        LanguageHandler.initLanguage(Language.Swedish);
+
+
+
+        LanguageHandler.initLanguage(Language.English);
+
         scene = new Scene(getLoader("default").load());
         stage.setMinWidth(1280);
         stage.setMinHeight(720);

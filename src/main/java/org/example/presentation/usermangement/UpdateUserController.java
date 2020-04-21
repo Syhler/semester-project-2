@@ -138,13 +138,17 @@ public class UpdateUserController implements Initializable {
             var companies = domainHandler.getAllCompanies();
             companyEntities.addAll(companies);
 
-            // Selecting the users current company in company Combobox
-            for (Company company : companyEntities) {
-                if (userToUpdate.getCompany().getId() == company.getId()) {
-                    updateUserController.companyList.getSelectionModel().select(companyEntities.indexOf(company));
-                    break;
+            if (updateUserController.companyList != null && userToUpdate.getCompany() != null)
+            {
+                // Selecting the users current company in company Combobox
+                for (Company company : companyEntities) {
+                    if (userToUpdate.getCompany().getId() == company.getId()) {
+                        updateUserController.companyList.getSelectionModel().select(companyEntities.indexOf(company));
+                        break;
+                    }
                 }
             }
+
 
             updateUserController.title.setText(userToUpdate.getTitle());
             updateUserController.roleList.setValue(userToUpdate.getRole());
