@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <language>
     <username>Brugernavn</username>
-
     <password>Adgangskode:*</password>
     <firstName>Fornavn:*</firstName>
     <middleName>Mellemnavn:</middleName>
@@ -113,6 +112,8 @@
     <noSave>Ingen lokation blev fundet</noSave>
     <noExport>Ingen programmer var eksporteret</noExport>
     <succeedExport>Succesfuldt eksporteret</succeedExport>
+    <import>Importer</import>
+    <export>Eksporter</export>
 
 
 </language>

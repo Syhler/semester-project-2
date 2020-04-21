@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<language>
+    <username>Brukernavn</username>
+    <password>Passord:*</password>
+    <firstName>Fornavn:*</firstName>
+    <middleName>Mellomnavn:</middleName>
+    <lastName>Etternavn:*</lastName>
+    <email>Email:*</email>
+    <title>Tittel:*</title>
+    <company>Selskap:*</company>
+    <createBtn>Opprett</createBtn>
+    <cancelBtn>Avbryt</cancelBtn>
+    <updateBtn>Oppdater</updateBtn>
+    <password>Passord</password>
+    <createProgram>Opprett Program</createProgram>
+    <showMore>Vis mer</showMore>
+    <updateProgram>Oppdater</updateProgram>
+    <deleteProgram>Slett</deleteProgram>
+    <descriptionHeader>Beskrivelse*</descriptionHeader>
+    <titleHeader>Tittel*</titleHeader>
+    <loggedInAs>Logget inn som bruker:</loggedInAs>
+    <createProgramStageTitle>Oprett Program</createProgramStageTitle>
+    <programCompany>Produsent*</programCompany>
+    <programCredits>Kreditt</programCredits>
+    <cancel>Avbryt</cancel>
+    <insertTitle>Sett tittel her</insertTitle>
+    <insertDescription>Sett beskrivelse her</insertDescription>
+    <insertCompany>Sett produsent her</insertCompany>
+    <updateProgramStageTitle>Oppdater Program</updateProgramStageTitle>
+    <updateCredits>Oppdater kreditt</updateCredits>
+    <remainingCharacters>tegn tilbake</remainingCharacters>
+    <producer>Produser*</producer>
+    <insertProducer>Sett produser her</insertProducer>
+    <createCreditStageTitle>Opprett kreditt</createCreditStageTitle>
+    <firstName>Fornavn*</firstName>
+    <firstNamePrompt>Sett fornavn her</firstNamePrompt>
+    <middleName>Mellomnavn*</middleName>
+    <middleNamePrompt>Sett mellomnavn her</middleNamePrompt>
+    <lastName>Etternavn*</lastName>
+    <lastNamePrompt>Sett etternavn her</lastNamePrompt>
+    <creditTitlePrompt>Sett kreditt tittel her</creditTitlePrompt>
+    <emailHeader>Email*</emailHeader>
+    <emailPrompt>Sett kreditt email her</emailPrompt>
+    <add>Legg</add>
+    <programInformationStageTitle>Program informasjon</programInformationStageTitle>
+    <addCreditHeader>Legg kreditt</addCreditHeader>
+    <companyInfoHeader>Produsert av</companyInfoHeader>
+    <producerInfoHeader>Produsere</producerInfoHeader>
+    <creditHeader>Kreditt</creditHeader>
+    <deleteProgramStageTitle>Slett program</deleteProgramStageTitle>
+    <deleteWarningText>Er du sikker på at du vil slette dette program?</deleteWarningText>
+    <yes>Ja</yes>
+    <no>Nei</no>
+    <nameColumn>Navn</nameColumn>
+    <companyColumn>Selskaper</companyColumn>
+    <titleColumn>Tittel</titleColumn>
+    <createdbyColumn>Laget av</createdbyColumn>
+    <createdColumn>Opprettet</createdColumn>
+    <companyBtn>Selskap</companyBtn>
+    <displayAdmins>Admins</displayAdmins>
+    <displayManufactures>Produsenter</displayManufactures>
+    <displayProducers>Produsere</displayProducers>
+    <displayActors>Aktører</displayActors>
+    <createPopup>Opprett</createPopup>
+    <editBtn>Rediger</editBtn>
+    <deleteSelected>Slett</deleteSelected>
+    <login>Loginn</login>
+    <logoff>Loggut</logoff>
+    <searchNavigation>Søk</searchNavigation>
+    <createCompanyLabel>Opprett Selskap</createCompanyLabel>
+    <companyNameLabel>Navn:</companyNameLabel>
+    <createCompany>Opprett</createCompany>
+    <updateCompanyLabel>Oppdater Selskap:</updateCompanyLabel>
+    <companyIdLabel>ID:</companyIdLabel>
+    <updateCompanyLabelName>Navn:</updateCompanyLabelName>
+    <updateCompany>Oppdater</updateCompany>
+    <deleteCompany>Slett</deleteCompany>
+    <profile>Profil</profile>
+    <usermanagementBtn>Bruker Administrasjon</usermanagementBtn>
+    <closeCompany>Lukk</closeCompany>
+    <companyTitle>Selskaper</companyTitle>
+    <updateUserTitle>Oppdater</updateUserTitle>
+    <createUserTitle>Opprett</createUserTitle>
+    <admin>Admin</admin>
+    <manufacture>Produsent</manufacture>
+    <producer>Produser</producer>
+    <actor>Aktør</actor>
+    <firstnameEmpty>Fornavn skal utfylles</firstnameEmpty>
+    <lastnameEmpty>Efternavn skal utfylles</lastnameEmpty>
+    <emailEmpty>Email skal utfylles</emailEmpty>
+    <companyEmpty>Et selskap må velges</companyEmpty>
+    <titleEmpty>Titel skal udfyldes</titleEmpty>
+    <passwordEmpty>Kodeord skal utfylles</passwordEmpty>
+    <usernameEmpty>Brugernavn skal utfylles</usernameEmpty>
+    <Authentication>Loginn</Authentication>
+    <usernameOrPassword>Brukernavn eller passord er forkjært</usernameOrPassword>
+    <usernameLabel>Brukernavn</usernameLabel>
+    <passwordLabel>Passord</passwordLabel>
+    <companyCreated>ble opprettet</companyCreated>
+    <companyNotCreated>ble ikke opprettet</companyNotCreated>
+    <companyUpdated>ble redigert</companyUpdated>
+    <companyNotUpdated>ble ikke redigert</companyNotUpdated>
+    <companyDeleted>ble slettet</companyDeleted>
+    <companyNotDeleted>ble ikke slettet</companyNotDeleted>
+    <somethingWrong>Noe gikk galt</somethingWrong>
+    <searchBarPrompt>Søk her</searchBarPrompt>
+    <actorInfoHeader>Skuespiller</actorInfoHeader>
+    <noProgramsImported>Ingen programmer ble importert...</noProgramsImported>
+    <noFile>Ingen fil ble funnet</noFile>
+    <programs>programmer</programs>
+    <succeedImport>Vellykket importert</succeedImport>
+    <noSave>Ingen lokasjon ble funnet</noSave>
+    <noExport>Ingen programmer var eksportert</noExport>
+    <succeedExport>Vellykket eksportert</succeedExport>
+
+
+</language>

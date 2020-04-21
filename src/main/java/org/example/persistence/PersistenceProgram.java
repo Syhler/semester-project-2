@@ -367,11 +367,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
-
-
     }
 
     /**

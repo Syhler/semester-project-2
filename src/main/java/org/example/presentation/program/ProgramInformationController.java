@@ -215,6 +215,11 @@ public class ProgramInformationController implements Initializable {
 
         //descriptionTextArea.prefWidthProperty().bind(descriptionPane.widthProperty());
 
+        actorListViewContextMenu.getItems().get(0).setText(LanguageHandler.getText("deleteProgram"));
+        producerListViewContextMenu.getItems().get(0).setText(LanguageHandler.getText("deleteProgram"));
+        creditsListViewContextMenu.getItems().get(0).setText(LanguageHandler.getText("deleteProgram"));
+        exportBtn.setText(LanguageHandler.getText("export"));
+
         setListCellFactoryForCredit(actorListView);
         setListCellFactory(producersListView);
         setListCellFactoryForCredit(creditListView);
