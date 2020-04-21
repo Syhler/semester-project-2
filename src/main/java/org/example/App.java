@@ -18,7 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        LanguageHandler.initLanguage(Language.Danish);
+        LanguageHandler.initLanguage(Language.Swedish);
         scene = new Scene(getLoader("default").load());
         stage.setMinWidth(1280);
         stage.setMinHeight(720);

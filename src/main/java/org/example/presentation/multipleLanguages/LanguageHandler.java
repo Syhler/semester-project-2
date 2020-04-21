@@ -111,6 +111,12 @@ public class LanguageHandler
             case Russian:
                 var russianPath = App.class.getResource("languages/russian.xml").getPath();
                 return new File(russianPath);
+            case Swedish:
+                var swedishPath = App.class.getResource("languages/Swedish.xml").getPath();
+                return new File(swedishPath);
+            case Norwegian:
+                var norwegianPath = App.class.getResource("languages/norwegian.xml").getPath();
+                return new File(norwegianPath);
         }
 
         return null;

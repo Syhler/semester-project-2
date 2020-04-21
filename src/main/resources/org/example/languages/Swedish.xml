@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<language>
+    <username>Användarnamn</username>
+    <password>Lösenord:*</password>
+    <firstName>Förnamn:*</firstName>
+    <middleName>Mellannamn:</middleName>
+    <lastName>Efternamn:*</lastName>
+    <email>Email:*</email>
+    <title>Titel:*</title>
+    <company>Företag:*</company>
+    <createBtn>Skapa</createBtn>
+    <cancelBtn>Avbryt</cancelBtn>
+    <updateBtn>Uppdater</updateBtn>
+    <password>Lösenord</password>
+    <createProgram>Skapa Program</createProgram>
+    <showMore>Visa mer</showMore>
+    <updateProgram>Uppdater</updateProgram>
+    <deleteProgram>Radera</deleteProgram>
+    <descriptionHeader>Beskrivning*</descriptionHeader>
+    <titleHeader>Titel*</titleHeader>
+    <loggedInAs>Inloggad som användare:</loggedInAs>
+    <createProgramStageTitle>Skapa Program</createProgramStageTitle>
+    <programCompany>Företag*</programCompany>
+    <programCredits>Credits</programCredits>
+    <cancel>Avbryt</cancel>
+    <insertTitle>Sätt in titel här</insertTitle>
+    <insertDescription>Sätt in beskrivning här</insertDescription>
+    <insertCompany>Sätt in företag här</insertCompany>
+    <updateProgramStageTitle>Uppdater Program</updateProgramStageTitle>
+    <updateCredits>Uppdater credits</updateCredits>
+    <remainingCharacters>Återstående karaktärer</remainingCharacters>
+    <producer>Producer*</producer>
+    <insertProducer>Sätt producer här</insertProducer>
+    <createCreditStageTitle>Skapa credit</createCreditStageTitle>
+    <firstName>Förnamn:*</firstName>
+    <firstNamePrompt>Sätt Förnamn här </firstNamePrompt>
+    <middleName>Mellannamn*</middleName>
+    <middleNamePrompt>Sätt Mellannamn här</middleNamePrompt>
+    <lastName>Last name*</lastName>
+    <lastNamePrompt>Sätt Efternamn här</lastNamePrompt>
+    <creditTitlePrompt>Sätt credit titel här</creditTitlePrompt>
+    <emailHeader>Email*</emailHeader>
+    <emailPrompt>Sätt credit email här</emailPrompt>
+    <add>Tilläg</add>
+    <programInformationStageTitle>Program information</programInformationStageTitle>
+    <addCreditHeader>Tilläg credit</addCreditHeader>
+    <companyInfoHeader>Producerad av</companyInfoHeader>
+    <producerInfoHeader>Producers</producerInfoHeader>
+    <creditHeader>Credits</creditHeader>
+    <deleteProgramStageTitle>Radera program</deleteProgramStageTitle>
+    <deleteWarningText>Är du säker på att du vill ta bort det här programmet?</deleteWarningText>
+    <yes>Ja</yes>
+    <no>Nej</no>
+    <nameColumn>namn</nameColumn>
+    <companyColumn>Företag</companyColumn>
+    <titleColumn>Titel</titleColumn>
+    <createdbyColumn>Skapad av</createdbyColumn>
+    <createdColumn>Skapad</createdColumn>
+    <companyBtn>Företag</companyBtn>
+    <displayAdmins>Admins</displayAdmins>
+    <displayManufactures>Tillverkar</displayManufactures>
+    <displayProducers>Producere</displayProducers>
+    <displayActors>Skådespelare</displayActors>
+    <createPopup>Skapad</createPopup>
+    <editBtn>Redigera</editBtn>
+    <deleteSelected>Radera</deleteSelected>
+    <login>Logga in</login>
+    <logoff>Logga ut</logoff>
+    <searchNavigation>Sök</searchNavigation>
+    <createCompanyLabel>Skapad Företag</createCompanyLabel>
+    <companyNameLabel>Namn:</companyNameLabel>
+    <createCompany>Skapad</createCompany>
+    <updateCompanyLabel>Redigera Företag:</updateCompanyLabel>
+    <companyIdLabel>ID:</companyIdLabel>
+    <updateCompanyLabelName>Namn:</updateCompanyLabelName>
+    <updateCompany>Redigera</updateCompany>
+    <deleteCompany>Radera</deleteCompany>
+    <profile>Profil</profile>
+    <usermanagementBtn>Användarhantering</usermanagementBtn>
+    <closeCompany>Stänga</closeCompany>
+    <companyTitle>Företag</companyTitle>
+    <updateUserTitle>Redigera</updateUserTitle>
+    <createUserTitle>Skapad</createUserTitle>
+    <admin>Admin</admin>
+    <manufacture>tillverkning</manufacture>
+    <producer>Producer</producer>
+    <actor>Skådespelare</actor>
+    <firstnameEmpty>Förnamnet är tomt</firstnameEmpty>
+    <lastnameEmpty>Efternamn är tomt</lastnameEmpty>
+    <emailEmpty>Email är tomt</emailEmpty>
+    <companyEmpty>Ett företag måste väljas</companyEmpty>
+    <titleEmpty>Titel är tomt</titleEmpty>
+    <passwordEmpty>Lösenordet är tomt</passwordEmpty>
+    <usernameEmpty>Användarnamn är tomt</usernameEmpty>
+    <Authentication>Autentisering</Authentication>
+    <usernameOrPassword>Användarnamn eller lösenord var felaktiga</usernameOrPassword>
+    <usernameLabel>Användarnamn</usernameLabel>
+    <passwordLabel>Lösenord</passwordLabel>
+    <companyCreated>skapades</companyCreated>
+    <companyNotCreated>skapades inte</companyNotCreated>
+    <companyUpdated>uppdaterades</companyUpdated>
+    <companyNotUpdated>uppdaterades inte</companyNotUpdated>
+    <companyDeleted>raderades</companyDeleted>
+    <companyNotDeleted>raderades inte</companyNotDeleted>
+    <somethingWrong>Något gick fel</somethingWrong>
+    <searchBarPrompt>Sök här</searchBarPrompt>
+    <actorInfoHeader>Skådespelare</actorInfoHeader>
+    <noProgramsImported>Inga program importerades...</noProgramsImported>
+    <noFile>Ingen fil har hittats</noFile>
+    <programs>program(er)</programs>
+    <succeedImport>Importerad</succeedImport>
+    <noSave>Ingen sparad plats har hittats</noSave>
+    <noExport>Inga program exporterades</noExport>
+    <succeedExport>Exporterad</succeedExport>
+</language>

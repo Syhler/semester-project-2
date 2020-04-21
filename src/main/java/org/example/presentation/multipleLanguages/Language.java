@@ -4,5 +4,7 @@ public enum Language
 {
     Danish,
     English,
-    Russian
+    Russian,
+    Swedish,
+    Norwegian
 }
