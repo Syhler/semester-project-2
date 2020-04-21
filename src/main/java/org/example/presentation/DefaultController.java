@@ -115,8 +115,8 @@ public class DefaultController implements Initializable
     private void goToCreateProgram(ActionEvent event) throws IOException {
 
         CreateProgramController createProgramController = new CreateProgramController();
-        Program programEntity = createProgramController.openView();
         createProgram.setSelected(false);
+        Program programEntity = createProgramController.openView(event);
         if (programEntity != null)
         {
             programListController.listOfPrograms.add(programEntity);
