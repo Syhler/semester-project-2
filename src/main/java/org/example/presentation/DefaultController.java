@@ -181,7 +181,9 @@ public class DefaultController implements Initializable
     public void searchOnKeyPressed(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode().equals(KeyCode.ENTER))
         {
-            ProgramListController.getInstance().listOfPrograms = domainHandler.search(searchBar.getText());
+            var programs = domainHandler.search(searchBar.getText());
+            setImages(programs);
+            ProgramListController.getInstance().listOfPrograms = programs;
             ProgramListController.getInstance().updateProgramList();
         }
     }
