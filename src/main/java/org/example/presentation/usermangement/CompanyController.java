@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
@@ -118,6 +119,7 @@ public class CompanyController implements Initializable {
             companyStage.setTitle(LanguageHandler.getText("companyTitle"));
             companyStage.initModality(Modality.WINDOW_MODAL);
             companyStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
+            companyStage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
             companyStage.setResizable(false);
             companyStage.show();
 

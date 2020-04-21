@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
@@ -151,6 +152,7 @@ public class UpdateUserController implements Initializable {
             updateUserStage.setTitle(LanguageHandler.getText("updateUserTitle") +" "+ titleName);
             updateUserStage.initModality(Modality.WINDOW_MODAL);
             updateUserStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
+            updateUserStage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
             updateUserStage.setResizable(false);
             updateUserStage.showAndWait();
 
@@ -169,7 +171,7 @@ public class UpdateUserController implements Initializable {
      */
     @FXML
     public void updateUserFromInput(ActionEvent event) throws IOException {
-        String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText(),password.getText(),event);
+        String validationMessage = UsermanagementUtilities.formValidation(firstname.getText(),lastname.getText(),email.getText(),companyList.getSelectionModel().getSelectedItem(),title.getText());
         if (validationMessage != null)
         {
             setStatusText(validationMessage);

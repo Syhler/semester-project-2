@@ -1,6 +1,7 @@
 package org.example.presentation.utilities;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
@@ -63,7 +64,19 @@ public class UsermanagementUtilities {
         return rolename;
     }
 
-    public static String formValidation(String firstName, String lastName, String email, Company company, String title, String password, ActionEvent event){
+    public static String formValidation(String firstName, String lastName, String email, Company company, String title, String password){
+        String msgToReturn = null;
+
+        msgToReturn = formValidation(firstName, lastName, email, company, title);
+
+        if (password.isEmpty()) {
+            msgToReturn = (LanguageHandler.getText("passwordEmpty"));
+        }
+
+        return msgToReturn;
+    }
+
+    public static String formValidation(String firstName, String lastName, String email, Company company, String title){
         String msgToReturn = null;
 
         if (firstName.isEmpty()) {
@@ -76,9 +89,9 @@ public class UsermanagementUtilities {
             msgToReturn = (LanguageHandler.getText("companyEmpty"));
         } else if (title.isEmpty()) {
             msgToReturn = (LanguageHandler.getText("titleEmpty"));
-        } else if (password.isEmpty() && event.getSource().toString().equals("Opdater")) {
-                msgToReturn = (LanguageHandler.getText("passwordEmpty"));
         }
+
         return msgToReturn;
     }
+
 }

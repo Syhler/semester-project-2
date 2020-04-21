@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.Role;
@@ -67,6 +68,7 @@ public class CreditController implements Initializable {
             stage.setTitle(LanguageHandler.getText("createCreditStageTitle"));
             stage.setScene(scene);
             stage.setResizable(false);
+            stage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
             stage.showAndWait();
             return creditController.creditActor;
         } catch (IOException e) {

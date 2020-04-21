@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
@@ -42,6 +43,7 @@ public class ImportExportDialogController
 
             ImportExportDialogController controller = loader.getController();
             controller.setStatusLabelText(text);
+            dialogStage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
 
             dialogStage.showAndWait();
 

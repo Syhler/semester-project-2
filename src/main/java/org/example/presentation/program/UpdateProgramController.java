@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.App;
@@ -123,6 +124,7 @@ public class UpdateProgramController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("updateProgramStageTitle"));
         stage.setScene(scene);
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
         stage.setResizable(false);
         stage.showAndWait();
 

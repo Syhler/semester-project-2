@@ -55,7 +55,7 @@ public class AuthenticationController implements Initializable {
             return null;
         }
 
-        loginStage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/lockIcon.jpg")));
+        loginStage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
         loginStage.setTitle(LanguageHandler.getText("Authentication"));
         loginStage.initModality(Modality.WINDOW_MODAL);
         loginStage.initOwner(((Node)event.getTarget()).getScene().getWindow());

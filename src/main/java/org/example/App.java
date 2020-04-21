@@ -3,6 +3,7 @@ package org.example;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
@@ -21,6 +22,7 @@ public class App extends Application {
         scene = new Scene(getLoader("default").load());
         stage.setMinWidth(1280);
         stage.setMinHeight(720);
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
         stage.setScene(scene);
         stage.show();
     }
