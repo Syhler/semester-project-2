@@ -298,10 +298,13 @@ public class UserManagementController implements Initializable {
         CreateProgramController createProgramController = new CreateProgramController();
         Program programEntity = createProgramController.openView();
         createProgram.setSelected(false);
-        if (programEntity != null)
+        if (programEntity != null && programListController != null)
         {
-            programListController.listOfPrograms.add(programEntity);
-            programListController.updateProgramList();
+            if (programListController.listOfPrograms != null)
+            {
+                programListController.listOfPrograms.add(programEntity);
+                programListController.updateProgramList();
+            }
         }
     }
 
