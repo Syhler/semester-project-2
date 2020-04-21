@@ -260,6 +260,7 @@ public class DefaultController implements Initializable
         createProgram.setText(LanguageHandler.getText("createProgram"));
         searchBar.setPromptText(LanguageHandler.getText("searchBarPrompt"));
         searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
+        importBtn.setText(LanguageHandler.getText("import"));
         navigation.prefWidthProperty().bind(borderPane.widthProperty());
         searchNavigation.setSelected(true);
 

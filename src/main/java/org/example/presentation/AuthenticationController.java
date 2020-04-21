@@ -22,6 +22,10 @@ import java.util.ResourceBundle;
 public class AuthenticationController implements Initializable {
 
     @FXML
+    private Button btnLogin;
+    @FXML
+    private Button btnCancel;
+    @FXML
     private PasswordField passwordField;
     @FXML
     private TextField usernameField;
@@ -38,6 +42,8 @@ public class AuthenticationController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         usernameLabel.setText(LanguageHandler.getText("usernameLabel"));
         passwordLabel.setText(LanguageHandler.getText("passwordLabel"));
+        btnCancel.setText(LanguageHandler.getText("cancel"));
+        btnLogin.setText(LanguageHandler.getText("login"));
     }
 
     /**
