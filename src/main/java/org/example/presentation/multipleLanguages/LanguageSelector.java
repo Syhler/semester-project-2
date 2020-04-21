@@ -24,8 +24,8 @@ public class LanguageSelector extends ListCell<LanguageModel> {
         setText(null);
         if(item!=null){
             ImageView imageView = new ImageView(item.getImage());
-            imageView.setFitWidth(40);
-            imageView.setFitHeight(40);
+            imageView.setFitWidth(20);
+            imageView.setFitHeight(20);
             setGraphic(imageView);
             setText(item.getLanguage().toString());
         }

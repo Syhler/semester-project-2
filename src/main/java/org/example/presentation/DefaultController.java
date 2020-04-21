@@ -252,10 +252,15 @@ public class DefaultController implements Initializable
     }
     public void chooseLanguage()
     {
-        LanguageModel danish = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/loginUserIcon.png")), Language.Danish);
-        LanguageModel english = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")), Language.English);
+        LanguageModel danish = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/danishFlag.png")), Language.Danish);
+        LanguageModel english = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/englishFlag.png")), Language.English);
+        LanguageModel swedish = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/swedishFlag.png")), Language.Swedish);
+        LanguageModel norway = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/norwayFlag.png")), Language.Norwegian);
+        LanguageModel russian = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/russianFlag.jpg")), Language.Russian);
+
+
         ObservableList<LanguageModel> options = FXCollections.observableArrayList();
-        options.addAll(danish, english);
+        options.addAll(danish, english, swedish, norway, russian);
         selectLanguage.setItems(options);
         selectLanguage.setCellFactory(c -> new LanguageSelector());
         selectLanguage.setButtonCell(new LanguageSelector());
