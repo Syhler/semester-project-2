@@ -1,50 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="programInfo" alignment="CENTER" prefHeight="849.0" prefWidth="842.0" stylesheets="@css/ProgramInformation.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.program.ProgramInformationController">
+<VBox fx:id="programInfo" alignment="CENTER" prefHeight="910.0" prefWidth="842.0" stylesheets="@css/ProgramInformation.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.program.ProgramInformationController">
    <children>
-      <Pane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1f1f1f;">
+      <VBox prefHeight="281.0" prefWidth="842.0">
          <children>
-            <Label fx:id="title" alignment="CENTER" layoutX="14.0" layoutY="15.0" text="Tv title" textFill="WHITE" textOverrun="WORD_ELLIPSIS" wrapText="true">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="75.0">
-         <children>
-            <ImageView fitHeight="226.0" fitWidth="238.0" pickOnBounds="true">
-               <image>
-                  <Image url="@loginImages/stockProgramPhoto.png" />
-               </image>
-            </ImageView>
-            <Pane fx:id="descriptionPane" style="-fx-background-color: #383838;" HBox.hgrow="ALWAYS">
+            <StackPane prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <TextArea fx:id="descriptionTextArea" editable="false" onMouseClicked="#descriptionClick" prefHeight="197.0" prefWidth="489.0" text="Fusce euismod, libero ac accumsan tempus, mi quam fermentum leo, vitae fringilla purus nisi ac nunc. Aenean tempus dictum nisi, ut hendrerit nisi hensedrerit a. Morbi iaculis lorem eu lorem dignissim lacinia. Integer gravida dictum placerat. Duis tortor magna, fringilla sed dui vel, faucibus egestas diam. Mauris tempus iaculis dui. In congue ullamcorper tortor, id dignissim libero auctor at. Suspendisse nibh turpis, viverra eu faucibus in, aliquam sed arcu aliquam sed arcu aliquam sed arcu arcu." wrapText="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="15.5" />
-                     </font>
-                  </TextArea>
-                  <Label fx:id="productionCompany" layoutY="199.0" text="Production: CompanyThis" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Label>
+                  <ImageView fx:id="programImage" fitHeight="413.0" fitWidth="842.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@loginImages/kim.jpg" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" StackPane.alignment="CENTER" />
+                  <VBox>
+                     <children>
+                        <Region prefHeight="254.0" prefWidth="842.0" VBox.vgrow="ALWAYS" />
+                        <Label fx:id="title" text="Keeping up With The Kardashians" textFill="WHITE" textOverrun="WORD_ELLIPSIS" wrapText="true" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="descriptionTextLabel" text="Fusce euismod, libero ac accumsan tempus, mi quam fermentum leo, vitae fringilla purus nisi ac nunc. Aenean tempus dictum nisi, ut hendrerit nisi hensedrerit a. Morbi iaculis lorem eu lorem dignissim lacinia. Integer gravida dictum placerat. Duis tortor magna, fringilla sed dui vel, faucibus egestas diam. Mauris tempus iaculis dui. In congue ullamcorper tortor, id dignissim libero auctor at. Suspendisse nibh turpis, viverra eu faucibus in, aliquam sed arcu aliquam sed arcu aliquam sed arcu arcu." textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="productionCompany" text="Production: CompanyThis" textAlignment="CENTER" textFill="#e40000" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
-            </Pane>
+            </StackPane>
          </children>
          <VBox.margin>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </VBox.margin></HBox>
+            <Insets bottom="50.0" left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </VBox>
       <VBox maxHeight="Infinity" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
          <children>
             <Accordion maxHeight="Infinity" VBox.vgrow="ALWAYS">

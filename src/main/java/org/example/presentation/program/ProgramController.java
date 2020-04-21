@@ -19,7 +19,7 @@ public class ProgramController implements Initializable
     @FXML
     public Label title;
     @FXML
-    private ImageView programImage;
+    public ImageView programImage;
 
     public Program programEntity;
 

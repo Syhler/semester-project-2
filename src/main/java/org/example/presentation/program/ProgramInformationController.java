@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -30,6 +31,10 @@ import java.util.ResourceBundle;
 public class ProgramInformationController implements Initializable {
 
     @FXML
+    private Label descriptionTextLabel;
+    @FXML
+    private ImageView programImage;
+    @FXML
     private ContextMenu producerListViewContextMenu;
 
     @FXML
@@ -45,13 +50,7 @@ public class ProgramInformationController implements Initializable {
     private Button deleteBtn;
 
     @FXML
-    private TextArea descriptionTextArea;
-
-    @FXML
     private Label title;
-
-    @FXML
-    private Pane descriptionPane;
 
     @FXML
     private Label productionCompany;
@@ -102,7 +101,7 @@ public class ProgramInformationController implements Initializable {
 
         if (loader == null || root == null) return;
         ProgramInformationController programInformationController = loader.getController();
-
+        programInformationController.programImage.setImage(programObject.getImage());
         programInformationController.program = domainHandler.getProgramById(programObject.getId());
 
         if (programInformationController.program != null)
@@ -119,12 +118,12 @@ public class ProgramInformationController implements Initializable {
         programInformationController.updateBtn.setText(LanguageHandler.getText("updateProgram"));
         programInformationController.deleteBtn.setText(LanguageHandler.getText("deleteProgram"));
 
-
         Scene scene = new Scene(root);
 
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("programInformationStageTitle"));
         stage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
+        stage.setResizable(false);
         stage.setScene(scene);
 
         stage.showAndWait();
@@ -135,7 +134,7 @@ public class ProgramInformationController implements Initializable {
         var tempProgram = programInformationController.program;
 
         programInformationController.title.setText(tempProgram.getProgramInformation().getTitle());
-        programInformationController.descriptionTextArea.setText(tempProgram.getProgramInformation().getDescription());
+        programInformationController.descriptionTextLabel.setText(tempProgram.getProgramInformation().getDescription());
         if (tempProgram.getCompany() != null) {
             programInformationController.productionCompany.setText(LanguageHandler.getText("companyInfoHeader") + ": " + tempProgram.getCompany().getName());
         }
@@ -157,6 +156,7 @@ public class ProgramInformationController implements Initializable {
                 programInformationController.creditListView.getItems().add(credit);
             }
         }
+
     }
 
     @FXML
@@ -208,7 +208,7 @@ public class ProgramInformationController implements Initializable {
 
         }
 
-        descriptionTextArea.prefWidthProperty().bind(descriptionPane.widthProperty());
+        //descriptionTextArea.prefWidthProperty().bind(descriptionPane.widthProperty());
 
         setListCellFactoryForCredit(actorListView);
         setListCellFactory(producersListView);
@@ -345,7 +345,7 @@ public class ProgramInformationController implements Initializable {
 
                 if (!ControllerUtility.gotAccessToProgram(program)) return;
 
-                descriptionTextArea.setEditable(true);
+                //descriptionTextArea.setEditable(true);
 
             }
         }

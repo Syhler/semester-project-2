@@ -3,6 +3,9 @@ package org.example.presentation;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -186,6 +190,7 @@ public class DefaultController implements Initializable
             programListController = loader.getController();
 
             var allPrograms = domainHandler.getAllPrograms();
+            setImages(allPrograms);
 
             programListController.listOfPrograms.addAll(allPrograms);
             programListController.updateProgramList();
@@ -193,6 +198,22 @@ public class DefaultController implements Initializable
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setImages(List<Program> programs)
+    {
+        var listOfImages = new ArrayList<Image>();
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/kim.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/mænd.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/nah.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/dal.jpg")));
+        listOfImages.add(new Image(App.class.getResourceAsStream("loginImages/3.jpg")));
+
+        for (var program : programs) {
+            program.setImage(listOfImages.get(new Random().nextInt(listOfImages.size())));
+        }
+
+
     }
 
     @FXML
