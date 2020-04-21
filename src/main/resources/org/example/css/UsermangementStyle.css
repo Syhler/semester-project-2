@@ -68,6 +68,20 @@
 #createUserFromInput:hover, #btnCancel:hover{
     -fx-background-color:#1E1E1E;
 }
+#closeWindow{
+    -fx-background-color: #ED5E68;
+    -fx-text-fill: #fff;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+    -fx-font-weight: bold;
+}
+#minimizeWindow{
+    -fx-background-color: #484848;
+    -fx-text-fill: #fff;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+    -fx-font-weight: bold;
+}
 /*------------------------------------------------- Controls -------------------------------------------------------->*/
 .separator *.line{
     -fx-text-fill: transparent;
