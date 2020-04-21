@@ -105,6 +105,8 @@ public class DefaultController implements Initializable
             CurrentUser.getInstance().init(null); //Logs off
             login.setText(LanguageHandler.getText("login"));
             login.setOnAction(this::goToLogin);
+            login.setSelected(false);
+
 
             usermanagementBtn.setVisible(false);
             profileNavigation.setVisible(false);

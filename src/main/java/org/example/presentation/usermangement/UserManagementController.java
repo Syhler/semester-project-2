@@ -1,15 +1,18 @@
 package org.example.presentation.usermangement;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.example.App;
 import org.example.domain.DomainFacade;
 import org.example.domain.Program;
@@ -25,10 +28,16 @@ import org.example.presentation.utilities.CurrentUser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserManagementController implements Initializable {
     private DomainFacade domainHandler = new DomainFacade();
+    @FXML
+    private Button closeWindow;
+    @FXML
+    private Button minimizeWindow;
+
     // Function Buttons Create, Read, Update, Delete
     @FXML
     private ToggleButton displayAdmins;
@@ -100,7 +109,6 @@ public class UserManagementController implements Initializable {
         deleteSelected.setText(LanguageHandler.getText("deleteSelected"));
         login.setText(LanguageHandler.getText("logoff"));
         searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
-        login.setText(LanguageHandler.getText("login"));
         profileNavigation.setText(LanguageHandler.getText("profile"));
         usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
         createProgram.setText(LanguageHandler.getText("createProgram"));
@@ -357,4 +365,20 @@ public class UserManagementController implements Initializable {
 
         return fileChooser.showOpenDialog(fileChooserStage);
     }
+
+    @FXML
+    private void closeWindow(ActionEvent event){
+        Platform.exit();
+        /*
+        Stage currentStage = (Stage) ((Node)event.getTarget()).getScene().getWindow();
+        currentStage.close();
+
+         */
+    }
+    @FXML
+    private void minimizeWindow(ActionEvent event){
+        Stage currentStage = (Stage) minimizeWindow.getScene().getWindow();
+        currentStage.setIconified(true);
+    }
+
 }
