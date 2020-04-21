@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -38,9 +39,9 @@ public class DefaultController implements Initializable
 {
 
     @FXML
-    private Button login;
+    private ToggleButton login;
     @FXML
-    private Button createProgram;
+    private ToggleButton createProgram;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -48,11 +49,13 @@ public class DefaultController implements Initializable
     @FXML
     private ToolBar navigation;
     @FXML
-    private Button importBtn;
+    private ToggleButton importBtn;
     @FXML
-    private Button usermanagementBtn;
+    private ToggleButton usermanagementBtn;
     @FXML
-    private Button profileNavigation;
+    private ToggleButton profileNavigation;
+    @FXML
+    private ToggleButton searchNavigation;
 
     private DomainFacade domainHandler = new DomainFacade();
     private ProgramListController programListController;
@@ -71,6 +74,7 @@ public class DefaultController implements Initializable
             login.setText(LanguageHandler.getText("logoff"));
             login.setOnAction(this::logout);
             profileNavigation.setVisible(true);
+            login.setSelected(false);
 
             if (userEntity.getRole() != Role.Actor) {
                 usermanagementBtn.setVisible(true);
@@ -112,6 +116,7 @@ public class DefaultController implements Initializable
 
         CreateProgramController createProgramController = new CreateProgramController();
         Program programEntity = createProgramController.openView();
+        createProgram.setSelected(false);
         if (programEntity != null)
         {
             programListController.listOfPrograms.add(programEntity);
@@ -127,6 +132,7 @@ public class DefaultController implements Initializable
         if (selectedFile == null)
         {
             controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
+            importBtn.setSelected(false);
             return;
         }
 
@@ -137,6 +143,7 @@ public class DefaultController implements Initializable
         if (loadedPrograms.isEmpty())
         {
             controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
+            importBtn.setSelected(false);
         }
         else
         {
@@ -147,6 +154,7 @@ public class DefaultController implements Initializable
                             LanguageHandler.getText("programs"), "Import Dialog");
             ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
             ProgramListController.getInstance().updateProgramList();
+            importBtn.setSelected(false);
         }
 
 
@@ -230,9 +238,10 @@ public class DefaultController implements Initializable
         User userToUpdate = CurrentUser.getInstance().getUser();
         UpdateUserController updateUserController = new UpdateUserController();
         User user = updateUserController.openUpdateUser(event, userToUpdate);
-
+        profileNavigation.setSelected(false);
         if (user != null) {
             CurrentUser.getInstance().init(user);
+
         }
 
     }
@@ -248,7 +257,9 @@ public class DefaultController implements Initializable
         usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
         createProgram.setText(LanguageHandler.getText("createProgram"));
         searchBar.setPromptText(LanguageHandler.getText("searchBarPrompt"));
+        searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
         navigation.prefWidthProperty().bind(borderPane.widthProperty());
+        searchNavigation.setSelected(true);
 
         if (CurrentUser.getInstance().getUser() != null) {
             login.setText(LanguageHandler.getText("logoff"));
