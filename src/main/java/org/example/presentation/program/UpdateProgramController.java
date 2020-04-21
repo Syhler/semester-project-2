@@ -116,9 +116,6 @@ public class UpdateProgramController implements Initializable {
             //updateProgramController.programId = program.getId();
         }
 
-
-
-
         Scene scene = new Scene(node);
 
         Stage stage = new Stage();

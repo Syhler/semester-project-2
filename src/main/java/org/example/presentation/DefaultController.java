@@ -4,24 +4,28 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import org.example.App;
-import org.example.domain.DomainFacade;
-import org.example.domain.Program;
-import org.example.domain.Role;
-import org.example.domain.User;
+import org.example.domain.*;
 import org.example.domain.io.Import;
+import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.multipleLanguages.LanguageModel;
+import org.example.presentation.multipleLanguages.LanguageSelector;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
 import javafx.stage.FileChooser;
@@ -32,7 +36,8 @@ import org.example.presentation.utilities.CurrentUser;
 
 public class DefaultController implements Initializable
 {
-
+    @FXML
+    public ComboBox<LanguageModel> selectLanguage;
     @FXML
     private Button login;
     @FXML
@@ -50,8 +55,12 @@ public class DefaultController implements Initializable
     @FXML
     private Button profileNavigation;
 
+    private int sprog;
+
     private DomainFacade domainHandler = new DomainFacade();
     private ProgramListController programListController;
+
+
 
 
     /**
@@ -144,10 +153,6 @@ public class DefaultController implements Initializable
             ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
             ProgramListController.getInstance().updateProgramList();
         }
-
-
-
-
     }
 
     /**
@@ -215,18 +220,64 @@ public class DefaultController implements Initializable
         }
 
     }
+    public void chooseLanguage()
+    {
+        LanguageModel danish = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/loginUserIcon.png")), Language.Danish);
+        LanguageModel english = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")), Language.English);
+        ObservableList<LanguageModel> options = FXCollections.observableArrayList();
+        options.addAll(danish, english);
+        selectLanguage.setItems(options);
+        selectLanguage.setCellFactory(c -> new LanguageSelector());
+        selectLanguage.setButtonCell(new LanguageSelector());
+    }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void setLanguage()
+    {
+        selectLanguage.valueProperty().addListener(new ChangeListener<LanguageModel>() {
+            @Override
+            public void changed(ObservableValue<? extends LanguageModel> observableValue, LanguageModel languageModel, LanguageModel t1) {
+                if (t1 != null && t1.getLanguage() != null) {
+                    LanguageHandler.initLanguage(t1.getLanguage());
+                    setButtonLanguage();
+                }
+            }
+        });
+    }
 
-        /**
-         * Language
-         */
+    private void setButtonLanguage()
+    {
         login.setText(LanguageHandler.getText("login"));
         profileNavigation.setText(LanguageHandler.getText("profile"));
         usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
         createProgram.setText(LanguageHandler.getText("createProgram"));
         searchBar.setPromptText(LanguageHandler.getText("searchBarPrompt"));
+    }
+
+    private void currentLanguage()
+    {
+        for (int i = 0; i < selectLanguage.getItems().size(); i++) {
+
+            if (selectLanguage.getItems().get(i).getLanguage() == LanguageHandler.getLanguage())
+            {
+                selectLanguage.getSelectionModel().select(i);
+                break;
+            }
+        }
+    }
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        setLanguage();
+        chooseLanguage();
+        currentLanguage();
+
+        /**
+         * Language
+         */
+        setButtonLanguage();
         navigation.prefWidthProperty().bind(borderPane.widthProperty());
 
         if (CurrentUser.getInstance().getUser() != null) {
