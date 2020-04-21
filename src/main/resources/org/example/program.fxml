@@ -10,23 +10,26 @@
    <children>
       <VBox fx:id="programThumbnail" alignment="CENTER">
          <children>
-            <ImageView fx:id="programImage" fitHeight="150.0" fitWidth="240.0" pickOnBounds="true">
+            <ImageView fx:id="programImage" fitHeight="150.0" fitWidth="245.0" pickOnBounds="true">
                <image>
                   <Image url="@loginImages/stockProgramPhoto.png" />
                </image>
                <VBox.margin>
-                  <Insets />
+                  <Insets left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </ImageView>
             <Label fx:id="title" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" text="Title" wrapText="true">
                <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </VBox.margin>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
             </Label>
          </children>
       </VBox>
    </children>
    <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      <Insets top="5.0" />
    </padding>
 </VBox>
