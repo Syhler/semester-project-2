@@ -1,5 +1,6 @@
 package org.example.persistence;
 
+import org.example.persistence.common.IPersistenceUser;
 import org.example.persistence.entities.CompanyEntity;
 import org.example.persistence.entities.UserEntity;
 

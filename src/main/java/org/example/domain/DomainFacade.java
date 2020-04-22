@@ -10,6 +10,7 @@ import org.example.domain.mapper.ProgramMapper;
 import org.example.domain.mapper.UserMapper;
 import org.example.domain.password.PasswordHashing;
 import org.example.persistence.PersistenceHandler;
+import org.example.persistence.common.IPersistenceHandler;
 import org.example.persistence.entities.ProgramEntity;
 import org.example.persistence.entities.UserEntity;
 
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class DomainFacade
 {
-    private PersistenceHandler persistenceHandler = new PersistenceHandler();
+    private IPersistenceHandler persistenceHandler = new PersistenceHandler();
 
     public Program getProgramById(long programId)
     {

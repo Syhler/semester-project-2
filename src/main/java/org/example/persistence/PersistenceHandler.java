@@ -1,6 +1,8 @@
 package org.example.persistence;
 
 
+import org.example.persistence.common.*;
+
 public class PersistenceHandler implements IPersistenceHandler
 {
 

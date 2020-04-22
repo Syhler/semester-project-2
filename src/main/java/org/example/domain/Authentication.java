@@ -2,7 +2,7 @@ package org.example.domain;
 
 import org.example.domain.mapper.UserMapper;
 import org.example.domain.password.PasswordHashing;
-import org.example.persistence.IPersistenceHandler;
+import org.example.persistence.common.IPersistenceHandler;
 import org.example.persistence.PersistenceHandler;
 
 public class Authentication

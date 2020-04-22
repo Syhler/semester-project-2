@@ -1,6 +1,7 @@
 package org.example.persistence;
 
 
+import org.example.persistence.common.IPersistenceCredit;
 import org.example.persistence.entities.CreditEntity;
 
 import java.sql.Connection;

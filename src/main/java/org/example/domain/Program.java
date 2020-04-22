@@ -6,6 +6,7 @@ import org.example.domain.mapper.CreditMapper;
 import org.example.domain.mapper.ProgramMapper;
 import org.example.domain.mapper.UserMapper;
 import org.example.persistence.PersistenceHandler;
+import org.example.persistence.common.IPersistenceHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 public class Program
 {
 
-    private PersistenceHandler persistenceHandler = new PersistenceHandler();
+    private IPersistenceHandler persistenceHandler = new PersistenceHandler();
     private long id;
     private ProgramInformation programInformation;
     private List<Credit> credits;

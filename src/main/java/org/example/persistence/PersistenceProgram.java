@@ -1,5 +1,6 @@
 package org.example.persistence;
 
+import org.example.persistence.common.IPersistenceProgram;
 import org.example.persistence.entities.*;
 
 import java.sql.*;

@@ -1,4 +1,4 @@
-package org.example.persistence;
+package org.example.persistence.common;
 
 public interface IPersistenceHandler
 {

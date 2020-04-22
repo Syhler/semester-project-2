@@ -3,6 +3,7 @@ package org.example.domain;
 import org.example.domain.mapper.UserMapper;
 import org.example.domain.password.PasswordHashing;
 import org.example.persistence.PersistenceHandler;
+import org.example.persistence.common.IPersistenceHandler;
 import org.example.presentation.utilities.UsermanagementUtilities;
 
 import java.util.Collections;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class User
 {
-    private PersistenceHandler persistenceHandler = new PersistenceHandler();
+    private IPersistenceHandler persistenceHandler = new PersistenceHandler();
     private long id;
     private String title;
     private Name name;

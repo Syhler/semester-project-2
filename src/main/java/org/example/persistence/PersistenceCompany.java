@@ -1,5 +1,6 @@
 package org.example.persistence;
 
+import org.example.persistence.common.IPersistenceCompany;
 import org.example.persistence.entities.CompanyEntity;
 
 import java.sql.Connection;

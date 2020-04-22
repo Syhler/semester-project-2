@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import org.example.App;
 import org.example.domain.*;
 import org.example.domain.io.Import;
+import org.example.presentation.login.AuthenticationController;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.multipleLanguages.LanguageModel;
