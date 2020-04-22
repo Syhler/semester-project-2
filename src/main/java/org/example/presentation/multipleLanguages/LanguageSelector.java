@@ -17,6 +17,11 @@ import java.util.List;
 public class LanguageSelector extends ListCell<LanguageModel> {
     private List<Language> language;
 
+    /**
+     * Enables pictures and language to be added to a ComboBox
+     * @param item
+     * @param empty
+     */
     @Override
     public void updateItem(LanguageModel item, boolean empty){
         super.updateItem(item, empty);

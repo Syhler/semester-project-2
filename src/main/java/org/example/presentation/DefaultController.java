@@ -106,6 +106,8 @@ public class DefaultController implements Initializable
             CurrentUser.getInstance().init(null); //Logs off
             login.setText(LanguageHandler.getText("login"));
             login.setOnAction(this::goToLogin);
+            login.setSelected(false);
+
 
             usermanagementBtn.setVisible(false);
             profileNavigation.setVisible(false);
@@ -251,6 +253,10 @@ public class DefaultController implements Initializable
         }
 
     }
+
+    /**
+     * Adds pictures and text to the ComboBox, so the user knows which languages they can choose
+     */
     public void chooseLanguage()
     {
         LanguageModel danish = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/danishFlag.png")), Language.Danish);
@@ -259,7 +265,6 @@ public class DefaultController implements Initializable
         LanguageModel norway = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/norwayFlag.png")), Language.Norwegian);
         LanguageModel russian = new LanguageModel(new Image(App.class.getResourceAsStream("loginImages/russianFlag.jpg")), Language.Russian);
 
-
         ObservableList<LanguageModel> options = FXCollections.observableArrayList();
         options.addAll(danish, english, swedish, norway, russian);
         selectLanguage.setItems(options);
@@ -267,6 +272,9 @@ public class DefaultController implements Initializable
         selectLanguage.setButtonCell(new LanguageSelector());
     }
 
+    /**
+     * Changes language of the different objects in the system.
+     */
     public void setLanguage()
     {
         selectLanguage.valueProperty().addListener(new ChangeListener<LanguageModel>() {
@@ -280,6 +288,9 @@ public class DefaultController implements Initializable
         });
     }
 
+    /**
+     * Sets language of the buttons
+     */
     private void setButtonLanguage()
     {
         login.setText(LanguageHandler.getText("login"));
@@ -291,6 +302,9 @@ public class DefaultController implements Initializable
         importBtn.setText(LanguageHandler.getText("import"));
     }
 
+    /**
+     * Sets the selectLanguage ComboBox to the current language
+     */
     private void currentLanguage()
     {
         for (int i = 0; i < selectLanguage.getItems().size(); i++) {
