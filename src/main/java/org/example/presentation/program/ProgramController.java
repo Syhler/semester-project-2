@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import org.example.domain.Program;
+import org.example.domain.buisnessComponents.Program;
 
 import java.net.URL;
 import java.util.ResourceBundle;

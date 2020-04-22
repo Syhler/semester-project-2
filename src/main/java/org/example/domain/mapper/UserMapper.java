@@ -1,8 +1,8 @@
 package org.example.domain.mapper;
 
-import org.example.domain.Name;
-import org.example.domain.Role;
-import org.example.domain.User;
+import org.example.domain.buisnessComponents.Name;
+import org.example.domain.buisnessComponents.Role;
+import org.example.domain.buisnessComponents.User;
 import org.example.persistence.entities.UserEntity;
 
 import java.util.ArrayList;

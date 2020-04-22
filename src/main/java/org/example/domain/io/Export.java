@@ -1,9 +1,9 @@
 package org.example.domain.io;
 
-import org.example.domain.Company;
-import org.example.domain.Credit;
-import org.example.domain.Program;
-import org.example.domain.User;
+import org.example.domain.buisnessComponents.Company;
+import org.example.domain.buisnessComponents.Credit;
+import org.example.domain.buisnessComponents.Program;
+import org.example.domain.buisnessComponents.User;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

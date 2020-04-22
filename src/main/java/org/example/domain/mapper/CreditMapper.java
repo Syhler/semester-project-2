@@ -1,11 +1,10 @@
 package org.example.domain.mapper;
 
 
-import org.example.domain.Credit;
+import org.example.domain.buisnessComponents.Credit;
 import org.example.persistence.entities.CreditEntity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CreditMapper

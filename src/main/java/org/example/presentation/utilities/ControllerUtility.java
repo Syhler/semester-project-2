@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
-import org.example.domain.Program;
+import org.example.domain.buisnessComponents.Program;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class ControllerUtility {

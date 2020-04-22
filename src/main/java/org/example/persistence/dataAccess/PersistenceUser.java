@@ -1,4 +1,4 @@
-package org.example.persistence;
+package org.example.persistence.dataAccess;
 
 import org.example.persistence.common.IPersistenceUser;
 import org.example.persistence.entities.CompanyEntity;

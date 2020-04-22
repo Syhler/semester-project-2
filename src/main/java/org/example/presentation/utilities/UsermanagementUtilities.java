@@ -1,12 +1,10 @@
 package org.example.presentation.utilities;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
-import org.example.domain.Company;
-import org.example.domain.Role;
+import org.example.domain.buisnessComponents.Company;
+import org.example.domain.buisnessComponents.Role;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 public class UsermanagementUtilities {

@@ -1,7 +1,7 @@
 package org.example.domain.mapper;
 
 
-import org.example.domain.Program;
+import org.example.domain.buisnessComponents.Program;
 import org.example.persistence.entities.ProgramEntity;
 
 import java.util.ArrayList;

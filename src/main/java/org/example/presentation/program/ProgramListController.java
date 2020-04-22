@@ -12,11 +12,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.example.App;
-import org.example.domain.Program;
+import org.example.domain.buisnessComponents.Program;
 
 public class ProgramListController implements Initializable {
     @FXML

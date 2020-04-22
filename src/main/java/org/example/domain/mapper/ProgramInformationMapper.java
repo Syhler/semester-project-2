@@ -1,8 +1,8 @@
 package org.example.domain.mapper;
 
 
-import org.example.domain.Language;
-import org.example.domain.ProgramInformation;
+import org.example.domain.buisnessComponents.Language;
+import org.example.domain.buisnessComponents.ProgramInformation;
 import org.example.persistence.entities.ProgramInformationEntity;
 
 public class ProgramInformationMapper

@@ -1,8 +1,8 @@
 package org.example.presentation.utilities;
 
-import org.example.domain.Program;
-import org.example.domain.Role;
-import org.example.domain.User;
+import org.example.domain.buisnessComponents.Program;
+import org.example.domain.buisnessComponents.Role;
+import org.example.domain.buisnessComponents.User;
 
 public class CurrentUser {
 

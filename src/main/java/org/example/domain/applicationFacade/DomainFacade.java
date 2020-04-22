@@ -1,15 +1,12 @@
-package org.example.domain;
+package org.example.domain.applicationFacade;
 
-
-
-
-
+import org.example.domain.buisnessComponents.*;
 import org.example.domain.mapper.CompanyMapper;
 import org.example.domain.mapper.ProgramInformationMapper;
 import org.example.domain.mapper.ProgramMapper;
 import org.example.domain.mapper.UserMapper;
 import org.example.domain.password.PasswordHashing;
-import org.example.persistence.PersistenceHandler;
+import org.example.persistence.dataAccess.PersistenceHandler;
 import org.example.persistence.common.IPersistenceHandler;
 import org.example.persistence.entities.ProgramEntity;
 import org.example.persistence.entities.UserEntity;

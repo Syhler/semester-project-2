@@ -1,7 +1,6 @@
 package org.example.persistence.common;
 
 
-import org.example.domain.ProgramInformation;
 import org.example.persistence.entities.*;
 
 import java.util.List;

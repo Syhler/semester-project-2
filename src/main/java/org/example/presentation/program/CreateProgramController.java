@@ -14,9 +14,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.App;
-import org.example.domain.DomainFacade;
-import org.example.domain.Program;
-import org.example.domain.ProgramInformation;
+import org.example.domain.applicationFacade.DomainFacade;
+import org.example.domain.buisnessComponents.Program;
+import org.example.domain.buisnessComponents.ProgramInformation;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 

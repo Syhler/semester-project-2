@@ -1,7 +1,7 @@
-package org.example.domain;
+package org.example.domain.buisnessComponents;
 
 import org.example.domain.mapper.CompanyMapper;
-import org.example.persistence.PersistenceHandler;
+import org.example.persistence.dataAccess.PersistenceHandler;
 import org.example.persistence.common.IPersistenceHandler;
 
 public class Company

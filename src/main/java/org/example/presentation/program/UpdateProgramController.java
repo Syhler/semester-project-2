@@ -15,7 +15,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.App;
-import org.example.domain.*;
+import org.example.domain.applicationFacade.DomainFacade;
+import org.example.domain.buisnessComponents.*;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 

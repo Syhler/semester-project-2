@@ -1,4 +1,4 @@
-package org.example.domain;
+package org.example.domain.buisnessComponents;
 
 public enum Language{
 

@@ -1,4 +1,4 @@
-package org.example.persistence;
+package org.example.persistence.dataAccess;
 
 import java.sql.*;
 
