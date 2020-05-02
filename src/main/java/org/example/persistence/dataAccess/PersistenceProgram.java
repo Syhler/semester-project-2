@@ -180,38 +180,38 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     }
 
     @Override
-    public List<ProgramEntity> importPrograms(List<ProgramEntity> programEntities) {
+    public List<ProgramEntity> importPrograms(ProgramEntity programEntity) {
 
-        for (var program : programEntities) {
-            long programId = insertProgram();
-            program.setId(programId);
+        //check if program should be imported
 
-            insertProgramInformation(program, 1);
+        long programId = insertProgram();
+        programEntity.setId(programId);
 
-            if (program.getCompanyEntity() != null)
+        insertProgramInformation(programEntity, 1);
+
+        if (programEntity.getCompanyEntity() != null)
+        {
+            if (programEntity.getCompanyEntity().getId() == 0)
             {
-                if (program.getCompanyEntity().getId() == 0)
-                {
-                    new PersistenceHandler().company().createCompany(program.getCompanyEntity());
-                }
-                else
-                {
-                    insertCompany(program.getCompanyEntity().getId(), program.getId());
-                }
+                new PersistenceHandler().company().createCompany(programEntity.getCompanyEntity());
+            }
+            else
+            {
+                insertCompany(programEntity.getCompanyEntity().getId(), programEntity.getId());
+            }
 
-            }
-            if (program.getProducer() != null)
-            {
-                insertProducer(program.getProducer(),program.getId());
-            }
-            if (program.getCredits() != null)
-            {
-                insertCredit(program.getCredits(),program.getId());
-            }
+        }
+        if (programEntity.getProducer() != null)
+        {
+            insertProducer(programEntity.getProducer(),programEntity.getId());
+        }
+        if (programEntity.getCredits() != null)
+        {
+            insertCredit(programEntity.getCredits(),programEntity.getId());
         }
 
 
-        return programEntities;
+        return programEntity;
     }
 
     /**
@@ -375,7 +375,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param programEntity
      * @return
      */
-
     public boolean updateCompanyProgram(ProgramEntity programEntity){
         try {
 
@@ -804,14 +803,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      */
     private String createCompanySearchSQL(String[] words)
     {
-        /*
-        StringBuilder baseSQL = new StringBuilder("select program, name, title" +
-                " from companyprogram" +
-                "    inner join programinformation p on companyProgram.program = p.id" +
-                "    inner join company c on companyProgram.company = c.id");
-
-         */
-
         StringBuilder baseSQL = new StringBuilder("select distinct on (program.id) program.id, name, title from companyprogram" +
                 "    left join programinformation on companyProgram.program = programinformation.program_id" +
                 "    left join company on companyProgram.company = company.id" +
@@ -838,14 +829,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      */
     private String createCreditSearchSQL(String[] words)
     {
-        /*
-        StringBuilder baseSQL = new StringBuilder("select distinct(program), programinformation.title" +
-                " from credit" +
-                " inner join \"user\" on credit.\"user\" = \"user\".id" +
-                " inner join programinformation on credit.program = programinformation.id");
-
-         */
-
         StringBuilder baseSQL = new StringBuilder("select distinct(program), programinformation.title from credit inner join \"user\" on credit.\"user\" = \"user\".id " +
                 "inner join programinformation on credit.program = programinformation.id " +
                 "inner join program on programinformation.program_id = program.id");
