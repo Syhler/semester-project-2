@@ -24,7 +24,7 @@
             <Insets bottom="20.0" />
          </VBox.margin>
       </Label>
-      <Button mnemonicParsing="false" onAction="#okOnAction" text="Ok">
+      <Button mnemonicParsing="false" onAction="#okOnAction" text="Ok" fx:id="okButton" disable="true">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>

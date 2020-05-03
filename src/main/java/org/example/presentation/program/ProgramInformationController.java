@@ -180,7 +180,7 @@ public class ProgramInformationController implements Initializable {
 
         if (file == null)
         {
-            controller.openDialog(event, LanguageHandler.getText("noSave"), "Export Dialog");
+            controller.openDialog(event, LanguageHandler.getText("noSave"), "Export Dialog", null);
             return;
         }
 
@@ -188,11 +188,11 @@ public class ProgramInformationController implements Initializable {
 
         if (exportedPrograms != null)
         {
-            controller.openDialog(event, LanguageHandler.getText("succeedExport"), "Export Dialog");
+            controller.openDialog(event, LanguageHandler.getText("succeedExport"), "Export Dialog", null);
         }
         else
         {
-            controller.openDialog(event, LanguageHandler.getText("noExport"), "Export Dialog");
+            controller.openDialog(event, LanguageHandler.getText("noExport"), "Export Dialog", null);
         }
 
     }

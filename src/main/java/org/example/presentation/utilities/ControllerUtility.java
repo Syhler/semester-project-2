@@ -68,7 +68,7 @@ public class ControllerUtility {
 
         if (selectedFile == null)
         {
-            dialogController.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
+            dialogController.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog", null);
             return;
         }
 
@@ -78,22 +78,14 @@ public class ControllerUtility {
 
         if (loadedPrograms.isEmpty())
         {
-            dialogController.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
+            dialogController.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog", null);
         }
         else
         {
-            var programsToAdd = new ArrayList<Program>();
-            for (var program : loadedPrograms) {
-                var one = domainHandler.importPrograms(program);
-                if (one != null)
-                {
-                    programsToAdd.add(one);
-                }
-            }
 
+            //LanguageHandler.getText("succeedImport") + " " + programsToAdd.size() + " " + LanguageHandler.getText("programs")
 
-            dialogController.openDialog(event,
-                    LanguageHandler.getText("succeedImport") + " " + programsToAdd.size() + " " + LanguageHandler.getText("programs"), "Import Dialog");
+            var programsToAdd = dialogController.openDialog(event,"", "Import Dialog", loadedPrograms);
 
 
             ProgramListController.getInstance().listOfPrograms.addAll(programsToAdd);
