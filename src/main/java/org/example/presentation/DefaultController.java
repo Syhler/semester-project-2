@@ -1,6 +1,5 @@
 package org.example.presentation;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ import org.example.domain.applicationFacade.DomainFacade;
 import org.example.domain.buisnessComponents.Program;
 import org.example.domain.buisnessComponents.Role;
 import org.example.domain.buisnessComponents.User;
-import org.example.domain.io.Import;
 import org.example.presentation.login.AuthenticationController;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
@@ -35,9 +33,6 @@ import org.example.presentation.multipleLanguages.LanguageModel;
 import org.example.presentation.multipleLanguages.LanguageSelector;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import org.example.presentation.dialogControllers.ImportExportDialogController;
 import org.example.presentation.usermangement.UpdateUserController;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.utilities.CurrentUser;

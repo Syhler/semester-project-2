@@ -22,7 +22,7 @@ import org.example.domain.applicationFacade.DomainFacade;
 import org.example.domain.buisnessComponents.Program;
 import org.example.domain.buisnessComponents.User;
 import org.example.presentation.utilities.ControllerUtility;
-import org.example.presentation.dialogControllers.ImportExportDialogController;
+import org.example.presentation.dialogControllers.ImportController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
@@ -175,7 +175,7 @@ public class ProgramInformationController implements Initializable {
         //ask the user where to save the file
         var file = fileChooser.showSaveDialog(fileChooserStage);
 
-        ImportExportDialogController controller = new ImportExportDialogController();
+        ImportController controller = new ImportController();
 
 
         if (file == null)
