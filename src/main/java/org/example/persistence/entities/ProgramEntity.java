@@ -45,6 +45,18 @@ public class ProgramEntity {
         this.programInformation = programInformation;
     }
 
+    public void setCompanyEntity(CompanyEntity companyEntity) {
+        this.companyEntity = companyEntity;
+    }
+
+    public void setCredits(List<CreditEntity> credits) {
+        this.credits = credits;
+    }
+
+    public void setProducer(List<UserEntity> producer) {
+        this.producer = producer;
+    }
+
     public CompanyEntity getCompanyEntity() {
         return companyEntity;
     }

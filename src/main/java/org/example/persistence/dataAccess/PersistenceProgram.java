@@ -180,38 +180,93 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     }
 
     @Override
-    public List<ProgramEntity> importPrograms(ProgramEntity programEntity) {
+    public ProgramEntity importPrograms(ProgramEntity entity) {
 
         //check if program should be imported
+        var programExist = isProgramExist(entity);
 
-        long programId = insertProgram();
-        programEntity.setId(programId);
+        if (programExist != null) return null;
 
-        insertProgramInformation(programEntity, 1);
+        ProgramEntity program = createProgram(entity.getProgramInformation());
 
-        if (programEntity.getCompanyEntity() != null)
+
+        if (entity.getCompanyEntity() != null)
         {
-            if (programEntity.getCompanyEntity().getId() == 0)
+
+            CompanyEntity getCompanyByName = getCompanyByName(entity.getCompanyEntity().getName());
+
+            if (getCompanyByName == null)
             {
-                new PersistenceHandler().company().createCompany(programEntity.getCompanyEntity());
+                var id = new PersistenceHandler().company().createCompany(entity.getCompanyEntity());
+                insertCompany(program.getId(),id);
+                //program.setCompanyEntity(new CompanyEntity(id, entity.getCompanyEntity().getName()));
             }
-            else
-            {
-                insertCompany(programEntity.getCompanyEntity().getId(), programEntity.getId());
+            else {
+
+
+                insertCompany(program.getId(),getCompanyByName.getId());
+                //program.setCompanyEntity(getCompanyByName);
             }
 
         }
-        if (programEntity.getProducer() != null)
+
+        /*
+        if (entity.getProducer() != null)
         {
-            insertProducer(programEntity.getProducer(),programEntity.getId());
+            insertProducer(entity.getProducer(),entity.getId());
         }
-        if (programEntity.getCredits() != null)
+         */
+
+        return program;
+    }
+
+    private ProgramEntity isProgramExist(ProgramEntity entity)
+    {
+        try {
+            PreparedStatement statement = connection.prepareStatement("select * from programinformation " +
+                    "left join program p on programinformation.program_id = p.id" +
+                    " where timestamp_for_deletion is null" +
+                    " and programinformation.title = ?" +
+                    " and programinformation.description = ?");
+            statement.setString(1,entity.getProgramInformation().getTitle());
+            statement.setString(2, entity.getProgramInformation().getDescription());
+
+            var resultSet = statement.executeQuery();
+
+            if (!resultSet.next()){
+                return null;
+            }
+
+            var programInformation = new ProgramInformationEntity(resultSet.getString("title"), resultSet.getString("description"));
+            return new ProgramEntity(resultSet.getLong("program_id"), programInformation);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
+    private CompanyEntity getCompanyByName(String companyName)
+    {
+        try {
+            PreparedStatement statement = connection.prepareStatement("select * from company where lower(name) = ?;");
+            statement.setString(1, companyName.toLowerCase());
+
+            var resultSet = statement.executeQuery();
+
+            if (!resultSet.next()) return null;
+
+            return new CompanyEntity(
+                    resultSet.getLong("id"),
+                    resultSet.getString("name"));
+
+        }
+        catch (SQLException throwables)
         {
-            insertCredit(programEntity.getCredits(),programEntity.getId());
+            throwables.printStackTrace();
+            return null;
         }
 
-
-        return programEntity;
     }
 
     /**

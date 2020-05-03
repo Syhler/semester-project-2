@@ -4,9 +4,17 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.example.domain.applicationFacade.DomainFacade;
 import org.example.domain.buisnessComponents.Program;
+import org.example.domain.io.Import;
+import org.example.presentation.dialogControllers.ImportExportDialogController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.program.ProgramListController;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class ControllerUtility {
 
@@ -49,5 +57,61 @@ public class ControllerUtility {
     public static boolean gotAccessToProgram(Program program)
     {
         return CurrentUser.getInstance().getUser() != null && CurrentUser.getInstance().gotAccessToProgram(program);
+    }
+
+    public static void importProgram(ActionEvent event, DomainFacade domainHandler) throws Exception {
+        var selectedFile = getFileFromFileChoose();
+
+        ImportExportDialogController controller = new ImportExportDialogController();
+
+        if (selectedFile == null)
+        {
+            controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
+            return;
+        }
+
+
+        var loadedPrograms = Import.loadPrograms(selectedFile);
+
+
+        if (loadedPrograms.isEmpty())
+        {
+            controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
+        }
+        else
+        {
+            var programsToAdd = new ArrayList<Program>();
+            for (var program : loadedPrograms) {
+                var one = domainHandler.importPrograms(program);
+                if (one != null)
+                {
+                    programsToAdd.add(one);
+                }
+            }
+
+
+            controller.openDialog(event,
+                    LanguageHandler.getText("succeedImport") + " " + programsToAdd.size() + " " +
+                            LanguageHandler.getText("programs"), "Import Dialog");
+
+            ProgramListController.getInstance().listOfPrograms.addAll(programsToAdd);
+            ProgramListController.getInstance().updateProgramList();
+        }
+
+    }
+
+    /**
+     * open a fileChooser and return the file
+     * @return the file the user have chosen from the file chooser
+     */
+    private static File getFileFromFileChoose()
+    {
+        var fileChooserStage = new Stage();
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
+
+        return fileChooser.showOpenDialog(fileChooserStage);
     }
 }

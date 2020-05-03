@@ -21,6 +21,7 @@ import org.example.presentation.dialogControllers.ImportExportDialogController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
+import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.utilities.CurrentUser;
 
 import java.io.File;
@@ -314,54 +315,12 @@ public class UserManagementController implements Initializable {
     }
 
     public void importOnAction(ActionEvent event) throws Exception {
-        var selectedFile = getFileFromFileChoose();
 
-        ImportExportDialogController controller = new ImportExportDialogController();
-
-        if (selectedFile == null)
-        {
-            controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
-            return;
-        }
-
-
-        var loadedPrograms = Import.loadPrograms(selectedFile);
-
-
-        if (loadedPrograms.isEmpty())
-        {
-            controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
-        }
-        else
-        {
-            loadedPrograms = domainHandler.importPrograms(loadedPrograms);
-
-            controller.openDialog(event,
-                    LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
-                            LanguageHandler.getText("programs"), "Import Dialog");
-            ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
-            ProgramListController.getInstance().updateProgramList();
-        }
-
+        ControllerUtility.importProgram(event, domainHandler);
         importBtn.setSelected(false);
-
-
     }
 
-    /**
-     * open a fileChooser and return the file
-     * @return the file the user have chosen from the file chooser
-     */
-    private File getFileFromFileChoose()
-    {
-        var fileChooserStage = new Stage();
 
-        FileChooser fileChooser = new FileChooser();
-
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
-
-        return fileChooser.showOpenDialog(fileChooserStage);
-    }
 
     @FXML
     private void closeWindow(ActionEvent event){

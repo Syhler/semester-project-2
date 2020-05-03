@@ -61,9 +61,9 @@ public class DomainFacade
         return ProgramMapper.map(createdProgram);
     }
 
-    public List<Program> importPrograms(List<Program> programs)
+    public Program importPrograms(Program program)
     {
-        var mapped = ProgramMapper.mapToEntity(programs);
+        var mapped = ProgramMapper.map(program);
 
         var importedPrograms = persistenceHandler.program().importPrograms(mapped);
 
