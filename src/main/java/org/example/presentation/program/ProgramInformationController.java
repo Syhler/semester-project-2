@@ -21,8 +21,9 @@ import org.example.domain.buisnessComponents.Credit;
 import org.example.domain.applicationFacade.DomainFacade;
 import org.example.domain.buisnessComponents.Program;
 import org.example.domain.buisnessComponents.User;
+import org.example.presentation.dialogControllers.DialogController;
 import org.example.presentation.utilities.ControllerUtility;
-import org.example.presentation.dialogControllers.ImportController;
+import org.example.presentation.dialogControllers.ImportDialogController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 
 import java.io.IOException;
@@ -175,12 +176,12 @@ public class ProgramInformationController implements Initializable {
         //ask the user where to save the file
         var file = fileChooser.showSaveDialog(fileChooserStage);
 
-        ImportController controller = new ImportController();
+        var controller = new DialogController();
 
 
         if (file == null)
         {
-            controller.openDialog(event, LanguageHandler.getText("noSave"), "Export Dialog", null);
+            controller.openDialog(event, LanguageHandler.getText("noSave"), "Export Dialog");
             return;
         }
 
@@ -188,11 +189,11 @@ public class ProgramInformationController implements Initializable {
 
         if (exportedPrograms != null)
         {
-            controller.openDialog(event, LanguageHandler.getText("succeedExport"), "Export Dialog", null);
+            controller.openDialog(event, LanguageHandler.getText("succeedExport"), "Export Dialog");
         }
         else
         {
-            controller.openDialog(event, LanguageHandler.getText("noExport"), "Export Dialog", null);
+            controller.openDialog(event, LanguageHandler.getText("noExport"), "Export Dialog");
         }
 
     }

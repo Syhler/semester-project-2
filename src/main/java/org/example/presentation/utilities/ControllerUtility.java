@@ -2,6 +2,7 @@ package org.example.presentation.utilities;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.FileChooser;
@@ -9,12 +10,12 @@ import javafx.stage.Stage;
 import org.example.domain.applicationFacade.DomainFacade;
 import org.example.domain.buisnessComponents.Program;
 import org.example.domain.io.Import;
-import org.example.presentation.dialogControllers.ImportController;
+import org.example.presentation.dialogControllers.DialogController;
+import org.example.presentation.dialogControllers.ImportDialogController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.program.ProgramListController;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class ControllerUtility {
 
@@ -61,14 +62,14 @@ public class ControllerUtility {
         return CurrentUser.getInstance().getUser() != null && CurrentUser.getInstance().gotAccessToProgram(program);
     }
 
-    public static void importProgram(ActionEvent event, DomainFacade domainHandler) throws Exception {
+    public static void importProgram(ActionEvent event) throws Exception {
         var selectedFile = getFileFromFileChoose();
 
-        ImportController dialogController = new ImportController();
+        var dialogController = new DialogController();
 
         if (selectedFile == null)
         {
-            dialogController.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog", null);
+            dialogController.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
             return;
         }
 
@@ -78,15 +79,11 @@ public class ControllerUtility {
 
         if (loadedPrograms.isEmpty())
         {
-            dialogController.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog", null);
+            dialogController.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
         }
         else
         {
-
-            //LanguageHandler.getText("succeedImport") + " " + programsToAdd.size() + " " + LanguageHandler.getText("programs")
-
-            var programsToAdd = dialogController.openDialog(event,"", "Import Dialog", loadedPrograms);
-
+            var programsToAdd = new ImportDialogController().openDialog(event, loadedPrograms);
 
             ProgramListController.getInstance().listOfPrograms.addAll(programsToAdd);
             ProgramListController.getInstance().updateProgramList();

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -109,28 +110,40 @@ public class ProgramListController implements Initializable {
      */
     public void updateProgramList()
     {
-        listGridPane.getChildren().clear();
+        var thread = new Thread(() -> {
 
-        int rowSize = 0;
-        int columnSize = 0;
+            Platform.runLater(() -> listGridPane.getChildren().clear());
 
-        for (int i = 0; i < listOfPrograms.size(); i++)
-        {
-            if (i%4 == 0)
+
+            int rowSize = 0;
+            int columnSize = 0;
+
+            for (int i = 0; i < listOfPrograms.size(); i++)
             {
-                rowSize++;
-            }
-            if (i%4!= 0)
-            {
-                columnSize++;
-            }
-            if (i%4 == 0)
-            {
-                columnSize = 0;
+                if (i%4 == 0)
+                {
+                    rowSize++;
+                }
+                if (i%4!= 0)
+                {
+                    columnSize++;
+                }
+                if (i%4 == 0)
+                {
+                    columnSize = 0;
+                }
+
+                int finalColumnSize = columnSize;
+                int finalRowSize = rowSize;
+                int finalI = i;
+                Platform.runLater(()-> listGridPane.add(showProgramList(listOfPrograms.get(finalI)), finalColumnSize, finalRowSize));
             }
 
-            listGridPane.add(showProgramList(listOfPrograms.get(i)),columnSize,rowSize);
-        }
+            Thread.currentThread().interrupt();
+        });
+        thread.setDaemon(true);
+        thread.start();
+
     }
 
 

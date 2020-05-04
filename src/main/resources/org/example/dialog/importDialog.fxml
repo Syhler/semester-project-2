@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.dialogControllers.ImportController">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.dialogControllers.ImportDialogController">
    <children>
       <Label text="Importing programs...">
          <VBox.margin>

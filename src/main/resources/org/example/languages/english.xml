@@ -108,8 +108,8 @@
     <actorInfoHeader>Actor</actorInfoHeader>
     <noProgramsImported>No programs was imported...</noProgramsImported>
     <noFile>No file have been found</noFile>
-    <programs>program(s)</programs>
-    <succeedImport>Successfully imported</succeedImport>
+    <programsImported>program(s) imported</programsImported>
+    <succeedImport>Completed</succeedImport>
     <noSave>No Save location have been found</noSave>
     <noExport>No programs was exported</noExport>
     <succeedExport>Successfully exported</succeedExport>

@@ -121,7 +121,7 @@ public class DefaultController implements Initializable
      * @throws IOException
      */
     @FXML
-    private void goToCreateProgram(ActionEvent event) throws IOException {
+    private void goToCreateProgram(ActionEvent event) {
 
         CreateProgramController createProgramController = new CreateProgramController();
         createProgram.setSelected(false);
@@ -135,7 +135,7 @@ public class DefaultController implements Initializable
 
     public void importOnAction(ActionEvent event) throws Exception {
 
-        ControllerUtility.importProgram(event, domainHandler);
+        ControllerUtility.importProgram(event);
 
         importBtn.setSelected(false);
 

@@ -312,21 +312,11 @@ public class UserManagementController implements Initializable {
 
     public void importOnAction(ActionEvent event) throws Exception {
 
-        ControllerUtility.importProgram(event, domainHandler);
+        ControllerUtility.importProgram(event);
         importBtn.setSelected(false);
     }
 
 
-
-    @FXML
-    private void closeWindow(ActionEvent event){
-        Platform.exit();
-        /*
-        Stage currentStage = (Stage) ((Node)event.getTarget()).getScene().getWindow();
-        currentStage.close();
-
-         */
-    }
     @FXML
     private void minimizeWindow(ActionEvent event){
         Stage currentStage = (Stage) minimizeWindow.getScene().getWindow();
