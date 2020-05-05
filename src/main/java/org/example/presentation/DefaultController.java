@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -163,13 +164,17 @@ public class DefaultController implements Initializable
             loader = App.getLoader("programList");
             Parent node = loader.load();
             programListController = loader.getController();
+            borderPane.setCenter(node);
+
 
             var allPrograms = domainHandler.getAllPrograms();
             setImages(allPrograms);
 
             programListController.listOfPrograms.addAll(allPrograms);
             programListController.updateProgramList();
-            borderPane.setCenter(node);
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -187,8 +192,6 @@ public class DefaultController implements Initializable
         for (var program : programs) {
             program.setImage(listOfImages.get(new Random().nextInt(listOfImages.size())));
         }
-
-
     }
 
     @FXML
@@ -210,7 +213,6 @@ public class DefaultController implements Initializable
             CurrentUser.getInstance().init(user);
 
         }
-
     }
 
     /**
@@ -309,7 +311,7 @@ public class DefaultController implements Initializable
             }
         }
 
-        loadProgramList();
+        Platform.runLater(this::loadProgramList);
     }
 
 

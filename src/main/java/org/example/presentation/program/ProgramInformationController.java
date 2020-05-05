@@ -315,11 +315,12 @@ public class ProgramInformationController implements Initializable {
     public void actorOnDelete(ActionEvent event)
     {
         var selectedActor = actorListView.getSelectionModel().getSelectedItem();
-        //var deleted = domainHandler.program().removeCreditFromProgram(selectedActor);
+
+        if (selectedActor == null) return;
+
         var wasDeleted = program.deleteCredit(selectedActor);
 
         if (!wasDeleted) return;
-        if (selectedActor == null) return;
 
         actorListView.getItems().remove(selectedActor);
     }
@@ -327,10 +328,12 @@ public class ProgramInformationController implements Initializable {
     public void producerOnDelete(ActionEvent event)
     {
         var selectedProducer = producersListView.getSelectionModel().getSelectedItem();
+
+        if (selectedProducer == null) return;
+
         var wasDeleted = program.deleteProducer(selectedProducer);
 
         if (!wasDeleted) return;
-        if (selectedProducer == null) return;
 
         producersListView.getItems().remove(selectedProducer);
     }
@@ -338,28 +341,14 @@ public class ProgramInformationController implements Initializable {
     public void creditOnDelete(ActionEvent event) {
 
         var selectedCredit = creditListView.getSelectionModel().getSelectedItem();
-        //var deleted = domainHandler.program().removeCreditFromProgram(selectedActor);
+
+        if (selectedCredit == null) return;
+
         var wasDeleted = program.deleteCredit(selectedCredit);
 
         if (!wasDeleted) return;
-        if (selectedCredit == null) return;
 
         creditListView.getItems().remove(selectedCredit);
     }
-
-    public void descriptionClick(MouseEvent mouseEvent)
-    {
-        //Maybe for the future
-        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-            if(mouseEvent.getClickCount() == 2){
-
-                if (!ControllerUtility.gotAccessToProgram(program)) return;
-
-                //descriptionTextArea.setEditable(true);
-
-            }
-        }
-    }
-
 
 }

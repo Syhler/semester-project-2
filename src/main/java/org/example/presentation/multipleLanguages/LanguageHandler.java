@@ -20,6 +20,7 @@ public class LanguageHandler
 
     private static Language language;
     private static HashMap<String, String> header;
+    private static HashMap<String, String> defaultHeader;
 
 
     public static Language getLanguage() {
@@ -28,7 +29,13 @@ public class LanguageHandler
 
     public static String getText(String key)
     {
-        return LanguageHandler.header.get(key.toLowerCase());
+        var text = LanguageHandler.header.get(key.toLowerCase());
+        if (text == null || text.isEmpty() || text.isBlank())
+        {
+            text = LanguageHandler.defaultHeader.get(key.toLowerCase());
+        }
+
+        return text;
     }
 
     /**
@@ -44,6 +51,7 @@ public class LanguageHandler
         if (file != null)
         {
             LanguageHandler.header = createLanguageHeader(file);
+            LanguageHandler.defaultHeader = createLanguageHeader(new File(App.class.getResource("languages/english.xml").getPath()));
         }
     }
 

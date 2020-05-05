@@ -28,6 +28,7 @@ public class ImportDialogController
 
     public ProgressBar progress_bar;
 
+
     @FXML
     private Button okButton;
 
@@ -80,10 +81,6 @@ public class ImportDialogController
         Thread thread = new Thread(() -> {
 
 
-            var array = new ArrayList<String>();
-            array.add(".");
-            array.add("..");
-            array.add("...");
 
             for (int i = 0; i < programs.size(); i++)
             {
@@ -97,7 +94,6 @@ public class ImportDialogController
                 });
 
 
-                //Platform.runLater(new TextAnimation(100, array, controller.textProp));
 
                 if (program != null)
                 {
@@ -113,6 +109,7 @@ public class ImportDialogController
 
 
         });
+
         thread.setDaemon(true);
         return thread;
     }
@@ -127,40 +124,5 @@ public class ImportDialogController
     }
 }
 
-/*
-class TextAnimation implements Runnable
-{
 
-    private final long sleepTime;
-    private final List<String> text;
-    private final SimpleStringProperty simpleStringProperty;
 
-    TextAnimation(long sleepTime, List<String> text, SimpleStringProperty simpleStringProperty) {
-        this.sleepTime = sleepTime;
-        this.text = text;
-        this.simpleStringProperty = simpleStringProperty;
-    }
-
-    @Override
-    public void run()
-    {
-        var textBeforeAnimation = simpleStringProperty.get();
-
-        for (int i = 0; i < text.size(); i++) {
-            String nextText = text.get(i);
-            System.out.println(nextText);
-            Platform.runLater(() -> simpleStringProperty.setValue(textBeforeAnimation + nextText));
-
-            if (i == text.size()) i = 0;
-
-            try {
-                Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                break;
-            }
-        }
-    }
-}
-
- */

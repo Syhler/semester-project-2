@@ -62,12 +62,11 @@ public class ProgramListController implements Initializable {
         try {
             loader = App.getLoader("program");
             Parent node = loader.load();
-            ProgramController programController = loader.<ProgramController>getController();
+            ProgramController programController = loader.getController();
+
             programController.title.setText(program.getProgramInformation().getTitle());
             programController.program.prefWidthProperty().bind(listGridPane.widthProperty());
             programController.programImage.setImage(program.getImage());
-
-            //programController.program.setMaxWidth(240);
             programController.programEntity = program;
 
             return node;
@@ -110,10 +109,9 @@ public class ProgramListController implements Initializable {
      */
     public void updateProgramList()
     {
+        listGridPane.getChildren().clear();
+
         var thread = new Thread(() -> {
-
-            Platform.runLater(() -> listGridPane.getChildren().clear());
-
 
             int rowSize = 0;
             int columnSize = 0;
@@ -136,14 +134,19 @@ public class ProgramListController implements Initializable {
                 int finalColumnSize = columnSize;
                 int finalRowSize = rowSize;
                 int finalI = i;
-                Platform.runLater(()-> listGridPane.add(showProgramList(listOfPrograms.get(finalI)), finalColumnSize, finalRowSize));
+                Platform.runLater(()->
+                        {
+                            listGridPane.add(showProgramList(listOfPrograms.get(finalI)), finalColumnSize, finalRowSize);
+                            System.out.println("Showing list : " + finalI + " Column: " + listGridPane.getColumnCount() + " row: " + listGridPane.getRowCount());
+
+                        });
+
             }
 
             Thread.currentThread().interrupt();
         });
         thread.setDaemon(true);
         thread.start();
-
     }
 
 

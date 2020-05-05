@@ -1,5 +1,6 @@
 package org.example.presentation.login;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +22,9 @@ import java.util.ResourceBundle;
 
 public class AuthenticationController implements Initializable {
 
+
+    @FXML
+    private ProgressIndicator progressIndicator;
     @FXML
     private Button btnLogin;
     @FXML
@@ -60,12 +64,12 @@ public class AuthenticationController implements Initializable {
             e.printStackTrace();
             return null;
         }
-
         loginStage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
         loginStage.setTitle(LanguageHandler.getText("Authentication"));
         loginStage.initModality(Modality.WINDOW_MODAL);
         loginStage.initOwner(((Node)event.getTarget()).getScene().getWindow());
         loginStage.setResizable(false);
+
         loginStage.showAndWait();
         return CurrentUser.getInstance().getUser();
     }
@@ -84,23 +88,38 @@ public class AuthenticationController implements Initializable {
             setStatusText(LanguageHandler.getText("passwordEmpty"));
             return;
         }
+        progressIndicator.setVisible(true);
+        //new thread
+        var loginThread = new Thread(loginRunnable(usernameField.getText(), passwordField.getText(), actionEvent));
+        loginThread.setDaemon(true);
+        loginThread.start();
 
-        var user = domainHandler.getAuthentication().login(usernameField.getText(), passwordField.getText());
+    }
 
-        if (user != null)
-        {
-            //sets currentUser by init the user that was given from the login method
-            CurrentUser.getInstance().init(user);
-            closeDialog(actionEvent);
-        }
-        else
-        {
-            //adds style to the textfield to show the user that the input was wrong
-            passwordField.getStyleClass().add("wrong-credentials");
-            usernameField.getStyleClass().add("wrong-credentials");
+    private Runnable loginRunnable(String username, String password, ActionEvent event)
+    {
+        return () -> {
 
-            setStatusText(LanguageHandler.getText("usernameOrPassword"));
-        }
+            var user = domainHandler.getAuthentication().login(username, password);
+
+            if (user != null)
+            {
+                //sets currentUser by init the user that was given from the login method
+                CurrentUser.getInstance().init(user);
+                Platform.runLater(() -> closeDialog(event));
+            }
+            else
+            {
+                //adds style to the textfield to show the user that the input was wrong
+                Platform.runLater(() ->
+                {
+                    passwordField.getStyleClass().add("wrong-credentials");
+                    usernameField.getStyleClass().add("wrong-credentials");
+
+                    setStatusText(LanguageHandler.getText("usernameOrPassword"));
+                });
+            }
+        };
     }
 
     @FXML
