@@ -26,7 +26,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class UserManagementController implements Initializable {
-    private DomainFacade domainHandler = new DomainFacade();
+    @FXML
+    private ProgressIndicator progressIndicator;
+
+    private final DomainFacade domainHandler = new DomainFacade();
     @FXML
     private Button closeWindow;
     @FXML
@@ -217,37 +220,62 @@ public class UserManagementController implements Initializable {
     private void displayByRole(ActionEvent event) {
         Object displayByRole = event.getSource();
         userList.clear();
+        progressIndicator.setVisible(true);
+        var thread = new Thread(displayByRoleRunnable(displayByRole));
+        thread.setDaemon(true);
+        thread.start();
+    }
 
-        if (displayByRole == displayAdmins) {
-            userList.addAll(domainHandler.getUserByRole(Role.Admin));
-            roleTap = Role.Admin;
-            displayManufactures.setSelected(false);
-            displayProducers.setSelected(false);
-            displayActors.setSelected(false);
-        }
-        if (displayByRole == displayManufactures) {
-            userList.addAll(domainHandler.getUserByRole(Role.Manufacture));
-            roleTap = Role.Manufacture;
-            displayAdmins.setSelected(false);
-            displayProducers.setSelected(false);
-            displayActors.setSelected(false);
-        }
-        if (displayByRole == displayProducers) {
-            userList.addAll(domainHandler.getUserByRole(Role.Producer));
-            roleTap = Role.Producer;
-            displayManufactures.setSelected(false);
-            displayAdmins.setSelected(false);
-            displayActors.setSelected(false);
-        }
-        if (displayByRole == displayActors) {
-            userList.addAll(domainHandler.getUserByRole(Role.Actor));
-            roleTap = Role.Actor;
-            displayManufactures.setSelected(false);
-            displayProducers.setSelected(false);
-            displayAdmins.setSelected(false);
-        }
+    private Runnable displayByRoleRunnable(Object displayByRole)
+    {
+        return () ->
+        {
+            if (displayByRole == displayAdmins) {
+                Platform.runLater(() ->{
+                    displayManufactures.setSelected(false);
+                    displayProducers.setSelected(false);
+                    displayActors.setSelected(false);
+                });
+                userList.addAll(domainHandler.getUserByRole(Role.Admin));
+                roleTap = Role.Admin;
+            }
+            if (displayByRole == displayManufactures) {
+                Platform.runLater(() ->
+                {
+                    displayAdmins.setSelected(false);
+                    displayProducers.setSelected(false);
+                    displayActors.setSelected(false);
+                });
+                userList.addAll(domainHandler.getUserByRole(Role.Manufacture));
+                roleTap = Role.Manufacture;
+            }
+            if (displayByRole == displayProducers) {
+                Platform.runLater(() ->
+                {
+                    displayManufactures.setSelected(false);
+                    displayAdmins.setSelected(false);
+                    displayActors.setSelected(false);
+                });
+                userList.addAll(domainHandler.getUserByRole(Role.Producer));
+                roleTap = Role.Producer;
+            }
+            if (displayByRole == displayActors) {
+                Platform.runLater(() ->
+                {
+                    displayManufactures.setSelected(false);
+                    displayProducers.setSelected(false);
+                    displayAdmins.setSelected(false);
+                });
+                userList.addAll(domainHandler.getUserByRole(Role.Actor));
+                roleTap = Role.Actor;
+            }
 
-        table.getSelectionModel().select(0);
+            Platform.runLater(() -> {
+                progressIndicator.setVisible(false);
+                table.getSelectionModel().select(0);
+            });
+
+        };
     }
 
     /**
@@ -314,13 +342,6 @@ public class UserManagementController implements Initializable {
 
         ControllerUtility.importProgram(event);
         importBtn.setSelected(false);
-    }
-
-
-    @FXML
-    private void minimizeWindow(ActionEvent event){
-        Stage currentStage = (Stage) minimizeWindow.getScene().getWindow();
-        currentStage.setIconified(true);
     }
 
 }

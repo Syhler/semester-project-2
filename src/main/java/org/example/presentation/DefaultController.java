@@ -315,7 +315,7 @@ public class DefaultController implements Initializable
             }
         }
 
-        //Platform.runLater(this::loadProgramList);
+        Platform.runLater(this::loadProgramList);
     }
 
 
