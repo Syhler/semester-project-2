@@ -122,7 +122,7 @@ public class UpdateUserController implements Initializable {
             updateUserController.roleValue = userToUpdate.getRole();
             updateUserController.userToUpdate = userToUpdate;
 
-            new Thread(setCurrentCompany(userToUpdate, updateUserController)).start();
+            new Thread(loadAllCompanies(userToUpdate, updateUserController)).start();
 
             updateUserController.firstname.setText(userToUpdate.getName().getFirstName());
             updateUserController.middelname.setText(userToUpdate.getName().getFirstMiddleName());
@@ -148,7 +148,7 @@ public class UpdateUserController implements Initializable {
     }
 
 
-    private Runnable setCurrentCompany(User userToUpdate, UpdateUserController controller)
+    private Runnable loadAllCompanies(User userToUpdate, UpdateUserController controller)
     {
         return () ->
         {

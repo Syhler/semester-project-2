@@ -122,15 +122,19 @@ public class DefaultController implements Initializable
      * @throws IOException
      */
     @FXML
-    private void goToCreateProgram(ActionEvent event) {
+    private void goToCreateProgram(ActionEvent event) throws IOException {
 
         CreateProgramController createProgramController = new CreateProgramController();
         createProgram.setSelected(false);
         Program programEntity = createProgramController.openView(event);
         if (programEntity != null)
         {
-            programListController.listOfPrograms.add(programEntity);
-            programListController.updateProgramList();
+            if (programListController != null)
+            {
+                programListController.listOfPrograms.add(programEntity);
+                programListController.updateProgramList();
+            }
+
         }
     }
 

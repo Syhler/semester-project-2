@@ -1,5 +1,6 @@
 package org.example.presentation.program;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -27,6 +28,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class UpdateProgramController implements Initializable {
+
+    @FXML
+    private ProgressIndicator progressIndicator;
 
     @FXML
     private Button cancelBtn;
@@ -115,8 +119,6 @@ public class UpdateProgramController implements Initializable {
                     updateProgramController.creditList.appendText(user.getFullName() +  ": " + user.getTitle()  +"\n");
                 }
             }
-
-            //updateProgramController.programId = program.getId();
         }
 
         Scene scene = new Scene(node);
@@ -166,64 +168,103 @@ public class UpdateProgramController implements Initializable {
     /**
      * Enables user to choose a company from a comboBox
      */
-    public void chooseCompany()
+    public void getCompanies()
     {
         var companies = domainHandler.getAllCompanies();
         chooseCompany.getItems().addAll(companies);
 
-        Callback<ListView<Company>, ListCell<Company>> cellFactory = new Callback<>() {
+        Platform.runLater(() ->
+        {
+            Callback<ListView<Company>, ListCell<Company>> cellFactory = new Callback<>() {
 
-            @Override
-            public ListCell<Company> call(ListView<Company> l) {
-                return new ListCell<>() {
+                @Override
+                public ListCell<Company> call(ListView<Company> l) {
+                    return new ListCell<>() {
 
-                    @Override
-                    protected void updateItem(Company item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getName());
+                        @Override
+                        protected void updateItem(Company item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item == null || empty) {
+                                setGraphic(null);
+                            } else {
+                                setText(item.getName());
+                            }
                         }
-                    }
-                };
-            }
-        };
-        chooseCompany.setCellFactory(cellFactory);
-        chooseCompany.setButtonCell(cellFactory.call(null));
+                    };
+                }
+            };
+
+            chooseCompany.setCellFactory(cellFactory);
+            chooseCompany.setButtonCell(cellFactory.call(null));
+        });
     }
 
 
     /**
      * Enables user to choose a producer from a comboBox
      */
-    public void chooseProducer()
+    public void getProducers()
     {
         var producers = domainHandler.getUserByRole(Role.Producer);
 
-        chooseProducer.getItems().addAll(producers);
+        Platform.runLater(() -> {
+            chooseProducer.getItems().addAll(producers);
 
-        Callback<ListView<User>, ListCell<User>> cellFactory = new Callback<>() {
+            Callback<ListView<User>, ListCell<User>> cellFactory = new Callback<>() {
 
-            @Override
-            public ListCell<User> call(ListView<User> user) {
-                return new ListCell<>() {
+                @Override
+                public ListCell<User> call(ListView<User> user) {
+                    return new ListCell<>() {
 
-                    @Override
-                    protected void updateItem(User item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getFullName());
+                        @Override
+                        protected void updateItem(User item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item == null || empty) {
+                                setGraphic(null);
+                            } else {
+                                setText(item.getFullName());
+                            }
                         }
-                    }
-                };
-            }
-        };
+                    };
+                }
+            };
 
-        chooseProducer.setCellFactory(cellFactory);
-        chooseProducer.setButtonCell(cellFactory.call(null));
+            chooseProducer.setCellFactory(cellFactory);
+            chooseProducer.setButtonCell(cellFactory.call(null));
+        });
+    }
+
+    /**
+     * Enables user to choose a credit from a comboBox
+     */
+    public void getCredits()
+    {
+        var actors = getActorsFromDatabase();
+
+        Platform.runLater(() ->{
+            chooseCredit.getItems().addAll(actors);
+
+            Callback<ListView<Credit>, ListCell<Credit>> cellFactory = new Callback<>() {
+
+                @Override
+                public ListCell<Credit> call(ListView<Credit> l) {
+                    return new ListCell<Credit>() {
+
+                        @Override
+                        protected void updateItem(Credit item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item == null || empty) {
+                                setGraphic(null);
+                            } else {
+                                setText(item.getUser().getFullName() + ": " + item.getUser().getTitle());
+                            }
+                        }
+                    };
+                }
+            };
+            chooseCredit.setCellFactory(cellFactory);
+            chooseCredit.setButtonCell(cellFactory.call(null));
+        });
     }
 
     /**
@@ -254,34 +295,7 @@ public class UpdateProgramController implements Initializable {
         return credits;
     }
 
-    /**
-     * Enables user to choose a credit from a comboBox
-     */
-    public void chooseCredit()
-    {
-        chooseCredit.getItems().addAll(getActorsFromDatabase());
 
-        Callback<ListView<Credit>, ListCell<Credit>> cellFactory = new Callback<>() {
-
-            @Override
-            public ListCell<Credit> call(ListView<Credit> l) {
-                return new ListCell<Credit>() {
-
-                    @Override
-                    protected void updateItem(Credit item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getUser().getFullName() + ": " + item.getUser().getTitle());
-                        }
-                    }
-                };
-            }
-        };
-        chooseCredit.setCellFactory(cellFactory);
-        chooseCredit.setButtonCell(cellFactory.call(null));
-    }
 
     /**
      * Adds the selected credit from the combobox, to a list and a text area
@@ -321,34 +335,60 @@ public class UpdateProgramController implements Initializable {
     @FXML
     public void updateProgram(ActionEvent event)
     {
-        Company company = chooseCompany.getSelectionModel().getSelectedItem();
+        progressIndicator.setVisible(true);
+        var thread = new Thread(() ->
+        {
+            Company company = chooseCompany.getSelectionModel().getSelectedItem();
 
-        String title = updateInsertTitle.getText();
+            String title = updateInsertTitle.getText();
 
-        String description = updateInsertDescription.getText();;
+            String description = updateInsertDescription.getText();;
 
-        //globalProgram = new Program(programId, title, description, company, producers, credits);
+            //globalProgram = new Program(programId, title, description, company, producers, credits);
 
-        globalProgram.getProgramInformation().setTitle(title);
-        globalProgram.getProgramInformation().setDescription(description);
-        globalProgram.setCompany(company);
-        globalProgram.setProducers(producers);
-        globalProgram.setCredits(credits);
+            globalProgram.getProgramInformation().setTitle(title);
+            globalProgram.getProgramInformation().setDescription(description);
+            globalProgram.setCompany(company);
+            globalProgram.setProducers(producers);
+            globalProgram.setCredits(credits);
+            globalProgram.update();
 
-        globalProgram.update();
+            Platform.runLater(()->closeUpdateProgram(event));
+        });
+        thread.setDaemon(true);
+        thread.start();
 
-
-        closeUpdateProgram(event);
     }
 
 
+    private Runnable getDataFromDatabase()
+    {
+        return () ->
+        {
+            Platform.runLater(() -> {
+                chooseCompany.setPromptText("Loading...");
+                chooseProducer.setPromptText("Loading...");
+                chooseCredit.setPromptText("Loading...");
+            });
 
+            getCompanies();
+            Platform.runLater(() -> chooseCompany.getSelectionModel().selectFirst());
+            getProducers();
+            Platform.runLater(() -> chooseProducer.getSelectionModel().selectFirst());
+            getCredits();
+            Platform.runLater(() -> chooseCredit.getSelectionModel().selectFirst());
+        };
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         creditList.setEditable(false);
         producerList.setEditable(false);
+
+        var thread = new Thread(getDataFromDatabase());
+        thread.setDaemon(true);
+        thread.start();
 
         remainingCharactersDesc();
         remainingCharactersDesc.setText(ControllerUtility.remainingCharacters(updateInsertDescription, maxSizeDesc));
@@ -357,13 +397,6 @@ public class UpdateProgramController implements Initializable {
         remainingCharactersTitle();
         remainingCharactersTitle.setText(ControllerUtility.remainingCharacters(updateInsertTitle, maxSizeTitle));
         ControllerUtility.maxTextSize(updateInsertTitle, maxSizeTitle);
-
-        chooseCompany();
-        chooseCompany.getSelectionModel().selectFirst();
-        chooseProducer();
-        chooseProducer.getSelectionModel().selectFirst();
-        chooseCredit();
-        chooseCredit.getSelectionModel().selectFirst();
 
         addSelectedProducer.setText(LanguageHandler.getText("add"));
         updateProgramBtn.setText(LanguageHandler.getText("updateProgram"));
