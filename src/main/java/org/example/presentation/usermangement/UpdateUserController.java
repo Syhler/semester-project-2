@@ -30,6 +30,9 @@ import java.util.ResourceBundle;
 public class UpdateUserController implements Initializable {
 
     private final DomainFacade domainHandler = new DomainFacade();
+
+    @FXML
+    private ProgressIndicator progressIndicator;
     @FXML
     private TextField firstname;
     @FXML
@@ -152,6 +155,7 @@ public class UpdateUserController implements Initializable {
     {
         return () ->
         {
+            Platform.runLater(() -> controller.companyList.setPromptText("Loading..."));
             var companies = domainHandler.getAllCompanies();
 
             ObservableList<Company> companyEntities = FXCollections.observableArrayList();
@@ -192,8 +196,7 @@ public class UpdateUserController implements Initializable {
 
         Date currentDate = new Date();
 
-        java.util.Date utilDate = currentDate;
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
 
         user = new User(
                 userToUpdate.getId(),
@@ -214,24 +217,40 @@ public class UpdateUserController implements Initializable {
             user.setRole(roleList.getValue());
         }
 
-        boolean userWasUpdated = false;
+        var thread = new Thread(updateUser(event));
+        thread.setDaemon(true);
+        thread.start();
+    }
 
-        if (password.getText().isEmpty())
+    private Runnable updateUser(ActionEvent event)
+    {
+        return () ->
         {
-            userWasUpdated = user.update();
-        } else {
-            userWasUpdated = user.update(password.getText());
-        }
+
+            Platform.runLater(() -> progressIndicator.setVisible(true));
+
+            boolean userWasUpdated;
+
+            if (password.getText().isEmpty())
+            {
+                userWasUpdated = user.update();
+            } else {
+                userWasUpdated = user.update(password.getText());
+            }
 
 
+            Platform.runLater(() ->
+            {
+                if (userWasUpdated)
+                {
+                    closeDialog(event);
 
-        if (userWasUpdated) {
-            closeDialog(event);
+                } else {
+                    setStatusText(LanguageHandler.getText("somethingWrong"));
+                }
+            });
 
-        } else {
-            setStatusText(LanguageHandler.getText("somethingWrong"));
-        }
-
+        };
     }
 
     /**
