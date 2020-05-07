@@ -13,6 +13,7 @@ public interface IPersistenceUser
     boolean updateUser(UserEntity userEntity, String encryptedPassword, String passwordSalt);
     boolean updateUser(UserEntity userEntity);
     boolean deleteUser(UserEntity userEntity);
+    boolean unDeleteUser(UserEntity userEntity);
     List<UserEntity> getUserByRole(int roleId); //idk?
     List<UserEntity> getUserByCompany(CompanyEntity companyEntity);
     List<UserEntity> getAllUsers();

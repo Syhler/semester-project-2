@@ -52,6 +52,11 @@
                   <HBox fx:id="optionsHbox" alignment="CENTER" prefHeight="66.0" prefWidth="468.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Pane prefHeight="82.0" prefWidth="147.0" />
+                        <Button fx:id="unDeleteSelected" layoutX="148.0" layoutY="32.0" mnemonicParsing="false" onAction="#unDeleteUser" prefHeight="40.0" prefWidth="110.0" text="UnDelete?">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
                         <Button fx:id="createPopup" mnemonicParsing="false" onAction="#openCreateUser" prefHeight="40.0" prefWidth="100.0" text="Create">
                            <HBox.margin>
                               <Insets right="10.0" />

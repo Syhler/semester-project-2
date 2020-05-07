@@ -67,6 +67,9 @@ public class UserManagementController implements Initializable {
     private ToggleButton profileNavigation;
     @FXML
     private ToggleButton companyAddToggle;
+    @FXML
+    private Button unDeleteSelected;
+
 
     // Table objects
     @FXML
@@ -113,15 +116,19 @@ public class UserManagementController implements Initializable {
         profileNavigation.setText(LanguageHandler.getText("profile"));
         usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
         createProgram.setText(LanguageHandler.getText("createProgram"));
+        unDeleteSelected.setText(LanguageHandler.getText("unDelete"));
 
         usermanagementBtn.setSelected(true);
         companyAddToggle.setVisible(false);
+        unDeleteSelected.setVisible(false);
+
 
         switch (CurrentUser.getInstance().getUser().getRole()) {
             case Admin:
                 displayAdmins.fire();
                 displayAdmins.setSelected(true);
                 companyAddToggle.setVisible(true);
+
                 break;
             case Manufacture:
                 displayAdmins.setVisible(false);
@@ -250,6 +257,9 @@ public class UserManagementController implements Initializable {
                     displayProducers.setSelected(false);
                     displayActors.setSelected(false);
                     displayDeletedActors.setSelected(false);
+                    unDeleteSelected.setVisible(false);
+                    deleteSelected.setVisible(true);
+
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Admin));
                 roleTap = Role.Admin;
@@ -261,6 +271,9 @@ public class UserManagementController implements Initializable {
                     displayProducers.setSelected(false);
                     displayActors.setSelected(false);
                     displayDeletedActors.setSelected(false);
+                    unDeleteSelected.setVisible(false);
+                    deleteSelected.setVisible(true);
+
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Manufacture));
                 roleTap = Role.Manufacture;
@@ -272,6 +285,8 @@ public class UserManagementController implements Initializable {
                     displayAdmins.setSelected(false);
                     displayActors.setSelected(false);
                     displayDeletedActors.setSelected(false);
+                    unDeleteSelected.setVisible(false);
+                    deleteSelected.setVisible(true);
 
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Producer));
@@ -284,6 +299,10 @@ public class UserManagementController implements Initializable {
                     displayProducers.setSelected(false);
                     displayAdmins.setSelected(false);
                     displayDeletedActors.setSelected(false);
+                    unDeleteSelected.setVisible(false);
+                    deleteSelected.setVisible(true);
+
+
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Actor));
                 roleTap = Role.Actor;
@@ -294,6 +313,8 @@ public class UserManagementController implements Initializable {
                     displayProducers.setSelected(false);
                     displayActors.setSelected(false);
                     displayAdmins.setSelected(false);
+                    unDeleteSelected.setVisible(true);
+                    deleteSelected.setVisible(false);
                 });
                 userList.addAll(domainHandler.getDeletedUsers());
                 roleTap = Role.Admin;
@@ -340,6 +361,18 @@ public class UserManagementController implements Initializable {
         User selectedUser = table.getSelectionModel().getSelectedItem();
 
         boolean userWasRemoved = selectedUser.delete();
+
+        if (userWasRemoved) {
+            userList.remove(selectedUser);
+        }
+    }
+
+    @FXML
+    private void unDeleteUser(ActionEvent event)
+    {
+        User selectedUser = table.getSelectionModel().getSelectedItem();
+
+        boolean userWasRemoved = selectedUser.unDelete();
 
         if (userWasRemoved) {
             userList.remove(selectedUser);

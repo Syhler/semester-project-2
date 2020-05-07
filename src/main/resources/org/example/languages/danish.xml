@@ -115,6 +115,7 @@
     <import>Importer</import>
     <export>Eksporter</export>
     <displayDeletedActors>Slettede aktører</displayDeletedActors>
+    <unDelete>Genaktiver</unDelete>
 
 
 </language>
