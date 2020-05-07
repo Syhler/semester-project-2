@@ -168,7 +168,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role," +
                     "company.id, company.name, \"user\".company, company, \"user\".timestamp_for_deletion FROM \"user\" " +
                     "inner join company on company.id = \"user\".company " +
-                    "where timestamp_for_deletion is not null");
+                    "where \"user\".timestamp_for_deletion is not null");
             var resultSet = preparedStatement.executeQuery();
             List<UserEntity> list = new ArrayList<>();
             while (resultSet.next()){
@@ -279,7 +279,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
                     "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name, \"user\".company " +
-                    "from \"user\", company where email = ? and password = ?  and company.id = \"user\".company and timestamp_for_deletion is null ");
+                    "from \"user\", company where email = ? and password = ?  and company.id = \"user\".company and \"user\".timestamp_for_deletion is null ");
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
 
