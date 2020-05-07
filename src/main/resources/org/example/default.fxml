@@ -16,7 +16,7 @@
 
 <BorderPane fx:id="borderPane" prefHeight="720" prefWidth="1280" stylesheets="@css/DefaultStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.DefaultController">
    <top>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <ToolBar fx:id="navigation" prefHeight="36.0" prefWidth="1282.0">
                <items>
@@ -35,6 +35,11 @@
                   <Insets left="400.0" right="400.0" top="30.0" />
                </VBox.margin>
             </TextField>
+            <ProgressIndicator fx:id="searchProgressIndicator" visible="false">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </ProgressIndicator>
          </children>
       </VBox>
    </top>

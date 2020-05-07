@@ -42,7 +42,11 @@ public class DefaultController implements Initializable
 {
     @FXML
     public ComboBox<LanguageModel> selectLanguage;
-    public ProgressIndicator progressIndicator;
+
+    @FXML
+    private ProgressIndicator progressIndicator;
+    @FXML
+    private ProgressIndicator searchProgressIndicator;
     @FXML
     private ToggleButton login;
     @FXML
@@ -152,10 +156,30 @@ public class DefaultController implements Initializable
     public void searchOnKeyPressed(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode().equals(KeyCode.ENTER))
         {
-            var programs = domainHandler.search(searchBar.getText());
-            setImages(programs);
-            ProgramListController.getInstance().listOfPrograms = programs;
-            ProgramListController.getInstance().updateProgramList();
+            var thread = new Thread(() ->
+            {
+                Platform.runLater(() -> searchProgressIndicator.setVisible(true));
+
+                var programs = domainHandler.search(searchBar.getText());
+
+                Platform.runLater(() -> setImages(programs));
+
+                    Platform.runLater(() ->
+                    {
+                        try {
+
+                            ProgramListController.getInstance().listOfPrograms = programs;
+                            ProgramListController.getInstance().updateProgramList();
+                            searchProgressIndicator.setVisible(false);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+
+            });
+            thread.setDaemon(true);
+            thread.start();
         }
     }
 
@@ -308,8 +332,6 @@ public class DefaultController implements Initializable
 
                 Platform.runLater(() -> progressIndicator.setVisible(true));
 
-                Thread.sleep(2000);
-
                 FXMLLoader loader = App.getLoader("programList");
                 Parent node = loader.load();
                 programListController = loader.getController();
@@ -333,7 +355,7 @@ public class DefaultController implements Initializable
                     borderPane.setCenter(node);
                 });
 
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         };
