@@ -1,5 +1,6 @@
 package org.example.presentation.usermangement;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -58,10 +59,11 @@ public class CompanyController implements Initializable {
     @FXML
     private ListView<Company> companyList;
 
+    private final ObservableList<Company> companyEntities = FXCollections.observableArrayList();
+
     @FXML
     private Label statusText;
 
-    private ObservableList<Company> companyEntities = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,8 +85,11 @@ public class CompanyController implements Initializable {
         var cellFactory = UsermanagementUtilities.cellFactoryUserManagement();
 
         companyList.setCellFactory(cellFactory);
-        var companies = domainHandler.getAllCompanies();
-        companyEntities.addAll(companies);
+
+
+        var thread = new Thread(loadAllCompanies());
+        thread.start();
+
 
         companyList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Company>() {
 
@@ -100,7 +105,22 @@ public class CompanyController implements Initializable {
 
         });
 
-        companyList.setItems(companyEntities);
+    }
+
+    private Runnable loadAllCompanies()
+    {
+        return () ->
+        {
+            Platform.runLater(() -> setStatusText("Loading..."));
+            var companies = domainHandler.getAllCompanies();
+            companyEntities.addAll(companies);
+
+            Platform.runLater(()->
+            {
+                companyList.setItems(companyEntities);
+                setStatusText("");
+            });
+        };
     }
 
 
@@ -115,14 +135,12 @@ public class CompanyController implements Initializable {
         try {
             FXMLLoader myLoader = App.getLoader("company");
             companyStage.setScene(new Scene(myLoader.load()));
-
             companyStage.setTitle(LanguageHandler.getText("companyTitle"));
             companyStage.initModality(Modality.WINDOW_MODAL);
             companyStage.initOwner(((Node) event.getTarget()).getScene().getWindow());
             companyStage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
             companyStage.setResizable(false);
             companyStage.showAndWait();
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -137,19 +155,30 @@ public class CompanyController implements Initializable {
      * @Return long ID from database
      */
     @FXML
-    public void createCompany(ActionEvent event) throws IOException {
-        Company newCompany = new Company(companyNameInput.getText());
+    public void createCompany(ActionEvent event)
+    {
 
-        newCompany = domainHandler.createCompany(newCompany);
+        var thread = new Thread(() ->
+        {
+            Company newCompany = new Company(companyNameInput.getText());
 
-        if (newCompany.getId() != 0) {
-            setStatusText(newCompany.getName() + " "+LanguageHandler.getText("companyCreated"));
-            companyEntities.add(newCompany);
+            newCompany = domainHandler.createCompany(newCompany);
 
-        } else {
-            setStatusText(newCompany.getName() + " "+LanguageHandler.getText("companyNotCreated"));
-        }
+            Company finalNewCompany = newCompany;
+            Platform.runLater(() ->
+            {
+                if (finalNewCompany.getId() != 0) {
+                    setStatusText(finalNewCompany.getName() + " "+LanguageHandler.getText("companyCreated"));
+                    companyEntities.add(finalNewCompany);
 
+                } else {
+                    setStatusText(finalNewCompany.getName() + " "+LanguageHandler.getText("companyNotCreated"));
+                }
+            });
+        });
+
+        thread.setDaemon(true);
+        thread.start();
     }
 
     /**
@@ -159,19 +188,28 @@ public class CompanyController implements Initializable {
      * @Return boolean, true if company was updated succesfully
      */
     @FXML
-    public void updateCompany(ActionEvent event) throws IOException {
-        Company updatedCompany = new Company(companyNameToUpdate.getText());
-        updatedCompany.setId(Long.parseLong(companyId.getText()));
+    public void updateCompany(ActionEvent event) throws IOException
+    {
+        var thread = new Thread(() ->
+        {
+            Company updatedCompany = new Company(companyNameToUpdate.getText());
+            updatedCompany.setId(Long.parseLong(companyId.getText()));
 
-        boolean companyWasUpdated = updatedCompany.update();
+            boolean companyWasUpdated = updatedCompany.update();
 
-        if (companyWasUpdated) {
-            setStatusText(updatedCompany.getName() + " "+LanguageHandler.getText("companyUpdated"));
-            companyEntities.remove(companyList.getSelectionModel().getSelectedItem());
-            companyEntities.add(updatedCompany);
-        } else {
-            setStatusText(updatedCompany.getName() + " "+LanguageHandler.getText("companyNotUpdated"));
-        }
+            Platform.runLater(() ->
+            {
+                if (companyWasUpdated) {
+                    setStatusText(updatedCompany.getName() + " "+LanguageHandler.getText("companyUpdated"));
+                    companyEntities.remove(companyList.getSelectionModel().getSelectedItem());
+                    companyEntities.add(updatedCompany);
+                } else {
+                    setStatusText(updatedCompany.getName() + " "+LanguageHandler.getText("companyNotUpdated"));
+                }
+            });
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
     /**
@@ -181,7 +219,8 @@ public class CompanyController implements Initializable {
      * @Return boolean, true if company was deleted
      */
     @FXML
-    public void deleteCompany(ActionEvent event) throws IOException {
+    public void deleteCompany(ActionEvent event) throws IOException
+    {
         Company selectedCompany = companyList.getSelectionModel().getSelectedItem();
 
         boolean companyWasDeleted = selectedCompany.delete();
