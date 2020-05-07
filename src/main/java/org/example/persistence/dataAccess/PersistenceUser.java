@@ -165,8 +165,10 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
 
     public List<UserEntity> getAllDeletedUsers(){
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, title, firstName, middleName, lastName, createdBy, createdAt, email, role," +
-                    "company, \"user\".timestamp_for_deletion from \"user\" where timestamp_for_deletion is not null");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role," +
+                    "company.id, company.name, \"user\".company, company, \"user\".timestamp_for_deletion FROM \"user\" " +
+                    "inner join company on company.id = \"user\".company " +
+                    "where timestamp_for_deletion is not null");
             var resultSet = preparedStatement.executeQuery();
             List<UserEntity> list = new ArrayList<>();
             while (resultSet.next()){
