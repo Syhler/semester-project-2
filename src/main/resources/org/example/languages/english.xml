@@ -117,5 +117,7 @@
     <export>Export</export>
     <displayDeletedActors>Deleted actors</displayDeletedActors>
     <unDelete>Reactivate</unDelete>
+    <activeCompanies>Active companies</activeCompanies>
+    <inactiveCompanies>Inactive companies</inactiveCompanies>
 
 </language>
