@@ -80,6 +80,22 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
 
     }
 
+    public List<CompanyEntity> getAllDeletedCompanies(){
+        List<CompanyEntity> companies = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT * FROM \"company\" where timestamp_for_deletion is null ");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                companies.add(createCompanyEntityFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Boolean unDeletecompany(CompanyEntity companyEntity){
 
         try {
