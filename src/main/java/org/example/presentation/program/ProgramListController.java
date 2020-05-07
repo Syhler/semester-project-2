@@ -111,41 +111,29 @@ public class ProgramListController implements Initializable {
     {
         listGridPane.getChildren().clear();
 
-        var thread = new Thread(() -> {
+        int rowSize = 0;
+        int columnSize = 0;
 
-            int rowSize = 0;
-            int columnSize = 0;
-
-            for (int i = 0; i < listOfPrograms.size(); i++)
+        for (int i = 0; i < listOfPrograms.size(); i++)
+        {
+            if (i%4 == 0)
             {
-                if (i%4 == 0)
-                {
-                    rowSize++;
-                }
-                if (i%4!= 0)
-                {
-                    columnSize++;
-                }
-                if (i%4 == 0)
-                {
-                    columnSize = 0;
-                }
-
-                int finalColumnSize = columnSize;
-                int finalRowSize = rowSize;
-                int finalI = i;
-                Platform.runLater(()->
-                        {
-                            listGridPane.add(showProgramList(listOfPrograms.get(finalI)), finalColumnSize, finalRowSize);
-                            System.out.println("Showing list : " + finalI + " Column: " + listGridPane.getColumnCount() + " row: " + listGridPane.getRowCount());
-
-                        });
-
+                rowSize++;
+            }
+            if (i%4!= 0)
+            {
+                columnSize++;
+            }
+            if (i%4 == 0)
+            {
+                columnSize = 0;
             }
 
-        });
-        thread.setDaemon(true);
-        thread.start();
+            listGridPane.add(showProgramList(listOfPrograms.get(i)), columnSize, rowSize);
+            System.out.println("Showing list : " + i + " Column: " + listGridPane.getColumnCount() + " row: " + listGridPane.getRowCount());
+
+        }
+
     }
 
 

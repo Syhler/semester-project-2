@@ -42,6 +42,7 @@ public class DefaultController implements Initializable
 {
     @FXML
     public ComboBox<LanguageModel> selectLanguage;
+    public ProgressIndicator progressIndicator;
     @FXML
     private ToggleButton login;
     @FXML
@@ -161,28 +162,7 @@ public class DefaultController implements Initializable
     /**
      * Loads the "programList.fxml" scene in the center of the borderpane
      */
-    public void loadProgramList()
-    {
-        FXMLLoader loader = null;
-        try {
-            loader = App.getLoader("programList");
-            Parent node = loader.load();
-            programListController = loader.getController();
-            borderPane.setCenter(node);
 
-
-            var allPrograms = domainHandler.getAllPrograms();
-            setImages(allPrograms);
-
-            programListController.listOfPrograms.addAll(allPrograms);
-            programListController.updateProgramList();
-
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void setImages(List<Program> programs)
     {
@@ -315,7 +295,49 @@ public class DefaultController implements Initializable
             }
         }
 
-        Platform.runLater(this::loadProgramList);
+        var thread = new Thread(loadProgramList());
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public Runnable loadProgramList()
+    {
+        return () ->
+        {
+            try {
+
+                Platform.runLater(() -> progressIndicator.setVisible(true));
+
+                Thread.sleep(2000);
+
+                FXMLLoader loader = App.getLoader("programList");
+                Parent node = loader.load();
+                programListController = loader.getController();
+
+                var allPrograms = domainHandler.getAllPrograms();
+
+                Platform.runLater(()->
+                {
+                    setImages(allPrograms);
+
+                });
+
+
+                programListController.listOfPrograms.addAll(allPrograms);
+                programListController.updateProgramList();
+
+
+                Platform.runLater(()->
+                {
+                    progressIndicator.setVisible(false);
+                    borderPane.setCenter(node);
+                });
+
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
+
     }
 
 

@@ -38,4 +38,7 @@
          </children>
       </VBox>
    </top>
+   <center>
+      <ProgressIndicator fx:id="progressIndicator" visible="false" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>
