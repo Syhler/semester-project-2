@@ -116,6 +116,8 @@
     <export>Eksporter</export>
     <displayDeletedActors>Slettede aktører</displayDeletedActors>
     <unDelete>Genaktiver</unDelete>
+    <activeCompanies>Aktive firmaer</activeCompanies>
+    <inactiveCompanies>Inaktive firmaer</inactiveCompanies>
 
 
 </language>
