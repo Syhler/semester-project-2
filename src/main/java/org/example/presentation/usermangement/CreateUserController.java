@@ -1,5 +1,6 @@
 package org.example.presentation.usermangement;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,7 +28,9 @@ import java.util.ResourceBundle;
 
 public class CreateUserController implements Initializable {
 
-    private DomainFacade domainHandler = new DomainFacade();
+    @FXML
+    private ProgressIndicator progressIndicator;
+    private final DomainFacade domainHandler = new DomainFacade();
     @FXML
     private TextField firstname;
     @FXML
@@ -67,7 +70,6 @@ public class CreateUserController implements Initializable {
     @FXML
     private Label statusText;
 
-    private ObservableList<Company> companyEntities = FXCollections.observableArrayList();
 
     private String titleName = "";
     private Role roleValue;
@@ -85,9 +87,9 @@ public class CreateUserController implements Initializable {
 
         companyList.setCellFactory(cellFactory);
         companyList.setButtonCell(cellFactory.call(null));
-        var companies = domainHandler.getAllCompanies();
-        companyEntities.addAll(companies);
-        companyList.setItems(companyEntities);
+        var thread = new Thread(getCompanies());
+        thread.setDaemon(true);
+        thread.start();
 
         firstNameCreate.setText(LanguageHandler.getText("firstName"));
         middleNameCreate.setText(LanguageHandler.getText("middleName"));
@@ -100,6 +102,24 @@ public class CreateUserController implements Initializable {
         btnCancel.setText(LanguageHandler.getText("cancelBtn"));
     }
 
+    private Runnable getCompanies()
+    {
+        return () ->
+        {
+            Platform.runLater(() -> companyList.setPromptText("Loading..."));
+
+            var companies = domainHandler.getAllCompanies();
+
+            Platform.runLater(() ->
+            {
+                ObservableList<Company> companyEntities = FXCollections.observableArrayList();
+                companyEntities.addAll(companies);
+                companyList.setItems(companyEntities);
+                companyList.getSelectionModel().selectFirst();
+            });
+
+        };
+    }
 
     /**
      * Opens the CreateUser page and waits until the user is created or cancel
@@ -149,8 +169,7 @@ public class CreateUserController implements Initializable {
         }
 
         Date currentDate = new Date();
-        java.util.Date utilDate = currentDate;
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
 
         user = new User(
                 title.getText(),
@@ -163,18 +182,25 @@ public class CreateUserController implements Initializable {
                 CurrentUser.getInstance().getUser(),
                 companyList.getSelectionModel().getSelectedItem());
 
-        //user.setCreatedByName(user.getCreatedBy().getFirstName());
-        //user.setCompanyName(user.getCompany().getName());
+        var thread = new Thread(createUser(event));
+        thread.start();
+    }
 
-        var createdUser = domainHandler.createUser(user, password.getText());
+    private Runnable createUser(ActionEvent event)
+    {
+        return () ->
+        {
+            Platform.runLater(() -> progressIndicator.setVisible(true));
 
-        if (createdUser != null) {
-            closeDialog(event);
+            var createdUser = domainHandler.createUser(user, password.getText());
 
-        } else {
-            setStatusText(LanguageHandler.getText("somethingWrong"));
-        }
+            if (createdUser != null) {
+                Platform.runLater(() -> closeDialog(event));
 
+            } else {
+                Platform.runLater(() -> setStatusText(LanguageHandler.getText("somethingWrong")));
+            }
+        };
     }
 
     /**

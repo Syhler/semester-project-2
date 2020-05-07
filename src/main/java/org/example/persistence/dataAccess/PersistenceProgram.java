@@ -180,38 +180,93 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
     }
 
     @Override
-    public List<ProgramEntity> importPrograms(List<ProgramEntity> programEntities) {
+    public ProgramEntity importPrograms(ProgramEntity entity) {
 
-        for (var program : programEntities) {
-            long programId = insertProgram();
-            program.setId(programId);
+        //check if program should be imported
+        var programExist = isProgramExist(entity);
 
-            insertProgramInformation(program, 1);
+        if (programExist != null) return null;
 
-            if (program.getCompanyEntity() != null)
+        ProgramEntity program = createProgram(entity.getProgramInformation());
+
+
+        if (entity.getCompanyEntity() != null)
+        {
+
+            CompanyEntity getCompanyByName = getCompanyByName(entity.getCompanyEntity().getName());
+
+            if (getCompanyByName == null)
             {
-                if (program.getCompanyEntity().getId() == 0)
-                {
-                    new PersistenceHandler().company().createCompany(program.getCompanyEntity());
-                }
-                else
-                {
-                    insertCompany(program.getCompanyEntity().getId(), program.getId());
-                }
+                var id = new PersistenceHandler().company().createCompany(entity.getCompanyEntity());
+                insertCompany(program.getId(),id);
+                //program.setCompanyEntity(new CompanyEntity(id, entity.getCompanyEntity().getName()));
+            }
+            else {
 
+
+                insertCompany(program.getId(),getCompanyByName.getId());
+                //program.setCompanyEntity(getCompanyByName);
             }
-            if (program.getProducer() != null)
-            {
-                insertProducer(program.getProducer(),program.getId());
-            }
-            if (program.getCredits() != null)
-            {
-                insertCredit(program.getCredits(),program.getId());
-            }
+
         }
 
+        /*
+        if (entity.getProducer() != null)
+        {
+            insertProducer(entity.getProducer(),entity.getId());
+        }
+         */
 
-        return programEntities;
+        return program;
+    }
+
+    private ProgramEntity isProgramExist(ProgramEntity entity)
+    {
+        try {
+            PreparedStatement statement = connection.prepareStatement("select * from programinformation " +
+                    "left join program p on programinformation.program_id = p.id" +
+                    " where timestamp_for_deletion is null" +
+                    " and programinformation.title = ?" +
+                    " and programinformation.description = ?");
+            statement.setString(1,entity.getProgramInformation().getTitle());
+            statement.setString(2, entity.getProgramInformation().getDescription());
+
+            var resultSet = statement.executeQuery();
+
+            if (!resultSet.next()){
+                return null;
+            }
+
+            var programInformation = new ProgramInformationEntity(resultSet.getString("title"), resultSet.getString("description"));
+            return new ProgramEntity(resultSet.getLong("program_id"), programInformation);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
+    private CompanyEntity getCompanyByName(String companyName)
+    {
+        try {
+            PreparedStatement statement = connection.prepareStatement("select * from company where lower(name) = ?;");
+            statement.setString(1, companyName.toLowerCase());
+
+            var resultSet = statement.executeQuery();
+
+            if (!resultSet.next()) return null;
+
+            return new CompanyEntity(
+                    resultSet.getLong("id"),
+                    resultSet.getString("name"));
+
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+            return null;
+        }
+
     }
 
     /**
@@ -375,7 +430,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param programEntity
      * @return
      */
-
     public boolean updateCompanyProgram(ProgramEntity programEntity){
         try {
 
@@ -804,14 +858,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      */
     private String createCompanySearchSQL(String[] words)
     {
-        /*
-        StringBuilder baseSQL = new StringBuilder("select program, name, title" +
-                " from companyprogram" +
-                "    inner join programinformation p on companyProgram.program = p.id" +
-                "    inner join company c on companyProgram.company = c.id");
-
-         */
-
         StringBuilder baseSQL = new StringBuilder("select distinct on (program.id) program.id, name, title from companyprogram" +
                 "    left join programinformation on companyProgram.program = programinformation.program_id" +
                 "    left join company on companyProgram.company = company.id" +
@@ -838,14 +884,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      */
     private String createCreditSearchSQL(String[] words)
     {
-        /*
-        StringBuilder baseSQL = new StringBuilder("select distinct(program), programinformation.title" +
-                " from credit" +
-                " inner join \"user\" on credit.\"user\" = \"user\".id" +
-                " inner join programinformation on credit.program = programinformation.id");
-
-         */
-
         StringBuilder baseSQL = new StringBuilder("select distinct(program), programinformation.title from credit inner join \"user\" on credit.\"user\" = \"user\".id " +
                 "inner join programinformation on credit.program = programinformation.id " +
                 "inner join program on programinformation.program_id = program.id");

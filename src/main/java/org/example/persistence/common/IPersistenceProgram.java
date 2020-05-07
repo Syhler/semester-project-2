@@ -8,7 +8,7 @@ import java.util.List;
 public interface IPersistenceProgram
 {
     ProgramEntity createProgram(ProgramInformationEntity programEntity);
-    List<ProgramEntity> importPrograms(List<ProgramEntity> programEntities);
+    ProgramEntity importPrograms(ProgramEntity programEntity);
     boolean deleteProgram(long programId);
     boolean updateProgram(ProgramEntity programEntity);
     ProgramEntity getProgramById(long id);

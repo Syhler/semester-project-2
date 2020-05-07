@@ -1,5 +1,6 @@
 package org.example.presentation.usermangement;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +29,10 @@ import java.util.ResourceBundle;
 
 public class UpdateUserController implements Initializable {
 
-    private DomainFacade domainHandler = new DomainFacade();
+    private final DomainFacade domainHandler = new DomainFacade();
+
+    @FXML
+    private ProgressIndicator progressIndicator;
     @FXML
     private TextField firstname;
     @FXML
@@ -69,8 +73,6 @@ public class UpdateUserController implements Initializable {
     @FXML
     private Label statusText;
 
-    private ObservableList<Company> companyEntities = FXCollections.observableArrayList();
-
     private String titleName = "";
     private Role roleValue;
 
@@ -80,17 +82,10 @@ public class UpdateUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
         var cellFactory = UsermanagementUtilities.cellFactoryUserManagement();
-
 
         companyList.setCellFactory(cellFactory);
         companyList.setButtonCell(cellFactory.call(null));
-
-        var companies = domainHandler.getAllCompanies();
-        companyEntities.addAll(companies);
-
-        companyList.setItems(companyEntities);
 
         firstNameUpdate.setText(LanguageHandler.getText("firstName"));
         middleNameUpdate.setText(LanguageHandler.getText("middleName"));
@@ -130,25 +125,12 @@ public class UpdateUserController implements Initializable {
             updateUserController.roleValue = userToUpdate.getRole();
             updateUserController.userToUpdate = userToUpdate;
 
+            new Thread(loadAllCompanies(userToUpdate, updateUserController)).start();
+
             updateUserController.firstname.setText(userToUpdate.getName().getFirstName());
             updateUserController.middelname.setText(userToUpdate.getName().getFirstMiddleName());
             updateUserController.lastname.setText(userToUpdate.getName().getLastName());
             updateUserController.email.setText(userToUpdate.getEmail());
-
-            var companies = domainHandler.getAllCompanies();
-            companyEntities.addAll(companies);
-
-            if (updateUserController.companyList != null && userToUpdate.getCompany() != null)
-            {
-                // Selecting the users current company in company Combobox
-                for (Company company : companyEntities) {
-                    if (userToUpdate.getCompany().getId() == company.getId()) {
-                        updateUserController.companyList.getSelectionModel().select(companyEntities.indexOf(company));
-                        break;
-                    }
-                }
-            }
-
 
             updateUserController.title.setText(userToUpdate.getTitle());
             updateUserController.roleList.setValue(userToUpdate.getRole());
@@ -168,6 +150,36 @@ public class UpdateUserController implements Initializable {
         }
     }
 
+
+    private Runnable loadAllCompanies(User userToUpdate, UpdateUserController controller)
+    {
+        return () ->
+        {
+            Platform.runLater(() -> controller.companyList.setPromptText("Loading..."));
+            var companies = domainHandler.getAllCompanies();
+
+            ObservableList<Company> companyEntities = FXCollections.observableArrayList();
+            companyEntities.addAll(companies);
+
+            Platform.runLater(() -> controller.companyList.setItems(companyEntities));
+
+
+            if (userToUpdate.getCompany() != null)
+            {
+                // Selecting the users current company in company Combobox
+                for (Company company : companyEntities)
+                {
+
+                    if (userToUpdate.getCompany().getId() == company.getId())
+                    {
+                        Platform.runLater(() -> controller.companyList.getSelectionModel().select(companyEntities.indexOf(company)));
+                        break;
+                    }
+                }
+            }
+        };
+    }
+
     /**
      * Updates the chosen user according to input fields, closes dialog if succesfull
      * @param event
@@ -184,8 +196,7 @@ public class UpdateUserController implements Initializable {
 
         Date currentDate = new Date();
 
-        java.util.Date utilDate = currentDate;
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
 
         user = new User(
                 userToUpdate.getId(),
@@ -206,24 +217,39 @@ public class UpdateUserController implements Initializable {
             user.setRole(roleList.getValue());
         }
 
-        boolean userWasUpdated = false;
+        var thread = new Thread(updateUser(event));
+        thread.start();
+    }
 
-        if (password.getText().isEmpty())
+    private Runnable updateUser(ActionEvent event)
+    {
+        return () ->
         {
-            userWasUpdated = user.update();
-        } else {
-            userWasUpdated = user.update(password.getText());
-        }
+
+            Platform.runLater(() -> progressIndicator.setVisible(true));
+
+            boolean userWasUpdated;
+
+            if (password.getText().isEmpty())
+            {
+                userWasUpdated = user.update();
+            } else {
+                userWasUpdated = user.update(password.getText());
+            }
 
 
+            Platform.runLater(() ->
+            {
+                if (userWasUpdated)
+                {
+                    closeDialog(event);
 
-        if (userWasUpdated) {
-            closeDialog(event);
+                } else {
+                    setStatusText(LanguageHandler.getText("somethingWrong"));
+                }
+            });
 
-        } else {
-            setStatusText(LanguageHandler.getText("somethingWrong"));
-        }
-
+        };
     }
 
     /**

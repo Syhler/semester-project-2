@@ -1,5 +1,6 @@
 package org.example.presentation.program;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -25,6 +26,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CreateProgramController implements Initializable {
+
+    @FXML
+    private ProgressIndicator progressIndicator;
     @FXML
     private Button cancelCreateProgram;
     @FXML
@@ -53,19 +57,13 @@ public class CreateProgramController implements Initializable {
      * Opens "createProgram.fxml" as a popup scene
      * @return ProgramEntity of the program created
      */
-    public Program openView(ActionEvent event)
+    public Program openView(ActionEvent event) throws IOException
     {
-        Parent root = null;
-        FXMLLoader loader = null;
 
-        try {
-            loader = App.getLoader("createProgram");
-            root = loader.load();
+        FXMLLoader loader = App.getLoader("createProgram");
+        Parent root = loader.load();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        CreateProgramController createProgramController = loader.<CreateProgramController>getController();
+        CreateProgramController createProgramController = loader.getController();
 
         Scene scene = new Scene(root);
 
@@ -77,6 +75,7 @@ public class CreateProgramController implements Initializable {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
         stage.showAndWait();
+
         return createProgramController.program;
     }
 
@@ -93,14 +92,34 @@ public class CreateProgramController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void goToUpdateProgram(ActionEvent event) throws IOException {
-        ProgramInformation programInformation = new ProgramInformation(getTitle(), getDescription());
-        program = domainHandler.createProgram(programInformation);
+    public void createProgramOnAction(ActionEvent event) throws IOException
+    {
+        progressIndicator.setVisible(true);
+        var thread = new Thread(createProgramAndCloseModal(event));
+        thread.setDaemon(true);
+        thread.start();
 
-        UpdateProgramController updateProgramController = new UpdateProgramController();
-        this.program = updateProgramController.openView(program, event);
+    }
 
-        closeCreateProgram(event);
+    private Runnable createProgramAndCloseModal(ActionEvent event)
+    {
+        return () -> {
+            ProgramInformation programInformation = new ProgramInformation(getTitle(), getDescription());
+            program = domainHandler.createProgram(programInformation);
+            progressIndicator.setVisible(false);
+
+            UpdateProgramController updateProgramController = new UpdateProgramController();
+            Platform.runLater(() ->
+            {
+                try {
+                    this.program = updateProgramController.openView(program, event);
+                    ControllerUtility.closeProgram(event);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+        };
     }
 
 

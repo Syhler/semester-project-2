@@ -1,6 +1,5 @@
 package org.example.presentation;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,7 +27,6 @@ import org.example.domain.applicationFacade.DomainFacade;
 import org.example.domain.buisnessComponents.Program;
 import org.example.domain.buisnessComponents.Role;
 import org.example.domain.buisnessComponents.User;
-import org.example.domain.io.Import;
 import org.example.presentation.login.AuthenticationController;
 import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
@@ -35,16 +34,19 @@ import org.example.presentation.multipleLanguages.LanguageModel;
 import org.example.presentation.multipleLanguages.LanguageSelector;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import org.example.presentation.dialogControllers.ImportExportDialogController;
 import org.example.presentation.usermangement.UpdateUserController;
+import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.utilities.CurrentUser;
 
 public class DefaultController implements Initializable
 {
     @FXML
     public ComboBox<LanguageModel> selectLanguage;
+
+    @FXML
+    private ProgressIndicator progressIndicator;
+    @FXML
+    private ProgressIndicator searchProgressIndicator;
     @FXML
     private ToggleButton login;
     @FXML
@@ -132,92 +134,59 @@ public class DefaultController implements Initializable
         Program programEntity = createProgramController.openView(event);
         if (programEntity != null)
         {
-            programListController.listOfPrograms.add(programEntity);
-            programListController.updateProgramList();
+            if (programListController != null)
+            {
+                programListController.listOfPrograms.add(programEntity);
+                programListController.updateProgramList();
+            }
+
         }
     }
 
     public void importOnAction(ActionEvent event) throws Exception {
-        var selectedFile = getFileFromFileChoose();
 
-        ImportExportDialogController controller = new ImportExportDialogController();
+        ControllerUtility.importProgram(event);
 
-        if (selectedFile == null)
-        {
-            controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
-            importBtn.setSelected(false);
-            return;
-        }
+        importBtn.setSelected(false);
 
-
-        var loadedPrograms = Import.loadPrograms(selectedFile);
-
-
-        if (loadedPrograms.isEmpty())
-        {
-            controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
-            importBtn.setSelected(false);
-        }
-        else
-        {
-            loadedPrograms = domainHandler.importPrograms(loadedPrograms);
-
-            controller.openDialog(event,
-                    LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
-                            LanguageHandler.getText("programs"), "Import Dialog");
-            ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
-            ProgramListController.getInstance().updateProgramList();
-            importBtn.setSelected(false);
-        }
     }
 
-    /**
-     * open a fileChooser and return the file
-     * @return the file the user have chosen from the file chooser
-     */
-    private File getFileFromFileChoose()
-    {
-        var fileChooserStage = new Stage();
-
-        FileChooser fileChooser = new FileChooser();
-
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
-
-        return fileChooser.showOpenDialog(fileChooserStage);
-    }
 
     @FXML
     public void searchOnKeyPressed(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode().equals(KeyCode.ENTER))
         {
-            var programs = domainHandler.search(searchBar.getText());
-            setImages(programs);
-            ProgramListController.getInstance().listOfPrograms = programs;
-            ProgramListController.getInstance().updateProgramList();
+            var thread = new Thread(() ->
+            {
+                Platform.runLater(() -> searchProgressIndicator.setVisible(true));
+
+                var programs = domainHandler.search(searchBar.getText());
+
+                Platform.runLater(() -> setImages(programs));
+
+                    Platform.runLater(() ->
+                    {
+                        try {
+
+                            ProgramListController.getInstance().listOfPrograms = programs;
+                            ProgramListController.getInstance().updateProgramList();
+                            searchProgressIndicator.setVisible(false);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+
+            });
+            thread.setDaemon(true);
+            thread.start();
         }
     }
 
     /**
      * Loads the "programList.fxml" scene in the center of the borderpane
      */
-    public void loadProgramList()
-    {
-        FXMLLoader loader = null;
-        try {
-            loader = App.getLoader("programList");
-            Parent node = loader.load();
-            programListController = loader.getController();
 
-            var allPrograms = domainHandler.getAllPrograms();
-            setImages(allPrograms);
-
-            programListController.listOfPrograms.addAll(allPrograms);
-            programListController.updateProgramList();
-            borderPane.setCenter(node);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void setImages(List<Program> programs)
     {
@@ -231,8 +200,6 @@ public class DefaultController implements Initializable
         for (var program : programs) {
             program.setImage(listOfImages.get(new Random().nextInt(listOfImages.size())));
         }
-
-
     }
 
     @FXML
@@ -254,7 +221,6 @@ public class DefaultController implements Initializable
             CurrentUser.getInstance().init(user);
 
         }
-
     }
 
     /**
@@ -353,7 +319,47 @@ public class DefaultController implements Initializable
             }
         }
 
-        loadProgramList();
+        var thread = new Thread(loadProgramList());
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public Runnable loadProgramList()
+    {
+        return () ->
+        {
+            try {
+
+                Platform.runLater(() -> progressIndicator.setVisible(true));
+
+                FXMLLoader loader = App.getLoader("programList");
+                Parent node = loader.load();
+                programListController = loader.getController();
+
+                var allPrograms = domainHandler.getAllPrograms();
+
+                Platform.runLater(()->
+                {
+                    setImages(allPrograms);
+
+                });
+
+
+                programListController.listOfPrograms.addAll(allPrograms);
+                programListController.updateProgramList();
+
+
+                Platform.runLater(()->
+                {
+                    progressIndicator.setVisible(false);
+                    borderPane.setCenter(node);
+                });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        };
+
     }
 
 

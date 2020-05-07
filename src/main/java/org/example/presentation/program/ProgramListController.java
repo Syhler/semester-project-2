@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -61,12 +62,11 @@ public class ProgramListController implements Initializable {
         try {
             loader = App.getLoader("program");
             Parent node = loader.load();
-            ProgramController programController = loader.<ProgramController>getController();
+            ProgramController programController = loader.getController();
+
             programController.title.setText(program.getProgramInformation().getTitle());
             programController.program.prefWidthProperty().bind(listGridPane.widthProperty());
             programController.programImage.setImage(program.getImage());
-
-            //programController.program.setMaxWidth(240);
             programController.programEntity = program;
 
             return node;
@@ -129,8 +129,11 @@ public class ProgramListController implements Initializable {
                 columnSize = 0;
             }
 
-            listGridPane.add(showProgramList(listOfPrograms.get(i)),columnSize,rowSize);
+            listGridPane.add(showProgramList(listOfPrograms.get(i)), columnSize, rowSize);
+            System.out.println("Showing list : " + i + " Column: " + listGridPane.getColumnCount() + " row: " + listGridPane.getRowCount());
+
         }
+
     }
 
 

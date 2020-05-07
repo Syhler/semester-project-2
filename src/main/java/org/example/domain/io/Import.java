@@ -121,11 +121,12 @@ public class Import
     {
         Element element = (Element) node;
 
-        var title = element.getAttribute("title");
-        var titleOriginal = element.getAttribute("title_original");
-        var description = element.getAttribute("description");
+        var title = element.getAttribute("title").trim();
+        var titleOriginal = element.getAttribute("title_original").trim();
+        var description = element.getAttribute("description").trim();
         Company company = null;
         var companies = getCompanies(element);
+        //Add producer, use "getCompanies" method as reference
         if (companies.size() > 0)
         {
             //redo this if we allow multiple companies
@@ -160,6 +161,8 @@ public class Import
 
             if (node.getNodeType() == Node.ELEMENT_NODE)
             {
+                if (((Element)node).getAttribute("function").equals("Instruktør")) continue;
+
                 var company = createCompany(node);
 
                 if (company != null)
@@ -183,7 +186,7 @@ public class Import
         var companyName = elementNode.getAttribute("name");
         if (!companyName.isBlank())
         {
-            return new Company(companyName);
+            return new Company(companyName.trim());
         }
 
         return null;

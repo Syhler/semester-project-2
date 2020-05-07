@@ -107,8 +107,8 @@
     <actorInfoHeader>Skuespiller</actorInfoHeader>
     <noProgramsImported>Ingen programmer blev importeret...</noProgramsImported>
     <noFile>Ingen fil blev fundet</noFile>
-    <programs>programmer</programs>
-    <succeedImport>Succesfuldt importeret</succeedImport>
+    <programsImported>programmer importeret</programsImported>
+    <succeedImport>Succesfuldt</succeedImport>
     <noSave>Ingen lokation blev fundet</noSave>
     <noExport>Ingen programmer var eksporteret</noExport>
     <succeedExport>Succesfuldt eksporteret</succeedExport>

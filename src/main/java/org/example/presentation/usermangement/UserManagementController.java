@@ -9,27 +9,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.applicationFacade.DomainFacade;
 import org.example.domain.buisnessComponents.Program;
 import org.example.domain.buisnessComponents.Role;
 import org.example.domain.buisnessComponents.User;
-import org.example.domain.io.Import;
-import org.example.presentation.dialogControllers.ImportExportDialogController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
+import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.utilities.CurrentUser;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class UserManagementController implements Initializable {
-    private DomainFacade domainHandler = new DomainFacade();
+    @FXML
+    private ProgressIndicator progressIndicator;
+
+    private final DomainFacade domainHandler = new DomainFacade();
     @FXML
     private Button closeWindow;
     @FXML
@@ -220,37 +220,62 @@ public class UserManagementController implements Initializable {
     private void displayByRole(ActionEvent event) {
         Object displayByRole = event.getSource();
         userList.clear();
+        progressIndicator.setVisible(true);
+        var thread = new Thread(displayByRoleRunnable(displayByRole));
+        thread.setDaemon(true);
+        thread.start();
+    }
 
-        if (displayByRole == displayAdmins) {
-            userList.addAll(domainHandler.getUserByRole(Role.Admin));
-            roleTap = Role.Admin;
-            displayManufactures.setSelected(false);
-            displayProducers.setSelected(false);
-            displayActors.setSelected(false);
-        }
-        if (displayByRole == displayManufactures) {
-            userList.addAll(domainHandler.getUserByRole(Role.Manufacture));
-            roleTap = Role.Manufacture;
-            displayAdmins.setSelected(false);
-            displayProducers.setSelected(false);
-            displayActors.setSelected(false);
-        }
-        if (displayByRole == displayProducers) {
-            userList.addAll(domainHandler.getUserByRole(Role.Producer));
-            roleTap = Role.Producer;
-            displayManufactures.setSelected(false);
-            displayAdmins.setSelected(false);
-            displayActors.setSelected(false);
-        }
-        if (displayByRole == displayActors) {
-            userList.addAll(domainHandler.getUserByRole(Role.Actor));
-            roleTap = Role.Actor;
-            displayManufactures.setSelected(false);
-            displayProducers.setSelected(false);
-            displayAdmins.setSelected(false);
-        }
+    private Runnable displayByRoleRunnable(Object displayByRole)
+    {
+        return () ->
+        {
+            if (displayByRole == displayAdmins) {
+                Platform.runLater(() ->{
+                    displayManufactures.setSelected(false);
+                    displayProducers.setSelected(false);
+                    displayActors.setSelected(false);
+                });
+                userList.addAll(domainHandler.getUserByRole(Role.Admin));
+                roleTap = Role.Admin;
+            }
+            if (displayByRole == displayManufactures) {
+                Platform.runLater(() ->
+                {
+                    displayAdmins.setSelected(false);
+                    displayProducers.setSelected(false);
+                    displayActors.setSelected(false);
+                });
+                userList.addAll(domainHandler.getUserByRole(Role.Manufacture));
+                roleTap = Role.Manufacture;
+            }
+            if (displayByRole == displayProducers) {
+                Platform.runLater(() ->
+                {
+                    displayManufactures.setSelected(false);
+                    displayAdmins.setSelected(false);
+                    displayActors.setSelected(false);
+                });
+                userList.addAll(domainHandler.getUserByRole(Role.Producer));
+                roleTap = Role.Producer;
+            }
+            if (displayByRole == displayActors) {
+                Platform.runLater(() ->
+                {
+                    displayManufactures.setSelected(false);
+                    displayProducers.setSelected(false);
+                    displayAdmins.setSelected(false);
+                });
+                userList.addAll(domainHandler.getUserByRole(Role.Actor));
+                roleTap = Role.Actor;
+            }
 
-        table.getSelectionModel().select(0);
+            Platform.runLater(() -> {
+                progressIndicator.setVisible(false);
+                table.getSelectionModel().select(0);
+            });
+
+        };
     }
 
     /**
@@ -314,68 +339,9 @@ public class UserManagementController implements Initializable {
     }
 
     public void importOnAction(ActionEvent event) throws Exception {
-        var selectedFile = getFileFromFileChoose();
 
-        ImportExportDialogController controller = new ImportExportDialogController();
-
-        if (selectedFile == null)
-        {
-            controller.openDialog(event, LanguageHandler.getText("noFile"), "Import Dialog");
-            return;
-        }
-
-
-        var loadedPrograms = Import.loadPrograms(selectedFile);
-
-
-        if (loadedPrograms.isEmpty())
-        {
-            controller.openDialog(event, LanguageHandler.getText("noProgramsImported"), "Import Dialog");
-        }
-        else
-        {
-            loadedPrograms = domainHandler.importPrograms(loadedPrograms);
-
-            controller.openDialog(event,
-                    LanguageHandler.getText("succeedImport") + " " + loadedPrograms.size() + " " +
-                            LanguageHandler.getText("programs"), "Import Dialog");
-            ProgramListController.getInstance().listOfPrograms.addAll(loadedPrograms);
-            ProgramListController.getInstance().updateProgramList();
-        }
-
+        ControllerUtility.importProgram(event);
         importBtn.setSelected(false);
-
-
-    }
-
-    /**
-     * open a fileChooser and return the file
-     * @return the file the user have chosen from the file chooser
-     */
-    private File getFileFromFileChoose()
-    {
-        var fileChooserStage = new Stage();
-
-        FileChooser fileChooser = new FileChooser();
-
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
-
-        return fileChooser.showOpenDialog(fileChooserStage);
-    }
-
-    @FXML
-    private void closeWindow(ActionEvent event){
-        Platform.exit();
-        /*
-        Stage currentStage = (Stage) ((Node)event.getTarget()).getScene().getWindow();
-        currentStage.close();
-
-         */
-    }
-    @FXML
-    private void minimizeWindow(ActionEvent event){
-        Stage currentStage = (Stage) minimizeWindow.getScene().getWindow();
-        currentStage.setIconified(true);
     }
 
 }
