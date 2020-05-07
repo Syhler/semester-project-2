@@ -45,6 +45,13 @@ public class DomainFacade
         return UserMapper.map(users);
     }
 
+    public List<User> getDeletedUsers()
+    {
+        List<UserEntity> deletedUsers = persistenceHandler.user().getAllDeletedUsers();
+
+        return UserMapper.map(deletedUsers);
+    }
+
     public List<Company> getAllCompanies()
     {
         var companies = persistenceHandler.company().getAllCompanies();

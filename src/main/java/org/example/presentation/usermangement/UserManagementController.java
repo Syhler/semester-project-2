@@ -295,7 +295,7 @@ public class UserManagementController implements Initializable {
                     displayActors.setSelected(false);
                     displayAdmins.setSelected(false);
                 });
-                userList.addAll(domainHandler.getUserByRole(Role.Admin));
+                userList.addAll(domainHandler.getDeletedUsers());
                 roleTap = Role.Admin;
             }
 
