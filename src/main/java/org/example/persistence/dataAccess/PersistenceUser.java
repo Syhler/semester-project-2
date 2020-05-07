@@ -4,10 +4,7 @@ import org.example.persistence.common.IPersistenceUser;
 import org.example.persistence.entities.CompanyEntity;
 import org.example.persistence.entities.UserEntity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +26,8 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "Insert INTO \"user\" (title,firstname, middlename, lastname, createdby, createdat, email, password, passwordsalt, role, company)" +
-                    " values (?,?,?,?,?,?,?,?,?,?,?) returning id;");
+                    "Insert INTO \"user\" (title,firstname, middlename, lastname, createdby, createdat, email, password, passwordsalt, role, company, timestamp_for_deletion)" +
+                    " values (?,?,?,?,?,?,?,?,?,?,?,?) returning id;");
             preparedStatement.setString(1,userEntity.getTitle());
             preparedStatement.setString(2,userEntity.getFirstName());
             preparedStatement.setString(3,userEntity.getMiddleName());
@@ -42,7 +39,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
             preparedStatement.setString(9,passwordSalt);
             preparedStatement.setInt(10,userEntity.getRole());
             preparedStatement.setLong(11,userEntity.getCompanyEntity().getId());
-
+            preparedStatement.setTimestamp(12,null);
             var resultSet = preparedStatement.executeQuery();
             //checks if the resultSet contains any rows
             if (!resultSet.next())
@@ -166,14 +163,28 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         return true;
     }
 
+    public boolean unDeleteUser(UserEntity userEntity){
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("update \"user\" set timestamp_for_deletion = ? where id = ?");
+            preparedStatement.setTimestamp(1,null);
+            preparedStatement.setLong(2,userEntity.getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
     @Override
     public boolean deleteUser(UserEntity userEntity) {
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "DELETE FROM \"user\" WHERE \"user\".id = ?;");
-            preparedStatement.setLong(1,userEntity.getId());
+                    "update \"user\" set timestamp_for_deletion = ? WHERE \"user\".id = ?;");
+            preparedStatement.setTimestamp(1,new Timestamp(System.currentTimeMillis()));
+            preparedStatement.setLong(2,userEntity.getId());
             preparedStatement.execute();
+
+
         }catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -187,7 +198,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
                     "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  " +
-                    "company.id, company.name, \"user\".company from \"user\" " +
+                    "company.id, company.name, \"user\".company, \"user\".timestamp_for_deletion from \"user\" " +
                     "left join company on company.id = \"user\".company where \"user\".role = ? ORDER BY \"user\".id ASC");
             preparedStatement.setInt(1, roleId);
 
@@ -195,8 +206,10 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
 
             //checks if the resultSet contains any rows
            while (resultSet.next()){
-               users.add(createUserEntityFromResultSet(resultSet));
-           }
+               if(resultSet.getTimestamp("timestamp_for_deletion") == null) {
+                   users.add(createUserEntityFromResultSet(resultSet));
+               }
+               }
 
             return users;
         }
@@ -216,14 +229,16 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         List<UserEntity> users = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name, \"user\".company " +
+                    "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name, \"user\".company, \"user\".timestamp_for_deletion " +
                     "from \"user\", company ORDER BY \"user\".id ASC");
 
             var resultSet = preparedStatement.executeQuery();
 
             //checks if the resultSet contains any rows
             while (resultSet.next()){
-                users.add(createUserEntityFromResultSet(resultSet));
+                if(resultSet.getTimestamp("user.timestamp_for_deletion") == null) {
+                    users.add(createUserEntityFromResultSet(resultSet));
+                }
             }
 
             return users;
@@ -246,7 +261,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
                     "select \"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,  company.id, company.name, \"user\".company " +
-                    "from \"user\", company where email = ? and password = ?  and company.id = \"user\".company");
+                    "from \"user\", company where email = ? and password = ?  and company.id = \"user\".company and timestamp_for_deletion is null ");
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
 
