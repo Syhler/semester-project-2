@@ -42,4 +42,9 @@ public class Company
     public String getName() {
         return name;
     }
+
+    public boolean unDeleteCompany(){
+        var mapped = CompanyMapper.map(this);
+        return persistenceHandler.company().unDeleteCompany(mapped);
+    }
 }

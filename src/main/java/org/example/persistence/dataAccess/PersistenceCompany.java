@@ -96,7 +96,7 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
         return null;
     }
 
-    public Boolean unDeletecompany(CompanyEntity companyEntity){
+    public boolean unDeleteCompany(CompanyEntity companyEntity){
 
         try {
             PreparedStatement preparedStatement  = connection.prepareStatement("UPDATE company set timestamp_for_deletion = ? where id = ?");

@@ -59,6 +59,12 @@ public class DomainFacade
         return CompanyMapper.map(companies);
     }
 
+    public List<Company> getAllDeletedCompanies(){
+        var deletedcompanies = persistenceHandler.company().getAllDeletedCompanies();
+        return CompanyMapper.map(deletedcompanies);
+    }
+
+
     public Program createProgram(ProgramInformation programInformation)
     {
         var programInformationEntity = ProgramInformationMapper.map(programInformation);

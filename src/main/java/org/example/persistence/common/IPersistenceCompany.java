@@ -9,7 +9,9 @@ public interface IPersistenceCompany
 {
 
     List<CompanyEntity> getAllCompanies();
+    List<CompanyEntity> getAllDeletedCompanies();
     boolean deleteCompany(CompanyEntity companyEntity);
+    boolean unDeleteCompany(CompanyEntity companyEntity);
     boolean updateCompany(CompanyEntity companyEntity);
     long createCompany(CompanyEntity companyEntity);
 
