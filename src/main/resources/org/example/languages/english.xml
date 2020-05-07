@@ -115,4 +115,6 @@
     <succeedExport>Successfully exported</succeedExport>
     <import>Import</import>
     <export>Export</export>
+    <displayDeletedActors>Deleted actors</displayDeletedActors>
+
 </language>

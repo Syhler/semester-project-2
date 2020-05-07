@@ -114,6 +114,7 @@
     <succeedExport>Succesfuldt eksporteret</succeedExport>
     <import>Importer</import>
     <export>Eksporter</export>
+    <displayDeletedActors>Slettede aktører</displayDeletedActors>
 
 
 </language>
