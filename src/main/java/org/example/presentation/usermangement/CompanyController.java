@@ -97,6 +97,7 @@ public class CompanyController implements Initializable {
         var cellFactory = UsermanagementUtilities.cellFactoryUserManagement();
 
         companyList.setCellFactory(cellFactory);
+        deletedCompaniesList.setCellFactory(cellFactory);
 
 
         var thread = new Thread(loadAllCompanies());
@@ -141,8 +142,11 @@ public class CompanyController implements Initializable {
         return () ->
         {
             Platform.runLater(() -> setStatusText("Loading..."));
-            var deletedCompanies = domainHandler.//getAllCompanies();
-            deletedCompanyEntities.addAll(deletedCompanies);
+
+            var deletedCompanies = domainHandler.getAllDeletedCompanies();
+            if (deletedCompanies != null) {
+                deletedCompanyEntities.addAll(deletedCompanies);
+            }
 
             Platform.runLater(()->
             {
@@ -258,6 +262,18 @@ public class CompanyController implements Initializable {
         } else {
             setStatusText(selectedCompany.getName() + " "+LanguageHandler.getText("companyNotDeleted"));
         }
+
+        var thread = new Thread(() ->
+        {
+            Platform.runLater(() ->
+            {
+                if (selectedCompany.getId() != 0) {
+                    deletedCompanyEntities.add(selectedCompany);
+
+                }
+            });
+        });
+        thread.start();
     }
 
     /**
@@ -287,6 +303,31 @@ public class CompanyController implements Initializable {
         //gets that nodes stage
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void unDeleteCompany(ActionEvent event)
+    {
+        Company selectedCompany = deletedCompaniesList.getSelectionModel().getSelectedItem();
+
+        boolean companyWasRemoved = selectedCompany.unDeleteCompany();
+
+        if (companyWasRemoved)
+        {
+            deletedCompanyEntities.remove(selectedCompany);
+        }
+
+        var thread = new Thread(() ->
+        {
+            Platform.runLater(() ->
+            {
+                if (selectedCompany.getId() != 0) {
+                    companyEntities.add(selectedCompany);
+
+                }
+            });
+        });
+        thread.start();
     }
 
 }

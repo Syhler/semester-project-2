@@ -84,12 +84,13 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
         List<CompanyEntity> companies = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "SELECT * FROM \"company\" where timestamp_for_deletion is null ");
+                    "SELECT * FROM \"company\" where timestamp_for_deletion is not null ");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
                 companies.add(createCompanyEntityFromResultSet(resultSet));
             }
+            return companies;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -100,7 +101,7 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
 
         try {
             PreparedStatement preparedStatement  = connection.prepareStatement("UPDATE company set timestamp_for_deletion = ? where id = ?");
-            preparedStatement.setTimestamp(1,new Timestamp(System.currentTimeMillis()));
+            preparedStatement.setTimestamp(1,null);
             preparedStatement.setLong(2,companyEntity.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -117,7 +118,7 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "Insert INTO \"company\" (name, company.timestamp_for_deletion)" +
+                    "Insert INTO company (name, timestamp_for_deletion)" +
                     " values (?,?) returning id;");
             preparedStatement.setString(1,companyEntity.getName());
             preparedStatement.setTimestamp(2,null);

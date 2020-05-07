@@ -93,7 +93,7 @@
                   <Insets right="5.0" />
                </VBox.margin>
             </ListView>
-            <Button fx:id="reactivateCompany" mnemonicParsing="false" onAction="#deleteCompany" prefHeight="26.0" prefWidth="84.0" text="Reactivate">
+            <Button fx:id="reactivateCompany" mnemonicParsing="false" onAction="#unDeleteCompany" prefHeight="26.0" prefWidth="84.0" text="Reactivate">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
