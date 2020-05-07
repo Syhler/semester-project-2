@@ -143,7 +143,6 @@ public class ProgramListController implements Initializable {
 
             }
 
-            Thread.currentThread().interrupt();
         });
         thread.setDaemon(true);
         thread.start();

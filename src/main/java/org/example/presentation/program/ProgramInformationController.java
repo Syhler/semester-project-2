@@ -1,9 +1,11 @@
 package org.example.presentation.program;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -84,6 +86,33 @@ public class ProgramInformationController implements Initializable {
 
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Sets update and delete button visible if logged in user has correct role
+        if (!ControllerUtility.gotAccessToProgram(program))
+        {
+            updateBtn.setVisible(false);
+            deleteBtn.setVisible(false);
+            actorListViewContextMenu.getItems().get(0).setVisible(false);
+            producerListViewContextMenu.getItems().get(0).setVisible(false);
+            creditsListViewContextMenu.getItems().get(0).setVisible(false);
+            exportBtn.setVisible(false);
+
+        }
+
+        //descriptionTextArea.prefWidthProperty().bind(descriptionPane.widthProperty());
+        actorListViewContextMenu.getItems().get(0).setText(LanguageHandler.getText("deleteProgram"));
+        producerListViewContextMenu.getItems().get(0).setText(LanguageHandler.getText("deleteProgram"));
+        creditsListViewContextMenu.getItems().get(0).setText(LanguageHandler.getText("deleteProgram"));
+        exportBtn.setText(LanguageHandler.getText("export"));
+
+        setListCellFactoryForCredit(actorListView);
+        setListCellFactory(producersListView);
+        setListCellFactoryForCredit(creditListView);
+
+
+    }
+
     /**
      * Opens "programInformation.fxml" as a popup scene
      * @param programObject of the program that should open
@@ -102,25 +131,20 @@ public class ProgramInformationController implements Initializable {
         }
 
         if (loader == null || root == null) return;
+        Scene scene = new Scene(root);
+
         ProgramInformationController programInformationController = loader.getController();
         programInformationController.programImage.setImage(programObject.getImage());
-        programInformationController.program = domainHandler.getProgramById(programObject.getId());
-
-        if (programInformationController.program != null)
-        {
-            setupText(programInformationController);
-        }
 
 
+        new Thread(loadProgram(programObject.getId(), programInformationController, scene)).start();
 
         programInformationController.actorTitledPane.setText(LanguageHandler.getText("actorInfoHeader"));
         programInformationController.producerTitledPane.setText(LanguageHandler.getText("producerInfoHeader"));
         programInformationController.creditsTitledPane.setText(LanguageHandler.getText("creditHeader"));
-
         programInformationController.updateBtn.setText(LanguageHandler.getText("updateProgram"));
         programInformationController.deleteBtn.setText(LanguageHandler.getText("deleteProgram"));
 
-        Scene scene = new Scene(root);
 
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("programInformationStageTitle"));
@@ -129,10 +153,40 @@ public class ProgramInformationController implements Initializable {
         stage.setScene(scene);
 
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
+        var initScene = ((Node)event.getTarget()).getScene();
+        stage.initOwner(initScene.getWindow());
 
         stage.showAndWait();
+
     }
+
+    private Runnable loadProgram(Long programId, ProgramInformationController controller, Scene scene)
+    {
+        return () ->
+        {
+            System.out.println("what?");
+            Platform.runLater(() ->
+            {
+                scene.setCursor(Cursor.WAIT);
+                controller.title.setText("Loading...");
+                controller.descriptionTextLabel.setText("");
+                controller.productionCompany.setText("");
+            });
+
+            controller.program = domainHandler.getProgramById(programId);
+
+            Platform.runLater(()->
+            {
+                if (controller.program != null)
+                {
+                    setupText(controller);
+                }
+                scene.setCursor(Cursor.DEFAULT);
+            });
+
+        };
+    }
+
 
     private void setupText(ProgramInformationController programInformationController)
     {
@@ -199,33 +253,7 @@ public class ProgramInformationController implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Sets update and delete button visible if logged in user has correct role
-        if (!ControllerUtility.gotAccessToProgram(program))
-        {
-            updateBtn.setVisible(false);
-            deleteBtn.setVisible(false);
-            actorListViewContextMenu.getItems().get(0).setVisible(false);
-            producerListViewContextMenu.getItems().get(0).setVisible(false);
-            creditsListViewContextMenu.getItems().get(0).setVisible(false);
-            exportBtn.setVisible(false);
 
-        }
-
-        //descriptionTextArea.prefWidthProperty().bind(descriptionPane.widthProperty());
-
-        actorListViewContextMenu.getItems().get(0).setText(LanguageHandler.getText("deleteProgram"));
-        producerListViewContextMenu.getItems().get(0).setText(LanguageHandler.getText("deleteProgram"));
-        creditsListViewContextMenu.getItems().get(0).setText(LanguageHandler.getText("deleteProgram"));
-        exportBtn.setText(LanguageHandler.getText("export"));
-
-        setListCellFactoryForCredit(actorListView);
-        setListCellFactory(producersListView);
-        setListCellFactoryForCredit(creditListView);
-
-
-    }
 
     private void setListCellFactoryForCredit(ListView<Credit> listView)
     {
