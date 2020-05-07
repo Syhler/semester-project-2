@@ -163,6 +163,22 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         return true;
     }
 
+    public List<UserEntity> getAllDeletedUsers(){
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, title, firstName, middleName, lastName, createdBy, createdAt, email, role," +
+                    "company, \"user\".timestamp_for_deletion from \"user\" where timestamp_for_deletion is not null");
+            var resultSet = preparedStatement.executeQuery();
+            List<UserEntity> list = new ArrayList<>();
+            while (resultSet.next()){
+               list.add(createUserEntityFromResultSet(resultSet));
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public boolean unDeleteUser(UserEntity userEntity){
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("update \"user\" set timestamp_for_deletion = ? where id = ?");
