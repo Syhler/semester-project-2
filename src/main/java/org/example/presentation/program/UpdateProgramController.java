@@ -355,7 +355,6 @@ public class UpdateProgramController implements Initializable {
 
             Platform.runLater(()->closeUpdateProgram(event));
         });
-        thread.setDaemon(true);
         thread.start();
 
     }

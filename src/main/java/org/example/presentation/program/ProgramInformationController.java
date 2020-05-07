@@ -137,7 +137,9 @@ public class ProgramInformationController implements Initializable {
         programInformationController.programImage.setImage(programObject.getImage());
 
 
-        new Thread(loadProgram(programObject.getId(), programInformationController, scene)).start();
+        var thread = new Thread(loadProgram(programObject.getId(), programInformationController, scene));
+        thread.setDaemon(true);
+        thread.start();
 
         programInformationController.actorTitledPane.setText(LanguageHandler.getText("actorInfoHeader"));
         programInformationController.producerTitledPane.setText(LanguageHandler.getText("producerInfoHeader"));

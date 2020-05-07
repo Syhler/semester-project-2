@@ -62,7 +62,7 @@ public class ImportDialogController
             dialogStage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
             if (programs != null)
             {
-                var thread = createImportThread(controller, programs);
+                var thread = new Thread(importPrograms(controller, programs));
                 thread.start();
             }
             dialogStage.showAndWait();
@@ -76,9 +76,9 @@ public class ImportDialogController
         return null;
     }
 
-    private Thread createImportThread(ImportDialogController controller, List<Program> programs)
+    private Runnable importPrograms(ImportDialogController controller, List<Program> programs)
     {
-        Thread thread = new Thread(() -> {
+        return () -> {
 
 
 
@@ -108,10 +108,7 @@ public class ImportDialogController
             });
 
 
-        });
-
-        thread.setDaemon(true);
-        return thread;
+        };
     }
 
     /**

@@ -88,6 +88,7 @@ public class CreateUserController implements Initializable {
         companyList.setCellFactory(cellFactory);
         companyList.setButtonCell(cellFactory.call(null));
         var thread = new Thread(getCompanies());
+        thread.setDaemon(true);
         thread.start();
 
         firstNameCreate.setText(LanguageHandler.getText("firstName"));
@@ -182,7 +183,6 @@ public class CreateUserController implements Initializable {
                 companyList.getSelectionModel().getSelectedItem());
 
         var thread = new Thread(createUser(event));
-        thread.setDaemon(true);
         thread.start();
     }
 
