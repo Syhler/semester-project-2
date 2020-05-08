@@ -152,7 +152,7 @@ public class UserManagementController implements Initializable {
 
         col_createdBy.setCellValueFactory(user -> new SimpleStringProperty(
                 (user.getValue().getCreatedBy() != null)
-                        ? user.getValue().getFullName()
+                        ? user.getValue().getCreatedBy().getFullName()
                         : "" ));
 
         col_created.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
