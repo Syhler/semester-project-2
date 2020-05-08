@@ -27,6 +27,7 @@ import org.example.presentation.dialogControllers.DialogController;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.dialogControllers.ImportDialogController;
 import org.example.presentation.multipleLanguages.LanguageHandler;
+import org.example.presentation.utilities.UsermanagementUtilities;
 
 import java.io.IOException;
 import java.net.URL;
@@ -332,11 +333,14 @@ public class ProgramInformationController implements Initializable {
             try {
                 ProgramListController.getInstance().removeProgramFromList(program);
                 ProgramListController.getInstance().updateProgramList();
+                UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("programDeleted"), true);
             } catch (Exception e) {
                 e.printStackTrace();
+                UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("programNotDeleted"), false);
             }
         }
         ControllerUtility.closeProgram(event);
+
 
     }
 

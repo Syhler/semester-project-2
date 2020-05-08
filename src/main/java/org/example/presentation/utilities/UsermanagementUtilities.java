@@ -105,21 +105,12 @@ public class UsermanagementUtilities {
 
     public static void setFeedback(ActionEvent event, String msg, boolean color){
 
-        System.out.println(event);
-        System.out.println(msg);
-        System.out.println(color);
-
-
-
         Node source = (Node) event.getSource();
 
         Label labelToChange = (Label) source.getScene().lookup("#feedbackLabel");
         labelToChange.setStyle("-fx-font-weight: bold");
 
         labelToChange.setText(msg);
-
-        System.out.println(labelToChange);
-        System.out.println(source);
 
         if (color != true){
             labelToChange.setStyle("-fx-text-fill: #ED5E68");
@@ -150,5 +141,7 @@ public class UsermanagementUtilities {
         feedback.start();
 
     }
+
+
 
 }

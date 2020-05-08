@@ -99,7 +99,7 @@ public class DefaultController implements Initializable
             {
                 importBtn.setVisible(true);
             }
-            UsermanagementUtilities.setFeedback(event,"Logged in as "+userEntity.getName().getFirstName(),true);
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("loggedIn")+userEntity.getName().getFirstName(),true);
         }
     }
 
@@ -120,6 +120,9 @@ public class DefaultController implements Initializable
             profileNavigation.setVisible(false);
             createProgram.setVisible(false);
             importBtn.setVisible(false);
+
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("loggedOut"),true);
+
         }
     }
 
@@ -140,11 +143,11 @@ public class DefaultController implements Initializable
             {
                 programListController.listOfPrograms.add(programEntity);
                 programListController.updateProgramList();
-                UsermanagementUtilities.setFeedback(event,"The program was created and added to list",true);
+                UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("programCreated"),true);
             }
 
         } else {
-            UsermanagementUtilities.setFeedback(event,"The program was not created",false);
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("programNotCreated"),false);
         }
     }
 
@@ -153,6 +156,7 @@ public class DefaultController implements Initializable
         ControllerUtility.importProgram(event);
 
         importBtn.setSelected(false);
+
 
     }
 
@@ -224,10 +228,10 @@ public class DefaultController implements Initializable
         profileNavigation.setSelected(false);
         if (user != null) {
             CurrentUser.getInstance().init(user);
-            UsermanagementUtilities.setFeedback(event,"The profile information was updated",true);
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("currentUserUpdated"),true);
 
         } else {
-            UsermanagementUtilities.setFeedback(event,"The user profile information wasn't updated",false);
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("currentUserNotUpdated"),false);
         }
     }
 

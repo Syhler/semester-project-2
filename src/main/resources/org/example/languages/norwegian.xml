@@ -113,5 +113,15 @@
     <noExport>Ingen programmer var eksportert</noExport>
     <succeedExport>Vellykket eksportert</succeedExport>
 
+    <loggedIn>Du er logget inn som </loggedIn>
+    <loggedOut>Du var logget av</loggedOut>
 
+    <programCreated>Programmet ble opprettet</programCreated>
+    <programNotCreated>Programmet ble ikke opprettet</programNotCreated>
+
+    <currentUserUpdated>Profilen din ble oppdatert</currentUserUpdated>
+    <currentUserNotUpdated>Profilen din ble ikke oppdatert</currentUserNotUpdated>
+
+    <programDeleted>Programmet ble slettet</programDeleted>
+    <programNotDeleted>Programmet ble ikke slettet</programNotDeleted>
 </language>
