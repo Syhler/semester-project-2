@@ -173,9 +173,10 @@ public class UserManagementController implements Initializable {
 
         if (user != null) {
             userList.add(user);
-            UsermanagementUtilities.setFeedback(event,"The user: "+user.getName().getFirstName()+" was created",true);
+            UsermanagementUtilities.setFeedback(event, user.getName().getFirstName()+LanguageHandler.getText("userCreated"), true);
         } else {
-            UsermanagementUtilities.setFeedback(event,"User was not created",false);
+            UsermanagementUtilities.setFeedback(event, LanguageHandler.getText("userNotCreated"), false);
+
         }
     }
 
@@ -208,14 +209,14 @@ public class UserManagementController implements Initializable {
 
         if (user != null) {
             userList.remove(userToUpdate);
-            UsermanagementUtilities.setFeedback(event,"The user "+user.getName().getFirstName()+" was updated",true);
+            UsermanagementUtilities.setFeedback(event, user.getName().getFirstName()+LanguageHandler.getText("userUpdated"), true);
 
 
             if (user.getRole() == roleTap) {
                 userList.add(user);
             }
         } else {
-            UsermanagementUtilities.setFeedback(event,"The user was not updated",false);
+            UsermanagementUtilities.setFeedback(event, LanguageHandler.getText("userNotUpdated"), false);
         }
     }
 
@@ -323,7 +324,7 @@ public class UserManagementController implements Initializable {
             userList.remove(selectedUser);
             UsermanagementUtilities.setFeedback(event,selectedUser.getName().getFirstName()+" "+LanguageHandler.getText("userDeleted"),true);
         } else {
-            UsermanagementUtilities.setFeedback(event,"The selected user was not deleted",false);
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("userNotDeleted"),false);
         }
     }
 

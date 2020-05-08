@@ -127,4 +127,12 @@
     <programDeleted>Programmet blev slettet</programDeleted>
     <programNotDeleted>Programmet blev ikke slettet</programNotDeleted>
 
+    <userCreated> blev oprettet</userCreated>
+    <userNotCreated>Brugeren blev ikke oprettet</userNotCreated>
+    <userUpdated> blev opdateret</userUpdated>
+    <userNotUpdated>Brugeren blev ikke opdateret</userNotUpdated>
+    <userDeleted>blev slettet</userDeleted>
+    <userNotDeleted>Brugeren blev ikke slettet</userNotDeleted>
+
+
 </language>

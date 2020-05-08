@@ -51,6 +51,7 @@
     <usernameLabel>имя пользователя</usernameLabel>
     <passwordLabel>пароль</passwordLabel>
 
+
     <loggedIn>Вы вошли как </loggedIn>
     <loggedOut>Вы вышли из системы</loggedOut>
 
@@ -62,6 +63,13 @@
 
     <programDeleted>Программа была удалена</programDeleted>
     <programNotDeleted>Программа не была удалена</programNotDeleted>
+
+    <userCreated> был создан</userCreated>
+    <userNotCreated>Пользователь не был создан</userNotCreated>
+    <userUpdated> был обновлен</userUpdated>
+    <userNotUpdated>пользователь не обновлялся</userNotUpdated>
+    <userDeleted> был удален</userDeleted>
+    <userNotDeleted>Пользователь не был удален</userNotDeleted>
 
 </language>
 

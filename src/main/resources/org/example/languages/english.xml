@@ -128,4 +128,12 @@
 
     <programDeleted>The program was deleted</programDeleted>
     <programNotDeleted>The program was not deleted</programNotDeleted>
+
+    <userCreated> has been created</userCreated>
+    <userNotCreated>User was not created</userNotCreated>
+    <userUpdated> was updated</userUpdated>
+    <userNotUpdated>The user was not updated</userNotUpdated>
+    <userDeleted> was deleted</userDeleted>
+    <userNotDeleted>The user was not deleted</userNotDeleted>
+
 </language>
