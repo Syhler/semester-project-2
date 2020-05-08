@@ -1,7 +1,18 @@
 package org.example.presentation.utilities;
 
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Window;
 import javafx.util.Callback;
 import org.example.domain.buisnessComponents.Company;
 import org.example.domain.buisnessComponents.Role;
@@ -90,6 +101,54 @@ public class UsermanagementUtilities {
         }
 
         return msgToReturn;
+    }
+
+    public static void setFeedback(ActionEvent event, String msg, boolean color){
+
+        System.out.println(event);
+        System.out.println(msg);
+        System.out.println(color);
+
+
+
+        Node source = (Node) event.getSource();
+
+        Label labelToChange = (Label) source.getScene().lookup("#feedbackLabel");
+        labelToChange.setStyle("-fx-font-weight: bold");
+
+        labelToChange.setText(msg);
+
+        System.out.println(labelToChange);
+        System.out.println(source);
+
+        if (color != true){
+            labelToChange.setStyle("-fx-text-fill: #ED5E68");
+        } else {
+            labelToChange.setStyle("-fx-text-fill: #19CB94");
+        }
+
+        Thread feedback = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    Thread.sleep(3000);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            labelToChange.setText("");
+
+                        }
+                    });
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        feedback.setDaemon(true);
+        feedback.start();
+
     }
 
 }

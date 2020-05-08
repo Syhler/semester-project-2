@@ -115,5 +115,6 @@
     <import>Importer</import>
     <export>Eksporter</export>
 
+    <userDeleted>blev slettet</userDeleted>
 
 </language>

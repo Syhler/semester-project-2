@@ -37,6 +37,7 @@ import org.example.presentation.program.ProgramListController;
 import org.example.presentation.usermangement.UpdateUserController;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.utilities.CurrentUser;
+import org.example.presentation.utilities.UsermanagementUtilities;
 
 public class DefaultController implements Initializable
 {
@@ -98,6 +99,7 @@ public class DefaultController implements Initializable
             {
                 importBtn.setVisible(true);
             }
+            UsermanagementUtilities.setFeedback(event,"Logged in as "+userEntity.getName().getFirstName(),true);
         }
     }
 
@@ -138,8 +140,11 @@ public class DefaultController implements Initializable
             {
                 programListController.listOfPrograms.add(programEntity);
                 programListController.updateProgramList();
+                UsermanagementUtilities.setFeedback(event,"The program was created and added to list",true);
             }
 
+        } else {
+            UsermanagementUtilities.setFeedback(event,"The program was not created",false);
         }
     }
 
@@ -219,7 +224,10 @@ public class DefaultController implements Initializable
         profileNavigation.setSelected(false);
         if (user != null) {
             CurrentUser.getInstance().init(user);
+            UsermanagementUtilities.setFeedback(event,"The profile information was updated",true);
 
+        } else {
+            UsermanagementUtilities.setFeedback(event,"The user profile information wasn't updated",false);
         }
     }
 
