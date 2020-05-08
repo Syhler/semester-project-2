@@ -112,6 +112,11 @@
     <noSave>Ingen lokasjon ble funnet</noSave>
     <noExport>Ingen programmer var eksportert</noExport>
     <succeedExport>Vellykket eksportert</succeedExport>
-
+    <userCreated> ble laget</userCreated>
+    <userNotCreated>Brukeren ble ikke opprettet</userNotCreated>
+    <userUpdated> ble oppdatert</userUpdated>
+    <userNotUpdated>Brukeren ble ikke oppdatert</userNotUpdated>
+    <userDeleted> ble slettet</userDeleted>
+    <userNotDeleted>Brukeren ble ikke slettet</userNotDeleted>
 
 </language>

@@ -115,4 +115,10 @@
     <succeedExport>Successfully exported</succeedExport>
     <import>Import</import>
     <export>Export</export>
+    <userCreated> has been created</userCreated>
+    <userNotCreated>User was not created</userNotCreated>
+    <userUpdated> was updated</userUpdated>
+    <userNotUpdated>The user was not updated</userNotUpdated>
+    <userDeleted> was deleted</userDeleted>
+    <userNotDeleted>The user was not deleted</userNotDeleted>
 </language>

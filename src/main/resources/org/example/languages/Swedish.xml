@@ -112,4 +112,10 @@
     <noSave>Ingen sparad plats har hittats</noSave>
     <noExport>Inga program exporterades</noExport>
     <succeedExport>Exporterad</succeedExport>
+    <userCreated> skapades</userCreated>
+    <userNotCreated>Användaren skapades inte</userNotCreated>
+    <userUpdated> uppdaterades</userUpdated>
+    <userNotUpdated>Användaren uppdaterades inte</userNotUpdated>
+    <userDeleted> raderades</userDeleted>
+    <userNotDeleted>Användaren raderades inte</userNotDeleted>
 </language>

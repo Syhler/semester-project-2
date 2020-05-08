@@ -47,6 +47,11 @@
     <usernameOrPassword>Неверное имя пользователя или пароль</usernameOrPassword>
     <usernameLabel>имя пользователя</usernameLabel>
     <passwordLabel>пароль</passwordLabel>
-
+    <userCreated> был создан</userCreated>
+    <userNotCreated>Пользователь не был создан</userNotCreated>
+    <userUpdated> был обновлен</userUpdated>
+    <userNotUpdated>пользователь не обновлялся</userNotUpdated>
+    <userDeleted> был удален</userDeleted>
+    <userNotDeleted>Пользователь не был удален</userNotDeleted>
 </language>
 
