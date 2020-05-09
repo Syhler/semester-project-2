@@ -6,104 +6,118 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="companyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="528.0" stylesheets="@css/UsermangementStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.usermangement.CompanyController">
+<AnchorPane fx:id="companyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="800.0" stylesheets="@css/UsermangementStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.usermangement.CompanyController">
 
    <children>
-      <VBox layoutX="21.0" layoutY="14.0" prefHeight="131.0" prefWidth="189.0">
+      <HBox alignment="CENTER" prefHeight="305.0" prefWidth="758.0">
          <children>
-            <Label fx:id="createCompanyLabel" text="Create company" />
-            <Label fx:id="companyNameLabel" text="Name:">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="companyNameInput" prefHeight="26.0" prefWidth="132.0">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </TextField>
-            <Button fx:id="createCompany" mnemonicParsing="false" onAction="#createCompany" prefHeight="26.0" prefWidth="84.0" text="Create">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Label fx:id="updateCompanyLabel" text="Update company:">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="companyIdLabel" text="ID:">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="companyId" disable="true" prefHeight="26.0" prefWidth="132.0">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </TextField>
-            <Label fx:id="updateCompanyLabelName" text="Name:">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="companyNameToUpdate" prefHeight="26.0" prefWidth="132.0">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </TextField>
-            <Button fx:id="updateCompany" mnemonicParsing="false" onAction="#updateCompany" prefHeight="26.0" prefWidth="84.0" text="Update">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
+            <VBox prefHeight="131.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="createCompanyLabel" text="Create company" />
+                  <Label fx:id="companyNameLabel" text="Name:">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="companyNameInput" prefHeight="26.0" prefWidth="132.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button fx:id="createCompany" mnemonicParsing="false" onAction="#createCompany" prefHeight="26.0" prefWidth="84.0" text="Create">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label fx:id="updateCompanyLabel" text="Update company:">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="companyIdLabel" text="ID:">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="companyId" disable="true" prefHeight="26.0" prefWidth="132.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label fx:id="updateCompanyLabelName" text="Name:">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="companyNameToUpdate" prefHeight="26.0" prefWidth="132.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button fx:id="updateCompany" mnemonicParsing="false" onAction="#updateCompany" prefHeight="26.0" prefWidth="84.0" text="Update">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="300.0" prefWidth="250.0">
+               <children>
+      
+                  <Label fx:id="activeCompanyLabel" text="Active companies">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <ListView fx:id="companyList">
+      
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ListView>
+                  <Button fx:id="deleteCompany" mnemonicParsing="false" onAction="#deleteCompany" prefHeight="26.0" prefWidth="84.0" text="Delete">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="30.0" right="30.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox prefHeight="310.0" prefWidth="250.0">
+               <children>
+                  <Label fx:id="inactiveCompanyLabel" text="Inactive companies">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <ListView fx:id="deletedCompaniesList">
+                     <VBox.margin>
+                        <Insets right="5.0" />
+                     </VBox.margin>
+                  </ListView>
+                  <Button fx:id="reactivateCompany" mnemonicParsing="false" onAction="#unDeleteCompany" prefHeight="26.0" prefWidth="84.0" text="Reactivate">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
          </children>
-      </VBox>
-      <Label fx:id="statusText" layoutX="90.0" layoutY="345.0" />
-      <VBox layoutX="230.0" layoutY="14.0" prefHeight="300.0">
-         <children>
+         <padding>
+            <Insets left="20.0" top="20.0" />
+         </padding>
+      </HBox>
+      <Label fx:id="statusText" layoutX="394.0" layoutY="346.0" />
 
-            <Label fx:id="activeCompanyLabel" text="Active companies">
-               <padding>
-                  <Insets bottom="5.0" />
-               </padding>
-            </Label>
-            <ListView fx:id="companyList" prefHeight="276.0" prefWidth="178.0">
-
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </ListView>
-            <Button fx:id="deleteCompany" mnemonicParsing="false" onAction="#deleteCompany" prefHeight="26.0" prefWidth="84.0" text="Delete">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
-
-      <Button fx:id="closeCompany" layoutX="508.0" layoutY="341.0" mnemonicParsing="false" onAction="#cancel" prefHeight="26.0" prefWidth="84.0" text="Close" />
-      <VBox layoutX="413.0" layoutY="14.0" prefHeight="310.0" prefWidth="190.0">
-         <children>
-            <Label fx:id="inactiveCompanyLabel" text="Inactive companies">
-               <padding>
-                  <Insets bottom="5.0" />
-               </padding>
-            </Label>
-            <ListView fx:id="deletedCompaniesList" prefHeight="276.0" prefWidth="178.0">
-               <VBox.margin>
-                  <Insets right="5.0" />
-               </VBox.margin>
-            </ListView>
-            <Button fx:id="reactivateCompany" mnemonicParsing="false" onAction="#unDeleteCompany" prefHeight="26.0" prefWidth="84.0" text="Reactivate">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
+            <Button fx:id="closeCompany" layoutX="702.0" layoutY="341.0" mnemonicParsing="false" onAction="#cancel" prefHeight="26.0" prefWidth="84.0" text="Close" />
 
    </children>
+   <padding>
+      <Insets left="25.0" />
+   </padding>
 </AnchorPane>

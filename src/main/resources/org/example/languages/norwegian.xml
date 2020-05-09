@@ -133,4 +133,7 @@
 
     <programDeleted>Programmet ble slettet</programDeleted>
     <programNotDeleted>Programmet ble ikke slettet</programNotDeleted>
+
+    <userReactivated> ble aktivert på nytt</userReactivated>
+    <userNotReactivated> ble ikke aktivert på nytt</userNotReactivated>
 </language>

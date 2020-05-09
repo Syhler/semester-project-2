@@ -71,5 +71,8 @@
     <userDeleted> был удален</userDeleted>
     <userNotDeleted>Пользователь не был удален</userNotDeleted>
 
+    <userReactivated> был реактивирован</userReactivated>
+    <userNotReactivated> не был реактивирован</userNotReactivated>
+
 </language>
 

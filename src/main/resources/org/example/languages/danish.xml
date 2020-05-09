@@ -114,7 +114,7 @@
     <succeedExport>Succesfuldt eksporteret</succeedExport>
     <import>Importer</import>
     <export>Eksporter</export>
-    <displayDeletedActors>Slettede aktører</displayDeletedActors>
+    <displayDeletedActors>Inaktive brugere</displayDeletedActors>
     <unDelete>Genaktiver</unDelete>
     <activeCompanies>Aktive firmaer</activeCompanies>
     <inactiveCompanies>Inaktive firmaer</inactiveCompanies>
@@ -137,6 +137,9 @@
     <userNotUpdated>Brugeren blev ikke opdateret</userNotUpdated>
     <userDeleted>blev slettet</userDeleted>
     <userNotDeleted>Brugeren blev ikke slettet</userNotDeleted>
+
+    <userReactivated> blev genaktiveret</userReactivated>
+    <userNotReactivated> blev ikke genaktiveret</userNotReactivated>
 
 
 </language>

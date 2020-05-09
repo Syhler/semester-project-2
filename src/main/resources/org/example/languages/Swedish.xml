@@ -133,4 +133,7 @@
     <userDeleted> raderades</userDeleted>
     <userNotDeleted>Användaren raderades inte</userNotDeleted>
 
+    <userReactivated> återaktiverades</userReactivated>
+    <userNotReactivated> återaktiverades inte</userNotReactivated>
+
 </language>

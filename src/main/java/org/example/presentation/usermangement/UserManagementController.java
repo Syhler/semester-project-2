@@ -267,6 +267,7 @@ public class UserManagementController implements Initializable {
                     displayDeletedActors.setSelected(false);
                     unDeleteSelected.setVisible(false);
                     deleteSelected.setVisible(true);
+                    createPopup.setVisible(true);
 
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Admin));
@@ -281,6 +282,7 @@ public class UserManagementController implements Initializable {
                     displayDeletedActors.setSelected(false);
                     unDeleteSelected.setVisible(false);
                     deleteSelected.setVisible(true);
+                    createPopup.setVisible(true);
 
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Manufacture));
@@ -295,6 +297,7 @@ public class UserManagementController implements Initializable {
                     displayDeletedActors.setSelected(false);
                     unDeleteSelected.setVisible(false);
                     deleteSelected.setVisible(true);
+                    createPopup.setVisible(true);
 
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Producer));
@@ -309,6 +312,7 @@ public class UserManagementController implements Initializable {
                     displayDeletedActors.setSelected(false);
                     unDeleteSelected.setVisible(false);
                     deleteSelected.setVisible(true);
+                    createPopup.setVisible(true);
 
 
                 });
@@ -323,6 +327,7 @@ public class UserManagementController implements Initializable {
                     displayAdmins.setSelected(false);
                     unDeleteSelected.setVisible(true);
                     deleteSelected.setVisible(false);
+                    createPopup.setVisible(false);
                 });
                 userList.addAll(domainHandler.getDeletedUsers());
                 roleTap = Role.Admin;
@@ -387,6 +392,9 @@ public class UserManagementController implements Initializable {
 
         if (userWasRemoved) {
             userList.remove(selectedUser);
+            UsermanagementUtilities.setFeedback(event,selectedUser.getName().getFirstName()+" "+LanguageHandler.getText("userReactivated"),true);
+        } else {
+            UsermanagementUtilities.setFeedback(event,selectedUser.getName().getFirstName()+" "+LanguageHandler.getText("userNotReactivated"),false);
         }
     }
 

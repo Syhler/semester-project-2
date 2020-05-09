@@ -141,5 +141,8 @@
     <activeCompanies>Active companies</activeCompanies>
     <inactiveCompanies>Inactive companies</inactiveCompanies>
 
+    <userReactivated> was reactivated</userReactivated>
+    <userNotReactivated> was not reactivated</userNotReactivated>
+
 
 </language>

@@ -45,7 +45,7 @@
     -fx-text-fill: #fff;
 }
 
-#createPopup ,#createCompany, #updateCompany{
+#createPopup ,#createCompany, #updateCompany, #unDeleteSelected, #reactivateCompany{
     -fx-background-color: #19CB94;
     -fx-text-fill: #fff;
 }
@@ -53,7 +53,7 @@
     -fx-background-color: #ED5E68;
     -fx-text-fill: #fff;
 }
-#createPopup:hover, #createCompany:hover, #updateCompany:hover{
+#createPopup:hover, #createCompany:hover, #updateCompany:hover, #unDeleteSelected:hover, #reactivateCompany:hover{
     -fx-background-color: #0c7455;
 }
 #deleteSelected:hover, #deleteCompany:hover {
@@ -140,6 +140,12 @@
 }
 .list-view .list-cell:selected{
     -fx-background-color: #19ACD5;
+}
+.list-view .scroll-bar:horizontal .increment-arrow,
+.list-view .scroll-bar:horizontal .decrement-arrow,
+.list-view .scroll-bar:horizontal .increment-button,
+.list-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
 }
 /*------------------------------------------------- Table ----------------------------------------------------------->*/
 #col_id,#col_company,#col_createdBy,#col_name,#col_title,#col_created{
