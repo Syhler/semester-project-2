@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="companyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" stylesheets="@css/UsermangementStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.usermangement.CompanyController">
+<AnchorPane fx:id="companyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="528.0" stylesheets="@css/UsermangementStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.presentation.usermangement.CompanyController">
+
    <children>
       <VBox layoutX="21.0" layoutY="14.0" prefHeight="131.0" prefWidth="189.0">
          <children>
@@ -61,14 +62,16 @@
          </children>
       </VBox>
       <Label fx:id="statusText" layoutX="90.0" layoutY="345.0" />
-      <VBox layoutX="217.0" layoutY="14.0" prefHeight="310.0" prefWidth="190.0">
+      <VBox layoutX="230.0" layoutY="14.0" prefHeight="300.0">
          <children>
+
             <Label fx:id="activeCompanyLabel" text="Active companies">
                <padding>
                   <Insets bottom="5.0" />
                </padding>
             </Label>
             <ListView fx:id="companyList" prefHeight="276.0" prefWidth="178.0">
+
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -80,6 +83,7 @@
             </Button>
          </children>
       </VBox>
+
       <Button fx:id="closeCompany" layoutX="508.0" layoutY="341.0" mnemonicParsing="false" onAction="#cancel" prefHeight="26.0" prefWidth="84.0" text="Close" />
       <VBox layoutX="413.0" layoutY="14.0" prefHeight="310.0" prefWidth="190.0">
          <children>
@@ -100,5 +104,6 @@
             </Button>
          </children>
       </VBox>
+
    </children>
 </AnchorPane>

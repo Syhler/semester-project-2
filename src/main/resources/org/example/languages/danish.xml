@@ -119,5 +119,24 @@
     <activeCompanies>Aktive firmaer</activeCompanies>
     <inactiveCompanies>Inaktive firmaer</inactiveCompanies>
 
+    <loggedIn>Du er logget ind som </loggedIn>
+    <loggedOut>Du blev logget ud</loggedOut>
+
+    <programCreated>Programmet blev oprettet</programCreated>
+    <programNotCreated>Programmet blev ikke oprettet</programNotCreated>
+
+    <currentUserUpdated>Din profil blev opdateret</currentUserUpdated>
+    <currentUserNotUpdated>Din profil blev ikke opdateret</currentUserNotUpdated>
+
+    <programDeleted>Programmet blev slettet</programDeleted>
+    <programNotDeleted>Programmet blev ikke slettet</programNotDeleted>
+
+    <userCreated> blev oprettet</userCreated>
+    <userNotCreated>Brugeren blev ikke oprettet</userNotCreated>
+    <userUpdated> blev opdateret</userUpdated>
+    <userNotUpdated>Brugeren blev ikke opdateret</userNotUpdated>
+    <userDeleted>blev slettet</userDeleted>
+    <userNotDeleted>Brugeren blev ikke slettet</userNotDeleted>
+
 
 </language>

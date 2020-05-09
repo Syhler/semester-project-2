@@ -21,6 +21,7 @@ import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.utilities.CurrentUser;
+import org.example.presentation.utilities.UsermanagementUtilities;
 
 import java.io.IOException;
 import java.net.URL;
@@ -186,6 +187,10 @@ public class UserManagementController implements Initializable {
 
         if (user != null) {
             userList.add(user);
+            UsermanagementUtilities.setFeedback(event, user.getName().getFirstName()+LanguageHandler.getText("userCreated"), true);
+        } else {
+            UsermanagementUtilities.setFeedback(event, LanguageHandler.getText("userNotCreated"), false);
+
         }
     }
 
@@ -207,7 +212,7 @@ public class UserManagementController implements Initializable {
      * @return Updated UserEntity
      */
     @FXML
-    private void openUpdateUser(ActionEvent event) {
+    private void openUpdateUser(ActionEvent event) throws InterruptedException {
 
         User userToUpdate = table.getSelectionModel().getSelectedItem();
         UpdateUserController updateUserController = new UpdateUserController();
@@ -218,11 +223,14 @@ public class UserManagementController implements Initializable {
 
         if (user != null) {
             userList.remove(userToUpdate);
+            UsermanagementUtilities.setFeedback(event, user.getName().getFirstName()+LanguageHandler.getText("userUpdated"), true);
 
 
             if (user.getRole() == roleTap) {
                 userList.add(user);
             }
+        } else {
+            UsermanagementUtilities.setFeedback(event, LanguageHandler.getText("userNotUpdated"), false);
         }
     }
 
@@ -364,6 +372,9 @@ public class UserManagementController implements Initializable {
 
         if (userWasRemoved) {
             userList.remove(selectedUser);
+            UsermanagementUtilities.setFeedback(event,selectedUser.getName().getFirstName()+" "+LanguageHandler.getText("userDeleted"),true);
+        } else {
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("userNotDeleted"),false);
         }
     }
 
@@ -396,7 +407,10 @@ public class UserManagementController implements Initializable {
             {
                 programListController.listOfPrograms.add(programEntity);
                 programListController.updateProgramList();
+                UsermanagementUtilities.setFeedback(event,"The program was created",true);
             }
+        } else {
+            UsermanagementUtilities.setFeedback(event,"The program was not created",false);
         }
     }
 

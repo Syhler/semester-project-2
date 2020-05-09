@@ -114,4 +114,23 @@
     <succeedExport>Vellykket eksportert</succeedExport>
 
 
+    <loggedIn>Du er logget inn som </loggedIn>
+    <loggedOut>Du var logget av</loggedOut>
+
+    <userCreated> ble laget</userCreated>
+    <userNotCreated>Brukeren ble ikke opprettet</userNotCreated>
+    <userUpdated> ble oppdatert</userUpdated>
+    <userNotUpdated>Brukeren ble ikke oppdatert</userNotUpdated>
+    <userDeleted> ble slettet</userDeleted>
+    <userNotDeleted>Brukeren ble ikke slettet</userNotDeleted>
+
+
+    <programCreated>Programmet ble opprettet</programCreated>
+    <programNotCreated>Programmet ble ikke opprettet</programNotCreated>
+
+    <currentUserUpdated>Profilen din ble oppdatert</currentUserUpdated>
+    <currentUserNotUpdated>Profilen din ble ikke oppdatert</currentUserNotUpdated>
+
+    <programDeleted>Programmet ble slettet</programDeleted>
+    <programNotDeleted>Programmet ble ikke slettet</programNotDeleted>
 </language>

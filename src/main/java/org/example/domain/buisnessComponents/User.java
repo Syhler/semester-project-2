@@ -115,7 +115,7 @@ public class User
         return name;
     }
 
-    public Role getRole() {
+   public Role getRole() {
         return role;
     }
 

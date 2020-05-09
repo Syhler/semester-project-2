@@ -5,6 +5,7 @@
     <nameColumn>имя</nameColumn>
     <companyColumn>компания</companyColumn>
     <titleColumn>название</titleColumn>
+    <createProgram>Создать программу</createProgram>
     <createdbyColumn>созданный</createdbyColumn>
     <createdColumn>созданный</createdColumn>
     <companyBtn>компания</companyBtn>
@@ -15,6 +16,8 @@
     <createPopup>создать</createPopup>
     <editBtn>редактировать</editBtn>
     <deleteSelected>Удалить</deleteSelected>
+    <import>Импортировать</import>
+    <export>экспорт</export>
     <login>Войти</login>
     <logoff>Выход</logoff>
     <searchNavigation>поиск</searchNavigation>
@@ -47,6 +50,26 @@
     <usernameOrPassword>Неверное имя пользователя или пароль</usernameOrPassword>
     <usernameLabel>имя пользователя</usernameLabel>
     <passwordLabel>пароль</passwordLabel>
+
+
+    <loggedIn>Вы вошли как </loggedIn>
+    <loggedOut>Вы вышли из системы</loggedOut>
+
+    <programCreated>Программа была создана</programCreated>
+    <programNotCreated>Программа не была создана</programNotCreated>
+
+    <currentUserUpdated>Ваш профиль был обновлен</currentUserUpdated>
+    <currentUserNotUpdated>Ваш профиль не был обновлен</currentUserNotUpdated>
+
+    <programDeleted>Программа была удалена</programDeleted>
+    <programNotDeleted>Программа не была удалена</programNotDeleted>
+
+    <userCreated> был создан</userCreated>
+    <userNotCreated>Пользователь не был создан</userNotCreated>
+    <userUpdated> был обновлен</userUpdated>
+    <userNotUpdated>пользователь не обновлялся</userNotUpdated>
+    <userDeleted> был удален</userDeleted>
+    <userNotDeleted>Пользователь не был удален</userNotDeleted>
 
 </language>
 
