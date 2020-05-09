@@ -144,5 +144,7 @@
     <userReactivated> was reactivated</userReactivated>
     <userNotReactivated> was not reactivated</userNotReactivated>
 
+    <companyWasReactivated> was reactivated</companyWasReactivated>
+    <companyWasNotReactivated> was not reactivated</companyWasNotReactivated>
 
 </language>

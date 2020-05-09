@@ -140,6 +140,8 @@
 
     <userReactivated> blev genaktiveret</userReactivated>
     <userNotReactivated> blev ikke genaktiveret</userNotReactivated>
+    <companyWasReactivated> blev genaktiveret</companyWasReactivated>
+    <companyWasNotReactivated> blev ikke genaktiveret</companyWasNotReactivated>
 
 
 </language>

@@ -73,6 +73,8 @@
 
     <userReactivated> был реактивирован</userReactivated>
     <userNotReactivated> не был реактивирован</userNotReactivated>
+    <companyWasReactivated> был реактивирован</companyWasReactivated>
+    <companyWasNotReactivated> не был реактивирован</companyWasNotReactivated>
 
 </language>
 

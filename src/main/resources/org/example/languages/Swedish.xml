@@ -135,5 +135,7 @@
 
     <userReactivated> återaktiverades</userReactivated>
     <userNotReactivated> återaktiverades inte</userNotReactivated>
+    <companyWasReactivated> återaktiverades</companyWasReactivated>
+    <companyWasNotReactivated> återaktiverades inte</companyWasNotReactivated>
 
 </language>

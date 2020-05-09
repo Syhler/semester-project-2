@@ -315,6 +315,9 @@ public class CompanyController implements Initializable {
         if (companyWasRemoved)
         {
             deletedCompanyEntities.remove(selectedCompany);
+            setStatusText(selectedCompany.getName()+LanguageHandler.getText("companyWasReactivated"));
+        } else {
+            setStatusText(selectedCompany.getName()+LanguageHandler.getText("companyWasNotReactivated"));
         }
 
         var thread = new Thread(() ->

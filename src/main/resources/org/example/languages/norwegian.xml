@@ -136,4 +136,6 @@
 
     <userReactivated> ble aktivert på nytt</userReactivated>
     <userNotReactivated> ble ikke aktivert på nytt</userNotReactivated>
+    <companyWasReactivated> ble aktivert på nytt</companyWasReactivated>
+    <companyWasNotReactivated> ble ikke aktivert på nytt</companyWasNotReactivated>
 </language>
