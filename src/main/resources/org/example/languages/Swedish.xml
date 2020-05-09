@@ -34,7 +34,7 @@
     <createCreditStageTitle>Skapa credit</createCreditStageTitle>
     <firstName>Förnamn:*</firstName>
     <firstNamePrompt>Sätt Förnamn här </firstNamePrompt>
-    <middleName>Mellannamn*</middleName>
+   
     <middleNamePrompt>Sätt Mellannamn här</middleNamePrompt>
     <lastName>Last name*</lastName>
     <lastNamePrompt>Sätt Efternamn här</lastNamePrompt>
@@ -112,4 +112,30 @@
     <noSave>Ingen sparad plats har hittats</noSave>
     <noExport>Inga program exporterades</noExport>
     <succeedExport>Exporterad</succeedExport>
+
+
+    <loggedIn>Du är inloggad som </loggedIn>
+    <loggedOut>Du var utloggad</loggedOut>
+
+    <programCreated>Programmet skapades</programCreated>
+    <programNotCreated>Programmet skapades inte</programNotCreated>
+
+    <currentUserUpdated>Din profil uppdaterades</currentUserUpdated>
+    <currentUserNotUpdated>Din profil uppdaterades inte</currentUserNotUpdated>
+
+    <programDeleted>Programmet raderades</programDeleted>
+    <programNotDeleted>Programmet raderades inte</programNotDeleted>
+
+    <userCreated> skapades</userCreated>
+    <userNotCreated>Användaren skapades inte</userNotCreated>
+    <userUpdated> uppdaterades</userUpdated>
+    <userNotUpdated>Användaren uppdaterades inte</userNotUpdated>
+    <userDeleted> raderades</userDeleted>
+    <userNotDeleted>Användaren raderades inte</userNotDeleted>
+
+    <userReactivated> återaktiverades</userReactivated>
+    <userNotReactivated> återaktiverades inte</userNotReactivated>
+    <companyWasReactivated> återaktiverades</companyWasReactivated>
+    <companyWasNotReactivated> återaktiverades inte</companyWasNotReactivated>
+
 </language>

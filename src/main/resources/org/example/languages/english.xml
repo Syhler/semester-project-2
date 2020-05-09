@@ -35,7 +35,6 @@
     <createCreditStageTitle>Create credit</createCreditStageTitle>
     <firstName>First name*</firstName>
     <firstNamePrompt>Insert first </firstNamePrompt>
-    <middleName>Middle name*</middleName>
     <middleNamePrompt>Insert middle name here</middleNamePrompt>
     <lastName>Last name*</lastName>
     <lastNamePrompt>Insert last name here</lastNamePrompt>
@@ -115,4 +114,36 @@
     <succeedExport>Successfully exported</succeedExport>
     <import>Import</import>
     <export>Export</export>
+
+    <loggedIn>You logged in as </loggedIn>
+    <loggedOut>You were logged out</loggedOut>
+
+    <programCreated>The program was created</programCreated>
+    <programNotCreated>The program was not created</programNotCreated>
+
+    <currentUserUpdated>Your profile was updated</currentUserUpdated>
+    <currentUserNotUpdated>Your profile was not updated</currentUserNotUpdated>
+
+
+    <programDeleted>The program was deleted</programDeleted>
+    <programNotDeleted>The program was not deleted</programNotDeleted>
+
+    <userCreated> has been created</userCreated>
+    <userNotCreated>User was not created</userNotCreated>
+    <userUpdated> was updated</userUpdated>
+    <userNotUpdated>The user was not updated</userNotUpdated>
+    <userDeleted> was deleted</userDeleted>
+    <userNotDeleted>The user was not deleted</userNotDeleted>
+
+    <displayDeletedActors>Deleted actors</displayDeletedActors>
+    <unDelete>Reactivate</unDelete>
+    <activeCompanies>Active companies</activeCompanies>
+    <inactiveCompanies>Inactive companies</inactiveCompanies>
+
+    <userReactivated> was reactivated</userReactivated>
+    <userNotReactivated> was not reactivated</userNotReactivated>
+
+    <companyWasReactivated> was reactivated</companyWasReactivated>
+    <companyWasNotReactivated> was not reactivated</companyWasNotReactivated>
+
 </language>

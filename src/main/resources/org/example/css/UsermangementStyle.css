@@ -36,7 +36,7 @@
     -fx-text-fill: #fff;
 }
 
-#usersByRoleHbox .toggle-button:hover, #companyAddToggle:hover{
+#usersByRoleHbox .toggle-button:hover, #companyAddToggle:hover, #closeCompany:hover{
     -fx-background-color: #19ACD5;
     -fx-text-fill: #fff;
 }
@@ -45,13 +45,19 @@
     -fx-text-fill: #fff;
 }
 
-#createPopup ,#createCompany, #updateCompany{
+#createPopup ,#createCompany, #updateCompany, #unDeleteSelected, #reactivateCompany{
     -fx-background-color: #19CB94;
     -fx-text-fill: #fff;
 }
 #deleteSelected, #deleteCompany{
     -fx-background-color: #ED5E68;
     -fx-text-fill: #fff;
+}
+#createPopup:hover, #createCompany:hover, #updateCompany:hover, #unDeleteSelected:hover, #reactivateCompany:hover{
+    -fx-background-color: #0c7455;
+}
+#deleteSelected:hover, #deleteCompany:hover {
+    -fx-background-color: #f12531;
 }
 #editBtn{
     -fx-text-fill: #fff;
@@ -87,6 +93,63 @@
     -fx-text-fill: transparent;
     -fx-background-color: transparent;
     -fx-border-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: black;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #19acd5;
+    -fx-background-radius: 5em;
+}
+
+.list-view{
+    -fx-background-color:#383838;
+    -fx-text-fill: #fff;
+    -fx-border-width: 1;
+    -fx-border-color: rgba(25, 172, 213, 0.44);
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
+}
+.list-view .list-cell:even {
+    -fx-background-color: #2f2e2e;
+    -fx-text-fill: #fff;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: #383838;
+    -fx-text-fill: #fff;
+}
+
+.list-view .list-cell:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #19ACD5;
+}
+.list-view .list-cell:selected{
+    -fx-background-color: #19ACD5;
+}
+.list-view .scroll-bar:horizontal .increment-arrow,
+.list-view .scroll-bar:horizontal .decrement-arrow,
+.list-view .scroll-bar:horizontal .increment-button,
+.list-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
 }
 /*------------------------------------------------- Table ----------------------------------------------------------->*/
 #col_id,#col_company,#col_createdBy,#col_name,#col_title,#col_created{
@@ -124,7 +187,7 @@
     -fx-alignment: CENTER;
 }
 .table-row-cell{
- -fx-background-color: #1E1E1E;
+    -fx-background-color: #2d2c2c;
 }
 .table-row-cell:hover{
     -fx-cursor: hand;

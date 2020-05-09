@@ -99,6 +99,7 @@ public class ProgramListController implements Initializable {
         {
             if (listOfPrograms.get(i).getId() == program.getId()) {
                 listOfPrograms.remove(i);
+
                 break;
             }
         }
