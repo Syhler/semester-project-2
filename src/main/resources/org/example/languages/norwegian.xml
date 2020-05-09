@@ -48,7 +48,7 @@
     <producerInfoHeader>Produsere</producerInfoHeader>
     <creditHeader>Kreditt</creditHeader>
     <deleteProgramStageTitle>Slett program</deleteProgramStageTitle>
-    <deleteWarningText>Er du sikker på at du vil slette dette program?</deleteWarningText>
+    <deleteWarningText>Er du sikker på at du vil slette dette programmet?</deleteWarningText>
     <yes>Ja</yes>
     <no>Nei</no>
     <nameColumn>Navn</nameColumn>

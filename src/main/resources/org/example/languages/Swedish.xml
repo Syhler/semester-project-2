@@ -36,7 +36,7 @@
     <firstNamePrompt>Sätt Förnamn här </firstNamePrompt>
    
     <middleNamePrompt>Sätt Mellannamn här</middleNamePrompt>
-    <lastName>Last name*</lastName>
+    <lastName>Efternamn*</lastName>
     <lastNamePrompt>Sätt Efternamn här</lastNamePrompt>
     <creditTitlePrompt>Sätt credit titel här</creditTitlePrompt>
     <emailHeader>Email*</emailHeader>
@@ -51,7 +51,7 @@
     <deleteWarningText>Är du säker på att du vill ta bort det här programmet?</deleteWarningText>
     <yes>Ja</yes>
     <no>Nej</no>
-    <nameColumn>namn</nameColumn>
+    <nameColumn>Namn</nameColumn>
     <companyColumn>Företag</companyColumn>
     <titleColumn>Titel</titleColumn>
     <createdbyColumn>Skapad av</createdbyColumn>
