@@ -157,4 +157,10 @@ public class User
         var mapped = UserMapper.map(this);
         return persistenceHandler.user().deleteUser(mapped);
     }
+
+    public boolean unDelete()
+    {
+        var mapped = UserMapper.map(this);
+        return persistenceHandler.user().unDeleteUser(mapped);
+    }
 }

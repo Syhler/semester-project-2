@@ -136,4 +136,10 @@
     <userDeleted> was deleted</userDeleted>
     <userNotDeleted>The user was not deleted</userNotDeleted>
 
+    <displayDeletedActors>Deleted actors</displayDeletedActors>
+    <unDelete>Reactivate</unDelete>
+    <activeCompanies>Active companies</activeCompanies>
+    <inactiveCompanies>Inactive companies</inactiveCompanies>
+
+
 </language>

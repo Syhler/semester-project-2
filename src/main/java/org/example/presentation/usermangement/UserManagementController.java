@@ -15,6 +15,7 @@ import org.example.domain.applicationFacade.DomainFacade;
 import org.example.domain.buisnessComponents.Program;
 import org.example.domain.buisnessComponents.Role;
 import org.example.domain.buisnessComponents.User;
+import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
@@ -46,6 +47,8 @@ public class UserManagementController implements Initializable {
     @FXML
     private ToggleButton displayActors;
     @FXML
+    private ToggleButton displayDeletedActors;
+    @FXML
     private Button createPopup;
     @FXML
     private ToggleButton editBtn;
@@ -65,6 +68,9 @@ public class UserManagementController implements Initializable {
     private ToggleButton profileNavigation;
     @FXML
     private ToggleButton companyAddToggle;
+    @FXML
+    private Button unDeleteSelected;
+
 
     // Table objects
     @FXML
@@ -102,6 +108,7 @@ public class UserManagementController implements Initializable {
         displayManufactures.setText(LanguageHandler.getText("displayManufactures"));
         displayProducers.setText(LanguageHandler.getText("displayProducers"));
         displayActors.setText(LanguageHandler.getText("displayActors"));
+        displayDeletedActors.setText(LanguageHandler.getText("displayDeletedActors"));
         createPopup.setText(LanguageHandler.getText("createPopup"));
         editBtn.setText(LanguageHandler.getText("editBtn"));
         deleteSelected.setText(LanguageHandler.getText("deleteSelected"));
@@ -110,19 +117,24 @@ public class UserManagementController implements Initializable {
         profileNavigation.setText(LanguageHandler.getText("profile"));
         usermanagementBtn.setText(LanguageHandler.getText("usermanagementBtn"));
         createProgram.setText(LanguageHandler.getText("createProgram"));
+        unDeleteSelected.setText(LanguageHandler.getText("unDelete"));
 
         usermanagementBtn.setSelected(true);
         companyAddToggle.setVisible(false);
+        unDeleteSelected.setVisible(false);
+
 
         switch (CurrentUser.getInstance().getUser().getRole()) {
             case Admin:
                 displayAdmins.fire();
                 displayAdmins.setSelected(true);
                 companyAddToggle.setVisible(true);
+
                 break;
             case Manufacture:
                 displayAdmins.setVisible(false);
                 displayManufactures.setVisible(false);
+                displayDeletedActors.setVisible(false);
                 displayProducers.fire();
                 displayProducers.setSelected(true);
                 break;
@@ -130,6 +142,7 @@ public class UserManagementController implements Initializable {
                 displayAdmins.setVisible(false);
                 displayManufactures.setVisible(false);
                 displayProducers.setVisible(false);
+                displayDeletedActors.setVisible(false);
                 displayActors.fire();
                 displayActors.setSelected(true);
                 break;
@@ -138,6 +151,7 @@ public class UserManagementController implements Initializable {
                 displayManufactures.setVisible(false);
                 displayProducers.setVisible(false);
                 displayActors.setVisible(false);
+                displayDeletedActors.setVisible(false);
                 break;
         }
 
@@ -234,6 +248,13 @@ public class UserManagementController implements Initializable {
         thread.start();
     }
 
+    @FXML
+    private void setDisplayDeletedActors(ActionEvent event)
+    {
+        Object displayDeletedActors = event.getSource();
+        userList.clear();
+    }
+
     private Runnable displayByRoleRunnable(Object displayByRole)
     {
         return () ->
@@ -243,6 +264,10 @@ public class UserManagementController implements Initializable {
                     displayManufactures.setSelected(false);
                     displayProducers.setSelected(false);
                     displayActors.setSelected(false);
+                    displayDeletedActors.setSelected(false);
+                    unDeleteSelected.setVisible(false);
+                    deleteSelected.setVisible(true);
+
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Admin));
                 roleTap = Role.Admin;
@@ -253,6 +278,10 @@ public class UserManagementController implements Initializable {
                     displayAdmins.setSelected(false);
                     displayProducers.setSelected(false);
                     displayActors.setSelected(false);
+                    displayDeletedActors.setSelected(false);
+                    unDeleteSelected.setVisible(false);
+                    deleteSelected.setVisible(true);
+
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Manufacture));
                 roleTap = Role.Manufacture;
@@ -263,6 +292,10 @@ public class UserManagementController implements Initializable {
                     displayManufactures.setSelected(false);
                     displayAdmins.setSelected(false);
                     displayActors.setSelected(false);
+                    displayDeletedActors.setSelected(false);
+                    unDeleteSelected.setVisible(false);
+                    deleteSelected.setVisible(true);
+
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Producer));
                 roleTap = Role.Producer;
@@ -273,9 +306,26 @@ public class UserManagementController implements Initializable {
                     displayManufactures.setSelected(false);
                     displayProducers.setSelected(false);
                     displayAdmins.setSelected(false);
+                    displayDeletedActors.setSelected(false);
+                    unDeleteSelected.setVisible(false);
+                    deleteSelected.setVisible(true);
+
+
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Actor));
                 roleTap = Role.Actor;
+            }
+            if (displayByRole == displayDeletedActors) {
+                Platform.runLater(() ->{
+                    displayManufactures.setSelected(false);
+                    displayProducers.setSelected(false);
+                    displayActors.setSelected(false);
+                    displayAdmins.setSelected(false);
+                    unDeleteSelected.setVisible(true);
+                    deleteSelected.setVisible(false);
+                });
+                userList.addAll(domainHandler.getDeletedUsers());
+                roleTap = Role.Admin;
             }
 
             Platform.runLater(() -> {
@@ -325,6 +375,18 @@ public class UserManagementController implements Initializable {
             UsermanagementUtilities.setFeedback(event,selectedUser.getName().getFirstName()+" "+LanguageHandler.getText("userDeleted"),true);
         } else {
             UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("userNotDeleted"),false);
+        }
+    }
+
+    @FXML
+    private void unDeleteUser(ActionEvent event)
+    {
+        User selectedUser = table.getSelectionModel().getSelectedItem();
+
+        boolean userWasRemoved = selectedUser.unDelete();
+
+        if (userWasRemoved) {
+            userList.remove(selectedUser);
         }
     }
 
