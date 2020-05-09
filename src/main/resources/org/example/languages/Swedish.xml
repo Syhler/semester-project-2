@@ -34,7 +34,7 @@
     <createCreditStageTitle>Skapa credit</createCreditStageTitle>
     <firstName>Förnamn:*</firstName>
     <firstNamePrompt>Sätt Förnamn här </firstNamePrompt>
-    <middleName>Mellannamn*</middleName>
+   
     <middleNamePrompt>Sätt Mellannamn här</middleNamePrompt>
     <lastName>Last name*</lastName>
     <lastNamePrompt>Sätt Efternamn här</lastNamePrompt>

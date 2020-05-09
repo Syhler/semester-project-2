@@ -117,13 +117,17 @@
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #19ACD5;
+    -fx-background-color: #19acd5;
     -fx-background-radius: 5em;
 }
 
 .list-view{
     -fx-background-color:#383838;
     -fx-text-fill: #fff;
+    -fx-border-width: 1;
+    -fx-border-color: rgba(25, 172, 213, 0.44);
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
 }
 .list-view .list-cell:even {
     -fx-background-color: #2f2e2e;

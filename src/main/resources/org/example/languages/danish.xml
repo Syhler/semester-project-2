@@ -34,7 +34,6 @@
     <createCreditStageTitle>Opret kreditering</createCreditStageTitle>
     <firstName>Fornavn*</firstName>
     <firstNamePrompt>Indsæt fornavn her</firstNamePrompt>
-    <middleName>Mellemnavn*</middleName>
     <middleNamePrompt>Indsæt mellemnavn her</middleNamePrompt>
     <lastName>Efternavn*</lastName>
     <lastNamePrompt>Insæt efternavn her</lastNamePrompt>

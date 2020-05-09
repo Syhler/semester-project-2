@@ -35,7 +35,6 @@
     <createCreditStageTitle>Create credit</createCreditStageTitle>
     <firstName>First name*</firstName>
     <firstNamePrompt>Insert first </firstNamePrompt>
-    <middleName>Middle name*</middleName>
     <middleNamePrompt>Insert middle name here</middleNamePrompt>
     <lastName>Last name*</lastName>
     <lastNamePrompt>Insert last name here</lastNamePrompt>
