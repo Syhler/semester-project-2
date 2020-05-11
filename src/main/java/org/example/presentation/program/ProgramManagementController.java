@@ -130,34 +130,14 @@ public class ProgramManagementController implements Initializable {
             setStatusText(selectedProgram.getProgramInformation().getTitle()+LanguageHandler.getText("programWasNotReactivated"));
         }
 
-        DefaultController defaultController = new DefaultController();
-
-        var thread = new Thread(defaultController.loadProgramList());
-        thread.setDaemon(true);
-        thread.start();
-        //Opdatere ikke "live", skal loade programlisten igen. Ved ikke hvordan dette skal fixes.
-
-        /*Parent root = null;
-        FXMLLoader loader = null;
 
         try {
-            loader = App.getLoader("default");
-            root = loader.load();
-
-        } catch (IOException e) {
+            ProgramListController.getInstance().listOfPrograms.add(selectedProgram);
+            ProgramListController.getInstance().updateProgramList();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-        if (loader == null || root == null) return;
-        Scene scene = new Scene(root);
-
-        DefaultController defaultController = loader.getController();
-
-
-        var thread = new Thread(defaultController.loadProgramList());
-        thread.setDaemon(true);
-        thread.start();*/
-
+        
         ControllerUtility.closeProgram(event);
     }
 }
