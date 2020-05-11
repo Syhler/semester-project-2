@@ -8,6 +8,7 @@ import org.example.domain.mapper.UserMapper;
 import org.example.domain.password.PasswordHashing;
 import org.example.persistence.dataAccess.PersistenceHandler;
 import org.example.persistence.common.IPersistenceHandler;
+import org.example.persistence.entities.CompanyEntity;
 import org.example.persistence.entities.ProgramEntity;
 import org.example.persistence.entities.UserEntity;
 
@@ -44,6 +45,16 @@ public class DomainFacade
 
         return UserMapper.map(users);
     }
+
+    public List<User> getUserByCompany(User user){
+
+        var companys = CompanyMapper.map(user.getCompany());
+        var companyEntitys = persistenceHandler.user().getUserByCompany(companys);
+
+        return UserMapper.map(companyEntitys);
+    }
+
+
 
     public List<User> getDeletedUsers()
     {

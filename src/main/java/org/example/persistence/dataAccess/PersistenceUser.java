@@ -239,6 +239,26 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
 
     @Override
     public List<UserEntity> getUserByCompany(CompanyEntity companyEntity) {
+        List<UserEntity>users= new ArrayList<>();
+        try{
+            PreparedStatement prepStatement = connection.prepareStatement(
+                    "select\"user\".id,title,firstName,middleName,lastName,createdBy,createdAt,email,role,"+
+                            "company.id,company.name,\"user\".company,\"user\".timestamp_for_deletionfrom\"user\""+
+                            "leftjoincompanyoncompany.id=\"user\".companywhere\"user\".company=?ORDERBY\"user\".idASC");
+            prepStatement.setLong(1,companyEntity.getId());
+            var ResultSet=prepStatement.executeQuery();
+
+            while(ResultSet.next()){
+                if(ResultSet.getTimestamp("timestamp_for_deletion")==null){
+                    users.add(createUserEntityFromResultSet(ResultSet));
+                }
+
+                return users;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+
+        }
         return null;
     }
 
