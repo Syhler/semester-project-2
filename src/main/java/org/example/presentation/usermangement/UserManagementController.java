@@ -19,6 +19,7 @@ import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
+import org.example.presentation.program.ProgramManagementController;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.utilities.CurrentUser;
 import org.example.presentation.utilities.UsermanagementUtilities;
@@ -70,6 +71,8 @@ public class UserManagementController implements Initializable {
     private ToggleButton companyAddToggle;
     @FXML
     private Button unDeleteSelected;
+    @FXML
+    private ToggleButton programManagementBtn;
 
 
     // Table objects
@@ -428,4 +431,10 @@ public class UserManagementController implements Initializable {
         importBtn.setSelected(false);
     }
 
+    @FXML
+    private void goToProgramManagement(ActionEvent event) throws IOException {
+        ProgramManagementController programManagementController = new ProgramManagementController();
+        programManagementBtn.setSelected(false);
+        programManagementController.openView(event);
+    }
 }

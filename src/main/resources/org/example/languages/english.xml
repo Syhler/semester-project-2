@@ -145,5 +145,11 @@
 
     <companyWasReactivated> was reactivated</companyWasReactivated>
     <companyWasNotReactivated> was not reactivated</companyWasNotReactivated>
+    <programWasReactivated> was reactivated</programWasReactivated>
+    <programWasNotReactivated> was not reactivated</programWasNotReactivated>
+
+    <programManagement>Program management</programManagement>
+    <inactivePrograms>Inactive programs</inactivePrograms>
+
 
 </language>

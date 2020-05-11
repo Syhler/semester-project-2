@@ -693,7 +693,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             List<ProgramEntity> returnvalue = new ArrayList<>();
             while (resultSet.next()){
                 returnvalue.add(new ProgramEntity(
-                        resultSet.getLong("program_id"),
+                        resultSet.getLong("id"),
                         resultSet.getString("title")));
 
 

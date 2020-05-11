@@ -34,6 +34,7 @@ import org.example.presentation.multipleLanguages.LanguageModel;
 import org.example.presentation.multipleLanguages.LanguageSelector;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
+import org.example.presentation.program.ProgramManagementController;
 import org.example.presentation.usermangement.UpdateUserController;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.utilities.CurrentUser;
@@ -52,6 +53,8 @@ public class DefaultController implements Initializable
     private ToggleButton login;
     @FXML
     private ToggleButton createProgram;
+    @FXML
+    private ToggleButton programManagementBtn;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -72,7 +75,10 @@ public class DefaultController implements Initializable
     private DomainFacade domainHandler = new DomainFacade();
     private ProgramListController programListController;
 
-
+    public ProgramListController getProgramListController()
+    {
+        return programListController;
+    }
 
 
     /**
@@ -98,6 +104,7 @@ public class DefaultController implements Initializable
             if (userEntity.getRole() == Role.Admin)
             {
                 importBtn.setVisible(true);
+                programManagementBtn.setVisible(true);
             }
             UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("loggedIn")+userEntity.getName().getFirstName(),true);
         }
@@ -115,7 +122,7 @@ public class DefaultController implements Initializable
             login.setOnAction(this::goToLogin);
             login.setSelected(false);
 
-
+            programManagementBtn.setVisible(false);
             usermanagementBtn.setVisible(false);
             profileNavigation.setVisible(false);
             createProgram.setVisible(false);
@@ -149,6 +156,14 @@ public class DefaultController implements Initializable
         } else {
             UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("programNotCreated"),false);
         }
+    }
+
+    @FXML
+    private void goToProgramManagement(ActionEvent event) throws IOException {
+        ProgramManagementController programManagementController = new ProgramManagementController();
+        programManagementBtn.setSelected(false);
+        programManagementController.openView(event);
+
     }
 
     public void importOnAction(ActionEvent event) throws Exception {
@@ -281,6 +296,7 @@ public class DefaultController implements Initializable
         searchBar.setPromptText(LanguageHandler.getText("searchBarPrompt"));
         searchNavigation.setText(LanguageHandler.getText("searchNavigation"));
         importBtn.setText(LanguageHandler.getText("import"));
+        programManagementBtn.setText(LanguageHandler.getText("programManagement"));
     }
 
     /**
@@ -328,6 +344,7 @@ public class DefaultController implements Initializable
             if (CurrentUser.getInstance().getUser().getRole() == Role.Admin)
             {
                 importBtn.setVisible(true);
+                programManagementBtn.setVisible(true);
             }
         }
 
@@ -373,7 +390,5 @@ public class DefaultController implements Initializable
         };
 
     }
-
-
 
 }
