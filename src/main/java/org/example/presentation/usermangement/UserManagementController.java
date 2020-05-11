@@ -125,6 +125,7 @@ public class UserManagementController implements Initializable {
         usermanagementBtn.setSelected(true);
         companyAddToggle.setVisible(false);
         unDeleteSelected.setVisible(false);
+        programManagementBtn.setVisible(false);
 
 
         switch (CurrentUser.getInstance().getUser().getRole()) {
@@ -132,7 +133,7 @@ public class UserManagementController implements Initializable {
                 displayAdmins.fire();
                 displayAdmins.setSelected(true);
                 companyAddToggle.setVisible(true);
-
+                programManagementBtn.setVisible(true);
                 break;
             case Manufacture:
                 displayAdmins.setVisible(false);
@@ -155,6 +156,7 @@ public class UserManagementController implements Initializable {
                 displayProducers.setVisible(false);
                 displayActors.setVisible(false);
                 displayDeletedActors.setVisible(false);
+                importBtn.setVisible(false);
                 break;
         }
 
@@ -316,7 +318,6 @@ public class UserManagementController implements Initializable {
                     unDeleteSelected.setVisible(false);
                     deleteSelected.setVisible(true);
                     createPopup.setVisible(true);
-
 
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Actor));

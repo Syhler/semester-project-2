@@ -106,6 +106,16 @@ public class DefaultController implements Initializable
                 importBtn.setVisible(true);
                 programManagementBtn.setVisible(true);
             }
+
+            if (userEntity.getRole() == Role.Producer)
+            {
+                importBtn.setVisible(true);
+            }
+
+            if (userEntity.getRole() == Role.Manufacture)
+            {
+                importBtn.setVisible(true);
+            }
             UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("loggedIn")+userEntity.getName().getFirstName(),true);
         }
     }

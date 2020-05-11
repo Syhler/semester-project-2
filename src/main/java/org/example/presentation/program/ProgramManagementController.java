@@ -40,6 +40,8 @@ public class ProgramManagementController implements Initializable {
     private Button reactivateProgramsBtn;
     @FXML
     private Label statusText;
+    @FXML
+    private Button cancelBtn;
 
     private final ObservableList<Program> deletedProgramEntities = FXCollections.observableArrayList();
 
@@ -48,6 +50,7 @@ public class ProgramManagementController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         inactiveProgramsLabel.setText(LanguageHandler.getText("inactivePrograms"));
         reactivateProgramsBtn.setText(LanguageHandler.getText("unDelete"));
+        cancelBtn.setText(LanguageHandler.getText("cancel"));
 
         setListCellFactory(inactiveProgramsList);
 
@@ -116,6 +119,16 @@ public class ProgramManagementController implements Initializable {
     }
 
     @FXML
+    private void cancel(ActionEvent event)
+    {
+        ControllerUtility.closeProgram(event);
+    }
+
+    /**
+     * Reactivates a selected program, and updates the list of programs
+     * @param event
+     */
+    @FXML
     private void unDeletePrograms(ActionEvent event)
     {
         Program selectedProgram = inactiveProgramsList.getSelectionModel().getSelectedItem();
@@ -130,14 +143,13 @@ public class ProgramManagementController implements Initializable {
             setStatusText(selectedProgram.getProgramInformation().getTitle()+LanguageHandler.getText("programWasNotReactivated"));
         }
 
-
         try {
             ProgramListController.getInstance().listOfPrograms.add(selectedProgram);
             ProgramListController.getInstance().updateProgramList();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         ControllerUtility.closeProgram(event);
     }
 }

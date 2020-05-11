@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 
@@ -22,16 +23,20 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
             </ListView>
-            <Button fx:id="reactivateProgramsBtn" mnemonicParsing="false" onAction="#unDeletePrograms" text="Reactivate">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" />
-               </VBox.margin>
-            </Button>
-            <Label fx:id="statusText" alignment="CENTER">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
+            <HBox>
+               <children>
+                  <Button fx:id="reactivateProgramsBtn" mnemonicParsing="false" onAction="#unDeletePrograms" text="Reactivate" />
+                  <Button fx:id="cancelBtn" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#cancel" text="Cancel">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </HBox>
+            <Label fx:id="statusText" alignment="CENTER" />
          </children>
       </VBox>
    </children>
