@@ -705,11 +705,11 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
        return null;
     }
 
-    public boolean unDeleteProgram(ProgramEntity programEntity){
+    public boolean unDeleteProgram(long programEntity){
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("update program set timestamp_for_deletion = ? where id = ?");
             preparedStatement.setTimestamp(1,null);
-            preparedStatement.setLong(2,programEntity.getId());
+            preparedStatement.setLong(2,programEntity);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

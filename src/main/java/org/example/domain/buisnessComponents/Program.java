@@ -119,6 +119,8 @@ public class Program
         return persistenceHandler.program().deleteProgram(id);
     }
 
+    public boolean unDelete(){return persistenceHandler.program().unDeleteProgram(id);}
+
 
 
 

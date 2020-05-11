@@ -31,6 +31,11 @@ public class DomainFacade
         return ProgramMapper.map(programEntities);
     }
 
+    public List<Program> getAllDeletedprogram(){
+        List<ProgramEntity> programEntities = persistenceHandler.program().getAllDeletedProgram();
+        return ProgramMapper.map(programEntities);
+    }
+
     public List<User> getAllUsers()
     {
         List<UserEntity> userEntities = persistenceHandler.user().getAllUsers();
