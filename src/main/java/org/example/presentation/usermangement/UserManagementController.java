@@ -229,9 +229,10 @@ public class UserManagementController implements Initializable {
             if (user.getRole() == roleTap) {
                 userList.add(user);
             }
-        } else {
-            UsermanagementUtilities.setFeedback(event, LanguageHandler.getText("userNotUpdated"), false);
         }
+        // else {
+        //    UsermanagementUtilities.setFeedback(event, LanguageHandler.getText("userNotUpdated"), false);
+        // }
     }
 
     /**
