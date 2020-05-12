@@ -199,23 +199,14 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             {
                 var id = new PersistenceHandler().company().createCompany(entity.getCompanyEntity());
                 insertCompany(program.getId(),id);
-                //program.setCompanyEntity(new CompanyEntity(id, entity.getCompanyEntity().getName()));
             }
             else {
 
 
                 insertCompany(program.getId(),getCompanyByName.getId());
-                //program.setCompanyEntity(getCompanyByName);
             }
 
         }
-
-        /*
-        if (entity.getProducer() != null)
-        {
-            insertProducer(entity.getProducer(),entity.getId());
-        }
-         */
 
         return program;
     }
@@ -558,7 +549,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT credit.program, \"user\".id, \"user\".title, \"user\"" +
                     ".firstname, \"user\".middlename ,\"user\".lastname,\"user\".email from credit inner join " +
-                    "\"user\" on credit.\"user\" = \"user\".id where credit.program = ? and timestamp_for_deletion is null ");
+                    "\"user\" on credit.\"user\" = \"user\".id where credit.program = ? and credit.timestamp_for_deletion is null ");
             statement.setLong(1,programId);
             ResultSet resultSet = statement.executeQuery();
             ArrayList<CreditEntity> creditList = new ArrayList<>();
@@ -581,7 +572,7 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         try {
             PreparedStatement statement = connection.prepareStatement("select \"user\".id, \"user\".title,firstname, middlename, lastname, " +
                     "email from programproducer inner join \"user\" on programproducer.producer_id = \"user\".id " +
-                    "where programproducer.program_id = ? and timestamp_for_deletion is null");
+                    "where programproducer.program_id = ? and programproducer.timestamp_for_deletion is null");
             statement.setLong(1,programId);
             ResultSet resultSet = statement.executeQuery();
             ArrayList<UserEntity> producerList = new ArrayList<>();

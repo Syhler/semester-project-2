@@ -29,6 +29,8 @@ public class CurrentUser {
     {
         if (currentUser.getRole() == Role.Admin) return true;
 
+        if (programEntity.getProducers() == null) return false;
+
         for (var producer: programEntity.getProducers()) {
             if (producer.getId() == currentUser.getId())
             {

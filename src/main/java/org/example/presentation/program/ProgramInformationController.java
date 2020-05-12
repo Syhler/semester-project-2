@@ -89,16 +89,7 @@ public class ProgramInformationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Sets update and delete button visible if logged in user has correct role
-        if (!ControllerUtility.gotAccessToProgram(program))
-        {
-            updateBtn.setVisible(false);
-            deleteBtn.setVisible(false);
-            actorListViewContextMenu.getItems().get(0).setVisible(false);
-            producerListViewContextMenu.getItems().get(0).setVisible(false);
-            creditsListViewContextMenu.getItems().get(0).setVisible(false);
-            exportBtn.setVisible(false);
 
-        }
 
         //descriptionTextArea.prefWidthProperty().bind(descriptionPane.widthProperty());
         actorListViewContextMenu.getItems().get(0).setText(LanguageHandler.getText("deleteProgram"));
@@ -147,7 +138,6 @@ public class ProgramInformationController implements Initializable {
         programInformationController.updateBtn.setText(LanguageHandler.getText("updateProgram"));
         programInformationController.deleteBtn.setText(LanguageHandler.getText("deleteProgram"));
 
-
         Stage stage = new Stage();
         stage.setTitle(LanguageHandler.getText("programInformationStageTitle"));
         stage.getIcons().add(new Image(App.class.getResourceAsStream("loginImages/tv2trans.png")));
@@ -184,6 +174,16 @@ public class ProgramInformationController implements Initializable {
                     setupText(controller);
                 }
                 scene.setCursor(Cursor.DEFAULT);
+
+                if (ControllerUtility.gotAccessToProgram(controller.program))
+                {
+                    controller.updateBtn.setVisible(true);
+                    controller.deleteBtn.setVisible(true);
+                    controller.actorListViewContextMenu.getItems().get(0).setVisible(true);
+                    controller.producerListViewContextMenu.getItems().get(0).setVisible(true);
+                    controller.creditsListViewContextMenu.getItems().get(0).setVisible(true);
+                    controller.exportBtn.setVisible(true);
+                }
             });
 
         };

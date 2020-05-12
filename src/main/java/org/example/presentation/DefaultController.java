@@ -175,8 +175,6 @@ public class DefaultController implements Initializable
                             e.printStackTrace();
                         }
                     });
-
-
             });
             thread.setDaemon(true);
             thread.start();

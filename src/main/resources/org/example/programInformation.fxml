@@ -65,7 +65,7 @@
                            <contextMenu>
                               <ContextMenu fx:id="actorListViewContextMenu">
                                 <items>
-                                  <MenuItem mnemonicParsing="false" onAction="#actorOnDelete" text="Delete" />
+                                  <MenuItem mnemonicParsing="false" onAction="#actorOnDelete" text="Delete" visible="false" />
                                 </items>
                               </ContextMenu>
                            </contextMenu></ListView>
@@ -80,7 +80,7 @@
                            <contextMenu>
                               <ContextMenu fx:id="producerListViewContextMenu">
                                 <items>
-                                  <MenuItem mnemonicParsing="false" onAction="#producerOnDelete" text="Delete" />
+                                  <MenuItem mnemonicParsing="false" onAction="#producerOnDelete" text="Delete" visible="false" />
                                 </items>
                               </ContextMenu>
                            </contextMenu></ListView>
@@ -95,7 +95,7 @@
                            <contextMenu>
                               <ContextMenu fx:id="creditsListViewContextMenu">
                                 <items>
-                                  <MenuItem mnemonicParsing="false" onAction="#creditOnDelete" text="Delete" />
+                                  <MenuItem mnemonicParsing="false" onAction="#creditOnDelete" text="Delete" visible="false" />
                                 </items>
                               </ContextMenu>
                            </contextMenu></ListView>
@@ -111,9 +111,9 @@
             </Accordion>
             <HBox alignment="CENTER" prefWidth="200.0" spacing="100.0">
                <children>
-                  <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateOnAction" text="Update" />
-                  <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportOnAction" text="Export" />
-                  <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteOnAction" text="Delete" />
+                  <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateOnAction" text="Update" visible="false" />
+                  <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportOnAction" text="Export" visible="false"/>
+                  <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteOnAction" text="Delete" visible="false"/>
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
