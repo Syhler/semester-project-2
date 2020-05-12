@@ -46,10 +46,10 @@ public class DomainFacade
         return UserMapper.map(users);
     }
 
-    public List<User> getUserByCompany(User user){
+    public List<User> getUserByCompany(User user, Role role){
 
         var companys = CompanyMapper.map(user.getCompany());
-        var companyEntitys = persistenceHandler.user().getUserByCompany(companys);
+        var companyEntitys = persistenceHandler.user().getUserByCompany(companys,role.getValue());
 
         return UserMapper.map(companyEntitys);
     }

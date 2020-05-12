@@ -238,23 +238,24 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
     }
 
     @Override
-    public List<UserEntity> getUserByCompany(CompanyEntity companyEntity) {
+    public List<UserEntity> getUserByCompany(CompanyEntity companyEntity, int roleId) {
         List<UserEntity>users= new ArrayList<>();
         try{
             PreparedStatement prepStatement = connection.prepareStatement(
-                    "select\"user\".id,title,firstName,middleName,lastName,createdBy,createdAt,email,role,"+
-                            "company.id,company.name,\"user\".company,\"user\".timestamp_for_deletionfrom\"user\""+
-                            "leftjoincompanyoncompany.id=\"user\".companywhere\"user\".company=?ORDERBY\"user\".idASC");
+                    "select\"user\".id, title, firstName, middleName, lastName, createdBy, createdAt, email, role,"+
+                            "company.id, company.name, \"user\".company, \"user\".timestamp_for_deletion from \"user\" "+
+                            " inner join company on company.id = \"user\".company where \"user\".company = ? and \"user\".role = ? " +
+                            "and \"user\".timestamp_for_deletion is null ORDER BY \"user\".id ASC");
             prepStatement.setLong(1,companyEntity.getId());
-            var ResultSet=prepStatement.executeQuery();
+            prepStatement.setInt(2, roleId);
+            var ResultSet = prepStatement.executeQuery();
 
-            while(ResultSet.next()){
-                if(ResultSet.getTimestamp("timestamp_for_deletion")==null){
+            while(ResultSet.next()) {
                     users.add(createUserEntityFromResultSet(ResultSet));
                 }
 
                 return users;
-            }
+
         }catch(SQLException e){
             e.printStackTrace();
 

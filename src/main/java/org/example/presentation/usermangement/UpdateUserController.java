@@ -104,6 +104,7 @@ public class UpdateUserController implements Initializable {
          */
         if (CurrentUser.getInstance().getUser().getRole() != Role.Admin) {
             roleList.setDisable(true);
+            companyList.setDisable(true);
         }
     }
 

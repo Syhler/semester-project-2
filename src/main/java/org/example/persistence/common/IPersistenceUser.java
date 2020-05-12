@@ -15,7 +15,7 @@ public interface IPersistenceUser
     boolean deleteUser(UserEntity userEntity);
     boolean unDeleteUser(UserEntity userEntity);
     List<UserEntity> getUserByRole(int roleId); //idk?
-    List<UserEntity> getUserByCompany(CompanyEntity companyEntity);
+    List<UserEntity> getUserByCompany(CompanyEntity companyEntity, int roleId);
     List<UserEntity> getAllUsers();
     List<UserEntity> getAllDeletedUsers();
     UserEntity getUserByLoginInformation(String username, String password);

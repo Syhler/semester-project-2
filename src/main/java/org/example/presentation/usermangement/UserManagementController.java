@@ -283,7 +283,6 @@ public class UserManagementController implements Initializable {
                     unDeleteSelected.setVisible(false);
                     deleteSelected.setVisible(true);
                     createPopup.setVisible(true);
-
                 });
                 userList.addAll(domainHandler.getUserByRole(Role.Manufacture));
                 roleTap = Role.Manufacture;
@@ -300,7 +299,12 @@ public class UserManagementController implements Initializable {
                     createPopup.setVisible(true);
 
                 });
-                userList.addAll(domainHandler.getUserByRole(Role.Producer));
+
+                if (CurrentUser.getInstance().getUser().getRole() == Role.Admin) {
+                    userList.addAll(domainHandler.getUserByRole(Role.Producer));
+                } else {
+                    userList.addAll(domainHandler.getUserByCompany(CurrentUser.getInstance().getUser(), Role.Producer));
+                }
                 roleTap = Role.Producer;
             }
             if (displayByRole == displayActors) {
@@ -316,7 +320,11 @@ public class UserManagementController implements Initializable {
 
 
                 });
-                userList.addAll(domainHandler.getUserByRole(Role.Actor));
+                if (CurrentUser.getInstance().getUser().getRole() == Role.Admin) {
+                    userList.addAll(domainHandler.getUserByRole(Role.Actor));
+                } else {
+                    userList.addAll(domainHandler.getUserByCompany(CurrentUser.getInstance().getUser(), Role.Actor));
+                }
                 roleTap = Role.Actor;
             }
             if (displayByRole == displayDeletedActors) {
