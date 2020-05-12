@@ -1,6 +1,5 @@
 package org.example.persistence.dataAccess;
 
-import org.example.persistence.common.IPersistenceProgram;
 import org.example.persistence.entities.*;
 
 import java.sql.*;
@@ -12,7 +11,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class PersistenceProgram extends BasePersistence implements IPersistenceProgram {
+public class PersistenceProgram extends BasePersistence {
 
     private Connection connection;
 
@@ -166,7 +165,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * creates a program.
      * @return
      */
-    @Override
     public ProgramEntity createProgram(ProgramInformationEntity programInformation) {
 
         long programId = insertProgram();
@@ -179,7 +177,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         return program;
     }
 
-    @Override
     public ProgramEntity importPrograms(ProgramEntity entity) {
 
         //check if program should be imported
@@ -199,23 +196,14 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
             {
                 var id = new PersistenceHandler().company().createCompany(entity.getCompanyEntity());
                 insertCompany(program.getId(),id);
-                //program.setCompanyEntity(new CompanyEntity(id, entity.getCompanyEntity().getName()));
             }
             else {
 
 
                 insertCompany(program.getId(),getCompanyByName.getId());
-                //program.setCompanyEntity(getCompanyByName);
             }
 
         }
-
-        /*
-        if (entity.getProducer() != null)
-        {
-            insertProducer(entity.getProducer(),entity.getId());
-        }
-         */
 
         return program;
     }
@@ -294,7 +282,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * uses other methods to determine how a program is deleted
      * @return
      */
-    @Override
     public boolean deleteProgram(long programId) {
         return softDeleteProgramTable(programId);
     }
@@ -527,7 +514,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param programEntity
      * @return
      */
-    @Override
     public boolean updateProgram(ProgramEntity programEntity) {
         try {
             PreparedStatement stmt = connection.prepareStatement("UPDATE  programinformation SET title = ?, description = ? " +
@@ -626,7 +612,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * Returns information based on a given programs id.
      * @return A progrmaentity
      */
-    @Override
     public ProgramEntity getProgramById(long programId) {
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT programinformation.description ," +
@@ -658,7 +643,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * Returns title and id for all programs in the database.
      * @return all programs in the database.
      */
-    @Override
     public List<ProgramEntity> getAllPrograms() {
         PreparedStatement stmt = null;
         try {
@@ -690,7 +674,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param producer
      * @return A list of programentitys
      */
-    @Override
     public List<ProgramEntity> getProgramsByProducer(UserEntity producer) {
 
         try {
@@ -718,7 +701,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param companyEntity
      * @return A list of all programs a company has been involved with.
      */
-    @Override
     public List<ProgramEntity> getProgramsByCompany(CompanyEntity companyEntity) {
         PreparedStatement stmt = null;
         try {
@@ -741,7 +723,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
     }
 
-    @Override
     public boolean removeUserFromProgram(UserEntity user, long programId)
     {
         try {
@@ -761,7 +742,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
         }
     }
 
-    @Override
     public boolean removeCreditFromProgram(CreditEntity creditEntity) {
         try {
             PreparedStatement statement = connection.prepareStatement("update credit set timestamp_for_deletion = ? where program = ? and \"user\" = ?");
@@ -806,7 +786,6 @@ public class PersistenceProgram extends BasePersistence implements IPersistenceP
      * @param query the query to serach from
      * @return a list of ProgramEntites
      */
-    @Override
     public List<ProgramEntity> search(String query) {
         var words = query.toLowerCase().split(" ");
         var sqlForProgram = createProgramSearchSQL(words);

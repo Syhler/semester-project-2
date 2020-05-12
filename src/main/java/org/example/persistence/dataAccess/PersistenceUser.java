@@ -1,6 +1,5 @@
 package org.example.persistence.dataAccess;
 
-import org.example.persistence.common.IPersistenceUser;
 import org.example.persistence.entities.CompanyEntity;
 import org.example.persistence.entities.UserEntity;
 
@@ -8,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersistenceUser extends BasePersistence implements IPersistenceUser {
+public class PersistenceUser extends BasePersistence {
 
 
     private Connection connection;
@@ -18,7 +17,6 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         connection = initializeDatabase();
     }
 
-    @Override
     public long createUser(UserEntity userEntity , String encryptedPassword, String passwordSalt) {
         java.util.Date utilDate = userEntity.getCreatedAt();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -62,7 +60,6 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
      * @param id of the user you want to find
      * @return a UserEntity object if a user has been found
      */
-    @Override
     public UserEntity getUserById(long id) {
 
         try {
@@ -96,7 +93,6 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
      * @param passwordSalt
      * @return
      */
-    @Override
     public boolean updateUser(UserEntity userEntity, String encryptedPassword, String passwordSalt) {
         java.util.Date utilDate = userEntity.getCreatedAt();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -133,7 +129,6 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
      * @param userEntity
      * @return
      */
-    @Override
     public boolean updateUser(UserEntity userEntity) {
         java.util.Date utilDate = userEntity.getCreatedAt();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -192,7 +187,6 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         }
         return true;
     }
-    @Override
     public boolean deleteUser(UserEntity userEntity) {
 
         try {
@@ -210,7 +204,6 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         return true;
     }
 
-    @Override
     public List<UserEntity> getUserByRole(int roleId) {
         List<UserEntity> users = new ArrayList<>();
         try {
@@ -237,7 +230,7 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
         }
     }
 
-    @Override
+    
     public List<UserEntity> getUserByCompany(CompanyEntity companyEntity, int roleId) {
         List<UserEntity>users= new ArrayList<>();
         try{
@@ -260,10 +253,10 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
             e.printStackTrace();
 
         }
+
         return null;
     }
 
-    @Override
     public List<UserEntity> getAllUsers() {
         List<UserEntity> users = new ArrayList<>();
         try {
@@ -293,7 +286,6 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
      * searching in the database for a user based on the given username and hashedPassword
      * @return a UserEntity object if a user has been found
      */
-    @Override
     public UserEntity getUserByLoginInformation(String username, String password)
     {
 
@@ -324,7 +316,6 @@ public class PersistenceUser extends BasePersistence implements IPersistenceUser
      * searching in the database for a password salt based on the given username
      * @return password salt if found
      */
-    @Override
     public String getPasswordSaltFromUsername(String username) {
 
         try {

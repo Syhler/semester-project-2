@@ -7,8 +7,6 @@ import org.example.domain.mapper.ProgramMapper;
 import org.example.domain.mapper.UserMapper;
 import org.example.domain.password.PasswordHashing;
 import org.example.persistence.dataAccess.PersistenceHandler;
-import org.example.persistence.common.IPersistenceHandler;
-import org.example.persistence.entities.CompanyEntity;
 import org.example.persistence.entities.ProgramEntity;
 import org.example.persistence.entities.UserEntity;
 
@@ -16,7 +14,7 @@ import java.util.List;
 
 public class DomainFacade
 {
-    private IPersistenceHandler persistenceHandler = new PersistenceHandler();
+    private final PersistenceHandler persistenceHandler = new PersistenceHandler();
 
     public Program getProgramById(long programId)
     {
@@ -30,13 +28,6 @@ public class DomainFacade
         List<ProgramEntity> programEntities = persistenceHandler.program().getAllPrograms();
 
         return ProgramMapper.map(programEntities);
-    }
-
-    public List<User> getAllUsers()
-    {
-        List<UserEntity> userEntities = persistenceHandler.user().getAllUsers();
-
-        return UserMapper.map(userEntities);
     }
 
     public List<User> getUserByRole(Role role)

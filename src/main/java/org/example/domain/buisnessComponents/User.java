@@ -3,14 +3,13 @@ package org.example.domain.buisnessComponents;
 import org.example.domain.mapper.UserMapper;
 import org.example.domain.password.PasswordHashing;
 import org.example.persistence.dataAccess.PersistenceHandler;
-import org.example.persistence.common.IPersistenceHandler;
 
 import java.util.Collections;
 import java.util.Date;
 
 public class User
 {
-    private IPersistenceHandler persistenceHandler = new PersistenceHandler();
+    private final PersistenceHandler persistenceHandler = new PersistenceHandler();
     private long id;
     private String title;
     private Name name;
