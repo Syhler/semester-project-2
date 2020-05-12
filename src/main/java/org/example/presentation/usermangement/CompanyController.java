@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import org.example.App;
 import org.example.domain.buisnessComponents.Company;
 import org.example.domain.applicationFacade.DomainFacade;
+import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.utilities.UsermanagementUtilities;
 
@@ -26,7 +27,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CompanyController implements Initializable {
-
     private DomainFacade domainHandler = new DomainFacade();
     @FXML
     private Button createCompany;
@@ -36,6 +36,8 @@ public class CompanyController implements Initializable {
     private Button deleteCompany;
     @FXML
     private Button closeCompany;
+    @FXML
+    private Button reactivateCompany;
 
     @FXML
     private Label createCompanyLabel;
@@ -47,7 +49,10 @@ public class CompanyController implements Initializable {
     private Label companyIdLabel;
     @FXML
     private Label updateCompanyLabelName;
-
+    @FXML
+    private Label inactiveCompanyLabel;
+    @FXML
+    private Label activeCompanyLabel;
 
     @FXML
     private TextField companyNameInput;
@@ -58,8 +63,12 @@ public class CompanyController implements Initializable {
 
     @FXML
     private ListView<Company> companyList;
+    @FXML
+    private ListView<Company> deletedCompaniesList;
 
     private final ObservableList<Company> companyEntities = FXCollections.observableArrayList();
+    private final ObservableList<Company> deletedCompanyEntities = FXCollections.observableArrayList();
+
 
     @FXML
     private Label statusText;
@@ -80,16 +89,21 @@ public class CompanyController implements Initializable {
         updateCompany.setText(LanguageHandler.getText("updateCompany"));
         deleteCompany.setText(LanguageHandler.getText("deleteCompany"));
         closeCompany.setText(LanguageHandler.getText("closeCompany"));
+        reactivateCompany.setText(LanguageHandler.getText("unDelete"));
+        inactiveCompanyLabel.setText(LanguageHandler.getText("inactiveCompanies"));
+        activeCompanyLabel.setText(LanguageHandler.getText("activeCompanies"));
 
 
         var cellFactory = UsermanagementUtilities.cellFactoryUserManagement();
 
         companyList.setCellFactory(cellFactory);
+        deletedCompaniesList.setCellFactory(cellFactory);
 
 
         var thread = new Thread(loadAllCompanies());
         thread.start();
-
+        var thread2 = new Thread(loadAllDeletedCompanies());
+        thread2.start();
 
         companyList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Company>() {
 
@@ -118,6 +132,25 @@ public class CompanyController implements Initializable {
             Platform.runLater(()->
             {
                 companyList.setItems(companyEntities);
+                setStatusText("");
+            });
+        };
+    }
+
+    private Runnable loadAllDeletedCompanies()
+    {
+        return () ->
+        {
+            Platform.runLater(() -> setStatusText("Loading..."));
+
+            var deletedCompanies = domainHandler.getAllDeletedCompanies();
+            if (deletedCompanies != null) {
+                deletedCompanyEntities.addAll(deletedCompanies);
+            }
+
+            Platform.runLater(()->
+            {
+                deletedCompaniesList.setItems(deletedCompanyEntities);
                 setStatusText("");
             });
         };
@@ -229,6 +262,18 @@ public class CompanyController implements Initializable {
         } else {
             setStatusText(selectedCompany.getName() + " "+LanguageHandler.getText("companyNotDeleted"));
         }
+
+        var thread = new Thread(() ->
+        {
+            Platform.runLater(() ->
+            {
+                if (selectedCompany.getId() != 0) {
+                    deletedCompanyEntities.add(selectedCompany);
+
+                }
+            });
+        });
+        thread.start();
     }
 
     /**
@@ -258,6 +303,34 @@ public class CompanyController implements Initializable {
         //gets that nodes stage
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void unDeleteCompany(ActionEvent event)
+    {
+        Company selectedCompany = deletedCompaniesList.getSelectionModel().getSelectedItem();
+
+        boolean companyWasRemoved = selectedCompany.unDeleteCompany();
+
+        if (companyWasRemoved)
+        {
+            deletedCompanyEntities.remove(selectedCompany);
+            setStatusText(selectedCompany.getName()+LanguageHandler.getText("companyWasReactivated"));
+        } else {
+            setStatusText(selectedCompany.getName()+LanguageHandler.getText("companyWasNotReactivated"));
+        }
+
+        var thread = new Thread(() ->
+        {
+            Platform.runLater(() ->
+            {
+                if (selectedCompany.getId() != 0) {
+                    companyEntities.add(selectedCompany);
+
+                }
+            });
+        });
+        thread.start();
     }
 
 }

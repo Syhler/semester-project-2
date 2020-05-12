@@ -34,7 +34,6 @@
     <createCreditStageTitle>Opret kreditering</createCreditStageTitle>
     <firstName>Fornavn*</firstName>
     <firstNamePrompt>Indsæt fornavn her</firstNamePrompt>
-    <middleName>Mellemnavn*</middleName>
     <middleNamePrompt>Indsæt mellemnavn her</middleNamePrompt>
     <lastName>Efternavn*</lastName>
     <lastNamePrompt>Insæt efternavn her</lastNamePrompt>
@@ -114,6 +113,34 @@
     <succeedExport>Succesfuldt eksporteret</succeedExport>
     <import>Importer</import>
     <export>Eksporter</export>
+    <displayDeletedActors>Inaktive brugere</displayDeletedActors>
+    <unDelete>Genaktiver</unDelete>
+    <activeCompanies>Aktive firmaer</activeCompanies>
+    <inactiveCompanies>Inaktive firmaer</inactiveCompanies>
+
+    <loggedIn>Du er logget ind som </loggedIn>
+    <loggedOut>Du blev logget ud</loggedOut>
+
+    <programCreated>Programmet blev oprettet</programCreated>
+    <programNotCreated>Programmet blev ikke oprettet</programNotCreated>
+
+    <currentUserUpdated>Din profil blev opdateret</currentUserUpdated>
+    <currentUserNotUpdated>Din profil blev ikke opdateret</currentUserNotUpdated>
+
+    <programDeleted>Programmet blev slettet</programDeleted>
+    <programNotDeleted>Programmet blev ikke slettet</programNotDeleted>
+
+    <userCreated> blev oprettet</userCreated>
+    <userNotCreated>Brugeren blev ikke oprettet</userNotCreated>
+    <userUpdated> blev opdateret</userUpdated>
+    <userNotUpdated>Brugeren blev ikke opdateret</userNotUpdated>
+    <userDeleted>blev slettet</userDeleted>
+    <userNotDeleted>Brugeren blev ikke slettet</userNotDeleted>
+
+    <userReactivated> blev genaktiveret</userReactivated>
+    <userNotReactivated> blev ikke genaktiveret</userNotReactivated>
+    <companyWasReactivated> blev genaktiveret</companyWasReactivated>
+    <companyWasNotReactivated> blev ikke genaktiveret</companyWasNotReactivated>
 
 
 </language>

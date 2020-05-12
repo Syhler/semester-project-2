@@ -37,6 +37,7 @@ import org.example.presentation.program.ProgramListController;
 import org.example.presentation.usermangement.UpdateUserController;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.utilities.CurrentUser;
+import org.example.presentation.utilities.UsermanagementUtilities;
 
 public class DefaultController implements Initializable
 {
@@ -98,6 +99,7 @@ public class DefaultController implements Initializable
             {
                 importBtn.setVisible(true);
             }
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("loggedIn")+userEntity.getName().getFirstName(),true);
         }
     }
 
@@ -118,6 +120,9 @@ public class DefaultController implements Initializable
             profileNavigation.setVisible(false);
             createProgram.setVisible(false);
             importBtn.setVisible(false);
+
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("loggedOut"),true);
+
         }
     }
 
@@ -138,8 +143,11 @@ public class DefaultController implements Initializable
             {
                 programListController.listOfPrograms.add(programEntity);
                 programListController.updateProgramList();
+                UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("programCreated"),true);
             }
 
+        } else {
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("programNotCreated"),false);
         }
     }
 
@@ -148,6 +156,7 @@ public class DefaultController implements Initializable
         ControllerUtility.importProgram(event);
 
         importBtn.setSelected(false);
+
 
     }
 
@@ -217,7 +226,10 @@ public class DefaultController implements Initializable
         profileNavigation.setSelected(false);
         if (user != null) {
             CurrentUser.getInstance().init(user);
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("currentUserUpdated"),true);
 
+        } else {
+            UsermanagementUtilities.setFeedback(event,LanguageHandler.getText("currentUserNotUpdated"),false);
         }
     }
 
