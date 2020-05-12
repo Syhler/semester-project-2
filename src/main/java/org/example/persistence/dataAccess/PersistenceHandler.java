@@ -1,28 +1,20 @@
 package org.example.persistence.dataAccess;
 
 
-import org.example.persistence.common.*;
 
-public class PersistenceHandler implements IPersistenceHandler
+public class PersistenceHandler
 {
 
-    @Override
-    public IPersistenceUser user() {
+    public PersistenceUser user() {
         return new PersistenceUser();
     }
 
-    @Override
-    public IPersistenceCredit credit() {
-        return null;
-    }
 
-    @Override
-    public IPersistenceProgram program() {
+    public PersistenceProgram program() {
         return new PersistenceProgram();
     }
 
-    @Override
-    public IPersistenceCompany company()
+    public PersistenceCompany company()
     {
         return new PersistenceCompany();
     }

@@ -2,11 +2,10 @@ package org.example.domain.buisnessComponents;
 
 import org.example.domain.mapper.CompanyMapper;
 import org.example.persistence.dataAccess.PersistenceHandler;
-import org.example.persistence.common.IPersistenceHandler;
 
 public class Company
 {
-    private IPersistenceHandler persistenceHandler = new PersistenceHandler();
+    private final PersistenceHandler persistenceHandler = new PersistenceHandler();
     private String name;
     private long id;
 

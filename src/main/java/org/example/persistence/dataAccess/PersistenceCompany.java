@@ -1,13 +1,12 @@
 package org.example.persistence.dataAccess;
 
-import org.example.persistence.common.IPersistenceCompany;
 import org.example.persistence.entities.CompanyEntity;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersistenceCompany extends BasePersistence implements IPersistenceCompany {
+public class PersistenceCompany extends BasePersistence {
 
 
     private Connection connection;
@@ -18,7 +17,6 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
     }
 
 
-    @Override
     public List<CompanyEntity> getAllCompanies() {
         List<CompanyEntity> companies = new ArrayList<>();
         try {
@@ -42,7 +40,6 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
         }
     }
 
-    @Override
     public boolean deleteCompany(CompanyEntity companyEntity) {
 
             try {
@@ -59,7 +56,6 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
             }
     }
 
-    @Override
     public boolean updateCompany(CompanyEntity companyEntity) {
         long id = companyEntity.getId();
         try {
@@ -112,7 +108,6 @@ public class PersistenceCompany extends BasePersistence implements IPersistenceC
         return true;
     }
 
-    @Override
     public long createCompany(CompanyEntity companyEntity) {
 
         try {
