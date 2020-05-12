@@ -30,6 +30,20 @@ public class DomainFacade
         return ProgramMapper.map(programEntities);
     }
 
+
+    public List<Program> getAllDeletedProgram(){
+        List<ProgramEntity> programEntities = persistenceHandler.program().getAllDeletedProgram();
+        return ProgramMapper.map(programEntities);
+    }
+
+    public List<User> getAllUsers()
+    {
+        List<UserEntity> userEntities = persistenceHandler.user().getAllUsers();
+
+        return UserMapper.map(userEntities);
+    }
+
+
     public List<User> getUserByRole(Role role)
     {
         var users = persistenceHandler.user().getUserByRole(role.getValue());

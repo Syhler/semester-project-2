@@ -141,6 +141,11 @@
     <userNotReactivated> blev ikke genaktiveret</userNotReactivated>
     <companyWasReactivated> blev genaktiveret</companyWasReactivated>
     <companyWasNotReactivated> blev ikke genaktiveret</companyWasNotReactivated>
+    <programWasReactivated> blev genaktiveret</programWasReactivated>
+    <programWasNotReactivated> blev ikke genaktiveret</programWasNotReactivated>
+
+    <programManagement>Program administration</programManagement>
+    <inactivePrograms>Inaktive programmer</inactivePrograms>
 
 
 </language>

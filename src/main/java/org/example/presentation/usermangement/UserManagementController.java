@@ -19,6 +19,7 @@ import org.example.presentation.multipleLanguages.Language;
 import org.example.presentation.multipleLanguages.LanguageHandler;
 import org.example.presentation.program.CreateProgramController;
 import org.example.presentation.program.ProgramListController;
+import org.example.presentation.program.ProgramManagementController;
 import org.example.presentation.utilities.ControllerUtility;
 import org.example.presentation.utilities.CurrentUser;
 import org.example.presentation.utilities.UsermanagementUtilities;
@@ -70,6 +71,8 @@ public class UserManagementController implements Initializable {
     private ToggleButton companyAddToggle;
     @FXML
     private Button unDeleteSelected;
+    @FXML
+    private ToggleButton programManagementBtn;
 
 
     // Table objects
@@ -122,6 +125,7 @@ public class UserManagementController implements Initializable {
         usermanagementBtn.setSelected(true);
         companyAddToggle.setVisible(false);
         unDeleteSelected.setVisible(false);
+        programManagementBtn.setVisible(false);
 
 
         switch (CurrentUser.getInstance().getUser().getRole()) {
@@ -129,7 +133,7 @@ public class UserManagementController implements Initializable {
                 displayAdmins.fire();
                 displayAdmins.setSelected(true);
                 companyAddToggle.setVisible(true);
-
+                programManagementBtn.setVisible(true);
                 break;
             case Manufacture:
                 displayAdmins.setVisible(false);
@@ -152,6 +156,7 @@ public class UserManagementController implements Initializable {
                 displayProducers.setVisible(false);
                 displayActors.setVisible(false);
                 displayDeletedActors.setVisible(false);
+                importBtn.setVisible(false);
                 break;
         }
 
@@ -318,7 +323,6 @@ public class UserManagementController implements Initializable {
                     deleteSelected.setVisible(true);
                     createPopup.setVisible(true);
 
-
                 });
                 if (CurrentUser.getInstance().getUser().getRole() == Role.Admin) {
                     userList.addAll(domainHandler.getUserByRole(Role.Actor));
@@ -436,4 +440,10 @@ public class UserManagementController implements Initializable {
         importBtn.setSelected(false);
     }
 
+    @FXML
+    private void goToProgramManagement(ActionEvent event) throws IOException {
+        ProgramManagementController programManagementController = new ProgramManagementController();
+        programManagementBtn.setSelected(false);
+        programManagementController.openView(event);
+    }
 }

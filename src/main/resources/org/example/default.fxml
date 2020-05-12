@@ -24,6 +24,7 @@
                   <ToggleButton fx:id="profileNavigation" mnemonicParsing="false" onAction="#openUpdateUser" text="Profile" visible="false" />
                   <ToggleButton fx:id="createProgram" mnemonicParsing="false" onAction="#goToCreateProgram" text="Create Program" visible="false" />
                   <ToggleButton fx:id="importBtn" mnemonicParsing="false" onAction="#importOnAction" text="Import" visible="false" />
+                  <ToggleButton fx:id="programManagementBtn" layoutX="407.0" layoutY="11.0" mnemonicParsing="false" onAction="#goToProgramManagement" text="Program management" visible="false" />
                   <Pane maxWidth="650.0" prefHeight="26.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label fx:id="feedbackLabel" alignment="CENTER_RIGHT" layoutX="7.0" layoutY="2.0" prefHeight="22.0" prefWidth="332.0">

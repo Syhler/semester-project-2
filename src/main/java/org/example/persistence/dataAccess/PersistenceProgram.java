@@ -668,6 +668,41 @@ public class PersistenceProgram extends BasePersistence {
             return null;
         }
     }
+    public List<ProgramEntity> getAllDeletedProgram(){
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT program.id, timestamp_for_deletion, programinformation.title " +
+                    "from program inner join programinformation on programinformation.program_id = program.id where timestamp_for_deletion is not null ");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<ProgramEntity> returnvalue = new ArrayList<>();
+            while (resultSet.next()){
+                returnvalue.add(new ProgramEntity(
+                        resultSet.getLong("id"),
+                        resultSet.getString("title")));
+
+
+            }
+            return returnvalue;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+       return null;
+    }
+
+    public boolean unDeleteProgram(long programEntity){
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("update program set timestamp_for_deletion = ? where id = ?");
+            preparedStatement.setTimestamp(1,null);
+            preparedStatement.setLong(2,programEntity);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+        return false;
+    }
 
     /**
      * Returns all programs a given producer has been involved with
