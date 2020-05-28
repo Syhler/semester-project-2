@@ -219,6 +219,7 @@ public class UpdateUserController implements Initializable {
         }
 
         var thread = new Thread(updateUser(event));
+        thread.setDaemon(true);
         thread.start();
     }
 

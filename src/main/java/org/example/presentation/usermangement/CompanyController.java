@@ -210,6 +210,7 @@ public class CompanyController implements Initializable {
             });
         });
 
+        thread.setDaemon(true);
         thread.start();
     }
 
@@ -240,6 +241,7 @@ public class CompanyController implements Initializable {
                 }
             });
         });
+        thread.setDaemon(true);
         thread.start();
     }
 

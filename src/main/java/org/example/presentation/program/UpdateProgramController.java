@@ -355,6 +355,7 @@ public class UpdateProgramController implements Initializable {
 
             Platform.runLater(()->closeUpdateProgram(event));
         });
+        thread.setDaemon(true);
         thread.start();
 
     }
@@ -386,7 +387,6 @@ public class UpdateProgramController implements Initializable {
         producerList.setEditable(false);
 
         var thread = new Thread(getDataFromDatabase());
-        thread.setDaemon(true);
         thread.start();
 
         remainingCharactersDesc();

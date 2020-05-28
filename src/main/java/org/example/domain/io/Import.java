@@ -60,7 +60,7 @@ public class Import
      */
     private static List<Program> getProgramsFromNodeList(NodeList programs)
     {
-        var programEntites = new ArrayList<Program>();
+        var programEntities = new ArrayList<Program>();
 
         for (int i = 0; i < programs.getLength(); i++)
         {
@@ -70,11 +70,11 @@ public class Import
             {
                 var program = createProgram(node);
 
-                programEntites.add(program);
+                programEntities.add(program);
             }
         }
 
-        return programEntites;
+        return programEntities;
     }
 
     /**

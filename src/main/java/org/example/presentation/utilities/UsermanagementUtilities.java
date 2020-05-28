@@ -108,15 +108,20 @@ public class UsermanagementUtilities {
         Node source = (Node) event.getSource();
 
         Label labelToChange = (Label) source.getScene().lookup("#feedbackLabel");
-        labelToChange.setStyle("-fx-font-weight: bold");
-
-        labelToChange.setText(msg);
-
-        if (color != true){
-            labelToChange.setStyle("-fx-text-fill: #ED5E68");
-        } else {
-            labelToChange.setStyle("-fx-text-fill: #19CB94");
+        if (labelToChange != null)
+        {
+            labelToChange.setStyle("-fx-font-weight: bold");
+            labelToChange.setText(msg);
+            
+            if (color != true){
+                labelToChange.setStyle("-fx-text-fill: #ED5E68");
+            } else {
+                labelToChange.setStyle("-fx-text-fill: #19CB94");
+            }
         }
+
+
+
 
         Thread feedback = new Thread(new Runnable() {
             @Override

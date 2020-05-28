@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class PasswordHashing
 {
-    private static Random random = new SecureRandom();
+    private static final Random random = new SecureRandom();
     private static final String PEPPER = "1BQBKgmisvYIZMJ1tdPn";
 
     /**
@@ -21,8 +21,8 @@ public class PasswordHashing
 
         if (digest == null) throw new Exception();
 
-        password = addSaltToPassword(password, salt);
-        password = addPepperToPassword(password);
+        password = hashPassword(password, salt);
+        password = hashPassword(password, PEPPER);
 
         byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
         return bytesToHex(encodedHash);
@@ -47,26 +47,12 @@ public class PasswordHashing
      * adds salt to the password in the middle of the given password
      * @return salted password
      */
-    private static String addSaltToPassword(String password, String salt)
+    private static String hashPassword(String password, String salt)
     {
         StringBuilder builder = new StringBuilder();
         builder.append(password);
         int middleIndex = password.length() / 2;
         builder.insert(middleIndex, salt);
-
-        return builder.toString();
-    }
-
-    /**
-     * adds pepper tot he password in the middle of the given password
-     * @return peppered password
-     */
-    private static String addPepperToPassword(String password)
-    {
-        StringBuilder builder = new StringBuilder();
-        builder.append(password);
-        int middleIndex = password.length() / 2;
-        builder.insert(middleIndex, PEPPER);
 
         return builder.toString();
     }

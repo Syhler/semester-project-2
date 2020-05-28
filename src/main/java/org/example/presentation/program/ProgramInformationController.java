@@ -130,7 +130,6 @@ public class ProgramInformationController implements Initializable {
 
 
         var thread = new Thread(loadProgram(programObject.getId(), programInformationController, scene));
-        thread.setDaemon(true);
         thread.start();
 
         programInformationController.actorTitledPane.setText(LanguageHandler.getText("actorInfoHeader"));

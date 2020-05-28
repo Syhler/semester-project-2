@@ -250,7 +250,6 @@ public class UserManagementController implements Initializable {
         userList.clear();
         progressIndicator.setVisible(true);
         var thread = new Thread(displayByRoleRunnable(displayByRole));
-        thread.setDaemon(true);
         thread.start();
     }
 

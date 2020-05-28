@@ -183,6 +183,7 @@ public class CreateUserController implements Initializable {
                 companyList.getSelectionModel().getSelectedItem());
 
         var thread = new Thread(createUser(event));
+        thread.setDaemon(true);
         thread.start();
     }
 
