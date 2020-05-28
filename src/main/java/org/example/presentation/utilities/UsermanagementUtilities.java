@@ -112,7 +112,7 @@ public class UsermanagementUtilities {
         {
             labelToChange.setStyle("-fx-font-weight: bold");
             labelToChange.setText(msg);
-            
+
             if (color != true){
                 labelToChange.setStyle("-fx-text-fill: #ED5E68");
             } else {
@@ -132,7 +132,10 @@ public class UsermanagementUtilities {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            labelToChange.setText("");
+                            if (labelToChange != null)
+                            {
+                                labelToChange.setText("");
+                            }
 
                         }
                     });
